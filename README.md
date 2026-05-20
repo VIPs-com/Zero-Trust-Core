@@ -47,4 +47,4 @@ Uma “fortaleza artesanal” em cinco camadas: cofre de senhas, fator físico (
 
 **VIPs-com** (Projeto Colaborativo)
 
-**Pré-requisito recomendado (trilha Expert):** [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) — o README desse repositório aponta de volta para este curso na secção *Zero Trust Core Expert*.
+**Pré-requisito recomendado (trilha Expert):** [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) — o README desse repositório aponta para este curso e para o [Manual de uso](./docs/MANUAL-DE-USO.md) na secção *Trilha integrada*.
