@@ -1,18 +1,37 @@
 # Zero Trust Core Expert
 
-[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/) [![Versão do curso](https://img.shields.io/badge/curso-v1.0.2-blue.svg)](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.2)
+[![Versão](https://img.shields.io/github/v/tag/VIPs-com/Zero-Trust-Core?label=vers%C3%A3o&color=brightgreen)](https://github.com/VIPs-com/Zero-Trust-Core/releases/latest)
+[![Licença: CC BY-SA 4.0](https://img.shields.io/badge/licen%C3%A7a-CC%20BY--SA%204.0-lightgrey)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![Último commit](https://img.shields.io/github/last-commit/VIPs-com/Zero-Trust-Core)](https://github.com/VIPs-com/Zero-Trust-Core/commits/master)
+[![Issues abertos](https://img.shields.io/github/issues/VIPs-com/Zero-Trust-Core)](https://github.com/VIPs-com/Zero-Trust-Core/issues)
 
 Curso open-source em português para montar um ecossistema pessoal de segurança em camadas: **KeePassXC**, **VeraCrypt**, **NFC**, **OpenPGP em air-gap** e **SSH**, com backup **3-2-1-1-0** e operação disciplinada — sem depender de hardware proprietário caro, com controle total e responsabilidade sua.
+
+## Jornada do curso
+
+```mermaid
+flowchart LR
+    A["📌 Onboarding\nTrilha + kits"] --> B["🔴 Parte 1\nAir-gap · Tails\nChave mestra offline"]
+    B --> C["🟡 Parte 2\nNTAG · Smartcard\nKeePass · SSH"]
+    C --> D["🔵 Parte 3\nBackup 3-2-1-1-0\nVM · Automação"]
+    D --> E["⚫ Parte 4\nThreat model\nPQC · Manutenção"]
+
+    style A fill:#F1EFE8,stroke:#888780,color:#444441
+    style B fill:#FCEBEB,stroke:#A32D2D,color:#791F1F
+    style C fill:#FAEEDA,stroke:#854F0B,color:#633806
+    style D fill:#E6F1FB,stroke:#185FA5,color:#0C447C
+    style E fill:#2C2C2A,stroke:#444441,color:#D3D1C7
+```
+
+> Diagrama completo (fluxos A–E), cores e PDF: **[docs/DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md)**
 
 ## Primeira vez aqui?
 
 Leia o **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura do repositório, trilha integrada com [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert), o que cada parte do curso permite fazer e roteiro da primeira hora.
 
-**Quer só os fluxogramas coloridos?** → **[docs/DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md)** (imprimir ou PDF).
+**Montar o ambiente (software + hardware + kits em R$)?** → **[docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md)**
 
-**Montar o ambiente (software + hardware)?** → **[docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md)** (lista por plataforma; **kits em R$**; Apêndice F do curso).
-
-**Instrutor — abertura de turma:** → **[docs/SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md)** (como projetar: VS Code, GitHub, Marp) · **[.marp.md](docs/SLIDES-ABERTURA-TURMA.marp.md)** para slide show.
+**Instrutor — abertura de turma:** → **[docs/SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md)** (VS Code, GitHub, Marp) · **[.marp.md](docs/SLIDES-ABERTURA-TURMA.marp.md)**
 
 ## Como estudar
 
@@ -24,9 +43,7 @@ Abra e estude:
 
 Você pode clonar o repositório, baixar o ZIP ou copiar só esse `.md` — não é obrigatório usar Git para aprender.
 
-**Scripts:** pasta [`scripts/`](./scripts/) — ver nota **Turbo vs Expert** abaixo.
-
-**Auditoria v1.0.2:** [`docs/AUDITORIA-v1.0.1.md`](./docs/AUDITORIA-v1.0.1.md) · **Equipe (pré-turma):** [`docs/CHECKLIST-PRE-TURMA-EQUIPE.md`](./docs/CHECKLIST-PRE-TURMA-EQUIPE.md) · [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2)
+**Auditoria v1.0.2:** [`docs/AUDITORIA-v1.0.1.md`](docs/AUDITORIA-v1.0.1.md) · **Equipe (pré-turma):** [`docs/CHECKLIST-PRE-TURMA-EQUIPE.md`](docs/CHECKLIST-PRE-TURMA-EQUIPE.md) · [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2)
 
 ## Para quem é
 
@@ -70,35 +87,33 @@ Uma “fortaleza artesanal” em cinco camadas: cofre de senhas, fator físico (
               └───────────────────────┘
 ```
 
-**Quer o diagrama completo e colorido (fluxos A–E)?** → **[docs/DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md)** (imprimir ou PDF).
-
 > **Aviso:** tags NFC simples (NTAG) não substituem um smartcard OpenPGP nem uma YubiKey. O curso explica quando usar cada um.
 
 ### Scripts: Turbo vs Expert
 
-| Trilha | Pasta `scripts/` |
+| Trilha | Pasta [`scripts/`](./scripts/) |
 | --- | --- |
-| **Turbo** | **Opcional** — dá para concluir cofre + NTAG com fluxo manual (COMANDOs 3.1 e 3.1.2). |
-| **Expert** | **Parte do aprendizado** — instalar, rodar e **entender** `ztc-health.sh`, `ztc-rsync-offsite.sh` e `ztc-open-cofre.sh` nos Módulos **4.2** e **5** (não é “extra” decorativo). |
+| **Turbo** (~R$ 50–265 · 8–12 h) | **Opcional** — cofre + NTAG com fluxo manual (COMANDOs 3.1 e 3.1.2). |
+| **Expert** (~R$ 725–2.150 · 25–35 h) | **Parte do aprendizado** — instalar, rodar e **entender** `ztc-health.sh`, `ztc-rsync-offsite.sh` e `ztc-open-cofre.sh` nos Módulos **4.2** e **5**. |
 
-Arquivos: [`ztc-health.sh`](./scripts/ztc-health.sh), [`ztc-rsync-offsite.sh`](./scripts/ztc-rsync-offsite.sh), [`ztc-open-cofre.sh`](./scripts/ztc-open-cofre.sh), [`ztc.conf.example`](./scripts/ztc.conf.example) · guia em [`scripts/README.md`](./scripts/README.md).
+Arquivos: [`ztc-health.sh`](./scripts/ztc-health.sh), [`ztc-rsync-offsite.sh`](./scripts/ztc-rsync-offsite.sh), [`ztc-open-cofre.sh`](./scripts/ztc-open-cofre.sh), [`ztc.conf.example`](./scripts/ztc.conf.example) · [`scripts/README.md`](./scripts/README.md)
 
 ## Metodologia
 
-🔴 Obsoleto · 🟡 Funciona · 🟢 Padrão atual · 🔵 Expert · ⚫ Horizonte  
+🔴 Obsoleto · 🟡 Funciona · 🟢 Padrão atual · 🔵 Expert · ⚫ Horizonte
 
-**COMANDO** a comando, **checkpoints** entre partes, trilhas **Turbo** e **Expert**.
+**COMANDO** a comando, **checkpoints** entre partes, trilhas **Turbo** (2–3 semanas · ~8–12 h · kits ~R$ 50–265) e **Expert** (6–8 semanas · ~25–35 h · kits ~R$ 725–2.150).
 
 ## Status
 
-✅ **Versão 1.0.2** — Curso completo + correções pós-auditoria (backup keyfile `age`, VeraCrypt CLI, mount NFC). Pasta [`scripts/`](./scripts/) pública. Tags: `v1.0.1`, `v1.0.2` · link recíproco no [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
+✅ **Versão 1.0.2** — Curso completo + correções pós-auditoria (backup keyfile `age`, VeraCrypt CLI, mount NFC condicional). Pasta [`scripts/`](./scripts/) pública. Tags: `v1.0.1`, `v1.0.2` · link recíproco no [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
 
 ## Licença
 
 Este projeto está licenciado sob **Creative Commons Attribution-ShareAlike 4.0 International** (**CC BY-SA 4.0**).
 
-- Resumo humano: [creativecommons.org/licenses/by-sa/4.0](https://creativecommons.org/licenses/by-sa/4.0/)  
-- Texto legal completo: [creativecommons.org/licenses/by-sa/4.0/legalcode](https://creativecommons.org/licenses/by-sa/4.0/legalcode)  
+- Resumo humano: [creativecommons.org/licenses/by-sa/4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Texto legal completo: [creativecommons.org/licenses/by-sa/4.0/legalcode](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
 - Cópia no repositório: **[LICENSE](./LICENSE)** (Copyright © 2026 Projeto Colaborativo VIPs-com)
 
 Você pode compartilhar e adaptar o material, inclusive comercialmente, desde que **credite a fonte** e **repasse a mesma licença** nas obras derivadas.
