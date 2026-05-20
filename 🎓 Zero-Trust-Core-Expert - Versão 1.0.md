@@ -248,7 +248,18 @@ Ao final deste curso, você será capaz de:
 
 ### 📊 Diagramas visuais (fluxos Mermaid)
 
-> 💡 Abra o preview Markdown (GitHub ou VS Code) ou cole em [mermaid.live](https://mermaid.live). O índice ASCII acima lista **títulos**; os diagramas abaixo mostram **ordem e dependências**.
+> 💡 Abra o preview Markdown (GitHub ou VS Code) ou cole em [mermaid.live](https://mermaid.live). **Síntese só visual:** [docs/DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md) (ideal para imprimir/PDF).
+
+**Legenda das cores nos diagramas:**
+
+| Cor no fluxo | Significado | Alinhado à legenda do curso |
+| --- | --- | --- |
+| Azul escuro | Início / planejamento | 🔵 Expert |
+| Verde-água | Air-gap (Tails, master) | 🔵 |
+| Azul | Camadas de uso diário | 🟢 Padrão |
+| Roxo | Backup e automação | 🔵 |
+| Vermelho | Contingência / perda | 🔴 Crítico |
+| Verde | Checkpoints | Meta de conclusão |
 
 #### A) Fluxograma geral da estratégia
 
@@ -277,6 +288,20 @@ flowchart TD
         C
         D
     end
+
+    classDef inicio fill:#1e3a8a,color:#fff,stroke:#1e40af
+    classDef airgap fill:#0f766e,color:#fff,stroke:#115e59
+    classDef camada fill:#0369a1,color:#fff,stroke:#075985
+    classDef resiliencia fill:#7c3aed,color:#fff,stroke:#6d28d9
+    classDef alerta fill:#991b1b,color:#fff,stroke:#7f1d1d
+
+    class A inicio
+    class B inicio
+    class C,D airgap
+    class E,F,I camada
+    class G,H resiliencia
+    class J camada
+    class K alerta
 ```
 
 | Etapa | Parte / modulo no curso |
@@ -316,6 +341,21 @@ flowchart TD
     Branch -->|smartcard| SCARD["Cartao B ou Tails revogar"]
     NTAG2 --> Restore["Fase 3 restabelecer resiliencia"]
     SCARD --> Restore
+
+    classDef inicio fill:#1e3a8a,color:#fff
+    classDef airgap fill:#0f766e,color:#fff
+    classDef camada fill:#0369a1,color:#fff
+    classDef resiliencia fill:#7c3aed,color:#fff
+    classDef alerta fill:#991b1b,color:#fff
+    classDef decisao fill:#b45309,color:#fff
+
+    class Start,Learn inicio
+    class Tails,Generate,Revoke airgap
+    class Card,Kee,Daily camada
+    class Auto,Backup,Test,Monitor resiliencia
+    class Loss,RevokeNow,Restore alerta
+    class Branch decisao
+    class NTAG2,SCARD camada
 ```
 
 * * *
@@ -366,6 +406,16 @@ flowchart TB
         HC --> RSYNC
         RSYNC --> OFFSITE
     end
+
+    classDef airgap fill:#0f766e,color:#fff
+    classDef camada fill:#0369a1,color:#fff
+    classDef resiliencia fill:#7c3aed,color:#fff
+    classDef automacao fill:#4f46e5,color:#fff
+
+    class TAILS,MASTER,REV airgap
+    class NFC,KC,VC,GPG,SSH camada
+    class LOCAL,OFFSITE,PHYS,IMMUT resiliencia
+    class HC,RSYNC automacao
 ```
 
 * * *
@@ -408,6 +458,22 @@ flowchart LR
     M2B --> M3
     M3 --> C2
     M4 --> M42 --> M5 --> M6 --> C3
+
+    classDef onboarding fill:#ca8a04,color:#fff
+    classDef parte1 fill:#0f766e,color:#fff
+    classDef parte2 fill:#0369a1,color:#fff
+    classDef parte3 fill:#7c3aed,color:#fff
+    classDef parte4 fill:#475569,color:#fff
+    classDef checkpoint fill:#15803d,color:#fff
+
+    class T0 onboarding
+    class M0,M1 parte1
+    class C1 checkpoint
+    class M2A,M2B,M3 parte2
+    class C2 checkpoint
+    class M4,M42,M5,M6 parte3
+    class C3 checkpoint
+    class M7,M8,M9 parte4
 ```
 
 | Trilha Turbo | Pula |
@@ -438,9 +504,19 @@ flowchart LR
     M4 --> M6
     M6 -.->|restore test| M42
     M2B -.->|keyfile nunca na VM| M42
+
+    classDef origem fill:#0369a1,color:#fff
+    classDef backup fill:#7c3aed,color:#fff
+    classDef ops fill:#4f46e5,color:#fff
+    classDef critico fill:#991b1b,color:#fff
+
+    class M2A,M2B,M3 origem
+    class M4,M42 backup
+    class M5 ops
+    class M6 critico
 ```
 
-> 📎 Diagramas fonte para mantenedores: `_interno/docs/diagrams/` (copia dos blocos acima).
+> 📎 **Síntese visual (PDF/impressão):** [docs/DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md) · fonte mantenedor: `_interno/docs/diagrams/`
 
 * * *
 

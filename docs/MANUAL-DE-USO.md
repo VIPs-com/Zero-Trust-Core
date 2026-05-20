@@ -142,7 +142,10 @@ Erro nº 1 dos iniciantes: chamar tudo de “NFC” ou “cartão”.
 
 ## 6. Mapa de dependências (ordem de estudo)
 
-Não pule CHECKPOINTs. Os **fluxogramas completos** (Mermaid A–E) estão na **seção 1** do [curso canônico](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-diagramas-visuais-fluxos-mermaid) — abra o preview Markdown no GitHub.
+Não pule CHECKPOINTs. Os **fluxogramas completos com cores** (Mermaid A–E) estão em:
+
+- **[docs/DIAGRAMAS-VISUAIS.md](./DIAGRAMAS-VISUAIS.md)** — síntese só visual (recomendado para PDF/impressão)
+- **Seção 1** do [curso canônico](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-diagramas-visuais-fluxos-mermaid) — mesmos diagramas no fluxo da aula
 
 | Diagrama | O que mostra |
 | --- | --- |

@@ -9,6 +9,7 @@ SYLLABUS.md
 /docs/*
 !/docs/README.md
 !/docs/MANUAL-DE-USO.md
+!/docs/DIAGRAMAS-VISUAIS.md
 
 # --- Segredos e artefatos do curso ---
 *.kdbx
