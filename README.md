@@ -41,7 +41,7 @@ Uma “fortaleza artesanal” em cinco camadas: cofre de senhas, fator físico (
 
 ## Status
 
-✅ **Versão 1.0.2** — Curso completo + correções pós-auditoria (backup keyfile `age`, VeraCrypt CLI, mount NFC). Pasta [`scripts/`](./scripts/) pública. Tags: `v1.0.1`, `v1.0.2` (quando publicada) · link recíproco no [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
+✅ **Versão 1.0.2** — Curso completo + correções pós-auditoria (backup keyfile `age`, VeraCrypt CLI, mount NFC). Pasta [`scripts/`](./scripts/) pública. Tags: `v1.0.1`, `v1.0.2` · link recíproco no [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
 
 ## Licença
 
