@@ -16,7 +16,8 @@
 
 > 📎 **Pré-requisito (trilha Expert):** domínio ou conclusão paralela de [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) — este material **integra** PGP com cofres, NFC, VeraCrypt, backup off-site e operação diária; **não** repete do zero a teoria OpenPGP.
 
-> 📎 **Repositório Git (opcional):** clone ou ZIP deste projeto — estudar só com este `.md` no computador continua válido.
+> 📎 **Repositório Git (opcional):** clone ou ZIP deste projeto — estudar só com este `.md` no computador continua válido.  
+> 📖 **Primeira vez no repositório?** Leia o [Manual de uso](docs/MANUAL-DE-USO.md) (estrutura, trilhas, ligação com OpenPGP-GPG, primeiros passos).
 
 * * *
 
@@ -172,6 +173,7 @@ Ao final deste curso, você será capaz de:
 
 ### 🗺️ COMO USAR ESTE CURSO
 
+0. Se baixou o repositório agora: **[Manual de uso](docs/MANUAL-DE-USO.md)** (5–15 min).
 1. Leia o **Onboarding** (seção 0).
 2. Consulte o **Mapa visual** (seção 1) só para orientação — o conteúdo oficial são as seções **2 em diante** com COMANDOs.
 3. Siga a ordem: Parte 1 → 2 → 3 → 4; não pule Tails antes de SSH com subkey [A].

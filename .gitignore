@@ -5,8 +5,10 @@ _interno/
 ROADMAP.md
 SYLLABUS.md
 
-# Documentação de apoio legada (se ainda existir na raiz)
-/docs/
+# docs/ — só publicar MANUAL-DE-USO e índice (resto interno/legado)
+/docs/*
+!/docs/README.md
+!/docs/MANUAL-DE-USO.md
 
 # --- Segredos e artefatos do curso ---
 *.kdbx
