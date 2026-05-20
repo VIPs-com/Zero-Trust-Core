@@ -34,7 +34,8 @@ Zero-Trust-Core/
 │   ├── README.md                      ← Índice desta pasta
 │   ├── MANUAL-DE-USO.md              ← Você está aqui
 │   ├── DIAGRAMAS-VISUAIS.md         ← Fluxogramas coloridos (PDF/impressão)
-│   └── AUDITORIA-v1.0.1.md          ← Auditoria VIPs-com + status v1.0.2
+│   ├── AUDITORIA-v1.0.1.md          ← Auditoria VIPs-com + status v1.0.2
+│   └── CHECKLIST-PRE-TURMA-EQUIPE.md ← Mantenedores: testes antes da turma
 ├── scripts/
 │   ├── README.md
 │   ├── ztc-health.sh                  ← Health-check (Módulo 5)

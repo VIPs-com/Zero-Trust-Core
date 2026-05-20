@@ -20,7 +20,7 @@ Você pode clonar o repositório, baixar o ZIP ou copiar só esse `.md` — não
 
 **Scripts (opcional):** pasta [`scripts/`](./scripts/) — `ztc-health.sh`, `ztc-rsync-offsite.sh`, `ztc-open-cofre.sh` e `ztc.conf.example` (Módulos 4.2 e 5 do curso).
 
-**Auditoria e revisão v1.0.2:** [`docs/AUDITORIA-v1.0.1.md`](./docs/AUDITORIA-v1.0.1.md) — scorecard, gaps fechados e checklist de turma.
+**Auditoria v1.0.2:** [`docs/AUDITORIA-v1.0.1.md`](./docs/AUDITORIA-v1.0.1.md) · **Equipe (pré-turma):** [`docs/CHECKLIST-PRE-TURMA-EQUIPE.md`](./docs/CHECKLIST-PRE-TURMA-EQUIPE.md) · [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2)
 
 ## Para quem é
 

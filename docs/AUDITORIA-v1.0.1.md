@@ -110,6 +110,8 @@
 
 ### Recomendadas (processo + turma)
 
+Rastreamento: [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) · procedimento: [`CHECKLIST-PRE-TURMA-EQUIPE.md`](./CHECKLIST-PRE-TURMA-EQUIPE.md).
+
 - [ ] Revalidar [tails.net/latest](https://tails.net/latest) antes de cada turma (versão no curso: Tails 7.8).  
 - [ ] Testar `ztc-open-cofre.sh` no **mesmo** hardware dos alunos (leitor NFC + `libnfc`).  
 - [ ] Alunos **Windows-only:** revisar Apêndice D.1 na aula 3.2 ou oferecer PC Linux / live USB.  
