@@ -7,7 +7,7 @@
 **Tails:** confira a última estável em [tails.net/latest](https://tails.net/latest/)  
 **Metodologia:** 🔴🟡🟢🔵 + COMANDO A COMANDO + Checkpoints  
 **Licença:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)  
-**Status:** ✅ **VERSÃO 1.0 — Partes 1–2 publicadas · Partes 3–4 em construção**
+**Status:** ✅ **VERSÃO 1.0 — Partes 1–3 publicadas · Parte 4 e Apêndices em construção**
 
 > 📌 **Nota editorial:** **`🎓 Zero-Trust-Core-Expert - Versão 1.0.md`** é o curso oficial deste repositório. O nome didático é **Zero Trust Core Expert**; o *filename* usa hífens para compatibilidade com Git e Windows.
 
@@ -858,4 +858,415 @@ Marque **todos** antes da Parte 3 (backup):
 
 * * *
 
-*Continua em: **Parte 3 — Resiliência e operação** (em construção). Consulte o [mapa visual](#-1-mapa-do-curso-visão-geral).*
+## 🔵 4. PARTE 3: RESILIÊNCIA E OPERAÇÃO (Semana 3)
+
+> ⏱️ **Tempo estimado:** 6–8 horas  
+> 🎯 **Objetivo:** backup **3-2-1-1-0** por ativo, VM off-site só com blobs, automação de health-check, runbook de contingência testado
+
+**Pré-requisito:** [CHECKPOINT 2](#-checkpoint-2-token--cofre--ssh) concluído.
+
+No [mapa visual](#-1-mapa-do-curso-visão-geral): **Módulo 4 → 4.2 → 5 → 6 → CHECKPOINT 3**.
+
+* * *
+
+### 🔎 REGRA DE OURO DO OFF-SITE
+
+| Pode ir para VM / nuvem / rsync | **Nunca** enviar para VM |
+| --- | --- |
+| `vault.hc` fechado (container VeraCrypt) | Senha do volume VeraCrypt |
+| `*.kdbx` **dentro** do volume montado (blob opaco) | Keyfile KeePass em claro |
+| `revogacao.asc` / backups `.asc.gpg` (já cifrados) | Chave mestra PGP em claro |
+| Manifesto de hashes (opcional) | PIN do smartcard |
+| — | Master key exportada sem cifra simétrica forte |
+
+> 💡 A VM é um **armário trancado** onde você guarda caixas já lacradas — não a chave do armário.
+
+* * *
+
+### 📋 MÓDULO 4: BACKUP 3-2-1-1-0 (POR ATIVO)
+
+> 🎯 **Objetivo:** três cópias, duas mídias, uma off-site, uma imutável offline, **zero** erros aceitos sem teste de restauração
+
+| Símbolo | Significado |
+| --- | --- |
+| **3** | Três cópias independentes do mesmo blob |
+| **2** | Duas tecnologias de mídia (ex.: NVMe + HD externo) |
+| **1** | Uma cópia fora do seu domicílio (VM + túnel) |
+| **1** (extra) | Uma cópia **imutável** / air-gap (pendrive no cofre) |
+| **0** | Zero falhas aceitas no ritual — **restore testado** |
+
+* * *
+
+#### Matriz de ativos (Zero Trust Core)
+
+| Ativo | Cópia 1 (principal) | Cópia 2 (local fria) | Cópia 3 (off-site) | Imutável / air-gap |
+| --- | --- | --- | --- | --- |
+| **Cofre `.kdbx`** | PC (dentro de `vault.hc` montado) | HD externo desconectado | VM via rsync | Pendrive VeraCrypt no cofre |
+| **Container `vault.hc`** | Mesmo fluxo | HD externo | VM (blob fechado) | Mídia separada |
+| **Keyfile NTAG** | Cartão #1 (carteira) | Cartões #2 e #3 (cofre / off-site físico) | — | **Não** digitalizar em claro na VM |
+| **Subkeys [S][E][A]** | Smartcard diário | Smartcard backup ou `.asc` cifrado | `.asc.gpg` na VM | Backup Tails Parte 1 |
+| **Master [C]** | — (nunca no PC online) | — | — | Pendrive Tails / metal + `backup-master` cifrado |
+| **Revogação** | Papel + cofre | Segunda mídia | VM (cifrado) | Tails export |
+| **Config `sshcontrol`** | `~/.gnupg/` | Cópia em cofre KeePass | Opcional | — |
+
+* * *
+
+#### ▸ COMANDO 4.1: Inventário e hashes locais
+
+```sh
+mkdir -p ~/ztc-backup/manifest
+cd ~/ztc-backup
+
+# Ajuste caminhos aos seus arquivos reais
+sha256sum /caminho/seguro/vault.hc \
+  /caminho/seguro/lab-passwords.kdbx \
+  ~/revogacao.asc 2>/dev/null \
+  | tee manifest/$(date +%Y%m%d)-local.sha256
+
+cat manifest/$(date +%Y%m%d)-local.sha256
+```
+
+Guarde o manifesto em **dois** lugares (PC + HD externo). Opcional: assine com subchave [S]:
+
+```sh
+gpg --clearsign manifest/$(date +%Y%m%d)-local.sha256
+```
+
+* * *
+
+#### ▸ COMANDO 4.2: Backup frio no HD externo
+
+```sh
+# Monte o HD externo (exFAT ou ext4) — desmonte quando terminar
+rsync -av --progress \
+  /caminho/seguro/vault.hc \
+  /caminho/seguro/*.asc.gpg \
+  ~/ztc-backup/manifest/ \
+  /media/HD-EXTERNO/ztc-offline/
+
+sync
+# Desmonte o HD — política "cold storage"
+```
+
+| Erro comum | Correção |
+| --- | --- |
+| HD sempre plugado | Trate como cópia 1, não como mídia fria |
+| Copiar keyfile junto com `.kdbx` em claro | Keyfile só em NTAG ou blob `age`/VeraCrypt dedicado |
+
+* * *
+
+#### ▸ COMANDO 4.3: Teste de restauração (ritual mensal)
+
+**Simulação mínima (30 min):**
+
+1. Em máquina **lab** ou live USB, copie `vault.hc` do HD externo.  
+2. Monte VeraCrypt com senha **de teste** (ou cópia de lab).  
+3. Abra `.kdbx` com senha + keyfile do **cartão #2** (não o diário).  
+4. Verifique: entradas críticas legíveis; fingerprint PGP anotado bate com `gpg --fingerprint`.
+
+```sh
+# Após restore de chaves cifradas (se aplicável)
+gpg --decrypt backup-subkeys.asc.gpg | gpg --import
+gpg --card-status
+```
+
+Marque no calendário: **todo dia 1** ou **primeiro domingo do mês** = restore test. Sem isso, o **0** do 3-2-1-1-0 não existe.
+
+* * *
+
+### 📋 MÓDULO 4.2: VM OFF-SITE + WIREGUARD + RSYNC
+
+> 🎯 **Objetivo:** cópia off-site automatizada — tráfego só pelo túnel; servidor minimalista
+
+Alternativas ao WireGuard: **Tailscale** (mais simples) ou SSH sobre VPN corporativa — o princípio é o mesmo: **não** expor rsync/SSH na internet aberta.
+
+* * *
+
+#### ▸ COMANDO 4.2.1: WireGuard na VM (lado servidor)
+
+Na VM (Debian/Alpine, VPS ou NAS):
+
+```sh
+sudo apt install wireguard
+umask 077
+wg genkey | tee server.key | wg pubkey > server.pub
+wg genkey | tee client.key | wg pubkey > client.pub
+```
+
+`/etc/wireguard/wg0.conf` (exemplo — ajuste IPs e chaves):
+
+```ini
+[Interface]
+Address = 10.66.66.1/24
+ListenPort = 51820
+PrivateKey = COLE_SERVER_PRIVATE_KEY
+
+[Peer]
+PublicKey = COLE_CLIENT_PUBLIC_KEY
+AllowedIPs = 10.66.66.2/32
+```
+
+No **PC cliente**, perfil espelhado (`Address = 10.66.66.2/24`, `Endpoint` = IP público da VM). Ative:
+
+```sh
+sudo systemctl enable --now wg-quick@wg0
+sudo wg show
+ping -c 2 10.66.66.1
+```
+
+Firewall: permita **só** UDP 51820; bloqueie SSH público se possível — admin via túnel.
+
+* * *
+
+#### ▸ COMANDO 4.2.2: Usuário e diretório de backup na VM
+
+```sh
+# Na VM, via SSH pelo túnel 10.66.66.x
+sudo adduser --disabled-password ztc-bkp
+sudo mkdir -p /var/backups/ztc/incoming
+sudo chown ztc-bkp:ztc-bkp /var/backups/ztc/incoming
+```
+
+Chave SSH **dedicada** no PC (não a do GitHub):
+
+```sh
+ssh-keygen -t ed25519 -f ~/.ssh/ztc-bkp-ed25519 -C "ztc-offsite"
+ssh-copy-id -i ~/.ssh/ztc-bkp-ed25519.pub ztc-bkp@10.66.66.1
+```
+
+> 📎 **Break-glass:** guarde **uma** senha ou chave de recuperação da VM em papel (memorizada), **fora** do KeePass que depende do cartão perdido — senão, perda do NTAG + PC trava também o off-site.
+
+* * *
+
+#### ▸ COMANDO 4.2.3: `rsync` só blobs (com ou sem NFC)
+
+**Modo A — presença física (recomendado no início):**
+
+```sh
+#!/bin/sh
+# ~/bin/ztc-rsync-offsite.sh — ajuste variáveis
+NFC_UID_ESPERADO="04:xx:xx:xx"   # opcional: saída de nfc-list
+REMOTE="ztc-bkp@10.66.66.1:/var/backups/ztc/incoming/"
+SRC_HC="/caminho/seguro/vault.hc"
+SRC_MANIFEST="$HOME/ztc-backup/manifest/"
+
+# Opcional: exija cartão antes do sync
+# nfc-list | grep -q "$NFC_UID_ESPERADO" || { echo "NTAG ausente"; exit 1; }
+
+rsync -avz -e "ssh -i $HOME/.ssh/ztc-bkp-ed25519" \
+  "$SRC_HC" \
+  "$SRC_MANIFEST" \
+  "$REMOTE"
+
+ssh -i "$HOME/.ssh/ztc-bkp-ed25519" ztc-bkp@10.66.66.1 \
+  "sha256sum /var/backups/ztc/incoming/* 2>/dev/null | tail -5"
+```
+
+**Modo B — noturno:** blobs já são opacos; NFC no sync é **reforço**, não substituto da criptografia do cofre.
+
+```mermaid
+flowchart LR
+    PC[PC local] -->|rsync sobre WG| VM[VM off-site]
+    PC --> HD[HD externo offline]
+    VM --> BLOB["Blobs .hc .kdbx .asc.gpg"]
+    HD --> BLOB2[Mesmos blobs]
+```
+
+* * *
+
+### 📋 MÓDULO 5: AUTOMAÇÃO E HEALTH-CHECK
+
+> 🎯 **Objetivo:** detectar cartão ausente, smartcard travado e backup desatualizado **antes** do desastre
+
+* * *
+
+#### ▸ COMANDO 5.1: Script `ztc-health.sh`
+
+```sh
+#!/bin/sh
+# ~/bin/ztc-health.sh
+set -e
+echo "=== Zero Trust Core Health ==="
+
+# 1) Smartcard OpenPGP
+if gpg --card-status >/tmp/ztc-card.out 2>&1; then
+  echo "[OK] gpg --card-status"
+  grep -E "^(Serial|URL of public)" /tmp/ztc-card.out || true
+else
+  echo "[FAIL] smartcard — pcscd? cartão inserido?"
+fi
+
+# 2) Agente SSH
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+if ssh-add -L >/dev/null 2>&1; then
+  echo "[OK] ssh-add -L"
+else
+  echo "[WARN] nenhuma chave SSH no agente"
+fi
+
+# 3) NFC (opcional)
+if command -v nfc-list >/dev/null 2>&1; then
+  nfc-list 2>/dev/null | head -5 || echo "[WARN] nfc-list sem tag"
+fi
+
+# 4) Idade do último manifesto
+MANIFEST=$(ls -t ~/ztc-backup/manifest/*.sha256 2>/dev/null | head -1)
+if [ -n "$MANIFEST" ]; then
+  echo "Último manifesto: $MANIFEST ($(stat -c %y "$MANIFEST" 2>/dev/null || stat -f %Sm "$MANIFEST"))"
+else
+  echo "[WARN] sem manifesto local"
+fi
+
+echo "=== fim ==="
+```
+
+```sh
+chmod +x ~/bin/ztc-health.sh
+~/bin/ztc-health.sh
+```
+
+* * *
+
+#### ▸ COMANDO 5.2: Cron (backup + health)
+
+```sh
+crontab -e
+```
+
+Exemplo (ajuste horários):
+
+```cron
+# Health diário 08:00
+0 8 * * * /home/SEU_USUARIO/bin/ztc-health.sh >> /home/SEU_USUARIO/ztc-backup/health.log 2>&1
+
+# Rsync off-site domingo 03:00 (blobs opacos)
+0 3 * * 0 /home/SEU_USUARIO/bin/ztc-rsync-offsite.sh >> /home/SEU_USUARIO/ztc-backup/rsync.log 2>&1
+
+# Lembrete restore — primeiro domingo do mês (manual: receba e-mail ou notificação)
+0 9 1-7 * 0 echo "Lembrete: teste de restore 3-2-1-1-0" | logger -t ztc
+```
+
+> 📎 Scripts completos versionados: **Apêndice B** (futuro). Aqui você valida o ritual; depois endurece com `systemd` timers e alertas.
+
+* * *
+
+#### ▸ COMANDO 5.3: KeePass + VeraCrypt condicional (esboço)
+
+Fluxo alvo (Módulo 5 avançado — não obrigatório no CHECKPOINT 3):
+
+1. `ztc-health.sh` confirma NTAG ou smartcard.  
+2. Só então `veracrypt --mount` + `keepassxc`.  
+3. Ao desmontar, `veracrypt -d`.
+
+Implementação depende do seu DE (Linux nativo vs WSL2 → Apêndice D). Mantenha **manual** até o CHECKPOINT 3 passar.
+
+* * *
+
+### 📋 MÓDULO 6: PLANO DE CONTINGÊNCIA
+
+> 🎯 **Objetivo:** runbook imprimível — perda de NTAG, perda de smartcard, roubo, comprometimento
+
+**Imprima esta seção** ou exporte para PDF e guarde com o cartão #2 e o pendrive Tails.
+
+* * *
+
+#### Cenários (árvore de decisão)
+
+```mermaid
+flowchart TD
+    E[Evento] --> L{Perdeu NTAG keyfile?}
+    L -->|Sim, tem #2 ou #3| A[Abrir KeePass com cartão reserva]
+    L -->|Não, perdeu smartcard| B{Tem cartão backup 2A.4?}
+    B -->|Sim| C[Operar com cartão B]
+    B -->|Não| D[Tails: revogar + novo keytocard]
+    L -->|Roubo| R[Contenção + revogação imediata]
+    R --> D
+```
+
+* * *
+
+#### 🚨 Fase 1 — Contenção (≈ 5 min)
+
+1. **Pare** de usar o token perdido como se ainda fosse seu.  
+2. Se **roubo** em público: assuma smartcard e NTAG **comprometidos**.  
+3. De outro dispositivo confiável, conecte ao túnel WireGuard e liste arquivos na VM — **sem** abrir cofres ainda.  
+4. Verifique logs SSH da VM (`journalctl`, `auth.log`) por acessos estranhos.  
+5. Anote hora, local e o que estava no bolso (NTAG, smartcard, notebook).
+
+* * *
+
+#### 🔓 Fase 2 — Retomada de acesso (≈ 15–30 min)
+
+**Ramo A — Perdeu NTAG #1, tem #2 ou #3 (keyfile)**
+
+1. Use cartão reserva no leitor.  
+2. `~/bin/ztc-health.sh` — confirme leitura NFC.  
+3. Abra KeePass: senha mestra + keyfile do cartão reserva.  
+4. Troque senhas de serviços críticos se houve suspeita de clonagem do NTAG.
+
+**Ramo B — Perdeu smartcard diário, tem backup (COMANDO 2A.4)**
+
+1. Insira **cartão B**.  
+2. `gpg --card-status` + teste `ssh -T git@github.com`.  
+3. Siga operação normal; agende Fase 3 para emitir novo cartão A.
+
+**Ramo C — Perdeu smartcard e não tem backup físico**
+
+1. Boot **Tails** offline com pendrive da Parte 1.  
+2. Importe master + `revogacao.asc` se necessário.  
+3. Revogue subkeys antigas ou publique revogação ([COMANDO 1.4](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) — curso irmão).  
+4. Gere novas subkeys ou restaure de `subkeys-for-lab.asc` **antes** de `keytocard` destruir cópias no disco.  
+5. `keytocard` em cartão **novo**.  
+6. Atualize `sshcontrol`, `authorized_keys` e GitHub com nova chave SSH exportada.
+
+**Ramo D — Perdeu todos os NTAGs (keyfile)**
+
+- Se guardou keyfile cifrado (`age`/VeraCrypt) em mídia air-gap: recupere e regrave 3 NTAGs novos; **reconfigure** KeePass para novo keyfile.  
+- Se **não** há backup do keyfile: o `.kdbx` pode ser **irrecuperável** — lição do Módulo 2B (três cartões + cópia cifrada do keyfile em cofre).
+
+* * *
+
+#### ♻️ Fase 3 — Restabelecer resiliência (≈ 1–2 h)
+
+1. **Revogar** identidade antiga no Tails se houve roubo (não só perda em casa).  
+2. Regrave NTAG #1 ou novo smartcard; atualize ritual diário.  
+3. Rode `ztc-rsync-offsite.sh` com blobs novos.  
+4. Atualize HD externo frio + manifesto assinado.  
+5. **Simulação obrigatória:** repita [COMANDO 4.3](#-comando-43-teste-de-restauração-ritual-mensal) no mesmo mês do incidente.  
+6. Registro escrito: o que falhou, o que salvou (cartão #2? Tails? VM?).
+
+* * *
+
+#### ▸ COMANDO 6.1: Simulação de mesa (obrigatória)
+
+**Sem perder hardware de verdade:**
+
+| Passo | Ação |
+| --- | --- |
+| 1 | Guarde o NTAG #1 na gaveta — use só o #2 por 24 h |
+| 2 | Retire o smartcard A — use só o cartão B |
+| 3 | Restaure `vault.hc` do HD externo em VM lab |
+| 4 | Documente tempo gasto e bloqueios encontrados |
+
+Se a simulação falhar, **não** avance para Parte 4 (threat modeling) até corrigir o runbook.
+
+* * *
+
+## 🏁 CHECKPOINT 3: BACKUP E CONTINGÊNCIA
+
+Marque **todos** antes da Parte 4:
+
+- [ ] Matriz 3-2-1-1-0 preenchida para **seus** caminhos reais (não só o exemplo do curso)  
+- [ ] HD externo com blobs + manifesto `sha256`  
+- [ ] VM acessível só via WireGuard (ou equivalente); rsync testado  
+- [ ] `ztc-health.sh` roda sem erro com cartão inserido  
+- [ ] Cron ou ritual manual documentado (backup + restore mensal)  
+- [ ] **Restore test** executado e anotado (data no calendário)  
+- [ ] Simulação COMANDO 6.1 concluída (NTAG #2 + smartcard B ou ramo C documentado)  
+- [ ] Runbook Fases 1–3 impresso ou PDF no cofre físico  
+
+**Rubrica:** perda simultânea de casa + PC + cartão #1 ainda permite recuperação via **cartão #2 ou #3** + HD frio + VM — sem expor master online.
+
+* * *
+
+*Continua em: **Parte 4 — Expert & futuro** (Módulos 7–9, exame) e **Apêndices** — em construção. Consulte o [mapa visual](#-1-mapa-do-curso-visão-geral).*
