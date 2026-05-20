@@ -10,7 +10,7 @@
 **Baseline conferida:** maio/2026 (issue editorial v1.0.1)  
 **Metodologia:** 🔴🟡🟢🔵 + COMANDO A COMANDO + Checkpoints  
 **Licença:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)  
-**Status:** ✅ **VERSÃO 1.0 — Curso completo** (Partes 1–4 + Apêndices A–E)
+**Status:** ✅ **VERSÃO 1.0.1** — Curso completo (Partes 1–4 + Apêndices A–E; baseline revalidada maio/2026)
 
 > 📌 **Nota editorial:** **`🎓 Zero-Trust-Core-Expert - Versão 1.0.md`** é o curso oficial deste repositório. O nome didático é **Zero Trust Core Expert**; o *filename* usa hífens para compatibilidade com Git e Windows.
 
