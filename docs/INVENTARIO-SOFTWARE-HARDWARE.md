@@ -1,0 +1,262 @@
+# 📦 Inventário — software e hardware
+
+**Zero Trust Core Expert v1.0.2** · Maio/2026
+
+Lista **completa e organizada** do que o aluno encontra no repositório e do que precisa montar no ambiente — por plataforma, por papel no curso e por trilha (**Turbo** / **Expert**).
+
+**Curso (COMANDOs):** [🎓 Zero-Trust-Core-Expert - Versão 1.0.md](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md)  
+**Fluxos visuais:** [DIAGRAMAS-VISUAIS.md](./DIAGRAMAS-VISUAIS.md) · **Hardware BR (preços):** [Apêndice C](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-c--hardware-recomendado-brasil--2026) · **Multiplataforma:** [Apêndice D](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-d--guia-multiplataforma)
+
+* * *
+
+## Legenda de inclusão no curso
+
+| Símbolo | Significado |
+| --- | --- |
+| 🟢 | **Obrigatório** na trilha indicada — há COMANDO ou checkpoint |
+| 🟡 | **Recomendado** — facilita a turma; alternativa aceitável documentada |
+| 🔵 | **Opcional / lab** — útil mas não bloqueia checkpoints |
+| ⚫ | **Horizonte** — citado como futuro ou **não** faz parte da v1.0.2 |
+
+* * *
+
+## Mapa do repositório (o que o aluno encontra aqui)
+
+| Arquivo / recurso | Para quem | Quando usar |
+| --- | --- | --- |
+| `🎓 Zero-Trust-Core-Expert - Versão 1.0.md` | **Aluno** | Estudo; COMANDO a COMANDO; apêndices A–F |
+| `docs/DIAGRAMAS-VISUAIS.md` | Aluno / instrutor | Impressão ou PDF dos fluxos A–E |
+| `docs/INVENTARIO-SOFTWARE-HARDWARE.md` | **Aluno** | Montar PC, comprar hardware, conferir versões |
+| `docs/MANUAL-DE-USO.md` | Aluno novo | Primeira hora no GitHub / ZIP |
+| `scripts/ztc-health.sh` | Aluno (Expert) | Módulo 5 — health-check |
+| `scripts/ztc-rsync-offsite.sh` | Aluno (Expert) | Módulo 4.2 — backup VM |
+| `scripts/ztc-open-cofre.sh` | Aluno (Expert) | Módulo 5.3 — após Checkpoint 2 |
+| `docs/AUDITORIA-v1.0.1.md` | Equipe / comunidade | Por que a v1.0.2 existe |
+| `docs/CHECKLIST-PRE-TURMA-EQUIPE.md` | **Instrutor** | Antes de cada turma |
+| [Issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) | Instrutor | Evidência hardware NFC + Tails |
+
+* * *
+
+## Baseline de versões (revalidar antes da turma)
+
+| Componente | Versão no curso (maio/2026) | Onde revalidar |
+| --- | --- | --- |
+| **Tails** | 7.8+ | [tails.net/latest](https://tails.net/latest/) |
+| **KeePassXC** | 2.7.12+ | [keepassxc.org](https://keepassxc.org/) |
+| **VeraCrypt** | 1.26.24 | [veracrypt.fr](https://www.veracrypt.fr/) |
+| **GnuPG** | 2.4.4+ (host) | `apt` / [gnupg.org](https://www.gnupg.org/) |
+| **Gpg4win** (Windows) | 5.0.x | [gpg4win.org](https://www.gpg4win.org/) |
+
+> No **Tails 7.6+** o gerenciador padrão é **GNOME Secrets** (`.kdbx` compatível). O curso usa **KeePassXC no host diário**; no Tails o foco é **GnuPG** para a master.
+
+* * *
+
+## 🖥️ Software por plataforma
+
+### 🔹 Linux (Ubuntu / Debian — PC de uso diário)
+
+| Software | Curso | Módulo / uso |
+| --- | :---: | --- |
+| **GnuPG** 2.4.x + `gpg-agent` | 🟢 Expert | 0.6, 1.x, 3.2 SSH |
+| **pcscd**, **scdaemon**, **libccid** | 🟢 Expert | Smartcard OpenPGP (2A) |
+| **KeePassXC** 2.7.12+ | 🟢 Turbo + Expert | 2B, 3.1, 5.3 |
+| **VeraCrypt** 1.26.24 (`-t` CLI) | 🟢 Turbo + Expert | 3.1, 5.3 |
+| **OpenSSH** + `SSH_AUTH_SOCK` do GPG | 🟢 Expert | 3.2 |
+| **age** | 🟢 Expert | 2B.2 keyfile; backup master Tails |
+| **libnfc** + `nfc-list` | 🟡 | 5.1, 5.3 se `ZTC_NFC_UID` definido |
+| **WireGuard** | 🟡 Expert | 4.2 VM off-site |
+| **rsync**, **OpenSSH** (cliente) | 🟢 Expert | 4.2.3 |
+| **sha256sum**, manifestos assinados | 🟢 Expert | 4.x integridade |
+| Scripts `ztc-*.sh` | 🔵 Expert | 5.x (bash, `cron` opcional) |
+| **Sequoia PGP (`sq`)** | ⚫ | Horizonte PQC (Módulo 8) — **não** substitui GnuPG na v1.0.2 |
+| **GnuPG 2.5 + ML-KEM** | ⚫ | Experimental — fora da baseline da turma |
+| **rclone crypt** (S3) | 🔵 | Alternativa segundo off-site (4.2) |
+| **Tailscale** | 🔵 | Alternativa ao WireGuard (4.2) |
+
+**Pacote típico (lab Ubuntu 24.04):**
+
+```sh
+sudo apt install -y gnupg2 pcscd scdaemon libccid openssh-client \
+  keepassxc veracrypt age rsync wireguard libnfc-bin
+```
+
+---
+
+### 🔹 Tails (air-gap — Parte 1)
+
+| Software | Curso | Notas |
+| --- | :---: | --- |
+| **Tails** 7.8+ | 🟢 Expert | Boot USB; **sem** persistência na primeira master |
+| **GnuPG** (incluído no Tails) | 🟢 Expert | COMANDO 1.1–1.6 |
+| **GNOME Secrets** | 🟡 | Padrão Tails 7.6+; opcional se quiser `.kdbx` no Tails |
+| **KeePassXC** no Tails | 🔵 | [Software adicional](https://tails.net/doc/persistent_storage/additional_software/index.en.html) — curso não exige |
+| **age**, **wget**, **curl** | 🟢 | Instalação COMANDO 1.x (`apt` no Tails com persistência ou sessão) |
+
+---
+
+### 🔹 Windows 11 / WSL2
+
+| Software | Curso | Notas |
+| --- | :---: | --- |
+| **KeePassXC** (build Windows) | 🟢 Turbo | Cofre + keyfile em arquivo local |
+| **VeraCrypt** (build Windows) | 🟢 Turbo | Produção no Windows; WSL = lab |
+| **Gpg4win** 5.0.x (Kleopatra + `gpg-agent`) | 🟡 Expert | Smartcard + SSH com leitor CCID USB |
+| **WSL2** + Ubuntu + `pcscd` | 🟡 | Apêndice D.1 — **um** agente GPG apenas |
+| **OpenSSH** (Windows ou só WSL) | 🟡 | Não misturar com PuTTY/Pageant no mesmo cartão |
+| **PuTTY / Pageant** | 🔵 | Evitar conflito com `gpg-agent` do WSL |
+| **usbipd-win** | 🔵 | Leitor CCID no WSL (avançado) |
+| **NFC + VeraCrypt no WSL** | 🔴 | Frágil — prefira Linux nativo ou GUI Windows |
+
+---
+
+### 🔹 macOS
+
+| Software | Curso | Notas |
+| --- | :---: | --- |
+| **KeePassXC** | 🟢 | Apêndice D |
+| **VeraCrypt** | 🟢 | Apêndice D |
+| **GPG Suite** ou Homebrew `gnupg` | 🟡 Expert | Smartcard via leitor CCID |
+| **OpenSSH** + `gpg-agent` | 🟡 | Mesma lógica do Linux, com ressalvas do SO |
+
+---
+
+### 🔹 Android
+
+| Software | Curso | Notas |
+| --- | :---: | --- |
+| **[NFC Tools](https://www.wakdev.com/en/apps/nfc-tools.html)** | 🟢 Turbo | Gravar NTAG / ler UID (2B.3) |
+| **OpenKeychain** (F-Droid / APK offline) | 🟡 | Backup móvel PGP; sem substituir smartcard no PC |
+| **KeePassDX** / **KeePass2Android** | 🟡 | Alternativa a KeePassXC desktop — sincronize só `.kdbx` cifrado |
+| **Termux** | 🔵 | Lab CLI; **não** é trilha oficial do curso |
+
+---
+
+### 🔹 iOS
+
+| Software | Curso | Notas |
+| --- | :---: | --- |
+| **KeePassium** ou compatível `.kdbx` | 🟡 | Cofre móvel; VeraCrypt **não** no iPhone |
+| **OpenPGP em smartcard** | 🔴 | Suporte limitado — **não** prometa paridade Expert |
+| **PGP Everywhere** / apps PGP | 🔵 | Não auditados neste curso — use por sua conta |
+| **Cryptomator** | 🔵 | Nuvem client-side; **não** substitui VeraCrypt local do curso |
+| **Apps NFC** | 🔵 | Depende do modelo; NTAG keyfile = ritual no **PC** |
+
+> Onboarding do curso: iPhone como dispositivo **principal** → planejar **Android ou PC Linux** para trilha Expert.
+
+* * *
+
+## 🔧 Hardware e periféricos
+
+### Papéis (não misturar)
+
+| Tipo | Exemplos | Função no curso | Exportável? |
+| --- | --- | --- | :---: |
+| **NTAG** 213/215 | Tags baratas | Keyfile KeePass (2B) | Sim (clonável) |
+| **Smartcard OpenPGP** | Nitrokey 3, YubiKey OpenPGP, JavaCard | Subkeys [S][E][A] (2A) | Não (`keytocard`) |
+| **Leitor NFC USB** | ACR122U, genéricos PN532 | `nfc-list`, 5.3 | — |
+| **Leitor CCID** | Integrado ZBook, USB Omnikey | `gpg --card-status` | — |
+
+### 🔹 Internos (máquina principal)
+
+| Item | Curso | Trilha |
+| --- | :---: | --- |
+| PC / notebook confiável (Linux preferido para Expert) | 🟢 | Todas |
+| Portas **USB** funcionais (dados, não só carga) | 🟢 | Tokens, Tails, HD |
+| Slot smartcard **contato** (ex. ZBook) | 🔵 | 2A — **não** substitui NTAG NFC |
+
+### 🔹 Externos (mídia e tokens)
+
+| Item | Curso | Módulo / uso |
+| --- | :---: | --- |
+| **Pendrive** 32 GB+ (Tails) | 🟢 Expert | 0.5, 1.1 |
+| **2–3× NTAG** idênticos | 🟢 Turbo | 2B.3 (#1 bolso, #2 cofre, #3 off-site) |
+| **Smartcard** + reserva **B** | 🟢 Expert | 2A, 6.1 simulação |
+| **Leitor NFC USB** | 🟡 Turbo/Expert | 5.3, instrutor [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) |
+| **HD externo** USB 3 | 🟢 Expert | 4.x backup frio |
+| **Celular antigo** Android (sem SIM, avião) | 🔵 | 0.9 alternativa fraca ao Tails |
+| **Papel** (revogação, fingerprints) | 🟢 Expert | 1.x, 4.x, runbook |
+| **Placa metal / QR** (fingerprint) | 🟡 | Diagrama backup imutável |
+| **DVD-R / Blu-ray** | 🔵 | Mídia imutável opcional — mesmo princípio do papel |
+| **microSD** em adaptador USB | 🔵 | Cópia offline opcional |
+| **Cofre físico** / local off-site | 🟡 | NTAG #3, HD, pendrive |
+| **VPS** 1 GB (VM) | 🟡 Expert | 4.2 WireGuard + rsync |
+
+**Referência de compra (Brasil):** [Apêndice C no curso](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-c--hardware-recomendado-brasil--2026).
+
+* * *
+
+## 📊 Backup, integridade e contingência
+
+| Prática | No curso? | Onde |
+| --- | :---: | --- |
+| **3-2-1-1-0** (matriz de ativos) | 🟢 | Módulo 4 |
+| Cópias em **2 mídias** (HD + VM + físico) | 🟢 | 4.1–4.2 |
+| **1 off-site** (VM só blobs opacos) | 🟢 | 4.2 |
+| **1 offline / air-gap** (Tails, pendrive cofre) | 🟢 | 1.x, 2B.2 |
+| **0 erros** — `sha256` + manifesto assinado [S] | 🟢 | 4.x |
+| **Revogação** em papel + segunda mídia | 🟢 | 1.x, Checkpoint 1 |
+| **Cartão reserva** (NTAG #2/#3 ou smartcard B) | 🟢 | 6.x runbook |
+| **Simulação de mesa** obrigatória | 🟢 | COMANDO 6.1 |
+| **Break-glass** VM (sem depender do NTAG diário) | 🟢 | 4.2 |
+| Hidden volume VeraCrypt | 🔵 | Não ensinado passo a passo na v1.0.2 |
+
+* * *
+
+## ✅ Checklist por trilha
+
+### 🟢 Trilha Turbo (~8–12 h)
+
+**Software:** KeePassXC, VeraCrypt, NFC Tools (Android) ou leitor no PC, opcional `age` se fizer 2B.2.
+
+**Hardware:** PC, 3× NTAG, pendrive opcional, HD opcional.
+
+**Não exige:** Tails, smartcard, WireGuard, `ztc-rsync`, SSH gpg-agent.
+
+---
+
+### 🔵 Trilha Expert (completa)
+
+**Software (mínimo):** tudo da tabela Linux + Tails + WireGuard + `age` + scripts `ztc-*` + OpenKeychain (backup).
+
+**Hardware (mínimo):** Turbo + pendrive Tails + smartcard (+ reserva) + HD externo + VPS lab + leitor CCID/NFC conforme módulos.
+
+**Checkpoints que forçam o inventário:** CP1 (Tails/revogação), CP2 (NTAG+VeraCrypt+SSH), CP3 (backup+VM+6.1).
+
+* * *
+
+## 📋 Avaliação: sua lista × o curso v1.0.2
+
+| Item (lista consolidada) | Status no curso | Observação |
+| --- | :---: | --- |
+| GnuPG, KeePassXC, VeraCrypt, OpenSSH | 🟢 Incluso | Baseline documentada |
+| pcscd / smartcard | 🟢 Incluso | Módulo 2A |
+| Tails 7.7+ | 🟢 Incluso | Baseline 7.8; revalidar por turma |
+| OpenKeychain, NFC Tools | 🟢/🟡 Incluso | Android |
+| Gpg4win, WSL2 | 🟡 Incluso | Apêndice D + D.1 |
+| WireGuard, age, rsync | 🟢/🟡 Incluso | Parte 3–4 |
+| `ztc-open-cofre.sh` | 🟢 Incluso | v1.0.2 |
+| macOS (GPG Suite) | 🟡 Incluso | Apêndice D |
+| NTAG + leitor ACR122U + Nitrokey | 🟢 Incluso | Apêndice C |
+| HD, pendrive, VPS, celular antigo | 🟢/🔵 Incluso | |
+| Papel / metal / DVD / microSD / cofre | 🟡/🔵 Incluso | Imutável = conceito; DVD não tem COMANDO dedicado |
+| Sequoia PGP | ⚫ Não obrigatório | Horizonte Módulo 8 |
+| GnuPG 2.5 ML-KEM | ⚫ Não obrigatório | PQC experimental |
+| PuTTY, Termux | 🔵 Opcional | Mencionado como alternativa/lab |
+| KeePassium, Cryptomator, PGP Everywhere | 🔵 iOS opcional | Expectativa limitada documentada |
+| Hidden volume VeraCrypt | 🔵 Não ensinado | Compatível com VeraCrypt, fora dos COMANDOs |
+
+**Conclusão:** a lista que você montou está **alinhada** ao curso; o que faltava no índice era **um único inventário navegável** — este arquivo — e referência explícita a **macOS**, **age**, **libnfc** e **scripts**, que já estavam nos COMANDOs mas dispersos.
+
+* * *
+
+## Links rápidos
+
+| Tópico | Link |
+| --- | --- |
+| Curso canônico | [🎓 Zero-Trust-Core-Expert](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) |
+| Release v1.0.2 | https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.2 |
+| OpenPGP (pré-requisito Expert) | https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert |
+
+---
+
+*Inventário aluno · VIPs-com · CC BY-SA 4.0*

@@ -6,6 +6,8 @@ Use este arquivo quando quiser **só os fluxos**, sem os COMANDOs. O conteúdo d
 
 **Como gerar PDF:** abra no GitHub → *Print* do navegador, ou cole cada bloco em [mermaid.live](https://mermaid.live) → *Export* PNG/SVG.
 
+**Montagem do ambiente (software/hardware):** [INVENTARIO-SOFTWARE-HARDWARE.md](./INVENTARIO-SOFTWARE-HARDWARE.md).
+
 * * *
 
 ## Legenda de cores (todos os diagramas)

@@ -6,7 +6,9 @@ Curso open-source em português para montar um ecossistema pessoal de segurança
 
 Leia o **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura do repositório, trilha integrada com [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert), o que cada parte do curso permite fazer e roteiro da primeira hora.
 
-**Quer só os fluxogramas coloridos?** → **[docs/DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md)** (imprimir ou PDF via preview / [mermaid.live](https://mermaid.live)).
+**Quer só os fluxogramas coloridos?** → **[docs/DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md)** (imprimir ou PDF).
+
+**Montar o ambiente (software + hardware)?** → **[docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md)** (lista por plataforma; Apêndice F do curso).
 
 ## Como estudar
 

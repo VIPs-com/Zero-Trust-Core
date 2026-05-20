@@ -86,6 +86,10 @@ Ao final deste curso, você será capaz de:
 | **Tails 7.8+** | [tails.net/latest](https://tails.net/latest/) | Air-gap: GnuPG + master offline |
 | **OpenKeychain** (Android) | F-Droid / APK offline | Backup móvel / NFC |
 | **WireGuard** (opc.) | [wireguard.com](https://www.wireguard.com/) | Túnel para backup off-site |
+| **age** | `apt install age` | Backup cifrado do keyfile (2B.2) e master no Tails |
+| **libnfc** + `nfc-list` | `apt install libnfc-bin` | Módulos 5.1 / 5.3 (opcional se sem checagem UID) |
+
+> 📎 **Lista completa por SO (Linux, Windows, macOS, Android, iOS):** [docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md) · resumo no [Apêndice F](#apêndice-f--inventário-software-e-hardware).
 
 > 📎 **NTAG vs OpenPGP:** tag NTAG = **keyfile** KeePass (clonável com acesso físico). **Smartcard OpenPGP** = subkeys [S][E][A] no token (não exportáveis). Não use o mesmo rótulo “NFC” para os dois.
 
@@ -239,7 +243,7 @@ Ao final deste curso, você será capaz de:
 │
 └── 📚 6. APÊNDICES
     ├── Checklists · Glossário completo
-    ├── Apêndice A–E (erros, scripts, hardware BR, multiplataforma, PQC)
+    ├── Apêndice A–F (erros, scripts, hardware BR, inventário SW/HW, multiplataforma, PQC)
     └── 🏁 Conclusão — Soberania digital
 ```
 
@@ -249,7 +253,7 @@ Ao final deste curso, você será capaz de:
 
 ### 📊 Diagramas visuais (fluxos Mermaid)
 
-> 💡 Abra o preview Markdown (GitHub ou VS Code) ou cole em [mermaid.live](https://mermaid.live). **Síntese só visual:** [docs/DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md) (ideal para imprimir/PDF).
+> 💡 Abra o preview Markdown (GitHub ou VS Code) ou cole em [mermaid.live](https://mermaid.live). **Síntese só visual:** [docs/DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md) (ideal para imprimir/PDF). **Inventário software/hardware:** [docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md).
 
 **Legenda das cores nos diagramas:**
 
@@ -1873,6 +1877,25 @@ Versões futuras: prefixe `v2-` ao mudar comportamento; mantenha changelog no se
 **Onde comprar:** marketplaces nacionais, lojas de eletrônica, importação direta de tokens EU — evite clone “YubiKey” sem marca.
 
 **Teste antes:** `nfc-list` (Linux) ou NFC Tools (Android); `gpg --card-status` com smartcard real.
+
+> 📎 **Versão expandida (software por plataforma, backup, checklist Turbo/Expert):** [docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md).
+
+* * *
+
+### Apêndice F — Inventário software e hardware
+
+Referência **oficial** para montar o ambiente — espelha o que o aluno encontra no repositório e o que cada trilha exige.
+
+| Recurso | Uso |
+| --- | --- |
+| [docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md) | Lista completa 🟢🟡🔵⚫ por SO + hardware + 3-2-1-1-0 |
+| [docs/DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md) | Fluxos A–E (PDF/impressão) |
+| [Apêndice C](#apêndice-c--hardware-recomendado-brasil--2026) | Preços e compra no Brasil |
+| [Apêndice D](#apêndice-d--guia-multiplataforma) | Matriz SO × ferramenta |
+
+**Resumo mínimo (Expert):** Tails USB · GnuPG · smartcard + leitor CCID · 3× NTAG · KeePassXC · VeraCrypt · `age` · HD externo · VM + WireGuard · scripts `ztc-*` · runbook impresso.
+
+**Não faz parte da v1.0.2 (horizonte ⚫):** Sequoia PGP como substituto do GnuPG; GnuPG 2.5 ML-KEM em produção; hidden volumes VeraCrypt como COMANDO obrigatório.
 
 * * *
 

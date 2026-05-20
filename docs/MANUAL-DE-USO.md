@@ -34,6 +34,7 @@ Zero-Trust-Core/
 │   ├── README.md                      ← Índice desta pasta
 │   ├── MANUAL-DE-USO.md              ← Você está aqui
 │   ├── DIAGRAMAS-VISUAIS.md         ← Fluxogramas coloridos (PDF/impressão)
+│   ├── INVENTARIO-SOFTWARE-HARDWARE.md ← Software/hardware por plataforma
 │   ├── AUDITORIA-v1.0.1.md          ← Auditoria VIPs-com + status v1.0.2
 │   └── CHECKLIST-PRE-TURMA-EQUIPE.md ← Mantenedores: testes antes da turma
 ├── scripts/
@@ -49,6 +50,7 @@ Zero-Trust-Core/
 | --- | :---: | --- |
 | `🎓 Zero-Trust-Core-Expert - Versão 1.0.md` | **Sim** | Todo o conteúdo didático (Partes 1–4, apêndices, COMANDOs) |
 | `docs/MANUAL-DE-USO.md` | Recomendado | Este guia de navegação |
+| `docs/INVENTARIO-SOFTWARE-HARDWARE.md` | Recomendado | Lista de software/hardware antes de comprar/montar o PC |
 | `scripts/` | Opcional | Automação depois dos Módulos 4–5 |
 | `README.md` | 2 min | Visão geral + links |
 
