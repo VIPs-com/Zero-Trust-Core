@@ -118,6 +118,16 @@ Ao final deste curso, você será capaz de:
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
+#### Matriz de tempo (referência do mantenedor · maio/2026)
+
+| Trilha | Partes | Horas orientativas | Exemplo de calendário |
+| --- | --- | --- | --- |
+| **Turbo** | 0 (parcial) + 2B + 3.1 + 4.1–4.2 local | **8–12 h** | 2–3 semanas, 3 h/semana |
+| **Expert** | 1 → 2 → 3 → 4 + apêndices | **25–35 h** | 6–8 semanas, 4–5 h/semana |
+| **Curioso** | §0 + §1 + leitura Parte 4 Módulo 7 | **3–5 h** | 1 fim de semana |
+
+> 💡 Ajuste à sua rotina; o que importa são os **CHECKPOINTs**, não a velocidade.
+
 * * *
 
 ### 🚨 20 MANDAMENTOS DA CRIPTOGRAFIA ARTESANAL FORTE
@@ -692,7 +702,7 @@ Para **dois cartões idênticos** em uso:
 
 * * *
 
-### 📋 MÓDULO 2B: NTAG + KEYFILE KEEpassXC
+### 📋 MÓDULO 2B: NTAG + KEYFILE KeePassXC
 
 > 🎯 **Objetivo:** fator físico **barato** para o cofre de senhas — **keyfile** gerado pelo KeePassXC, gravado em **2–3 tags NTAG** iguais
 
@@ -749,7 +759,7 @@ Na interface: senha mestra **e** keyfile obrigatórios.
 
 * * *
 
-### 📋 MÓDULO 3.1: KEEpassXC + VERACRYPT
+### 📋 MÓDULO 3.1: KeePassXC + VeraCrypt
 
 > 🎯 **Objetivo:** `.kdbx` dentro de volume VeraCrypt — duas camadas independentes de criptografia
 
@@ -851,7 +861,7 @@ ssh localhost echo "OK via smartcard"
 | --- | --- |
 | `ssh-add -L` vazio | Cartão inserido? PIN digitado? `sshcontrol` correto? |
 | `Permission denied` | Chave pública não está em `authorized_keys` |
-| WSL2 + Windows | Dois agentes — 📎 Apêndice D (futuro); prefira Linux nativo no lab |
+| WSL2 + Windows | Dois agentes — 📎 [Apêndice D](#apêndice-d--guia-multiplataforma); prefira Linux nativo no lab |
 
 * * *
 
@@ -1168,7 +1178,7 @@ Exemplo (ajuste horários):
 0 9 1-7 * 0 echo "Lembrete: teste de restore 3-2-1-1-0" | logger -t ztc
 ```
 
-> 📎 Scripts completos versionados: **Apêndice B** (futuro). Aqui você valida o ritual; depois endurece com `systemd` timers e alertas.
+> 📎 Scripts copiáveis: **Apêndice B** (texto no curso; mantenedores usam `_interno/scripts/`). Valide o ritual; depois endurece com `systemd` timers e alertas.
 
 * * *
 
@@ -1407,7 +1417,7 @@ expire
 save
 ```
 
-Exporte chave pública atualizada e distribua (`gpg --export -a`). Se subkeys estão no cartão, pode ser necessário novo `keytocard` após renovação — consulte [OpenPGP-GPG Módulo de manutenção](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
+Exporte chave pública atualizada e distribua (`gpg --export -a`). Se subkeys estão no cartão, pode ser necessário novo `keytocard` após renovação — consulte [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) (manutenção e Módulo 9).
 
 * * *
 
@@ -1465,9 +1475,12 @@ Exporte chave pública atualizada e distribua (`gpg --export -a`). Se subkeys es
 | --- | --- | --- |
 | `ztc-health.sh` | [COMANDO 5.1](#-comando-51-script-ztc-healthsh) | card-status, ssh-add, NFC, manifesto |
 | `ztc-rsync-offsite.sh` | [COMANDO 4.2.3](#-comando-423-rsync-só-blobs-com-ou-sem-nfc) | Sync blobs para VM |
+| `ztc.conf` | `ztc.conf.example` no pacote do mantenedor | Variáveis `ZTC_*` para rsync |
 | Cron exemplo | [COMANDO 5.2](#-comando-52-cron-backup--health) | Agendamento |
 
-Versões futuras: prefixe `v2-` ao mudar comportamento; mantenha changelog no seu repositório pessoal (não obrigatório no GitHub público do curso).
+**Instalação rápida:** copie os blocos `sh` dos COMANDOs para `~/bin/`, `chmod +x`, ou use os arquivos prontos em `_interno/scripts/` (clone local do projeto para mantenedores).
+
+Versões futuras: prefixe `v2-` ao mudar comportamento; mantenha changelog no seu repositório pessoal.
 
 * * *
 
@@ -1501,7 +1514,9 @@ Versões futuras: prefixe `v2-` ao mudar comportamento; mantenha changelog no se
 | **Android** | 🟢 (sem desktop) | — | 🟡 OpenKeychain | — |
 | **iOS** | 🟡 | — | 🔴 smartcard limitado | — |
 
-**Windows:** [Gpg4win](https://www.gpg4win.org/) + leitor CCID; KeePassXC com keyfile em arquivo local até ter NFC USB.
+**Windows:** [Gpg4win **5.0.x**](https://www.gpg4win.org/download.html) (Kleopatra + `gpg-agent`; mar/2026: série 5.0.2) + leitor CCID USB. KeePassXC com keyfile em arquivo local até ter NFC USB. **WSL2:** um só agente — veja linha WSL2 na tabela; não misture `gpg-agent` do Windows com o do WSL no mesmo fluxo SSH.
+
+**macOS:** [GPG Suite](https://gpgtools.org/) ou Homebrew `gnupg`; smartcard via leitor CCID.
 
 **Android:** gravar NTAG com [NFC Tools](https://www.wakdev.com/en/apps/nfc-tools.html); backup de emergência com OpenKeychain APK offline.
 
