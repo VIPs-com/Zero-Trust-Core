@@ -22,7 +22,7 @@ Abra e estude:
 
 Você pode clonar o repositório, baixar o ZIP ou copiar só esse `.md` — não é obrigatório usar Git para aprender.
 
-**Scripts (opcional):** pasta [`scripts/`](./scripts/) — `ztc-health.sh`, `ztc-rsync-offsite.sh`, `ztc-open-cofre.sh` e `ztc.conf.example` (Módulos 4.2 e 5 do curso).
+**Scripts:** pasta [`scripts/`](./scripts/) — ver nota **Turbo vs Expert** abaixo.
 
 **Auditoria v1.0.2:** [`docs/AUDITORIA-v1.0.1.md`](./docs/AUDITORIA-v1.0.1.md) · **Equipe (pré-turma):** [`docs/CHECKLIST-PRE-TURMA-EQUIPE.md`](./docs/CHECKLIST-PRE-TURMA-EQUIPE.md) · [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2)
 
@@ -35,7 +35,51 @@ Você pode clonar o repositório, baixar o ZIP ou copiar só esse `.md` — não
 
 Uma “fortaleza artesanal” em cinco camadas: cofre de senhas, fator físico (NTAG ou smartcard OpenPGP), identidade PGP com chave mestra offline, SSH via `gpg-agent` e resiliência com backups testados.
 
+```
+  [ Início · trilha Turbo ou Expert ]
+              │
+              ▼
+  ┌───────────────────────┐
+  │ Tails (air-gap)       │  ← master PGP offline
+  │ master + subkeys      │
+  └───────────┬───────────┘
+              ▼
+  ┌───────────────────────┐     ┌───────────────────────┐
+  │ 2A Smartcard OpenPGP  │     │ 2B NTAG → keyfile     │
+  │ PGP + SSH no token    │     │ KeePass (clonável)    │
+  └───────────┬───────────┘     └───────────┬───────────┘
+              └─────────────┬─────────────┘
+                            ▼
+              ┌───────────────────────┐
+              │ KeePassXC + VeraCrypt │  ← cofre diário
+              └───────────┬───────────┘
+                            ▼
+              ┌───────────────────────┐
+              │ Backup 3-2-1-1-0      │  ← VM, HD, restore
+              │ + scripts / health    │
+              └───────────┬───────────┘
+                            ▼
+              ┌───────────────────────┐
+              │ Uso diário + SSH      │
+              └───────────┬───────────┘
+                            ▼
+              ┌───────────────────────┐
+              │ Contingência          │  ← perda do cartão
+              └───────────────────────┘
+```
+
+**Quer o diagrama completo e colorido (fluxos A–E)?** → **[docs/DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md)** (imprimir ou PDF).
+
 > **Aviso:** tags NFC simples (NTAG) não substituem um smartcard OpenPGP nem uma YubiKey. O curso explica quando usar cada um.
+
+### Scripts: Turbo vs Expert
+
+| Trilha | Pasta `scripts/` |
+| --- | --- |
+| **Turbo** | **Opcional** — dá para concluir cofre + NTAG com fluxo manual (COMANDOs 3.1 e 3.1.2). |
+| **Expert** | **Parte do aprendizado** — instalar, rodar e **entender** `ztc-health.sh`, `ztc-rsync-offsite.sh` e `ztc-open-cofre.sh` nos Módulos **4.2** e **5** (não é “extra” decorativo). |
+
+Arquivos: [`ztc-health.sh`](./scripts/ztc-health.sh), [`ztc-rsync-offsite.sh`](./scripts/ztc-rsync-offsite.sh), [`ztc-open-cofre.sh`](./scripts/ztc-open-cofre.sh), [`ztc.conf.example`](./scripts/ztc.conf.example) · guia em [`scripts/README.md`](./scripts/README.md).
 
 ## Metodologia
 
@@ -49,7 +93,13 @@ Uma “fortaleza artesanal” em cinco camadas: cofre de senhas, fator físico (
 
 ## Licença
 
-[Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) — veja [LICENSE](./LICENSE).
+Este projeto está licenciado sob **Creative Commons Attribution-ShareAlike 4.0 International** (**CC BY-SA 4.0**).
+
+- Resumo humano: [creativecommons.org/licenses/by-sa/4.0](https://creativecommons.org/licenses/by-sa/4.0/)  
+- Texto legal completo: [creativecommons.org/licenses/by-sa/4.0/legalcode](https://creativecommons.org/licenses/by-sa/4.0/legalcode)  
+- Cópia no repositório: **[LICENSE](./LICENSE)** (Copyright © 2026 Projeto Colaborativo VIPs-com)
+
+Você pode compartilhar e adaptar o material, inclusive comercialmente, desde que **credite a fonte** e **repasse a mesma licença** nas obras derivadas.
 
 ## Créditos
 
