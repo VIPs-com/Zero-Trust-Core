@@ -7,7 +7,7 @@
 **Tails:** confira a última estável em [tails.net/latest](https://tails.net/latest/)  
 **Metodologia:** 🔴🟡🟢🔵 + COMANDO A COMANDO + Checkpoints  
 **Licença:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)  
-**Status:** ✅ **VERSÃO 1.0 — Partes 1–3 publicadas · Parte 4 e Apêndices em construção**
+**Status:** ✅ **VERSÃO 1.0 — Curso completo** (Partes 1–4 + Apêndices A–E)
 
 > 📌 **Nota editorial:** **`🎓 Zero-Trust-Core-Expert - Versão 1.0.md`** é o curso oficial deste repositório. O nome didático é **Zero Trust Core Expert**; o *filename* usa hífens para compatibilidade com Git e Windows.
 
@@ -117,17 +117,28 @@ Ao final deste curso, você será capaz de:
 
 ### 🚨 20 MANDAMENTOS DA CRIPTOGRAFIA ARTESANAL FORTE
 
-*(Tabela completa — em construção na v1.0; resumo abaixo.)*
-
 | # | Mandamento | Categoria |
 | --- | --- | --- |
-| 1 | A chave mestra PGP nunca nasce no sistema online | Air-gap |
-| 2 | NTAG ≠ YubiKey ≠ smartcard OpenPGP — não confunda | Hardware |
-| 3 | Três cartões idênticos para keyfile; nunca só um NTAG | KeePass |
-| 4 | VM off-site guarda só blobs já criptografados | Backup |
-| 5 | Backup sem teste de restore mensal = inexistente | Operação |
-
-> 📎 Lista completa (20 itens) será publicada nesta seção antes do release v1.0 final.
+| 1 | A chave mestra PGP **nunca** nasce no sistema online | Air-gap |
+| 2 | NTAG ≠ YubiKey ≠ smartcard OpenPGP — **não confunda** | Hardware |
+| 3 | Três NTAGs idênticos para keyfile; nunca só um cartão | KeePass |
+| 4 | VM off-site guarda **só** blobs já criptografados | Backup |
+| 5 | Backup sem teste de restore mensal = **inexistente** | Operação |
+| 6 | `keytocard` move subkeys; a master **fica** no Tails | OpenPGP |
+| 7 | Revogação criada **no mesmo dia** da geração da master | Air-gap |
+| 8 | PIN do smartcard ≠ senha do KeePass ≠ senha do VeraCrypt | Segredos |
+| 9 | Keyfile em claro na nuvem **anula** o fator físico | KeePass |
+| 10 | Dois smartcards ou backup `.asc` cifrado antes de apagar cópias | Resiliência |
+| 11 | `pcscd` ativo antes de reclamar que o cartão “sumiu” | Operação |
+| 12 | `sshcontrol` aponta para keygrip da subchave **[A]** | SSH |
+| 13 | Manifesto `sha256` assinado ou guardado em duas mídias | Backup |
+| 14 | Break-glass da VM **não** depende só do NTAG perdido | Off-site |
+| 15 | Simulação de contingência **antes** de confiar no runbook | Contingência |
+| 16 | Tails e GnuPG: confira [tails.net/latest](https://tails.net/latest/) a cada ciclo | Manutenção |
+| 17 | Roubo de token = **revogação**, não “esperar ver se volta” | Contingência |
+| 18 | Automação **não** substitui entender o que o script faz | Automação |
+| 19 | Threat model revisado quando mudar emprego, país ou VPS | OpSec |
+| 20 | PQC é **horizonte** — não quebre o arquitetura atual por hype | Futuro |
 
 * * *
 
@@ -1269,4 +1280,269 @@ Marque **todos** antes da Parte 4:
 
 * * *
 
-*Continua em: **Parte 4 — Expert & futuro** (Módulos 7–9, exame) e **Apêndices** — em construção. Consulte o [mapa visual](#-1-mapa-do-curso-visão-geral).*
+## ⚫ 5. PARTE 4: EXPERT E FUTURO (Semana 4+)
+
+> ⏱️ **Tempo estimado:** 4–6 horas (leitura + exercícios)  
+> 🎯 **Objetivo:** modelar ameaças do **seu** ecossistema, planejar manutenção de longo prazo e horizonte pós-quântico — sem abandonar o que já funciona
+
+**Pré-requisito:** [CHECKPOINT 3](#-checkpoint-3-backup-e-contingência) concluído (ou trilha Turbo com backup local testado).
+
+* * *
+
+### 📋 MÓDULO 7: THREAT MODELING E OPSEC
+
+> 🎯 **Objetivo:** responder com clareza: *o que protejo, contra quem, com qual camada*
+
+#### Ativos (o que vale proteger)
+
+| Ativo | Impacto se perdido | Camada principal |
+| --- | --- | --- |
+| Master PGP [C] | Identidade irreversível comprometida | Tails air-gap |
+| Subkeys no smartcard | Parada de SSH/assinatura até restore | Módulo 2A |
+| Keyfile + `.kdbx` | Perda de todas as senhas guardadas | Módulo 2B + 3.1 |
+| NTAG / smartcard físico | Bloqueio operacional | Cópias #2/#3 |
+| `revogacao.asc` | Sem resposta rápida a roubo | Parte 1 |
+| VM off-site | Perda de cópia remota, não de segredos em claro | Módulo 4.2 |
+
+#### Seis ameaças típicas (e resposta do Zero Trust Core)
+
+| # | Ameaça | Gravidade | Defesa no seu desenho |
+| --- | --- | :---: | --- |
+| 1 | Roubo do notebook (sem token) | 🟡 | Cofre + volume opacos; sem master no disco |
+| 2 | Roubo do smartcard + PIN fraco | 🔴 | PIN forte; revogação; cartão B |
+| 3 | Clonagem NTAG (acesso físico prolongado) | 🟡 | Senha mestra forte; 3 tags; não confiar só no UID |
+| 4 | Malware no PC no momento do uso | 🔴 | Subkeys no token; air-gap para master |
+| 5 | VPS comprometido | 🟡 | Só blobs cifrados; sem keyfile/PIN na VM |
+| 6 | Erro humano (sem backup / sem restore) | 🔴 | 3-2-1-1-0 + COMANDO 4.3 + 6.1 |
+
+#### Quatro princípios de decisão
+
+1. **Defesa em profundidade** — nenhuma camada sozinha segura tudo.  
+2. **Menor privilégio** — master só no Tails; PC diário só subkeys.  
+3. **Assumir comprometimento** — runbook antes do desastre.  
+4. **Auditabilidade** — você entende cada COMANDO; nada “caixa preta”.
+
+#### ▸ COMANDO 7.1: Seu threat model em uma página
+
+Preencha (imprima ou `~/ztc-backup/threat-model.txt`):
+
+```
+Ativos críticos: _______________________________
+Adversário mais provável: (ladrão / ex-funcionário / estado / eu mesmo)
+Cenário #1 que mais me preocupa: _______________
+Camada que falharia hoje: _______________________
+Ação esta semana: ______________________________
+```
+
+Revise quando: mudar de emprego, país, provedor VPS, ou adicionar FIDO2/YubiKey paralela.
+
+* * *
+
+### 📋 MÓDULO 8: PREPARAÇÃO PÓS-QUÂNTICA (HORIZONTE)
+
+> ⚫ **Horizonte 2027–2030** — não refaça o curso inteiro hoje por medo de Q-Day
+
+| Tópico | Estado em 2026 | Ação prática agora |
+| --- | --- | --- |
+| **OpenPGP Ed25519** | 🟢 Padrão do curso | Mantenha; suficiente para identidade nova |
+| **RSA legado** | 🟡 Migrar se ainda usa | Apêndice E |
+| **Kyber / ML-KEM** | ⚫ Em padronização | Acompanhe [openpgp.org](https://www.openpgp.org/) e Sequoia-PGP |
+| **Assinaturas PQC** | ⚫ SPHINCS+, Dilithium | Não misture com master atual sem plano |
+| **Híbrido clássico+PQC** | 🔵 Futuro próximo | Segunda subkey quando ferramentas estáveis |
+
+**Regra:** identidade **nova** em 2026 = ECC (Ed25519/Cv25519). Planeje **subkey ou identidade paralela** PQC quando GnuPG 2.5+ e keyservers aceitarem híbridos de forma interoperável — não revogue tudo por headline.
+
+#### ▸ COMANDO 8.1: Checklist de preparação (sem pânico)
+
+- [ ] Fingerprint e data de expiração das subkeys anotados  
+- [ ] Backup master testado no Tails **este ano**  
+- [ ] Inscrito ou revisando release notes GnuPG / [OpenPGP-GPG](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert)  
+- [ ] **Não** publicar master em repositório nem nuvem “temporária”
+
+* * *
+
+### 📋 MÓDULO 9: MANUTENÇÃO DE LONGO PRAZO
+
+| Ritual | Frequência | Ação |
+| --- | --- | --- |
+| Restore test | Mensal | [COMANDO 4.3](#-comando-43-teste-de-restauração-ritual-mensal) |
+| `ztc-health.sh` | Diário/semanal | Cron Módulo 5 |
+| Atualizar Tails | A cada release | Regravar USB; verificar assinatura |
+| `apt upgrade` + `gpg --version` | Trimestral | PC lab e VM |
+| Revisar threat model | Semestral | COMANDO 7.1 |
+| Simulação contingência | Anual | COMANDO 6.1 |
+| Rotacionar senhas críticas | Após incidente ou 12 meses | Via KeePass gerador |
+
+#### ▸ COMANDO 9.1: Auditoria anual (1 h)
+
+```sh
+gpg --version
+gpg --card-status
+gpg -K --with-subkey-fingerprints
+~/bin/ztc-health.sh
+ls -la ~/ztc-backup/manifest/ | tail -5
+```
+
+Anote: data da última revogação publicada, validade das subkeys, espaço na VM.
+
+#### ▸ COMANDO 9.2: Expiração e renovação de subkeys
+
+No **Tails** (master importada só offline):
+
+```sh
+gpg --edit-key SEU_FINGERPRINT
+expire
+# ajuste subkeys 1 2 3 conforme política (ex.: +2y)
+save
+```
+
+Exporte chave pública atualizada e distribua (`gpg --export -a`). Se subkeys estão no cartão, pode ser necessário novo `keytocard` após renovação — consulte [OpenPGP-GPG Módulo de manutenção](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
+
+* * *
+
+### 🎓 EXAME FINAL E PROJETO
+
+**Critérios de aprovação (autoavaliação honesta):**
+
+| Critério | Evidência |
+| --- | --- |
+| Air-gap | CHECKPOINT 1 completo |
+| Token + cofre + SSH | CHECKPOINT 2 completo |
+| Backup + contingência | CHECKPOINT 3 + simulação 6.1 |
+| Threat model | COMANDO 7.1 preenchido |
+| Manutenção | COMANDO 9.1 executado neste ano |
+
+**Projeto final (escolha um):**
+
+1. **Documentação:** PDF de 2 páginas — diagrama das 5 camadas + matriz 3-2-1-1-0 **seus** caminhos reais.  
+2. **Lab:** gravar vídeo curto (sem rostos/segredos) montando VeraCrypt + KeePass + `gpg --card-status`.  
+3. **Contribuição:** issue ou PR no [repositório VIPs-com](https://github.com/VIPs-com) corrigindo typo ou melhorando um COMANDO (CC BY-SA).
+
+> 📎 Não há certificado oficial na v1.0 — a prova é operacional: restore funciona e você explica NTAG × smartcard para um colega.
+
+* * *
+
+## 📚 6. APÊNDICES
+
+* * *
+
+### Apêndice A — Top 15 erros comuns
+
+| # | Erro | Por que dói | Correção |
+| --- | --- | --- | --- |
+| 1 | Master gerada no Windows daily | Comprometimento total | Parte 1, Tails |
+| 2 | NTAG para `keytocard` OpenPGP | Não funciona / falsa segurança | Módulo 2A vs 2B |
+| 3 | Um só NTAG de keyfile | Perda = desastre | Três cartões + backup cifrado |
+| 4 | Keyfile no Google Drive | Fator físico virou arquivo | Só NTAG ou blob `age` |
+| 5 | VM com senha mestra anotada | Off-site vira cofre quebrado | Break-glass separado |
+| 6 | HD externo sempre plugado | Não é mídia fria | Desmontar após rsync |
+| 7 | `ssh-add` de chave em disco | Bypass do smartcard | Módulo 3.2 |
+| 8 | Esquecer `export GPG_TTY` | PIN/ssh-agent falham | COMANDO 3.2.2 |
+| 9 | Smartcard reader ≠ NFC tag | ZBook: slot ≠ NTAG | Apêndice C |
+| 10 | Backup sem `sha256` | Corrupção silenciosa | COMANDO 4.1 |
+| 11 | Nunca testar restore | Backup fictício | COMANDO 4.3 |
+| 12 | Revogação só no PC online | Não usa em roubo | Tails + papel |
+| 13 | PIN 123456 no cartão | Roubo físico trivial | COMANDO 2A.3 |
+| 14 | WSL2 + dois agentes GPG | SSH inconsistente | Apêndice D |
+| 15 | PQC agora sem plano | Complexidade sem ganho | Módulo 8 |
+
+* * *
+
+### Apêndice B — Índice de scripts (v1)
+
+| Script | Onde foi definido | Função |
+| --- | --- | --- |
+| `ztc-health.sh` | [COMANDO 5.1](#-comando-51-script-ztc-healthsh) | card-status, ssh-add, NFC, manifesto |
+| `ztc-rsync-offsite.sh` | [COMANDO 4.2.3](#-comando-423-rsync-só-blobs-com-ou-sem-nfc) | Sync blobs para VM |
+| Cron exemplo | [COMANDO 5.2](#-comando-52-cron-backup--health) | Agendamento |
+
+Versões futuras: prefixe `v2-` ao mudar comportamento; mantenha changelog no seu repositório pessoal (não obrigatório no GitHub público do curso).
+
+* * *
+
+### Apêndice C — Hardware recomendado (Brasil · 2026)
+
+| Perfil | Item | Faixa de preço (referência) | Uso no curso |
+| --- | --- | --- | --- |
+| **Mínimo** | NTAG213/215 (pacote 10) | Baixo | Keyfile KeePass |
+| **Mínimo** | Leitor NFC USB ACR122U | Médio | PC sem NFC |
+| **Mínimo** | Pendrive 32 GB + Tails | Baixo | Air-gap |
+| **Recomendado** | Nitrokey 3A / Start | Médio-alto | OpenPGP + SSH |
+| **Recomendado** | HD externo USB 3 | Médio | Backup frio |
+| **Lab** | VPS 1 GB (qualquer BR/EU) | Baixo/mês | VM off-site |
+| **Opcional** | HP ZBook com smartcard slot | — | `pcscd` contato; **não** substitui NTAG |
+| **Opcional** | Celular Android antigo | Reutilizado | NFC Tools + OpenKeychain offline |
+
+**Onde comprar:** marketplaces nacionais, lojas de eletrônica, importação direta de tokens EU — evite clone “YubiKey” sem marca.
+
+**Teste antes:** `nfc-list` (Linux) ou NFC Tools (Android); `gpg --card-status` com smartcard real.
+
+* * *
+
+### Apêndice D — Guia multiplataforma
+
+| SO | KeePassXC | VeraCrypt | GnuPG + smartcard | SSH gpg-agent |
+| --- | :---: | :---: | :---: | :---: |
+| **Linux nativo** | 🟢 | 🟢 | 🟢 | 🟢 |
+| **Windows 11** | 🟢 | 🟢 | 🟡 (Gpg4win + leitor) | 🟡 |
+| **WSL2** | 🟢 | 🟡 | 🟡 | 🔴 conflito agente — prefira Linux nativo para Módulo 3.2 |
+| **macOS** | 🟢 | 🟢 | 🟡 (GPG Suite) | 🟡 |
+| **Android** | 🟢 (sem desktop) | — | 🟡 OpenKeychain | — |
+| **iOS** | 🟡 | — | 🔴 smartcard limitado | — |
+
+**Windows:** [Gpg4win](https://www.gpg4win.org/) + leitor CCID; KeePassXC com keyfile em arquivo local até ter NFC USB.
+
+**Android:** gravar NTAG com [NFC Tools](https://www.wakdev.com/en/apps/nfc-tools.html); backup de emergência com OpenKeychain APK offline.
+
+* * *
+
+### Apêndice E — Migração RSA → ECC → PQC
+
+| Fase | Quando | Ação |
+| --- | --- | --- |
+| **RSA legado** | Você ainda tem chave 2048/4096 antiga | Gere identidade **nova** Ed25519 no Tails; publique; migre serviços; revogue RSA após janela |
+| **ECC atual** | Padrão deste curso | Manter; renovar expiração no Tails |
+| **PQC híbrido** | Ferramentas estáveis + interoperabilidade | Nova subkey ou nova identidade; **não** apagar RSA/ECC até testar SSH e e-mail |
+
+> 📎 Curso irmão cobre algoritmos em profundidade: [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
+
+* * *
+
+### 📖 Glossário completo (referência)
+
+| Termo | Definição estendida |
+| --- | --- |
+| **Air-gap** | Sistema sem rede ativa durante operação sensível |
+| **Blob opaco** | Arquivo cifrado cuja chave não está no mesmo servidor |
+| **Break-glass** | Acesso de emergência à VM independente do token perdido |
+| **CCID** | Protocolo USB para smartcards |
+| **Keygrip** | Identificador interno GnuPG para ligar subkey ao `sshcontrol` |
+| **NDEF** | Formato de dados em tags NFC simples |
+| **Subkey [S][E][A]** | Assinatura, cifra, autenticação (SSH) |
+| **Zero Trust Core** | Este ecossistema em 5 camadas (cofre, token, PGP, SSH, backup) |
+
+* * *
+
+## 🏁 CONCLUSÃO — SOBERANIA DIGITAL
+
+Você percorreu do **Tails offline** ao **backup testado**, passando por tokens físicos, cofres locais e runbook de contingência. Isso não é “mais um tutorial de senha”: é **gestão de identidade e segredos** com hardware de consumo e disciplina de quem opera infra crítica.
+
+**O que você leva:**
+
+- Controle total (sem firmware opaco obrigatório)  
+- Custo adaptável (NTAG + Tails vs tokens profissionais)  
+- Responsabilidade total — ninguém revoga por você se você perder o runbook  
+
+**Próximos passos sugeridos:**
+
+1. Marque os três CHECKPOINTs no calendário de revisão anual.  
+2. Contribua com melhorias no repositório [VIPs-com](https://github.com/VIPs-com).  
+3. Aprofunde OpenPGP no curso irmão; volte ao [Módulo 8](#-módulo-8-preparação-pós-quântica-horizonte) quando PQC híbrido for 🟢 na sua stack.
+
+> *“Não é paranoia se o threat model está escrito.”* — princípio Zero Trust Core
+
+**Parabéns, artesão. Fortaleza digital operacional.** 🎓🔐
+
+* * *
+
+*Versão **1.0** — Maio/2026 · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Projeto Colaborativo VIPs-com*
