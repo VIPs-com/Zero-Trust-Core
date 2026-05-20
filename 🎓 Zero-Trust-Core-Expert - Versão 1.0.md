@@ -7,7 +7,7 @@
 **Tails:** confira a última estável em [tails.net/latest](https://tails.net/latest/)  
 **Metodologia:** 🔴🟡🟢🔵 + COMANDO A COMANDO + Checkpoints  
 **Licença:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)  
-**Status:** ✅ **VERSÃO 1.0 — Parte 1 (air-gap) publicada · Partes 2–4 em construção**
+**Status:** ✅ **VERSÃO 1.0 — Partes 1–2 publicadas · Partes 3–4 em construção**
 
 > 📌 **Nota editorial:** **`🎓 Zero-Trust-Core-Expert - Versão 1.0.md`** é o curso oficial deste repositório. O nome didático é **Zero Trust Core Expert**; o *filename* usa hífens para compatibilidade com Git e Windows.
 
@@ -562,4 +562,300 @@ Marque **todos** antes de abrir a Parte 2:
 
 * * *
 
-*Continua em: **Parte 2 — Hardware e integração** (em construção). Consulte o [mapa visual](#-1-mapa-do-curso-visão-geral) para a ordem completa.*
+## 🟡 3. PARTE 2: HARDWARE E INTEGRAÇÃO (Semana 2)
+
+> ⏱️ **Tempo estimado:** 5–7 horas  
+> 🎯 **Objetivo:** subkeys no **smartcard OpenPGP**, keyfile KeePass em **NTAG**, cofre VeraCrypt + KeePassXC, SSH via subchave **[A]**
+
+**Pré-requisito:** [CHECKPOINT 1](#-checkpoint-1-identidade-air-gapped) concluído.
+
+No [mapa visual](#-1-mapa-do-curso-visão-geral): **Módulos 2A → 2B → 3 → CHECKPOINT 2**.
+
+* * *
+
+### 📋 MÓDULO 2A: OPENPGP SMARTCARD (`keytocard`)
+
+> 🎯 **Objetivo:** mover subkeys [S][E][A] para um **cartão OpenPGP** (Nitrokey, Yubikey OpenPGP, etc.) — **não** use NTAG213 comum para este passo
+
+| Hardware | Serve para `keytocard`? |
+| --- | --- |
+| Nitrokey 3 / Start, Yubikey 5 NFC (OpenPGP), cartões JCOP | 🟢 Sim |
+| Tag NTAG213/215 só com arquivo gravado | 🔴 Não — vá para [Módulo 2B](#-módulo-2b-ntag--keyfile-keepassxc) |
+
+> 📎 Roteiro longo e checklist pós-transferência: [OpenPGP-GPG — Sub-módulo token + COMANDO 6.4](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
+
+* * *
+
+#### ▸ COMANDO 2A.1: Preparar leitor e cartão
+
+```sh
+sudo systemctl restart pcscd
+gpg --card-status
+```
+
+**Saída esperada (campos importantes):**
+
+```
+Reader ...........: ...
+Application ID ...: D276000124010200...
+Version ..........: 3.1
+...
+```
+
+Se falhar: confira cabo USB, drivers e grupo `pcscd` — no curso OpenPGP, veja **Módulo 7 (Token USB)**.
+
+* * *
+
+#### ▸ COMANDO 2A.2: `keytocard` (mover subkeys)
+
+Importe no host as subkeys exportadas do Tails (Parte 1), se ainda não fez:
+
+```sh
+gpg --import ~/subkeys-for-lab.asc
+FP=$(gpg --list-secret-keys --with-colons | awk -F: '/^fpr:/ {print $10; exit}')
+gpg --edit-key "$FP"
+```
+
+No prompt interativo do GnuPG (ajuste índices com `key N` conforme `gpg -K`):
+
+```
+gpg> key 1
+gpg> keytocard
+# escolha slot de assinatura (Signing) quando perguntado
+
+gpg> key 2
+gpg> keytocard
+# slot de cifra (Encryption)
+
+gpg> key 3
+gpg> keytocard
+# slot de autenticação (Authentication)
+
+gpg> save
+```
+
+> 🔴 **Master [C] nunca vai para o cartão** — só subkeys. Se o GnuPG perguntar sobre mover a primary key, recuse.
+
+* * *
+
+#### ▸ COMANDO 2A.3: PINs User e Admin
+
+```sh
+gpg --change-pin
+# Opção 1: PIN do usuário (3 tentativas no cartão)
+# Opção 3: PIN de administrador (para reset — anote em cofre físico)
+```
+
+| PIN | Uso |
+| --- | --- |
+| **User** | Dia a dia (SSH, assinar, decriptar) |
+| **Admin** | Reset do cartão — **não** compartilhe; guarde offline |
+
+Teste:
+
+```sh
+echo "teste" | gpg --clearsign
+gpg --card-status
+```
+
+* * *
+
+#### ▸ COMANDO 2A.4: Segundo cartão (backup físico)
+
+Repita o ritual no Tails **ou** mantenha backup `.asc` cifrado das subkeys antes de apagar cópias no disco — política do time.
+
+Para **dois cartões idênticos** em uso:
+
+1. Exporte subkeys no Tails (como na Parte 1).  
+2. `keytocard` no **cartão A** (uso diário).  
+3. Com **outro cartão virgem**, repita import + `keytocard` no **cartão B** (cofre/fora de casa).
+
+> 💡 Dois cartões com mesmas subkeys ≈ “duas YubiKeys” caseiras — custo baixo, disciplina alta.
+
+* * *
+
+### 📋 MÓDULO 2B: NTAG + KEYFILE KEEpassXC
+
+> 🎯 **Objetivo:** fator físico **barato** para o cofre de senhas — **keyfile** gerado pelo KeePassXC, gravado em **2–3 tags NTAG** iguais
+
+> ⚠️ Tag NTAG é **clonável** se alguém tiver acesso físico prolongado. Use como **camada extra** com senha mestra forte — não como única proteção.
+
+* * *
+
+#### ▸ COMANDO 2B.1: Gerar keyfile no KeePassXC
+
+1. Abra o KeePassXC ([keepassxc.org/docs](https://keepassxc.org/docs/)).  
+2. Crie um banco novo ou use banco de **laboratório**.  
+3. **Database → Database Security → Add key file → Generate**  
+4. Salve `keepass-keyfile.ztc` em pasta local — **não** na nuvem.
+
+Documentação oficial: [KeePassXC FAQ — Key Files](https://keepassxc.org/docs/#key-files).
+
+* * *
+
+#### ▸ COMANDO 2B.2: Gravar o mesmo keyfile em 3 NTAGs
+
+**Android (NFC Tools):** gravar arquivo ou UID como política do seu ritual — o KeePassXC valida o **conteúdo** do keyfile, não o UID, salvo configuração customizada.
+
+**Linux (`nfc-list` / leitor USB):**
+
+```sh
+# Exemplo: ler UID para health-check futuro (Módulo 5)
+nfc-list
+```
+
+Rotulagem física:
+
+| Cartão | Função |
+| --- | --- |
+| **#1** | Carteira — uso diário |
+| **#2** | Cofre em casa |
+| **#3** | Local off-site (familiar / cofre bancário) |
+
+> 🔴 **Nunca** envie o keyfile em claro para VM off-site (Parte 3). Backup digital do keyfile = `age`/VeraCrypt em mídia separada.
+
+* * *
+
+#### ▸ COMANDO 2B.3: Abrir cofre com senha + keyfile
+
+```sh
+keepassxc --keyfile ~/keepass-keyfile.ztc ~/lab-passwords.kdbx
+```
+
+Na interface: senha mestra **e** keyfile obrigatórios.
+
+| Erro comum | Correção |
+| --- | --- |
+| KeePassXC 2.7+ não mostra keyfile | Clique em **“I have a key file”** e selecione o arquivo |
+| Keyfile em nuvem com `.kdbx` | Separe: sincronize só `.kdbx`; keyfile por canal físico |
+
+* * *
+
+### 📋 MÓDULO 3.1: KEEpassXC + VERACRYPT
+
+> 🎯 **Objetivo:** `.kdbx` dentro de volume VeraCrypt — duas camadas independentes de criptografia
+
+* * *
+
+#### ▸ COMANDO 3.1.1: Criar volume VeraCrypt
+
+Use [VeraCrypt 1.26.24+](https://www.veracrypt.fr/en/Downloads.html) ou CLI:
+
+```sh
+# Exemplo Linux — ajuste caminho e tamanho
+veracrypt -t /tmp -c -k "" --random-source=/dev/urandom \
+  --volume-type=normal --encryption=AES --hash=SHA-512 \
+  --filesystem=exFAT --size=500M --password='***' \
+  /caminho/seguro/vault.hc
+```
+
+> 💡 Guarde a senha do volume **fora** do KeePass que está dentro dele (ex.: papel + outro fator).
+
+* * *
+
+#### ▸ COMANDO 3.1.2: Montar e guardar o `.kdbx` dentro
+
+```sh
+veracrypt /caminho/seguro/vault.hc /media/veracrypt-ztc
+cp ~/lab-passwords.kdbx /media/veracrypt-ztc/
+sync
+veracrypt -d /media/veracrypt-ztc
+```
+
+Fluxo diário (manual neste módulo; automação no Módulo 5):
+
+1. Aproximar NTAG (se usar ritual de presença).  
+2. Montar VeraCrypt.  
+3. Abrir KeePassXC apontando para `.kdbx` no volume.
+
+* * *
+
+#### ▸ COMANDO 3.1.3: Política de sincronização
+
+| Arquivo | Pode ir para nuvem/rsync? | Keyfile NTAG? |
+| --- | --- | --- |
+| `vault.hc` (container fechado) | 🟡 Só se já for blob opaco + senha forte | Não |
+| `lab-passwords.kdbx` dentro do volume | Dentro do `.hc` montado, trate o par como um segredo | Cartão físico |
+
+* * *
+
+### 📋 MÓDULO 3.2: SSH VIA GPG-AGENT (SUBCHAVE [A])
+
+> 🎯 **Objetivo:** autenticar em servidores/GitHub com subchave **[A]** no smartcard — PIN no token, sem chave SSH no disco
+
+> 📎 Detalhamento completo: [OpenPGP-GPG — Módulo 5 (COMANDO 5.1–5.6)](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert). Abaixo: fluxo mínimo Zero Trust Core.
+
+* * *
+
+#### ▸ COMANDO 3.2.1: Keygrip da subchave [A]
+
+```sh
+FP=$(gpg --list-secret-keys --with-colons | awk -F: '/^fpr:/ {print $10; exit}')
+gpg -K --with-keygrip "$FP" | grep -A2 "\[A\]"
+```
+
+Anote a linha `Keygrip = ...`.
+
+* * *
+
+#### ▸ COMANDO 3.2.2: `sshcontrol` + agente
+
+```sh
+KEYGRIP_AUTH="COLE_O_KEYGRIP_AQUI"
+echo "$KEYGRIP_AUTH" >> ~/.gnupg/sshcontrol
+
+gpgconf --kill gpg-agent
+gpgconf --launch gpg-agent
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+```
+
+* * *
+
+#### ▸ COMANDO 3.2.3: Chave pública SSH e testes
+
+```sh
+gpg --export-ssh-key "$FP" | tee ~/gpg-ssh-key.pub
+ssh-add -L
+ssh -T git@github.com
+```
+
+Para servidor próprio:
+
+```sh
+cat ~/gpg-ssh-key.pub >> ~/.ssh/authorized_keys
+ssh localhost echo "OK via smartcard"
+```
+
+| Problema | Solução |
+| --- | --- |
+| `ssh-add -L` vazio | Cartão inserido? PIN digitado? `sshcontrol` correto? |
+| `Permission denied` | Chave pública não está em `authorized_keys` |
+| WSL2 + Windows | Dois agentes — 📎 Apêndice D (futuro); prefira Linux nativo no lab |
+
+* * *
+
+#### 📱 Celular antigo / OpenKeychain (opcional)
+
+- Leitor NFC OTG + [OpenKeychain](https://www.openkeychain.org/) para assinar no Android.  
+- iOS: suporte limitado a smartcard — não prometa paridade.
+
+* * *
+
+## 🏁 CHECKPOINT 2: TOKEN + COFRE + SSH
+
+Marque **todos** antes da Parte 3 (backup):
+
+- [ ] `gpg --card-status` OK com cartão inserido  
+- [ ] Assinatura de teste (`--clearsign`) OK com PIN  
+- [ ] **Três** NTAG gravados com o **mesmo** keyfile (ou política documentada)  
+- [ ] KeePass abre com senha + keyfile  
+- [ ] Volume VeraCrypt monta e contém `.kdbx`  
+- [ ] `ssh-add -L` lista chave; `ssh -T git@github.com` (ou servidor lab) OK  
+- [ ] Segundo smartcard ou backup cifrado de subkeys existe  
+
+**Rubrica:** roubo do laptop **sem** cartão + **sem** keyfile → atacante não abre cofre nem SSH; roubo do cartão → acione o plano de contingência (Parte 3, Módulo 6).
+
+* * *
+
+*Continua em: **Parte 3 — Resiliência e operação** (em construção). Consulte o [mapa visual](#-1-mapa-do-curso-visão-geral).*

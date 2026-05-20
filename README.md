@@ -31,7 +31,7 @@ Uma “fortaleza artesanal” em cinco camadas: cofre de senhas, fator físico (
 
 ## Status
 
-🚧 **Versão 1.0 em construção** — Onboarding + **Parte 1 (air-gap / Tails)** com COMANDOs; Partes 2–4 em expansão.
+🚧 **Versão 1.0 em construção** — Partes **1–2** (air-gap, smartcard, NTAG, KeePass, VeraCrypt, SSH); Partes 3–4 em expansão.
 
 ## Licença
 
