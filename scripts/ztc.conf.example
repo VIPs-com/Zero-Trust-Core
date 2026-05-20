@@ -10,3 +10,8 @@ ZTC_MANIFEST_DIR="$HOME/ztc-backup/manifest"
 
 # NFC opcional (saída de nfc-list; deixe vazio para desativar checagem)
 ZTC_NFC_UID=""
+
+# COMANDO 5.3 — mount condicional
+ZTC_MOUNT_POINT="/media/veracrypt-ztc"
+ZTC_KDBX="/media/veracrypt-ztc/lab-passwords.kdbx"
+ZTC_KEYFILE="$HOME/keepass-keyfile.ztc"

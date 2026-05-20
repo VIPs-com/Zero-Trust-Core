@@ -10,7 +10,7 @@
 **Baseline conferida:** maio/2026 (issue editorial v1.0.1)  
 **Metodologia:** 🔴🟡🟢🔵 + COMANDO A COMANDO + Checkpoints  
 **Licença:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)  
-**Status:** ✅ **VERSÃO 1.0.1** — Curso completo (Partes 1–4 + Apêndices A–E; baseline revalidada maio/2026)
+**Status:** ✅ **VERSÃO 1.0.2** — Curso completo + correções pós-auditoria VIPs-com (maio/2026) · ver [docs/AUDITORIA-v1.0.1.md](docs/AUDITORIA-v1.0.1.md)
 
 > 📌 **Nota editorial:** **`🎓 Zero-Trust-Core-Expert - Versão 1.0.md`** é o curso oficial deste repositório. O nome didático é **Zero Trust Core Expert**; o *filename* usa hífens para compatibilidade com Git e Windows.
 
@@ -71,6 +71,7 @@ Ao final deste curso, você será capaz de:
 * **Mínimo:** ler a [Carta](#-carta-do-professor) e a [Legenda de cores](#-legenda-de-cores-guia-visual)
 * **Recomendado:** curso [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) (Módulos 0–3 no mínimo)
 * **Hardware:** pendrive para Tails; leitor NFC USB ou celular com NFC; smartcard OpenPGP **ou** tags NTAG para keyfile (papéis diferentes)
+* **iPhone como dispositivo principal:** KeePass/VeraCrypt no desktop; OpenPGP em smartcard tem suporte **limitado** no iOS (Apêndice D) — planeje Android ou PC Linux para a trilha Expert
 
 * * *
 
@@ -985,6 +986,8 @@ Para **dois cartões idênticos** em uso:
 
 > ⚠️ Tag NTAG é **clonável** se alguém tiver acesso físico prolongado. Use como **camada extra** com senha mestra forte — não como única proteção.
 
+> 🔴 **Leia antes de gravar os cartões:** se você perder **todos** os NTAGs **e** não tiver backup cifrado do keyfile (COMANDO 2B.2), o `.kdbx` pode tornar-se **irrecuperável** — mesmo com senha mestra. Os três cartões físicos **não substituem** uma cópia `age` em mídia air-gap.
+
 * * *
 
 #### ▸ COMANDO 2B.1: Gerar keyfile no KeePassXC
@@ -998,7 +1001,40 @@ Documentação oficial: [KeePassXC FAQ — Key Files](https://keepassxc.org/docs
 
 * * *
 
-#### ▸ COMANDO 2B.2: Gravar o mesmo keyfile em 3 NTAGs
+#### ▸ COMANDO 2B.2: Backup cifrado do keyfile (`age`) — **obrigatório antes dos NTAGs**
+
+O keyfile **não** deve ir para a VM nem para nuvem em claro. Guarde uma cópia **cifrada** em mídia separada dos três NTAGs (pendrive no cofre, HD frio ou ritual no Tails).
+
+```sh
+# No PC lab (após gerar keepass-keyfile.ztc)
+sudo apt install -y age
+cp ~/keepass-keyfile.ztc ~/ztc-backup/keepass-keyfile.ztc
+
+age -p -o ~/ztc-backup/keepass-keyfile.ztc.age ~/ztc-backup/keepass-keyfile.ztc
+shred -u ~/ztc-backup/keepass-keyfile.ztc
+
+# Copie APENAS o arquivo .age para mídia offline (não no mesmo pendrive dos NTAGs de bolso)
+ls -lh ~/ztc-backup/keepass-keyfile.ztc.age
+```
+
+**Restauração (simule uma vez):**
+
+```sh
+age -d ~/ztc-backup/keepass-keyfile.ztc.age > ~/keepass-keyfile-restored.ztc
+cmp ~/keepass-keyfile-restored.ztc <(age -d ~/ztc-backup/keepass-keyfile.ztc.age) && echo "OK"
+shred -u ~/keepass-keyfile-restored.ztc
+```
+
+| Onde guardar `keepass-keyfile.ztc.age` | Pode |
+| --- | --- |
+| HD externo frio | 🟢 |
+| Pendrive no cofre (separado do NTAG #1) | 🟢 |
+| VM / nuvem | 🔴 Nunca em claro; `.age` só se você aceitar risco do blob + senha `age` forte |
+| Mesmo bolso que o NTAG diário | 🔴 Derrota o propósito do backup |
+
+* * *
+
+#### ▸ COMANDO 2B.3: Gravar o mesmo keyfile em 3 NTAGs
 
 **Android (NFC Tools):** gravar arquivo ou UID como política do seu ritual — o KeePassXC valida o **conteúdo** do keyfile, não o UID, salvo configuração customizada.
 
@@ -1017,11 +1053,11 @@ Rotulagem física:
 | **#2** | Cofre em casa |
 | **#3** | Local off-site (familiar / cofre bancário) |
 
-> 🔴 **Nunca** envie o keyfile em claro para VM off-site (Parte 3). Backup digital do keyfile = `age`/VeraCrypt em mídia separada.
+> 🔴 **Nunca** envie o keyfile em claro para VM off-site (Parte 3). O backup digital é o arquivo **`.age`** do COMANDO 2B.2.
 
 * * *
 
-#### ▸ COMANDO 2B.3: Abrir cofre com senha + keyfile
+#### ▸ COMANDO 2B.4: Abrir cofre com senha + keyfile
 
 ```sh
 keepassxc --keyfile ~/keepass-keyfile.ztc ~/lab-passwords.kdbx
@@ -1046,13 +1082,37 @@ Na interface: senha mestra **e** keyfile obrigatórios.
 
 Use **[VeraCrypt 1.26.24](https://www.veracrypt.fr/en/Downloads.html)** (última estável; conferir [release notes](https://www.veracrypt.fr/en/Release%20Notes.html) antes de aulas em lote).
 
-**🟢 Recomendado:** criar o volume pela **interface gráfica** (AES + SHA-512 ou Argon2id onde disponível, conforme o assistente).
+**🟢 Recomendado para a primeira turma:** criar o volume pela **interface gráfica** (AES + SHA-512 ou Argon2id, conforme o assistente).
 
-**🟡 CLI (modo texto):** sintaxe varia por versão — no 1.26.x use `veracrypt --text` e consulte `veracrypt --help` no seu sistema antes de automatizar (Módulo 5).
+**🟡 CLI (VeraCrypt 1.26.24 · testado em Ubuntu 24.04):** o modo texto exige `-t` / `--text` como **primeiro** argumento ([documentação Unix](https://veracrypt.io/en/Command%20Line%20Usage%20for%20Unix.html)).
 
 ```sh
-# Exemplo ilustrativo — valide flags com veracrypt --help no seu host
-veracrypt --text --create /caminho/seguro/vault.hc --size=500M --encryption=AES --hash=SHA-512
+# Criar volume 500 MiB (substitua a senha; use gerenciador de senhas ou prompt interativo)
+sudo apt install -y veracrypt
+VAULT="/caminho/seguro/vault.hc"
+sudo veracrypt -t --create "$VAULT" \
+  --size 500M \
+  --password 'SUA_SENHA_FORTE_AQUI' \
+  --encryption AES \
+  --hash SHA-512 \
+  --filesystem exFAT \
+  --volume-type normal \
+  --pim 0 \
+  -k ""
+
+# Conferir
+ls -lh "$VAULT"
+```
+
+> 💡 Em produção, prefira digitar a senha no prompt interativo (omitir `--password` no comando) para não deixar a senha no histórico do shell.
+
+**Montar / desmontar (CLI):**
+
+```sh
+sudo mkdir -p /media/veracrypt-ztc
+veracrypt -t "$VAULT" /media/veracrypt-ztc
+# ... usar o volume ...
+veracrypt -t -d /media/veracrypt-ztc
 ```
 
 > 💡 Guarde a senha do volume **fora** do KeePass que está dentro dele (ex.: papel + outro fator).  
@@ -1063,10 +1123,11 @@ veracrypt --text --create /caminho/seguro/vault.hc --size=500M --encryption=AES 
 #### ▸ COMANDO 3.1.2: Montar e guardar o `.kdbx` dentro
 
 ```sh
-veracrypt /caminho/seguro/vault.hc /media/veracrypt-ztc
+sudo mkdir -p /media/veracrypt-ztc
+veracrypt -t /caminho/seguro/vault.hc /media/veracrypt-ztc
 cp ~/lab-passwords.kdbx /media/veracrypt-ztc/
 sync
-veracrypt -d /media/veracrypt-ztc
+veracrypt -t -d /media/veracrypt-ztc
 ```
 
 Fluxo diário (manual neste módulo; automação no Módulo 5):
@@ -1156,6 +1217,7 @@ Marque **todos** antes da Parte 3 (backup):
 - [ ] `gpg --card-status` OK com cartão inserido  
 - [ ] Assinatura de teste (`--clearsign`) OK com PIN  
 - [ ] **Três** NTAG gravados com o **mesmo** keyfile (ou política documentada)  
+- [ ] Backup `keepass-keyfile.ztc.age` criado (COMANDO 2B.2) e testado restore  
 - [ ] KeePass abre com senha + keyfile  
 - [ ] Volume VeraCrypt monta e contém `.kdbx`  
 - [ ] `ssh-add -L` lista chave; `ssh -T git@github.com` (ou servidor lab) OK  
@@ -1218,7 +1280,7 @@ flowchart LR
 | --- | --- | --- | --- | --- |
 | **Cofre `.kdbx`** | PC (dentro de `vault.hc` montado) | HD externo desconectado | VM via rsync | Pendrive VeraCrypt no cofre |
 | **Container `vault.hc`** | Mesmo fluxo | HD externo | VM (blob fechado) | Mídia separada |
-| **Keyfile NTAG** | Cartão #1 (carteira) | Cartões #2 e #3 (cofre / off-site físico) | — | **Não** digitalizar em claro na VM |
+| **Keyfile NTAG** | Cartão #1 (carteira) | Cartões #2 e #3 + `keepass-keyfile.ztc.age` | — | Pendrive cofre; **nunca** keyfile em claro na VM |
 | **Subkeys [S][E][A]** | Smartcard diário | Smartcard backup ou `.asc` cifrado | `.asc.gpg` na VM | Backup Tails Parte 1 |
 | **Master [C]** | — (nunca no PC online) | — | — | Pendrive Tails / metal + `backup-master` cifrado |
 | **Revogação** | Papel + cofre | Segunda mídia | VM (cifrado) | Tails export |
@@ -1467,15 +1529,40 @@ Exemplo (ajuste horários):
 
 * * *
 
-#### ▸ COMANDO 5.3: KeePass + VeraCrypt condicional (esboço)
+#### ▸ COMANDO 5.3: KeePass + VeraCrypt condicional (NFC opcional)
 
-Fluxo alvo (Módulo 5 avançado — não obrigatório no CHECKPOINT 3):
+Fluxo: **presença NTAG (opcional)** → montar VeraCrypt → abrir KeePassXC com keyfile no disco (cópia local do ritual NTAG, não lida direto da tag pelo script).
 
-1. `ztc-health.sh` confirma NTAG ou smartcard.  
-2. Só então `veracrypt --mount` + `keepassxc`.  
-3. Ao desmontar, `veracrypt -d`.
+1. Configure `~/ztc-backup/ztc.conf` (veja `scripts/ztc.conf.example`): `ZTC_VAULT_HC`, `ZTC_MOUNT_POINT`, `ZTC_KDBX`, `ZTC_KEYFILE`, `ZTC_NFC_UID` (opcional).  
+2. Copie o script:
 
-Implementação depende do seu DE (Linux nativo vs WSL2 → Apêndice D). Mantenha **manual** até o CHECKPOINT 3 passar.
+```sh
+# Na raiz do clone Zero-Trust-Core
+cp scripts/ztc-open-cofre.sh ~/bin/
+chmod +x ~/bin/ztc-open-cofre.sh
+cp scripts/ztc.conf.example ~/ztc-backup/ztc.conf
+# Edite ~/ztc-backup/ztc.conf com seus caminhos
+```
+
+3. Execute (pede senha do volume VeraCrypt no terminal):
+
+```sh
+~/bin/ztc-open-cofre.sh
+```
+
+4. Ao terminar:
+
+```sh
+veracrypt -t -d /media/veracrypt-ztc
+```
+
+| Variável | Função |
+| --- | --- |
+| `ZTC_NFC_UID` | Se preenchido, exige tag presente (`nfc-list`) antes de montar |
+| `ZTC_KEYFILE` | Caminho do keyfile **no disco** (sincronize do NTAG manualmente ou restore do `.age`) |
+
+> 📎 **WSL2:** mount VeraCrypt + NFC em WSL é frágil — prefira Linux nativo ou fluxo manual no Windows (Apêndice D).  
+> 📎 Trilha Turbo pode manter fluxo **manual** (COMANDO 3.1.2) sem este script.
 
 * * *
 
@@ -1538,7 +1625,7 @@ flowchart TD
 
 **Ramo D — Perdeu todos os NTAGs (keyfile)**
 
-- Se guardou keyfile cifrado (`age`/VeraCrypt) em mídia air-gap: recupere e regrave 3 NTAGs novos; **reconfigure** KeePass para novo keyfile.  
+- Se guardou keyfile cifrado (`age` — [COMANDO 2B.2](#-comando-2b2-backup-cifrado-do-keyfile-age--obrigatório-antes-dos-ntags)) em mídia air-gap: `age -d keepass-keyfile.ztc.age`, regrave 3 NTAGs, reconfigure KeePass se trocar o keyfile.  
 - Se **não** há backup do keyfile: o `.kdbx` pode ser **irrecuperável** — lição do Módulo 2B (três cartões + cópia cifrada do keyfile em cofre).
 
 * * *
@@ -1760,7 +1847,8 @@ Exporte chave pública atualizada e distribua (`gpg --export -a`). Se subkeys es
 | --- | --- | --- |
 | `ztc-health.sh` | [COMANDO 5.1](#-comando-51-script-ztc-healthsh) | card-status, ssh-add, NFC, manifesto |
 | `ztc-rsync-offsite.sh` | [COMANDO 4.2.3](#-comando-423-rsync-só-blobs-com-ou-sem-nfc) | Sync blobs para VM |
-| `ztc.conf` | `ztc.conf.example` no pacote do mantenedor | Variáveis `ZTC_*` para rsync |
+| `ztc-open-cofre.sh` | [COMANDO 5.3](#-comando-53-keepass--veracrypt-condicional-nfc-opcional) | NFC → VeraCrypt → KeePass |
+| `ztc.conf` | `scripts/ztc.conf.example` | Variáveis `ZTC_*` |
 | Cron exemplo | [COMANDO 5.2](#-comando-52-cron-backup--health) | Agendamento |
 
 **Instalação rápida:** copie de [`scripts/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/master/scripts) no repositório para `~/bin/` (veja `scripts/README.md`), ou copie os blocos `sh` dos COMANDOs acima.
@@ -1804,6 +1892,39 @@ Versões futuras: prefixe `v2-` ao mudar comportamento; mantenha changelog no se
 **macOS:** [GPG Suite](https://gpgtools.org/) ou Homebrew `gnupg`; smartcard via leitor CCID.
 
 **Android:** gravar NTAG com [NFC Tools](https://www.wakdev.com/en/apps/nfc-tools.html); backup de emergência com OpenKeychain APK offline.
+
+#### Apêndice D.1 — WSL2 + gpg-agent (passo a passo)
+
+> 🔴 Objetivo: **um só mundo** — não misture agente GPG do Windows com o do WSL no mesmo fluxo SSH.
+
+**Política recomendada:** faça Módulo 3.2 (SSH via smartcard) em **Linux nativo** (dual boot, VM Linux ou PC dedicado). Se **precisar** de WSL2:
+
+1. **Não** instale `gpg4win` e GnuPG no WSL para o mesmo smartcard simultaneamente.  
+2. Escolha **WSL** como ambiente GPG:
+
+```sh
+# Dentro do WSL (Ubuntu)
+sudo apt install -y gnupg2 scdaemon pcscd
+sudo service pcscd start
+gpg --card-status
+```
+
+3. No Windows, **não** defina `SSH_AUTH_SOCK` do PuTTY/Pageant para o mesmo cartão.  
+4. No WSL, antes de `ssh`:
+
+```sh
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+ssh-add -L
+```
+
+5. VS Code Remote-WSL: abra o terminal **WSL** integrado; evite Git for Windows com `ssh` separado.  
+6. VeraCrypt no WSL: possível com `veracrypt` no WSL e drivers FUSE — trate como **lab**; para produção use Windows VeraCrypt GUI + KeePassXC Windows.
+
+| Sintoma | Correção |
+| --- | --- |
+| `ssh-add -L` vazio no WSL mas Kleopatra vê o cartão | Matar `gpg-agent` do Windows; usar só agente WSL |
+| `pcscd` não vê o leitor | USB passthrough / [usbipd-win](https://github.com/dorssel/usbipd-win) para leitor CCID — avançado |
 
 * * *
 
@@ -1856,4 +1977,4 @@ Você percorreu do **Tails offline** ao **backup testado**, passando por tokens 
 
 * * *
 
-*Versão **1.0.1** (revisão editorial, maio/2026) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Projeto Colaborativo VIPs-com*
+*Versão **1.0.2** (pós-auditoria VIPs-com, maio/2026) · [Auditoria](docs/AUDITORIA-v1.0.1.md) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Projeto Colaborativo VIPs-com*

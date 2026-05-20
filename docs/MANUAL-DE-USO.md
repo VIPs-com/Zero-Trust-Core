@@ -32,11 +32,14 @@ Zero-Trust-Core/
 ├── LICENSE                            ← CC BY-SA 4.0
 ├── docs/
 │   ├── README.md                      ← Índice desta pasta
-│   └── MANUAL-DE-USO.md              ← Você está aqui
+│   ├── MANUAL-DE-USO.md              ← Você está aqui
+│   ├── DIAGRAMAS-VISUAIS.md         ← Fluxogramas coloridos (PDF/impressão)
+│   └── AUDITORIA-v1.0.1.md          ← Auditoria VIPs-com + status v1.0.2
 ├── scripts/
 │   ├── README.md
 │   ├── ztc-health.sh                  ← Health-check (Módulo 5)
 │   ├── ztc-rsync-offsite.sh           ← Backup VM (Módulo 4.2)
+│   ├── ztc-open-cofre.sh              ← NFC → VeraCrypt → KeePass (Módulo 5.3)
 │   └── ztc.conf.example               ← Configuração (copiar para ~/ztc-backup/)
 └── 🎓 Zero-Trust-Core-Expert - Versão 1.0.md   ← CURSO (estude aqui)
 ```
@@ -296,7 +299,8 @@ Confira o cabeçalho do `.md`: Tails [tails.net/latest](https://tails.net/latest
 | Repositório | https://github.com/VIPs-com/Zero-Trust-Core |
 | Curso (arquivo) | [🎓 Zero-Trust-Core-Expert - Versão 1.0.md](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) |
 | OpenPGP-GPG (base) | https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert |
-| Release v1.0.1 | https://github.com/VIPs-com/Zero-Trust-Core/releases |
+| Releases (v1.0.1, v1.0.2) | https://github.com/VIPs-com/Zero-Trust-Core/releases |
+| Auditoria + v1.0.2 | [AUDITORIA-v1.0.1.md](./AUDITORIA-v1.0.1.md) |
 | Tails | https://tails.net/latest/ |
 | KeePassXC | https://keepassxc.org/ |
 

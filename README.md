@@ -18,7 +18,9 @@ Abra e estude:
 
 Você pode clonar o repositório, baixar o ZIP ou copiar só esse `.md` — não é obrigatório usar Git para aprender.
 
-**Scripts (opcional):** pasta [`scripts/`](./scripts/) — `ztc-health.sh`, `ztc-rsync-offsite.sh` e `ztc.conf.example` (Módulos 4.2 e 5 do curso).
+**Scripts (opcional):** pasta [`scripts/`](./scripts/) — `ztc-health.sh`, `ztc-rsync-offsite.sh`, `ztc-open-cofre.sh` e `ztc.conf.example` (Módulos 4.2 e 5 do curso).
+
+**Auditoria e revisão v1.0.2:** [`docs/AUDITORIA-v1.0.1.md`](./docs/AUDITORIA-v1.0.1.md) — scorecard, gaps fechados e checklist de turma.
 
 ## Para quem é
 
@@ -39,7 +41,7 @@ Uma “fortaleza artesanal” em cinco camadas: cofre de senhas, fator físico (
 
 ## Status
 
-✅ **Versão 1.0.1+** — Curso completo + pasta [`scripts/`](./scripts/) pública. Tags: `v1.0.1` · link recíproco ativo no [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
+✅ **Versão 1.0.2** — Curso completo + correções pós-auditoria (backup keyfile `age`, VeraCrypt CLI, mount NFC). Pasta [`scripts/`](./scripts/) pública. Tags: `v1.0.1`, `v1.0.2` (quando publicada) · link recíproco no [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
 
 ## Licença
 
