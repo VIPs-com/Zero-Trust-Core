@@ -3,8 +3,11 @@
 **Air-Gap + NFC + OpenPGP + KeePassXC + VeraCrypt**
 
 **Autor:** Projeto Colaborativo (VIPs-com)  
-**GnuPG:** ~**2.4.x** (Ubuntu 24.04 / `apt`) — alinhado ao [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert)  
-**Tails:** confira a última estável em [tails.net/latest](https://tails.net/latest/)  
+**GnuPG:** **2.4.4+** (Ubuntu 24.04 LTS / `apt`; repositório [gnupg.org](https://gnupg.org/) se precisar do upstream) — alinhado ao [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert)  
+**Tails:** **7.8** (estável em [tails.net/latest](https://tails.net/latest/) — **revalide** antes de gravar o USB)  
+**KeePassXC:** **2.7.12+** no PC de uso diário ([keepassxc.org](https://keepassxc.org/)) — no Tails 7.6+ o padrão é **GNOME Secrets**; GnuPG no Tails segue sendo o foco do air-gap  
+**VeraCrypt:** **1.26.24** ([veracrypt.fr](https://www.veracrypt.fr/en/Downloads.html))  
+**Baseline conferida:** maio/2026 (issue editorial v1.0.1)  
 **Metodologia:** 🔴🟡🟢🔵 + COMANDO A COMANDO + Checkpoints  
 **Licença:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)  
 **Status:** ✅ **VERSÃO 1.0 — Curso completo** (Partes 1–4 + Apêndices A–E)
@@ -74,11 +77,11 @@ Ao final deste curso, você será capaz de:
 
 | Ferramenta | Onde obter | Para quê |
 | --- | --- | --- |
-| **KeePassXC** | [keepassxc.org](https://keepassxc.org/) | Cofre de senhas `.kdbx` |
-| **VeraCrypt** | [veracrypt.fr](https://www.veracrypt.fr/) | Volume para cofre e backups |
-| **GnuPG** (`gnupg2`) | `apt` / [gnupg.org](https://www.gnupg.org/) | OpenPGP + agente SSH |
+| **KeePassXC 2.7.12+** | [keepassxc.org](https://keepassxc.org/) | Cofre `.kdbx` no **host** (não é o app padrão do Tails 7.6+) |
+| **VeraCrypt 1.26.24** | [veracrypt.fr](https://www.veracrypt.fr/) | Volume para cofre e backups |
+| **GnuPG 2.4.4+** | `apt` / [gnupg.org](https://www.gnupg.org/) | OpenPGP + agente SSH |
 | **pcscd** + leitor | `apt install pcscd` + USB NFC/CCID | Smartcard OpenPGP |
-| **Tails** (última estável) | [tails.net/latest](https://tails.net/latest/) | Master key offline |
+| **Tails 7.8+** | [tails.net/latest](https://tails.net/latest/) | Air-gap: GnuPG + master offline |
 | **OpenKeychain** (Android) | F-Droid / APK offline | Backup móvel / NFC |
 | **WireGuard** (opc.) | [wireguard.com](https://www.wireguard.com/) | Túnel para backup off-site |
 
@@ -97,6 +100,7 @@ Ao final deste curso, você será capaz de:
 │   • Backup local + HD externo                                               │
 │   • Sem Tails / sem VM off-site / sem PQC                                   │
 │   • Ideal para: começar cofre forte antes do token OpenPGP                  │
+│   • Pula: Tails/master PGP, VM off-site, Módulos 7–8, simulação 6.1         │
 │                                                                             │
 │   🔵 MODO EXPERT (6–8 semanas · ~25–35 h)                                   │
 │   ─────────────────────────────────────                                     │
@@ -105,6 +109,7 @@ Ao final deste curso, você será capaz de:
 │   • SSH via gpg-agent · backup 3-2-1-1-0 · VM + túnel                         │
 │   • Automação, health-check, contingência, threat modeling                  │
 │   • Ideal para: soberania digital completa (este curso na íntegra)          │
+│   • Inclui: Tails, smartcard, 3-2-1-1-0, VM, contingência, threat model     │
 │                                                                             │
 │   👀 MODO CURIOSO                                                           │
 │   ───────────────                                                           │
@@ -134,7 +139,7 @@ Ao final deste curso, você será capaz de:
 | 13 | Manifesto `sha256` assinado ou guardado em duas mídias | Backup |
 | 14 | Break-glass da VM **não** depende só do NTAG perdido | Off-site |
 | 15 | Simulação de contingência **antes** de confiar no runbook | Contingência |
-| 16 | Tails e GnuPG: confira [tails.net/latest](https://tails.net/latest/) a cada ciclo | Manutenção |
+| 16 | Tails e GnuPG: confira [tails.net/latest](https://tails.net/latest/) a cada release | Manutenção |
 | 17 | Roubo de token = **revogação**, não “esperar ver se volta” | Contingência |
 | 18 | Automação **não** substitui entender o que o script faz | Automação |
 | 19 | Threat model revisado quando mudar emprego, país ou VPS | OpSec |
@@ -338,7 +343,7 @@ gpg --card-status 2>/dev/null || echo "Sem cartão ainda — normal no Módulo 0
 
 > 🔴 O comando `dd` grava no **disco inteiro** (`/dev/sdX`), não na partição. Errar a letra = destruir o HD errado.
 
-**Detalhamento completo (verificação OpenPGP + `dd`):** [OpenPGP-GPG — COMANDO 6.1](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) (mesmo fluxo; ajuste `TAILS_VER` ao site).
+**Detalhamento completo (verificação OpenPGP + `dd`):** [OpenPGP-GPG do Zero ao Expert — COMANDO 6.1](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) (mesmo fluxo; use a versão publicada em [tails.net/latest](https://tails.net/latest/), ex.: **7.8** em maio/2026).
 
 * * *
 
@@ -363,7 +368,7 @@ gpg --list-secret-keys "Lab Zero Trust"
 Crie ou edite `~/.gnupg/gpg.conf` (ajuste conforme sua política):
 
 ```ini
-default-keyring gpg-ring.kbx
+# GnuPG 2.4.x — pubring.kbx é o padrão; não use keyring legado (.gpg)
 keyid-format 0xlong
 with-fingerprint
 use-agent
@@ -434,6 +439,8 @@ No boot do Tails:
 1. Escolha **Português** (ou seu idioma).  
 2. Em *Configuração adicional*, habilite **Armazenamento persistente** (mín. 4 GB) se quiser guardar exports entre reboots no **lab**.  
 3. Na persistência, marque **GnuPG** (e só o necessário).
+
+> 📎 **Tails 7.6+:** o gerenciador de senhas padrão no desktop Tails é **[GNOME Secrets](https://gitlab.gnome.org/World/secrets)** (formato `.kdbx` compatível). Este curso usa **KeePassXC no sistema de uso diário** — no Tails você só precisa de **GnuPG** para a master. KeePassXC no Tails = [software adicional](https://tails.net/doc/persistent_storage/additional_software/index.en.html), opcional.
 
 **Antes de gerar a master:** desligue Wi‑Fi (interruptor físico se existir) e confirme que não há cabo de rede.
 
@@ -750,17 +757,19 @@ Na interface: senha mestra **e** keyfile obrigatórios.
 
 #### ▸ COMANDO 3.1.1: Criar volume VeraCrypt
 
-Use [VeraCrypt 1.26.24+](https://www.veracrypt.fr/en/Downloads.html) ou CLI:
+Use **[VeraCrypt 1.26.24](https://www.veracrypt.fr/en/Downloads.html)** (última estável; conferir [release notes](https://www.veracrypt.fr/en/Release%20Notes.html) antes de aulas em lote).
+
+**🟢 Recomendado:** criar o volume pela **interface gráfica** (AES + SHA-512 ou Argon2id onde disponível, conforme o assistente).
+
+**🟡 CLI (modo texto):** sintaxe varia por versão — no 1.26.x use `veracrypt --text` e consulte `veracrypt --help` no seu sistema antes de automatizar (Módulo 5).
 
 ```sh
-# Exemplo Linux — ajuste caminho e tamanho
-veracrypt -t /tmp -c -k "" --random-source=/dev/urandom \
-  --volume-type=normal --encryption=AES --hash=SHA-512 \
-  --filesystem=exFAT --size=500M --password='***' \
-  /caminho/seguro/vault.hc
+# Exemplo ilustrativo — valide flags com veracrypt --help no seu host
+veracrypt --text --create /caminho/seguro/vault.hc --size=500M --encryption=AES --hash=SHA-512
 ```
 
-> 💡 Guarde a senha do volume **fora** do KeePass que está dentro dele (ex.: papel + outro fator).
+> 💡 Guarde a senha do volume **fora** do KeePass que está dentro dele (ex.: papel + outro fator).  
+> 🔴 **Legado:** volumes TrueCrypt antigos — migre para VeraCrypt antes de confiar no backup.
 
 * * *
 
@@ -990,6 +999,8 @@ Marque no calendário: **todo dia 1** ou **primeiro domingo do mês** = restore 
 > 🎯 **Objetivo:** cópia off-site automatizada — tráfego só pelo túnel; servidor minimalista
 
 Alternativas ao WireGuard: **Tailscale** (mais simples) ou SSH sobre VPN corporativa — o princípio é o mesmo: **não** expor rsync/SSH na internet aberta.
+
+**Segundo off-site (opcional):** bucket S3-compatível com **criptografia no cliente** (`rclone crypt`) — mesma regra: só blobs já lacrados, nunca keyfile/PIN/master.
 
 * * *
 
@@ -1225,7 +1236,7 @@ flowchart TD
 
 1. Boot **Tails** offline com pendrive da Parte 1.  
 2. Importe master + `revogacao.asc` se necessário.  
-3. Revogue subkeys antigas ou publique revogação ([COMANDO 1.4](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) — curso irmão).  
+3. Revogue subkeys antigas ou publique revogação — [OpenPGP-GPG do Zero ao Expert, COMANDO 1.4](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).  
 4. Gere novas subkeys ou restaure de `subkeys-for-lab.asc` **antes** de `keytocard` destruir cópias no disco.  
 5. `keytocard` em cartão **novo**.  
 6. Atualize `sshcontrol`, `authorized_keys` e GitHub com nova chave SSH exportada.
@@ -1344,13 +1355,13 @@ Revise quando: mudar de emprego, país, provedor VPS, ou adicionar FIDO2/YubiKey
 
 | Tópico | Estado em 2026 | Ação prática agora |
 | --- | --- | --- |
-| **OpenPGP Ed25519** | 🟢 Padrão do curso | Mantenha; suficiente para identidade nova |
-| **RSA legado** | 🟡 Migrar se ainda usa | Apêndice E |
-| **Kyber / ML-KEM** | ⚫ Em padronização | Acompanhe [openpgp.org](https://www.openpgp.org/) e Sequoia-PGP |
-| **Assinaturas PQC** | ⚫ SPHINCS+, Dilithium | Não misture com master atual sem plano |
-| **Híbrido clássico+PQC** | 🔵 Futuro próximo | Segunda subkey quando ferramentas estáveis |
+| **OpenPGP Ed25519 / Cv25519** | 🟢 Padrão do curso (GnuPG 2.4.x) | Mantenha; suficiente para identidade nova |
+| **RSA 2048/4096 legado** | 🔴 Não gerar identidade nova em RSA | Apêndice E — migrar para Ed25519 |
+| **GnuPG 2.5.x (dev)** | 🔵 Experimental | Kyber em desenvolvimento; **não** misturar com produção sem plano |
+| **Kyber / ML-KEM (OpenPGP)** | ⚫ Padronização em curso | Acompanhe [openpgp.org](https://www.openpgp.org/) |
+| **Híbrido clássico+PQC** | ⚫ Horizonte | Segunda subkey quando RFC + interoperabilidade estiverem 🟢 |
 
-**Regra:** identidade **nova** em 2026 = ECC (Ed25519/Cv25519). Planeje **subkey ou identidade paralela** PQC quando GnuPG 2.5+ e keyservers aceitarem híbridos de forma interoperável — não revogue tudo por headline.
+**Regra:** identidade **nova** em 2026 = ECC (Ed25519/Cv25519) no Tails com GnuPG **2.4.x** estável. Planeje **subkey ou identidade paralela** PQC quando o [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) e o upstream documentarem híbridos interoperáveis — não revogue tudo por headline.
 
 #### ▸ COMANDO 8.1: Checklist de preparação (sem pânico)
 
@@ -1504,7 +1515,7 @@ Versões futuras: prefixe `v2-` ao mudar comportamento; mantenha changelog no se
 | **ECC atual** | Padrão deste curso | Manter; renovar expiração no Tails |
 | **PQC híbrido** | Ferramentas estáveis + interoperabilidade | Nova subkey ou nova identidade; **não** apagar RSA/ECC até testar SSH e e-mail |
 
-> 📎 Curso irmão cobre algoritmos em profundidade: [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
+> 📎 Algoritmos e teoria OpenPGP em profundidade: [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
 
 * * *
 
@@ -1537,7 +1548,7 @@ Você percorreu do **Tails offline** ao **backup testado**, passando por tokens 
 
 1. Marque os três CHECKPOINTs no calendário de revisão anual.  
 2. Contribua com melhorias no repositório [VIPs-com](https://github.com/VIPs-com).  
-3. Aprofunde OpenPGP no curso irmão; volte ao [Módulo 8](#-módulo-8-preparação-pós-quântica-horizonte) quando PQC híbrido for 🟢 na sua stack.
+3. Aprofunde OpenPGP em [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert); volte ao [Módulo 8](#-módulo-8-preparação-pós-quântica-horizonte) quando PQC híbrido for 🟢 na sua stack.
 
 > *“Não é paranoia se o threat model está escrito.”* — princípio Zero Trust Core
 
@@ -1545,4 +1556,4 @@ Você percorreu do **Tails offline** ao **backup testado**, passando por tokens 
 
 * * *
 
-*Versão **1.0** — Maio/2026 · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Projeto Colaborativo VIPs-com*
+*Versão **1.0.1** (revisão editorial, maio/2026) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Projeto Colaborativo VIPs-com*

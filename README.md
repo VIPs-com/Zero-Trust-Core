@@ -31,7 +31,7 @@ Uma “fortaleza artesanal” em cinco camadas: cofre de senhas, fator físico (
 
 ## Status
 
-✅ **Versão 1.0 completa** — Partes 1–4, 20 Mandamentos, Apêndices A–E, exame final e conclusão. Tag: `v1.0.0`.
+✅ **Versão 1.0.1** — Revisão editorial (baseline maio/2026: Tails 7.8, KeePassXC 2.7.12, VeraCrypt 1.26.24, GnuPG 2.4.4). Tag: `v1.0.1`.
 
 ## Licença
 
