@@ -33,6 +33,7 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 | `scripts/ztc-open-cofre.sh` | Aluno (Expert) | Módulo 5.3 — após Checkpoint 2 |
 | `docs/AUDITORIA-v1.0.1.md` | Equipe / comunidade | Por que a v1.0.2 existe |
 | `docs/CHECKLIST-PRE-TURMA-EQUIPE.md` | **Instrutor** | Antes de cada turma |
+| `docs/SLIDES-ABERTURA-TURMA.md` | **Instrutor** | Primeira aula (4 slides) |
 | [Issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) | Instrutor | Evidência hardware NFC + Tails |
 
 * * *

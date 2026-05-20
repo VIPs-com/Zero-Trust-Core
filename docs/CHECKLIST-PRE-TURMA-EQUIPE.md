@@ -197,6 +197,7 @@ Ver também checklist em [`AUDITORIA-v1.0.1.md`](./AUDITORIA-v1.0.1.md).
 
 | Recurso | URL |
 | --- | --- |
+| Slides abertura (1ª aula) | [SLIDES-ABERTURA-TURMA.md](./SLIDES-ABERTURA-TURMA.md) |
 | Issue #2 | https://github.com/VIPs-com/Zero-Trust-Core/issues/2 |
 | Release v1.0.2 | https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.2 |
 | Script | [`scripts/ztc-open-cofre.sh`](../scripts/ztc-open-cofre.sh) |

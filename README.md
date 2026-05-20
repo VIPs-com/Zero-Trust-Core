@@ -10,6 +10,8 @@ Leia o **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura do repositório,
 
 **Montar o ambiente (software + hardware)?** → **[docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md)** (lista por plataforma; **kits em R$**; Apêndice F do curso).
 
+**Instrutor — abertura de turma:** → **[docs/SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md)** (4 slides: YubiKey vs kits, 5 camadas, NTAG ≠ smartcard).
+
 ## Como estudar
 
 Este repositório segue o mesmo modelo do curso [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert): **um único arquivo Markdown** com todo o material didático.
