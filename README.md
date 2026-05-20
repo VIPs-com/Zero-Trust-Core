@@ -10,7 +10,7 @@ Leia o **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura do repositório,
 
 **Montar o ambiente (software + hardware)?** → **[docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md)** (lista por plataforma; **kits em R$**; Apêndice F do curso).
 
-**Instrutor — abertura de turma:** → **[docs/SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md)** (4 slides: YubiKey vs kits, 5 camadas, NTAG ≠ smartcard).
+**Instrutor — abertura de turma:** → **[docs/SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md)** (como projetar: VS Code, GitHub, Marp) · **[.marp.md](docs/SLIDES-ABERTURA-TURMA.marp.md)** para slide show.
 
 ## Como estudar
 
