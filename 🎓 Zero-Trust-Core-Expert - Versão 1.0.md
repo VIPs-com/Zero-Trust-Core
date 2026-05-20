@@ -1876,6 +1876,8 @@ Versões futuras: prefixe `v2-` ao mudar comportamento; mantenha changelog no se
 
 **Onde comprar:** marketplaces nacionais, lojas de eletrônica, importação direta de tokens EU — evite clone “YubiKey” sem marca.
 
+> 💰 **Kits com faixas em R$ (Turbo A/B, Expert C/D):** [docs/INVENTARIO-SOFTWARE-HARDWARE.md#-kit-mínimo-de-compra-brasil--referência-2026](docs/INVENTARIO-SOFTWARE-HARDWARE.md#-kit-mínimo-de-compra-brasil--referência-2026) — use na primeira compra; esta tabela (Apêndice C) permanece a referência por **item**.
+
 **Teste antes:** `nfc-list` (Linux) ou NFC Tools (Android); `gpg --card-status` com smartcard real.
 
 > 📎 **Versão expandida (software por plataforma, backup, checklist Turbo/Expert):** [docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md).
@@ -1890,7 +1892,8 @@ Referência **oficial** para montar o ambiente — espelha o que o aluno encontr
 | --- | --- |
 | [docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md) | Lista completa 🟢🟡🔵⚫ por SO + hardware + 3-2-1-1-0 |
 | [docs/DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md) | Fluxos A–E (PDF/impressão) |
-| [Apêndice C](#apêndice-c--hardware-recomendado-brasil--2026) | Preços e compra no Brasil |
+| [Apêndice C](#apêndice-c--hardware-recomendado-brasil--2026) | Itens por perfil (Brasil) |
+| [Inventário § Kit compra](docs/INVENTARIO-SOFTWARE-HARDWARE.md#-kit-mínimo-de-compra-brasil--referência-2026) | **Faixas em R$** — kits Turbo A/B e Expert C/D |
 | [Apêndice D](#apêndice-d--guia-multiplataforma) | Matriz SO × ferramenta |
 
 **Resumo mínimo (Expert):** Tails USB · GnuPG · smartcard + leitor CCID · 3× NTAG · KeePassXC · VeraCrypt · `age` · HD externo · VM + WireGuard · scripts `ztc-*` · runbook impresso.

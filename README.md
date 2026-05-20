@@ -8,7 +8,7 @@ Leia o **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura do repositório,
 
 **Quer só os fluxogramas coloridos?** → **[docs/DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md)** (imprimir ou PDF).
 
-**Montar o ambiente (software + hardware)?** → **[docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md)** (lista por plataforma; Apêndice F do curso).
+**Montar o ambiente (software + hardware)?** → **[docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md)** (lista por plataforma; **kits em R$**; Apêndice F do curso).
 
 ## Como estudar
 

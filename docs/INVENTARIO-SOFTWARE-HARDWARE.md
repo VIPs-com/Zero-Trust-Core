@@ -26,7 +26,7 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 | --- | --- | --- |
 | `🎓 Zero-Trust-Core-Expert - Versão 1.0.md` | **Aluno** | Estudo; COMANDO a COMANDO; apêndices A–F |
 | `docs/DIAGRAMAS-VISUAIS.md` | Aluno / instrutor | Impressão ou PDF dos fluxos A–E |
-| `docs/INVENTARIO-SOFTWARE-HARDWARE.md` | **Aluno** | Montar PC, comprar hardware, conferir versões |
+| `docs/INVENTARIO-SOFTWARE-HARDWARE.md` | **Aluno** | Montar PC, **kits em R$**, conferir versões |
 | `docs/MANUAL-DE-USO.md` | Aluno novo | Primeira hora no GitHub / ZIP |
 | `scripts/ztc-health.sh` | Aluno (Expert) | Módulo 5 — health-check |
 | `scripts/ztc-rsync-offsite.sh` | Aluno (Expert) | Módulo 4.2 — backup VM |
@@ -181,7 +181,117 @@ sudo apt install -y gnupg2 pcscd scdaemon libccid openssh-client \
 | **Cofre físico** / local off-site | 🟡 | NTAG #3, HD, pendrive |
 | **VPS** 1 GB (VM) | 🟡 Expert | 4.2 WireGuard + rsync |
 
-**Referência de compra (Brasil):** [Apêndice C no curso](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-c--hardware-recomendado-brasil--2026).
+**Referência de compra (Brasil):** [Apêndice C no curso](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-c--hardware-recomendado-brasil--2026) · **kits com valores em R$:** [§ Kit mínimo de compra](#-kit-mínimo-de-compra-brasil--referência-2026).
+
+* * *
+
+## 🛒 Kit mínimo de compra (Brasil · referência 2026)
+
+> **Aviso:** valores **indicativos** (mercado BR, importação e câmbio variam). Confira sempre antes de comprar. **Software do curso = R$ 0** (open-source). A tabela cobre só **hardware e serviços**.
+
+### O que você já pode ter (custo zero)
+
+| Item | Custo |
+| --- | --- |
+| PC ou notebook que já usa | R$ 0 |
+| Smartphone Android antigo (gravar NTAG) | R$ 0 (reutilizado) |
+| GnuPG, KeePassXC, VeraCrypt, Tails, `age`, scripts `ztc-*` | R$ 0 |
+
+---
+
+### Kit A — Trilha **Turbo** (mínimo absoluto)
+
+Para KeePass + keyfile NTAG + VeraCrypt **sem** Tails, smartcard nem VM.
+
+| # | Item | Qtd | Faixa (R$) | Observação |
+| --- | --- | ---: | --- | --- |
+| 1 | Tags **NTAG213/215** (pacote) | 1 pacote (≥3 tags) | 25 – 55 | Use 3 iguais; sobra do pacote para reserva |
+| 2 | **Pendrive** 16–32 GB (opcional) | 1 | 25 – 50 | Backup `.age` do keyfile em mídia separada |
+| | **Subtotal hardware** | | **~50 – 105** | |
+| 3 | Leitor **NFC USB** ACR122U (opcional) | 1 | 80 – 160 | Só se o PC não tiver NFC e não usar Android para gravar |
+
+**Com Android para gravar NTAG:** pode **pular** o leitor (item 3) → kit fica **~R$ 50–105**.
+
+---
+
+### Kit B — Trilha **Turbo** (confortável)
+
+Turbo + leitor no PC + automação Módulo 5.3 no Linux.
+
+| # | Item | Qtd | Faixa (R$) | Observação |
+| --- | --- | ---: | --- | --- |
+| 1 | Kit A (NTAG + pendrive opcional) | — | 50 – 105 | Base |
+| 2 | Leitor NFC USB **ACR122U** (ou PN532 compatível `libnfc`) | 1 | 80 – 160 | Necessário para `nfc-list` / `ztc-open-cofre.sh` no PC |
+| | **Subtotal** | | **~130 – 265** | |
+
+---
+
+### Kit C — Trilha **Expert** (essencial)
+
+Turbo confortável + identidade PGP air-gap + backup frio (sem VM ainda).
+
+| # | Item | Qtd | Faixa (R$) | Observação |
+| --- | --- | ---: | --- | --- |
+| 1 | Kit B | — | 130 – 265 | Cofre físico NFC |
+| 2 | **Pendrive** 32 GB (dedicado Tails) | 1 | 35 – 65 | Só para Tails; não misturar com outros arquivos |
+| 3 | **Smartcard OpenPGP** (1 unidade diária) | 1 | 280 – 750 | Nitrokey Start/3A, YubiKey 5 **OpenPGP**, etc. — evite clone sem marca |
+| 4 | **Smartcard reserva B** (simulação 6.1) | 1 | 0 – 750 | Segundo token **ou** backup `.asc` cifrado no Tails (sem custo extra se planejar no COMANDO 1.x) |
+| 5 | **HD externo** USB 3 (1 TB+) | 1 | 280 – 480 | Backup frio 3-2-1-1-0 |
+| 6 | **Leitor CCID USB** (se o PC não tiver slot) | 0–1 | 0 – 200 | ZBook/slot integrado = R$ 0; senão Omnikey/ACS |
+| | **Subtotal** (1 token + HD, leitor CCID incluso) | | **~725 – 1.770** | |
+| | **Subtotal** (2 tokens novos + HD) | | **~1.005 – 2.520** | |
+
+> 💡 **Alternativa mais barata ao par de YubiKeys:** 1× smartcard OpenPGP + 3× NTAG + Tails costuma ficar **bem abaixo** de duas chaves proprietárias premium — alinhado à proposta do curso.
+
+---
+
+### Kit D — Trilha **Expert** (completo)
+
+Expert essencial + off-site (VM) + itens de contingência física.
+
+| # | Item | Qtd | Faixa (R$) | Observação |
+| --- | --- | ---: | --- | --- |
+| 1 | Kit C (1 token + HD) | — | 725 – 1.770 | Base Expert |
+| 2 | **VPS** 1 vCPU / 1 GB RAM | 1 | 15 – 45 / **mês** | VM off-site; WireGuard + rsync (Módulo 4.2) |
+| 3 | **Papel + impressão** runbook / revogação | 1 lote | 5 – 30 | Módulo 6 — runbook no bolso do cartão #2 |
+| 4 | **Placa metal** ou gravação QR (opcional) | 0–1 | 40 – 150 | Fingerprint / backup imutável |
+| 5 | **Cofre físico** ou envelope lacrado off-site | 0–1 | 0 – 200+ | NTAG #3 + mídia; pode ser “casa de familiar” sem custo |
+| | **Investimento inicial** (sem VPS mensal) | | **~770 – 2.150** | |
+| | **Custo recorrente** | | **~15 – 45 / mês** | VPS (cancele após o curso se for só lab) |
+
+---
+
+### Comparativo rápido (uma linha)
+
+| Kit | Trilha | Investimento inicial (ordem de grandeza) |
+| --- | --- | --- |
+| **A** | Turbo mínimo | **~R$ 50 – 105** |
+| **B** | Turbo + NFC no PC | **~R$ 130 – 265** |
+| **C** | Expert (PGP + backup) | **~R$ 725 – 1.770** (1 token) |
+| **D** | Expert + VM + contingência | **~R$ 770 – 2.150** + VPS/mês |
+
+---
+
+### Onde comprar (Brasil)
+
+| Tipo | Sugestão |
+| --- | --- |
+| NTAG, leitor ACR122U | Marketplaces nacionais (ML, Shopee, lojas Arduino/NFC) — leia avaliações |
+| Nitrokey / tokens EU | Importação oficial ou revendedor autorizado |
+| Pendrive / HD | Marcas conhecidas; evite o mais barato sem marca para Tails |
+| VPS | Qualquer provedor BR/EU com IPv4; use só para **blobs opacos** |
+
+**Evitar:** “YubiKey” genérica sem firmware auditável; NTAG **já gravado** por terceiro; um único cartão NTAG sem backup `age`.
+
+---
+
+### Depois de comprar (antes da aula 1)
+
+1. Conferir [baseline de versões](#baseline-de-versões-revalidar-antes-da-turma) (Tails, KeePassXC, VeraCrypt).  
+2. Gravar Tails no pendrive (COMANDO 0.5 / 1.1).  
+3. Testar `gpg --card-status` com smartcard **antes** do `keytocard`.  
+4. Testar `nfc-list` ou NFC Tools com as 3 tags.  
+5. Instrutor: [CHECKLIST-PRE-TURMA-EQUIPE.md](./CHECKLIST-PRE-TURMA-EQUIPE.md) + [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2).
 
 * * *
 
