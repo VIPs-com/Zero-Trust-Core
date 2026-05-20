@@ -1,0 +1,30 @@
+# --- Interno (não publicar no GitHub) ---
+.cursor/
+_interno/
+.pesquisas/
+ROADMAP.md
+SYLLABUS.md
+
+# Documentação de apoio legada (se ainda existir na raiz)
+/docs/
+
+# --- Segredos e artefatos do curso ---
+*.kdbx
+*.kdbx.*
+*.hc
+*.key
+*.asc
+*.gpg
+*.pgp
+revocation*.asc
+.env
+.env.*
+
+# --- SO e editores ---
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*~
