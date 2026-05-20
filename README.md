@@ -1,5 +1,7 @@
 # Zero Trust Core Expert
 
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/) [![Versão do curso](https://img.shields.io/badge/curso-v1.0.2-blue.svg)](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.2)
+
 Curso open-source em português para montar um ecossistema pessoal de segurança em camadas: **KeePassXC**, **VeraCrypt**, **NFC**, **OpenPGP em air-gap** e **SSH**, com backup **3-2-1-1-0** e operação disciplinada — sem depender de hardware proprietário caro, com controle total e responsabilidade sua.
 
 ## Primeira vez aqui?
