@@ -142,20 +142,20 @@ Erro nº 1 dos iniciantes: chamar tudo de “NFC” ou “cartão”.
 
 ## 6. Mapa de dependências (ordem de estudo)
 
-Não pule CHECKPOINTs. Ordem **oficial** no arquivo do curso:
+Não pule CHECKPOINTs. Os **fluxogramas completos** (Mermaid A–E) estão na **seção 1** do [curso canônico](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-diagramas-visuais-fluxos-mermaid) — abra o preview Markdown no GitHub.
+
+| Diagrama | O que mostra |
+| --- | --- |
+| **A** | Estratégia ponta a ponta (planejamento → contingência) |
+| **B** | Dez passos Expert + ramo perda/roubo |
+| **C** | Uso diário × air-gap × backup × automação |
+| **D** | Partes 0–4 e checkpoints |
+| **E** | Como Módulos 4, 4.2, 5 e 6 ligam a 2A/2B/3 |
+
+Resumo em texto:
 
 ```
-§0 Onboarding  →  §1 Mapa (consulta)  →  Legenda de cores
-        ↓
-PARTE 1: Módulo 0 → Módulo 1 (Tails) → CHECKPOINT 1
-        ↓
-PARTE 2: Módulo 2A (smartcard) ─┐
-        Módulo 2B (NTAG/KeePass) ─┼→ Módulo 3.1 (VeraCrypt)
-        (2B pode vir antes de 2A na Turbo)   Módulo 3.2 (SSH) → CHECKPOINT 2
-        ↓
-PARTE 3: Módulo 4 → 4.2 (VM) → 5 (scripts) → 6 (contingência) → CHECKPOINT 3
-        ↓
-PARTE 4: Módulos 7–9 + exame  →  Apêndices A–E
+§0 → §1 (diagramas A–E) → Parte 1 → Parte 2 → Parte 3 → Parte 4 → Apêndices
 ```
 
 | Se você pular… | Risco |

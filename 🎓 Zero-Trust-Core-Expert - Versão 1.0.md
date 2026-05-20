@@ -175,9 +175,10 @@ Ao final deste curso, você será capaz de:
 
 0. Se baixou o repositório agora: **[Manual de uso](docs/MANUAL-DE-USO.md)** (5–15 min).
 1. Leia o **Onboarding** (seção 0).
-2. Consulte o **Mapa visual** (seção 1) só para orientação — o conteúdo oficial são as seções **2 em diante** com COMANDOs.
-3. Siga a ordem: Parte 1 → 2 → 3 → 4; não pule Tails antes de SSH com subkey [A].
-4. Marque cada **CHECKPOINT** antes de avançar.
+2. Consulte o **Mapa visual** (seção 1): índice ASCII + **diagramas Mermaid** (A–E) — fluxo da estratégia antes de abrir os COMANDOs.
+3. Siga as **Partes 2–6** na ordem dos checkpoints; use os diagramas da §1 quando se perder na sequência.
+4. Não pule Tails (Parte 1) antes de SSH com subkey [A] na trilha Expert.
+5. Marque cada **CHECKPOINT** antes de avançar.
 
 * * *
 
@@ -241,7 +242,205 @@ Ao final deste curso, você será capaz de:
     └── 🏁 Conclusão — Soberania digital
 ```
 
-> 📌 **Sincronização:** se um COMANDO mudar no corpo do curso, atualize esta árvore **depois** — ou navegue sempre pelos títulos **COMANDO** nas Partes 2–5.
+> 📌 **Sincronização:** se um COMANDO mudar no corpo do curso, atualize esta árvore **depois** — ou navegue sempre pelos títulos **COMANDO** nas Partes 2–6.
+
+* * *
+
+### 📊 Diagramas visuais (fluxos Mermaid)
+
+> 💡 Abra o preview Markdown (GitHub ou VS Code) ou cole em [mermaid.live](https://mermaid.live). O índice ASCII acima lista **títulos**; os diagramas abaixo mostram **ordem e dependências**.
+
+#### A) Fluxograma geral da estratégia
+
+Visão de ponta a ponta — da decisão de montar o ecossistema até o plano de contingência.
+
+```mermaid
+flowchart TD
+    A["Inicio - planejamento e trilha"] --> B["Aprendizado e ferramentas"]
+    B --> C["Ambiente air-gapped Tails"]
+    C --> D["Geracao master e subkeys OpenPGP"]
+    D --> E["Tokens: 2A smartcard e 2B NTAG"]
+    E --> F["Cofres diarios KeePass e VeraCrypt"]
+    F --> G["Backup 3-2-1-1-0"]
+    G --> H["Automacao e health-check"]
+    H --> I["Uso diario SSH e cofres"]
+    I --> J["Monitoramento e restore mensal"]
+    J --> K["Contingencia perda ou roubo"]
+
+    subgraph camadas["Camadas de seguranca"]
+        F
+        E
+        I
+    end
+
+    subgraph airgap["Air-gap"]
+        C
+        D
+    end
+```
+
+| Etapa | Parte / modulo no curso |
+| --- | --- |
+| B | §0 Onboarding; opcional [OpenPGP-GPG](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) |
+| C–D | Parte 1, Modulo 1 |
+| E | Parte 2, Modulos **2A** e **2B** |
+| F | Parte 2, Modulo 3 |
+| G–H | Parte 3, Modulos 4, 4.2, 5 |
+| I | Parte 2 Modulo 3.2 + operacao diaria |
+| J | COMANDO 4.3 + Modulo 9 |
+| K | Parte 3, Modulo 6 |
+
+* * *
+
+#### B) Jornada operacional (dez passos + ramo de perda)
+
+Trilha **Expert** alinhada aos COMANDOs; ramo inferior = **nao** e fluxo feliz — e sim o que fazer se o token sumir.
+
+```mermaid
+flowchart TD
+    Start([Inicio]) --> Learn["Base OpenPGP-GPG Mod 0-3"]
+    Learn --> Tails["1 Tails air-gapped"]
+    Tails --> Generate["2 Master e subkeys S E A"]
+    Generate --> Revoke["3 Certificado de revogacao"]
+    Revoke --> Card["4 keytocard 2A e backup cartao"]
+    Card --> Kee["5 KeePass keyfile NTAG 2B e VeraCrypt"]
+    Kee --> Auto["6 Health-check e scripts Mod 5"]
+    Auto --> Backup["7 Backup 3-2-1-1-0 e VM 4.2"]
+    Backup --> Daily["8 Uso diario SSH e cofres"]
+    Daily --> Test["9 Restore test mensal"]
+    Test --> Monitor["10 Auditoria e atualizacoes Mod 9"]
+
+    Loss["Perda ou roubo do token"] --> RevokeNow["Fase 1 contenção"]
+    RevokeNow --> Branch{NTAG ou smartcard?}
+    Branch -->|NTAG| NTAG2["Cartao reserva 2 ou 3"]
+    Branch -->|smartcard| SCARD["Cartao B ou Tails revogar"]
+    NTAG2 --> Restore["Fase 3 restabelecer resiliencia"]
+    SCARD --> Restore
+```
+
+* * *
+
+#### C) Arquitetura — como as pecas se conectam
+
+Mapa mental dos **mundos**: uso diario, air-gap, backup e automacao.
+
+```mermaid
+flowchart TB
+    subgraph uso_diario["Uso diario - Parte 2"]
+        NFC["NTAG keyfile ou smartcard OpenPGP"]
+        KC["KeePassXC .kdbx"]
+        VC["Volume VeraCrypt"]
+        GPG["GnuPG e gpg-agent"]
+        SSH["SSH servidores Git"]
+        NFC -->|keyfile| KC
+        KC --> VC
+        NFC -->|subkeys no token| GPG
+        GPG --> SSH
+    end
+
+    subgraph airgap_gen["Geracao e recuperacao air-gap - Parte 1"]
+        TAILS["Tails USB offline"]
+        MASTER["Chave mestra PGP"]
+        REV["Revogacao e backup master"]
+        TAILS --> MASTER
+        TAILS --> REV
+        MASTER -.->|so subkeys| NFC
+    end
+
+    subgraph backup["Backup 3-2-1-1-0 - Parte 3"]
+        LOCAL["HD externo frio"]
+        OFFSITE["VM via WireGuard"]
+        PHYS["2o cartao NTAG ou smartcard B"]
+        IMMUT["Papel metal fingerprints"]
+        KC --> LOCAL
+        VC --> LOCAL
+        KC --> OFFSITE
+        GPG --> LOCAL
+        REV --> IMMUT
+        NFC --> PHYS
+    end
+
+    subgraph automacao["Automacao - Modulo 5"]
+        HC["ztc-health UID e card-status"]
+        RSYNC["rsync so blobs cifrados"]
+        HC --> RSYNC
+        RSYNC --> OFFSITE
+    end
+```
+
+* * *
+
+#### D) Partes do curso × checkpoints
+
+Onde voce esta na **narrativa editorial** (nao substitui os COMANDOs).
+
+```mermaid
+flowchart LR
+    subgraph P0["0 Onboarding"]
+        T0[Trilhas hardware mandamentos]
+    end
+    subgraph P1["1 Primeiros passos"]
+        M0[Mod 0 Lab GPG]
+        M1[Mod 1 Tails master]
+        C1[CHECKPOINT 1]
+    end
+    subgraph P2["2 Hardware"]
+        M2A[Mod 2A smartcard]
+        M2B[Mod 2B NTAG]
+        M3[Mod 3 cofres SSH]
+        C2[CHECKPOINT 2]
+    end
+    subgraph P3["3 Resiliencia"]
+        M4[Mod 4 backup]
+        M42[Mod 4.2 VM tunel]
+        M5[Mod 5 scripts]
+        M6[Mod 6 contingencia]
+        C3[CHECKPOINT 3]
+    end
+    subgraph P4["4 Expert"]
+        M7[Mod 7 threat model]
+        M8[Mod 8 PQC]
+        M9[Mod 9 manutencao]
+    end
+    P0 --> P1 --> P2 --> P3 --> P4
+    M0 --> M1 --> C1
+    M2A --> M3
+    M2B --> M3
+    M3 --> C2
+    M4 --> M42 --> M5 --> M6 --> C3
+```
+
+| Trilha Turbo | Pula |
+| --- | --- |
+| Parte 1 completa | Tails + master |
+| Modulos 2A, 3.2, 4.2, 6, 7–8 | Smartcard SSH VM contingencia avancada |
+
+* * *
+
+#### E) Parte 3 — modulos interligados
+
+Por que backup, VM, scripts e contingencia **dependem** dos tokens e cofres das Partes 1–2.
+
+```mermaid
+flowchart LR
+    M2A[Módulo 2A OpenPGP]
+    M2B[Módulo 2B NTAG]
+    M3[Módulo 3 cofres]
+    M4[Módulo 4 matriz 3-2-1-1-0]
+    M42[Módulo 4.2 VM rsync]
+    M5[Módulo 5 health cron]
+    M6[Módulo 6 runbook]
+    M2A --> M4
+    M2B --> M4
+    M3 --> M4
+    M4 --> M42
+    M42 --> M5
+    M4 --> M6
+    M6 -.->|restore test| M42
+    M2B -.->|keyfile nunca na VM| M42
+```
+
+> 📎 Diagramas fonte para mantenedores: `_interno/docs/diagrams/` (copia dos blocos acima).
 
 * * *
 
@@ -897,7 +1096,15 @@ Marque **todos** antes da Parte 3 (backup):
 
 **Pré-requisito:** [CHECKPOINT 2](#-checkpoint-2-token--cofre--ssh) concluído.
 
-No [mapa visual](#-1-mapa-do-curso-visão-geral): **Módulo 4 → 4.2 → 5 → 6 → CHECKPOINT 3**.
+No [mapa visual](#-1-mapa-do-curso-visão-geral): **Módulo 4 → 4.2 → 5 → 6 → CHECKPOINT 3** — veja o diagrama **E) Parte 3 — módulos interligados**.
+
+```mermaid
+flowchart LR
+    M4[Mod 4 inventario HD] --> M42[Mod 4.2 WireGuard rsync]
+    M42 --> M5[Mod 5 ztc-health cron]
+    M5 --> M6[Mod 6 runbook simulacao]
+    M6 --> C3[CHECKPOINT 3]
+```
 
 * * *
 
