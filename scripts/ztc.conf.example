@@ -1,0 +1,12 @@
+# Copie para ~/ztc-backup/ztc.conf e ajuste.
+
+# Off-site (WireGuard — IP da VM na rede wg)
+ZTC_REMOTE="ztc-bkp@10.66.66.1:/var/backups/ztc/incoming/"
+ZTC_SSH_KEY="$HOME/.ssh/ztc-bkp-ed25519"
+
+# Blobs locais
+ZTC_VAULT_HC="/caminho/seguro/vault.hc"
+ZTC_MANIFEST_DIR="$HOME/ztc-backup/manifest"
+
+# NFC opcional (saída de nfc-list; deixe vazio para desativar checagem)
+ZTC_NFC_UID=""

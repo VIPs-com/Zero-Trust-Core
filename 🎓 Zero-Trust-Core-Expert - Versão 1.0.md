@@ -1178,7 +1178,7 @@ Exemplo (ajuste horários):
 0 9 1-7 * 0 echo "Lembrete: teste de restore 3-2-1-1-0" | logger -t ztc
 ```
 
-> 📎 Scripts copiáveis: **Apêndice B** (texto no curso; mantenedores usam `_interno/scripts/`). Valide o ritual; depois endurece com `systemd` timers e alertas.
+> 📎 Scripts copiáveis: pasta [`scripts/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/master/scripts) no repositório + **Apêndice B**. Valide o ritual; depois endurece com `systemd` timers e alertas.
 
 * * *
 
@@ -1478,7 +1478,7 @@ Exporte chave pública atualizada e distribua (`gpg --export -a`). Se subkeys es
 | `ztc.conf` | `ztc.conf.example` no pacote do mantenedor | Variáveis `ZTC_*` para rsync |
 | Cron exemplo | [COMANDO 5.2](#-comando-52-cron-backup--health) | Agendamento |
 
-**Instalação rápida:** copie os blocos `sh` dos COMANDOs para `~/bin/`, `chmod +x`, ou use os arquivos prontos em `_interno/scripts/` (clone local do projeto para mantenedores).
+**Instalação rápida:** copie de [`scripts/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/master/scripts) no repositório para `~/bin/` (veja `scripts/README.md`), ou copie os blocos `sh` dos COMANDOs acima.
 
 Versões futuras: prefixe `v2-` ao mudar comportamento; mantenha changelog no seu repositório pessoal.
 

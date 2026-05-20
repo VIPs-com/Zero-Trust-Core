@@ -12,6 +12,8 @@ Abra e estude:
 
 Você pode clonar o repositório, baixar o ZIP ou copiar só esse `.md` — não é obrigatório usar Git para aprender.
 
+**Scripts (opcional):** pasta [`scripts/`](./scripts/) — `ztc-health.sh`, `ztc-rsync-offsite.sh` e `ztc.conf.example` (Módulos 4.2 e 5 do curso).
+
 ## Para quem é
 
 - Quem já conhece ou está fazendo **[OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert)** e quer integrar cofres locais, tokens físicos, backup off-site e automação.
@@ -31,7 +33,7 @@ Uma “fortaleza artesanal” em cinco camadas: cofre de senhas, fator físico (
 
 ## Status
 
-✅ **Versão 1.0.1** — Revisão editorial (baseline maio/2026: Tails 7.8, KeePassXC 2.7.12, VeraCrypt 1.26.24, GnuPG 2.4.4). Tag: `v1.0.1`.
+✅ **Versão 1.0.1+** — Curso completo + pasta [`scripts/`](./scripts/) pública. Tags: `v1.0.1` · link recíproco ativo no [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
 
 ## Licença
 
