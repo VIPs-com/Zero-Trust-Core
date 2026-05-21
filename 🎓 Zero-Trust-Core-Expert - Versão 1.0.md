@@ -341,6 +341,7 @@ Clique para ir direto ao módulo. Se um link não saltar, use `Ctrl+F` pelo nome
 | **Instrutor** | 1ª aula: slides 1–4 → Módulo 0 | [SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md) |
 | **Equipe** | Tag/release futura só após mudança editorial relevante | GitHub Releases |
 | **Concluído v1.0.2** | Auditoria, backup 2B.2, VeraCrypt CLI, script 5.3 | [AUDITORIA-v1.0.1.md](docs/AUDITORIA-v1.0.1.md) |
+| **Sign-off repositório** | Chave mestra 🔐 — pronto para turma | [AUDITORIA-TECNICA-PRE-TURMA.md](docs/AUDITORIA-TECNICA-PRE-TURMA.md) |
 
 * * *
 

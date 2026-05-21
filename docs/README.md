@@ -8,6 +8,7 @@
 | [**SLIDES-ABERTURA-TURMA.md**](./SLIDES-ABERTURA-TURMA.md) | **Instrutor:** 4 slides + [como projetar](./SLIDES-ABERTURA-TURMA.md#como-projetar-passo-a-passo) (VS Code, GitHub, PDF, Marp) |
 | [**SLIDES-ABERTURA-TURMA.marp.md**](./SLIDES-ABERTURA-TURMA.marp.md) | Mesmos 4 slides no formato **Marp** (slide show / export PDF) |
 | [**AUDITORIA-v1.0.1.md**](./AUDITORIA-v1.0.1.md) | Auditoria VIPs-com (entrada v1.0.1) + gaps fechados na **v1.0.2** |
+| [**AUDITORIA-TECNICA-PRE-TURMA.md**](./AUDITORIA-TECNICA-PRE-TURMA.md) | 🔐 **Sign-off v1.0.2** — chave mestra do repositório (go/no-go turma) |
 | [**CHECKLIST-PRE-TURMA-EQUIPE.md**](./CHECKLIST-PRE-TURMA-EQUIPE.md) | **Equipe:** teste NFC + Tails, evidências e modelo de comentário ([issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2)) |
 | Diagramas no curso §1 | [curso §1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-diagramas-visuais-fluxos-mermaid) — mesmos fluxos embutidos na aula |
 | [README.md](../README.md) (raiz) | Visão geral e link para o curso canônico |

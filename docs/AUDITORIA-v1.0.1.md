@@ -153,4 +153,6 @@ A auditoria original classificou o **Zero Trust Core Expert v1.0.1** como materi
 
 ---
 
+**Sign-off pré-turma (chave mestra do repositório):** [AUDITORIA-TECNICA-PRE-TURMA.md](./AUDITORIA-TECNICA-PRE-TURMA.md)
+
 *Documento de resposta à auditoria VIPs-com · maio/2026*
