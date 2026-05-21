@@ -178,12 +178,15 @@ Ao final deste curso, você será capaz de:
 
 ### 🗺️ COMO USAR ESTE CURSO
 
-0. Se baixou o repositório agora: **[Manual de uso](docs/MANUAL-DE-USO.md)** (5–15 min).
-1. Leia o **Onboarding** (seção 0).
-2. Consulte o **Mapa visual** (seção 1): índice ASCII + **diagramas Mermaid** (A–E) — fluxo da estratégia antes de abrir os COMANDOs.
-3. Siga as **Partes 2–6** na ordem dos checkpoints; use os diagramas da §1 quando se perder na sequência.
-4. Não pule Tails (Parte 1) antes de SSH com subkey [A] na trilha Expert.
-5. Marque cada **CHECKPOINT** antes de avançar.
+| Passo | Onde | Tempo |
+| ---: | --- | --- |
+| 0 | [README.md](README.md) do repositório (jornada + kits em R$) | 3 min |
+| 1 | **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura `docs/` + `scripts/` | 5–15 min |
+| 2 | **Onboarding** (§0 abaixo) + **§1 Mapa** (índice + diagramas) | 20–30 min |
+| 3 | Siga a **trilha** escolhida no mapa (Turbo ou Expert) — títulos `##` e **COMANDO** | curso |
+| 4 | Marque cada **CHECKPOINT** antes de avançar | — |
+
+**Atalhos:** compras → [Inventário + kits](docs/INVENTARIO-SOFTWARE-HARDWARE.md) · fluxos coloridos → [DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md) · aula 1 → [Slides abertura](docs/SLIDES-ABERTURA-TURMA.md).
 
 * * *
 
@@ -200,54 +203,127 @@ Ao final deste curso, você será capaz de:
 
 ## 🗺️ 1. MAPA DO CURSO (VISÃO GERAL)
 
-> ⚠️ **Somente consulta:** esta árvore é um **índice visual** da jornada. **Não** define o escopo editorial vinculante do projeto — o material oficial está nas seções **2–6** abaixo (títulos `##` / `###` / **COMANDO**). Não crie links de desenvolvimento apontando só para itens deste bloco ASCII.
+> ⚠️ **Somente consulta:** índice visual alinhado à **v1.0.2** (maio/2026). O conteúdo vinculante são os títulos `##` / `###` e cada **▸ COMANDO** no corpo do arquivo — não apenas linhas desta árvore.
+
+### 🧭 Navegação em 3 camadas (menos fricção)
+
+| Camada | O quê | Quando |
+| --- | --- | --- |
+| **A — Repositório** | `README` + `docs/` + `scripts/` | Antes de comprar hardware ou clonar |
+| **B — Trilha** | Turbo **ou** Expert (atalho abaixo) | Depois do §0 Onboarding |
+| **C — COMANDO** | Passo a passo executável | Durante cada módulo |
+
+**Regra:** perdeu o fio? Volte ao [README](README.md) (jornada Mermaid) → confira sua trilha aqui → abra o **COMANDO** do módulo atual.
+
+---
+
+### 📁 Camada A — Repositório GitHub (não está só neste `.md`)
 
 ```
-📚 Zero Trust Core Expert – VERSÃO 1.0 (canônica)
+Zero-Trust-Core/  (v1.0.2)
 │
-├── 📌 0. ONBOARDING
-│   ├── 🎓 Carta do Professor
-│   ├── 🎯 Resultados Esperados
-│   ├── 👤 Perfil do Aluno
-│   ├── 🛠️ Checklist de Ferramentas
-│   ├── 🎯 Escolha seu Caminho (Turbo × Expert × Curioso)
-│   ├── 🚨 20 Mandamentos (artesanal forte)
-│   ├── 📖 Glossário Rápido
-│   ├── 🗺️ Como Usar Este Curso
-│   └── ⏳ Linha do tempo (2023–2035)
+├── README.md ........................ porta de entrada · badges · jornada · kits R$
+├── 🎓 Zero-Trust-Core-Expert - Versão 1.0.md ... VOCÊ ESTÁ AQUI (curso canônico)
+├── scripts/ ......................... ztc-health · ztc-rsync-offsite · ztc-open-cofre
+│   └── ztc.conf.example
+└── docs/
+    ├── MANUAL-DE-USO.md ............. 1ª vez no repo (leia antes da Parte 1)
+    ├── INVENTARIO-SOFTWARE-HARDWARE.md  software/HW · kits A–D em R$
+    ├── DIAGRAMAS-VISUAIS.md ......... fluxos A–E (PDF / impressão)
+    ├── SLIDES-ABERTURA-TURMA.md ..... instrutor · 1ª aula (+ .marp.md)
+    ├── AUDITORIA-v1.0.1.md .......... histórico v1.0.1 → v1.0.2
+    └── CHECKLIST-PRE-TURMA-EQUIPE.md  testes NFC + Tails (instrutor)
+```
+
+---
+
+### 🎯 Camada B — Trilhas (o que estudar, em ordem)
+
+| Ordem | 🟢 **Turbo** (~8–12 h · ~R$ 50–265) | 🔵 **Expert** (~25–35 h · ~R$ 725–2.150) |
+| ---: | --- | --- |
+| 1 | §0 Onboarding + §1 Mapa | §0 + §1 + [OpenPGP-GPG](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) Mód. 0–3 |
+| 2 | — *pula Parte 1* | **§2 Parte 1** — Tails, master, CHECKPOINT 1 |
+| 3 | **§3 Parte 2** — só **2B** + **3.1** (VeraCrypt/KeePass) | **§3 Parte 2** — **2A** + **2B** + **3.1** + **3.2** SSH → CHECKPOINT 2 |
+| 4 | **§4** — Mód. **4** local (HD); *pula 4.2, 5, 6* | **§4** completo — 4, **4.2** VM, **5** scripts, **6** runbook → CHECKPOINT 3 |
+| 5 | Apêndices A, C, F (erros, compras) | **§5 Parte 4** + todos apêndices |
+
+**Expert:** `scripts/` nos Módulos **4.2** e **5** são **obrigatórios** (não opcionais). **Turbo:** fluxo manual do KeePass/VeraCrypt basta.
+
+---
+
+### 📚 Camada C — Árvore do curso (espelha os títulos `##` deste arquivo)
+
+*Números à esquerda (0, 1, 2…) = seções `##` do Markdown. “Parte N” = nome didático.*
+
+```
+📚 Zero Trust Core Expert – v1.0.2 (canônica)
 │
-├── 🔴 2. PARTE 1: PRIMEIROS PASSOS (Semana 1 · 2–4 h)
-│   ├── 🔴🟡🟢🔵 Legenda de Cores
-│   ├── 📋 Módulo 0: Preparação do Ambiente
-│   ├── 📋 Módulo 1: Primeira Chave no Air-Gap (Tails)
+├── §0  ONBOARDING ........................... (tudo antes deste mapa)
+│   ├── Carta · Resultados · Perfil
+│   ├── Ferramentas (+ age, libnfc na checklist)
+│   ├── Turbo × Expert × Curioso
+│   ├── 20 Mandamentos · Glossário rápido
+│   └── Como usar · Linha do tempo 2023–2035
+│
+├── §1  MAPA + DIAGRAMAS ..................... VOCÊ ESTÁ AQUI
+│   ├── Repositório docs/ + scripts/ (acima)
+│   ├── Trilhas Turbo / Expert (acima)
+│   └── Mermaid A–E → docs/DIAGRAMAS-VISUAIS.md
+│
+├── LEGENDA 🔴🟡🟢🔵 ........................ (antes da Parte 1)
+│
+├── §2  PARTE 1 — Primeiros passos (2–4 h) .... 🔴 Expert; Turbo PULA
+│   ├── Módulo 0: COMANDO 0.1–0.9 (lab; Tails pré-vôo)
+│   ├── Módulo 1: COMANDO 1.1–1.6 (Tails offline, master, revogação)
 │   └── 🏁 CHECKPOINT 1
 │
-├── 🟡 3. PARTE 2: HARDWARE E INTEGRAÇÃO (Semana 2 · 5–7 h)
-│   ├── 📋 Módulo 2A: OpenPGP smartcard (keytocard)
-│   ├── 📋 Módulo 2B: NTAG + keyfile KeePass
-│   ├── 📋 Módulo 3: Cofres + GPG Agent + SSH
+├── §3  PARTE 2 — Hardware e integração (5–7 h)
+│   ├── Módulo 2A: COMANDO 2A.1–2A.4 (smartcard · keytocard) … Expert
+│   ├── Módulo 2B: COMANDO 2B.1–2B.4
+│   │   ├── 2B.2 backup keyfile age (obrigatório antes dos NTAGs)
+│   │   └── 2B.3 três NTAGs iguais
+│   ├── Módulo 3.1: VeraCrypt 3.1.1–3.1.3 (CLI -t validada)
+│   ├── Módulo 3.2: SSH gpg-agent 3.2.1–3.2.3 … Expert
 │   └── 🏁 CHECKPOINT 2
 │
-├── 🔵 4. PARTE 3: RESILIÊNCIA E OPERAÇÃO (Semana 3 · 6–8 h)
-│   ├── 📋 Módulo 4: Backup 3-2-1-1-0
-│   ├── 📋 Módulo 4.2: VM off-site + túnel
-│   ├── 📋 Módulo 5: Automação e health-check
-│   ├── 📋 Módulo 6: Contingência
+├── §4  PARTE 3 — Resiliência e operação (6–8 h)
+│   ├── Módulo 4: 4.1–4.3 (3-2-1-1-0, restore mensal)
+│   ├── Módulo 4.2: 4.2.1–4.2.3 (WireGuard, rsync, ztc-rsync) … Expert
+│   ├── Módulo 5: 5.1 ztc-health · 5.2 cron · 5.3 ztc-open-cofre (NFC)
+│   ├── Módulo 6: runbook + COMANDO 6.1 simulação de mesa
 │   └── 🏁 CHECKPOINT 3
 │
-├── ⚫ 5. PARTE 4: EXPERT & FUTURO (Semana 4+)
-│   ├── 📋 Módulo 7: Threat modeling
-│   ├── 📋 Módulo 8: Pós-quântico
-│   ├── 📋 Módulo 9: Manutenção
-│   └── 🎓 Exame final
+├── §5  PARTE 4 — Expert e futuro (Semana 4+)
+│   ├── Módulo 7: threat model (7.1)
+│   ├── Módulo 8: PQC horizonte (8.1)
+│   ├── Módulo 9: manutenção anual (9.1–9.2)
+│   └── Exame final
 │
-└── 📚 6. APÊNDICES
-    ├── Checklists · Glossário completo
-    ├── Apêndice A–F (erros, scripts, hardware BR, inventário SW/HW, multiplataforma, PQC)
-    └── 🏁 Conclusão — Soberania digital
+└── §6  APÊNDICES + CONCLUSÃO
+    ├── A — 15 erros comuns
+    ├── B — índice scripts (→ pasta scripts/)
+    ├── C — hardware BR (preços)
+    ├── F — inventário SW/HW (→ docs/INVENTARIO…)
+    ├── D — multiplataforma (+ D.1 WSL2)
+    ├── E — RSA → ECC → PQC
+    ├── Glossário completo
+    └── Conclusão — soberania digital
 ```
 
-> 📌 **Sincronização:** se um COMANDO mudar no corpo do curso, atualize esta árvore **depois** — ou navegue sempre pelos títulos **COMANDO** nas Partes 2–6.
+> 📌 **Sincronização:** ao alterar um **COMANDO**, atualize esta árvore e, se aplicável, [DIAGRAMAS-VISUAIS.md](docs/DIAGRAMAS-VISUAIS.md) e [MANUAL-DE-USO.md](docs/MANUAL-DE-USO.md).
+
+---
+
+### ✅ Próximos passos (projeto e aluno)
+
+| Quem | Pendência | Onde rastrear |
+| --- | --- | --- |
+| **Aluno** | Escolher kit A–D e instalar ferramentas do §0 | [Inventário § Kits](docs/INVENTARIO-SOFTWARE-HARDWARE.md) |
+| **Aluno** | Executar COMANDOs na ordem da **sua trilha** | Títulos `##` abaixo |
+| **Instrutor** | Teste hardware `ztc-open-cofre.sh` + Tails | [Issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) |
+| **Instrutor** | 1ª aula: slides 1–4 → Módulo 0 | [SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md) |
+| **Equipe** | Tag/release futura só após mudança editorial relevante | GitHub Releases |
+| **Concluído v1.0.2** | Auditoria, backup 2B.2, VeraCrypt CLI, script 5.3 | [AUDITORIA-v1.0.1.md](docs/AUDITORIA-v1.0.1.md) |
 
 * * *
 
