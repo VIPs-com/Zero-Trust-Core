@@ -39,7 +39,7 @@ Este repositório segue o mesmo modelo do curso [OpenPGP-GPG do Zero ao Expert](
 
 Abra e estude:
 
-**[🎓 Zero-Trust-Core-Expert - Versão 1.0.md](./🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md)**
+**[🎓 Zero-Trust-Core-Expert - Versão 1.0.md](./🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md)** — no curso, use o **[índice clicável (§1)](./🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-índice-clicável-use-no-github--vs-code-preview)** para pular aos módulos.
 
 Você pode clonar o repositório, baixar o ZIP ou copiar só esse `.md` — não é obrigatório usar Git para aprender.
 

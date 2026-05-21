@@ -241,17 +241,34 @@ Zero-Trust-Core/  (v1.0.2)
 
 | Ordem | 🟢 **Turbo** (~8–12 h · ~R$ 50–265) | 🔵 **Expert** (~25–35 h · ~R$ 725–2.150) |
 | ---: | --- | --- |
-| 1 | §0 Onboarding + §1 Mapa | §0 + §1 + [OpenPGP-GPG](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) Mód. 0–3 |
-| 2 | — *pula Parte 1* | **§2 Parte 1** — Tails, master, CHECKPOINT 1 |
-| 3 | **§3 Parte 2** — só **2B** + **3.1** (VeraCrypt/KeePass) | **§3 Parte 2** — **2A** + **2B** + **3.1** + **3.2** SSH → CHECKPOINT 2 |
-| 4 | **§4** — Mód. **4** local (HD); *pula 4.2, 5, 6* | **§4** completo — 4, **4.2** VM, **5** scripts, **6** runbook → CHECKPOINT 3 |
-| 5 | Apêndices A, C, F (erros, compras) | **§5 Parte 4** + todos apêndices |
+| 1 | [§0](#-0-onboarding-o-que-você-vê-antes-de-começar) + [§1](#-1-mapa-do-curso-visão-geral) | idem + [OpenPGP-GPG](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) Mód. 0–3 |
+| 2 | — *pula Parte 1* | [Parte 1](#-2-parte-1-primeiros-passos-semana-1) → [CP1](#-checkpoint-1-identidade-air-gapped) |
+| 3 | [Parte 2](#-3-parte-2-hardware-e-integração-semana-2): [2B](#-módulo-2b-ntag--keyfile-keepassxc) + [3.1](#-módulo-31-keepassxc--veracrypt) | Parte 2: [2A](#-módulo-2a-openpgp-smartcard-keytocard) + [2B](#-módulo-2b-ntag--keyfile-keepassxc) + [3.1](#-módulo-31-keepassxc--veracrypt) + [3.2](#-módulo-32-ssh-via-gpg-agent-subchave-a) → [CP2](#-checkpoint-2-token--cofre--ssh) |
+| 4 | [Parte 3](#-4-parte-3-resiliência-e-operação-semana-3): só [Mód. 4](#-módulo-4-backup-3-2-1-1-0-por-ativo) | Parte 3 completa → [CP3](#-checkpoint-3-backup-e-contingência) |
+| 5 | [A](#apêndice-a--top-15-erros-comuns) · [C](#apêndice-c--hardware-recomendado-brasil--2026) · [F](#apêndice-f--inventário-software-e-hardware) | [Parte 4](#-5-parte-4-expert-e-futuro-semana-4) + [Apêndices](#-6-apêndices) |
 
 **Expert:** `scripts/` nos Módulos **4.2** e **5** são **obrigatórios** (não opcionais). **Turbo:** fluxo manual do KeePass/VeraCrypt basta.
 
 ---
 
-### 📚 Camada C — Árvore do curso (espelha os títulos `##` deste arquivo)
+### 🔗 Índice clicável (use no GitHub / VS Code preview)
+
+Clique para ir direto ao módulo. Se um link não saltar, use `Ctrl+F` pelo nome do **COMANDO**.
+
+| Bloco | Ir para |
+| --- | --- |
+| **Onboarding** | [§0](#-0-onboarding-o-que-você-vê-antes-de-começar) · [Carta](#-carta-do-professor) · [Trilhas](#-escolha-seu-caminho) · [Ferramentas](#-checklist-de-ferramentas-necessárias) · [Mandamentos](#-20-mandamentos-da-criptografia-artesanal-forte) |
+| **Parte 1** 🔴 Expert | [Legenda](#-legenda-de-cores-guia-visual) · [Mód. 0](#-módulo-0-preparação-do-ambiente) · [Mód. 1](#-módulo-1-sua-primeira-chave-no-air-gap-tails) · [CHECKPOINT 1](#-checkpoint-1-identidade-air-gapped) |
+| **Parte 2** | [Mód. 2A](#-módulo-2a-openpgp-smartcard-keytocard) · [Mód. 2B](#-módulo-2b-ntag--keyfile-keepassxc) ([2B.2 age](#-comando-2b2-backup-cifrado-do-keyfile-age--obrigatório-antes-dos-ntags)) · [Mód. 3.1](#-módulo-31-keepassxc--veracrypt) · [Mód. 3.2](#-módulo-32-ssh-via-gpg-agent-subchave-a) · [CHECKPOINT 2](#-checkpoint-2-token--cofre--ssh) |
+| **Parte 3** | [Mód. 4](#-módulo-4-backup-3-2-1-1-0-por-ativo) · [Mód. 4.2](#-módulo-42-vm-off-site--wireguard--rsync) · [Mód. 5](#-módulo-5-automação-e-health-check) ([5.3 NFC](#-comando-53-keepass--veracrypt-condicional-nfc-opcional)) · [Mód. 6](#-módulo-6-plano-de-contingência) · [CHECKPOINT 3](#-checkpoint-3-backup-e-contingência) |
+| **Parte 4** | [Mód. 7](#-módulo-7-threat-modeling-e-opsec) · [Mód. 8](#-módulo-8-preparação-pós-quântica-horizonte) · [Mód. 9](#-módulo-9-manutenção-de-longo-prazo) · [Exame](#-exame-final-e-projeto) |
+| **Apêndices** | [A erros](#apêndice-a--top-15-erros-comuns) · [B scripts](#apêndice-b--índice-de-scripts-v1) · [C hardware BR](#apêndice-c--hardware-recomendado-brasil--2026) · [F inventário](#apêndice-f--inventário-software-e-hardware) · [D multi-SO](#apêndice-d--guia-multiplataforma) · [E PQC](#apêndice-e--migração-rsa--ecc--pqc) · [Conclusão](#-conclusão--soberania-digital) |
+
+**COMANDOs mais consultados:** [0.5 Tails](#-comando-05-pré-vôo-do-tails-no-host-com-internet) · [1.2 master](#-comando-12-gerar-master--subkeys-offline) · [3.1.1 VeraCrypt](#-comando-311-criar-volume-veracrypt) · [4.3 restore](#-comando-43-teste-de-restauração-ritual-mensal) · [6.1 simulação](#-comando-61-simulação-de-mesa-obrigatória)
+
+---
+
+### 📚 Camada C — Árvore do curso (visão ASCII + índice acima)
 
 *Números à esquerda (0, 1, 2…) = seções `##` do Markdown. “Parte N” = nome didático.*
 
