@@ -10,6 +10,7 @@
 | [**AUDITORIA-v1.0.1.md**](./AUDITORIA-v1.0.1.md) | Auditoria VIPs-com (entrada v1.0.1) + gaps fechados na **v1.0.2** |
 | [**AUDITORIA-TECNICA-PRE-TURMA.md**](./AUDITORIA-TECNICA-PRE-TURMA.md) | 🔐 **Sign-off v1.0.2** — chave mestra do repositório (go/no-go turma) |
 | [**CHECKLIST-PRE-TURMA-EQUIPE.md**](./CHECKLIST-PRE-TURMA-EQUIPE.md) | **Equipe:** teste NFC + Tails, evidências e modelo de comentário ([issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2)) |
+| [**MODELO-COMENTARIO-ISSUE-2.md**](./MODELO-COMENTARIO-ISSUE-2.md) | **Copiar/colar** no issue #2 após o teste físico |
 | [**GABARITO-CHECKPOINTS.md**](./GABARITO-CHECKPOINTS.md) | **Instrutor/aluno:** critérios de sucesso e comandos — CHECKPOINTs 1–3 |
 | [**FAQ-TROUBLESHOOTING.md**](./FAQ-TROUBLESHOOTING.md) | Erros comuns (VeraCrypt, NFC, GPG, SSH, WSL) — expandir após piloto |
 | [**LINKS-OPENPGP-GPG.md**](./LINKS-OPENPGP-GPG.md) | URLs profundos para o curso OpenPGP-GPG |

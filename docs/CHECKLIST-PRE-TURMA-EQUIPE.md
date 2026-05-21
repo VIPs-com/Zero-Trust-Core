@@ -95,7 +95,7 @@ time ~/bin/ztc-open-cofre.sh; echo "exit=$?"
 
 ### Dados mínimos para o comentário no issue #2
 
-Copie e preencha o [modelo de comentário](#modelo-de-comentário-issue-2) abaixo.
+Copie e preencha o [modelo de comentário](#modelo-de-comentário-issue-2) abaixo — versão expandida com blocos `<details>`: [`MODELO-COMENTARIO-ISSUE-2.md`](./MODELO-COMENTARIO-ISSUE-2.md).
 
 | Campo | Exemplo |
 | --- | --- |
