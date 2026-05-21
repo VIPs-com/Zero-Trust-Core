@@ -74,7 +74,8 @@ Complementa [`AUDITORIA-v1.0.1.md`](./AUDITORIA-v1.0.1.md) (gaps v1.0.1 → v1.0
 | Item | OK |
 | --- | :---: |
 | [README.md](../README.md) — licença CC BY-SA completa, jornada, kits | ✅ |
-| Link recíproco [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) | ✅ |
+| Link recíproco [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core) | ✅ |
+| Links profundos ZTC → OpenPGP (âncoras `-ztc`) | ✅ · [LINKS-OPENPGP-GPG.md](./LINKS-OPENPGP-GPG.md) |
 | Tag + release `v1.0.2` | ✅ |
 | `.gitignore` — sem vazar `_interno/`, segredos | ✅ |
 | Issue #2 rastreando pré-turma | ✅ |

@@ -3,7 +3,7 @@
 **Air-Gap + NFC + OpenPGP + KeePassXC + VeraCrypt**
 
 **Autor:** Projeto Colaborativo (VIPs-com)  
-**GnuPG:** **2.4.4+** (Ubuntu 24.04 LTS / `apt`; repositório [gnupg.org](https://gnupg.org/) se precisar do upstream) — alinhado ao [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert)  
+**GnuPG:** **2.4.4+** (Ubuntu 24.04 LTS / `apt`; repositório [gnupg.org](https://gnupg.org/) se precisar do upstream) — alinhado ao [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core)  
 **Tails:** **7.8** (estável em [tails.net/latest](https://tails.net/latest/) — **revalide** antes de gravar o USB)  
 **KeePassXC:** **2.7.12+** no PC de uso diário ([keepassxc.org](https://keepassxc.org/)) — no Tails 7.6+ o padrão é **GNOME Secrets**; GnuPG no Tails segue sendo o foco do air-gap  
 **VeraCrypt:** **1.26.24** ([veracrypt.fr](https://www.veracrypt.fr/en/Downloads.html))  
@@ -14,7 +14,7 @@
 
 > 📌 **Nota editorial:** **`🎓 Zero-Trust-Core-Expert - Versão 1.0.md`** é o curso oficial deste repositório. O nome didático é **Zero Trust Core Expert**; o *filename* usa hífens para compatibilidade com Git e Windows.
 
-> 📎 **Pré-requisito (trilha Expert):** domínio ou conclusão paralela de [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) — este material **integra** PGP com cofres, NFC, VeraCrypt, backup off-site e operação diária; **não** repete do zero a teoria OpenPGP.
+> 📎 **Pré-requisito (trilha Expert):** domínio ou conclusão paralela de [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core) — este material **integra** PGP com cofres, NFC, VeraCrypt, backup off-site e operação diária; **não** repete do zero a teoria OpenPGP.
 
 > 📎 **Repositório Git (opcional):** clone ou ZIP deste projeto — estudar só com este `.md` no computador continua válido.  
 > 📖 **Primeira vez no repositório?** Leia o [Manual de uso](docs/MANUAL-DE-USO.md) (estrutura, trilhas, ligação com OpenPGP-GPG, primeiros passos).
@@ -69,7 +69,7 @@ Ao final deste curso, você será capaz de:
 **Pré-requisitos:**
 
 * **Mínimo:** ler a [Carta](#-carta-do-professor) e a [Legenda de cores](#-legenda-de-cores-guia-visual)
-* **Recomendado:** curso [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) (Módulos 0–3 no mínimo)
+* **Recomendado:** curso [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-0-ztc) (Módulos [0](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-0-ztc)–[3](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-3-ztc) no mínimo)
 * **Hardware:** pendrive para Tails; leitor NFC USB ou celular com NFC; smartcard OpenPGP **ou** tags NTAG para keyfile (papéis diferentes)
 * **iPhone como dispositivo principal:** KeePass/VeraCrypt no desktop; OpenPGP em smartcard tem suporte **limitado** no iOS (Apêndice D) — planeje Android ou PC Linux para a trilha Expert
 
@@ -241,7 +241,7 @@ Zero-Trust-Core/  (v1.0.2)
 
 | Ordem | 🟢 **Turbo** (~8–12 h · ~R$ 50–265) | 🔵 **Expert** (~25–35 h · ~R$ 725–2.150) |
 | ---: | --- | --- |
-| 1 | [§0](#-0-onboarding-o-que-você-vê-antes-de-começar) + [§1](#-1-mapa-do-curso-visão-geral) | idem + [OpenPGP-GPG](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) Mód. 0–3 |
+| 1 | [§0](#-0-onboarding-o-que-você-vê-antes-de-começar) + [§1](#-1-mapa-do-curso-visão-geral) | idem + [OpenPGP-GPG](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-0-ztc) Mód. 0–3 |
 | 2 | — *pula Parte 1* | [Parte 1](#-2-parte-1-primeiros-passos-semana-1) → [CP1](#-checkpoint-1-identidade-air-gapped) |
 | 3 | [Parte 2](#-3-parte-2-hardware-e-integração-semana-2): [2B](#-módulo-2b-ntag--keyfile-keepassxc) + [3.1](#-módulo-31-keepassxc--veracrypt) | Parte 2: [2A](#-módulo-2a-openpgp-smartcard-keytocard) + [2B](#-módulo-2b-ntag--keyfile-keepassxc) + [3.1](#-módulo-31-keepassxc--veracrypt) + [3.2](#-módulo-32-ssh-via-gpg-agent-subchave-a) → [CP2](#-checkpoint-2-token--cofre--ssh) |
 | 4 | [Parte 3](#-4-parte-3-resiliência-e-operação-semana-3): só [Mód. 4](#-módulo-4-backup-3-2-1-1-0-por-ativo) | Parte 3 completa → [CP3](#-checkpoint-3-backup-e-contingência) |
@@ -405,7 +405,7 @@ flowchart TD
 
 | Etapa | Parte / modulo no curso |
 | --- | --- |
-| B | §0 Onboarding; opcional [OpenPGP-GPG](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) |
+| B | §0 Onboarding; opcional [OpenPGP-GPG](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core) |
 | C–D | Parte 1, Modulo 1 |
 | E | Parte 2, Modulos **2A** e **2B** |
 | F | Parte 2, Modulo 3 |
@@ -635,7 +635,7 @@ flowchart LR
 
 ## 🔴 2. PARTE 1: PRIMEIROS PASSOS (Semana 1)
 
-> ⏱️ **Tempo estimado:** 2–4 horas (trilha **Expert**) · Turbo pode pular esta parte e voltar depois do [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert)  
+> ⏱️ **Tempo estimado:** 2–4 horas (trilha **Expert**) · Turbo pode pular esta parte e voltar depois do [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-0-ztc)  
 > 🎯 **Objetivo:** sala-cofre **air-gapped** (Tails), identidade PGP com master offline, subkeys [S][E][A], revogação guardada — **sem** importar a master no PC de uso diário
 
 No [mapa visual](#-1-mapa-do-curso-visão-geral), você está em **Módulo 0 → Módulo 1 → CHECKPOINT 1**. A Parte 2 (tokens, KeePass, SSH) só faz sentido **depois** deste eixo.
@@ -686,7 +686,7 @@ flowchart TB
 
 > 🎯 **Objetivo:** laboratório Linux com GnuPG, `pcscd` e identidade **descartável** — **nunca** gere aqui a master real do seu projeto de produção
 
-> 💡 Se ainda não domina terminal e `apt`, faça os **COMANDO 0.1–0.4** do [OpenPGP-GPG do Zero ao Expert — Módulo 0](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert). Abaixo está o **mínimo** para seguir o Zero Trust Core.
+> 💡 Se ainda não domina terminal e `apt`, faça os **COMANDO 0.1–0.4** do [OpenPGP-GPG do Zero ao Expert — Módulo 0](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-0-ztc). Abaixo está o **mínimo** para seguir o Zero Trust Core.
 
 * * *
 
@@ -729,7 +729,7 @@ gpg --card-status 2>/dev/null || echo "Sem cartão ainda — normal no Módulo 0
 
 > 🔴 O comando `dd` grava no **disco inteiro** (`/dev/sdX`), não na partição. Errar a letra = destruir o HD errado.
 
-**Detalhamento completo (verificação OpenPGP + `dd`):** [OpenPGP-GPG do Zero ao Expert — COMANDO 6.1](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) (mesmo fluxo; use a versão publicada em [tails.net/latest](https://tails.net/latest/), ex.: **7.8** em maio/2026).
+**Detalhamento completo (verificação OpenPGP + `dd`):** [OpenPGP-GPG do Zero ao Expert — COMANDO 6.1](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#comando-6-1-tails-ztc) (mesmo fluxo; use a versão publicada em [tails.net/latest](https://tails.net/latest/), ex.: **7.8** em maio/2026).
 
 * * *
 
@@ -818,7 +818,7 @@ Isso resolve o drama das “duas YubiKeys”: você pode ter **vários smartcard
 
 #### ▸ COMANDO 1.1: Gravar e iniciar o Tails
 
-Siga o [COMANDO 6.1 do OpenPGP-GPG](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) no host (download, `gpg --verify`, `dd`).
+Siga o [COMANDO 6.1 do OpenPGP-GPG](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#comando-6-1-tails-ztc) no host (download, `gpg --verify`, `dd`).
 
 No boot do Tails:
 
@@ -986,7 +986,7 @@ No [mapa visual](#-1-mapa-do-curso-visão-geral): **Módulos 2A → 2B → 3 →
 | Nitrokey 3 / Start, Yubikey 5 NFC (OpenPGP), cartões JCOP | 🟢 Sim |
 | Tag NTAG213/215 só com arquivo gravado | 🔴 Não — vá para [Módulo 2B](#-módulo-2b-ntag--keyfile-keepassxc) |
 
-> 📎 Roteiro longo e checklist pós-transferência: [OpenPGP-GPG — Sub-módulo token + COMANDO 6.4](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
+> 📎 Roteiro longo e checklist pós-transferência: [OpenPGP-GPG — Sub-módulo token + COMANDO 6.4](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#comando-6-4).
 
 * * *
 
@@ -1249,7 +1249,7 @@ Fluxo diário (manual neste módulo; automação no Módulo 5):
 
 > 🎯 **Objetivo:** autenticar em servidores/GitHub com subchave **[A]** no smartcard — PIN no token, sem chave SSH no disco
 
-> 📎 Detalhamento completo: [OpenPGP-GPG — Módulo 5 (COMANDO 5.1–5.6)](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert). Abaixo: fluxo mínimo Zero Trust Core.
+> 📎 Detalhamento completo: [OpenPGP-GPG — Módulo 5 (COMANDO 5.1–5.6)](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-5-ztc). Abaixo: fluxo mínimo Zero Trust Core.
 
 * * *
 
@@ -1737,7 +1737,7 @@ flowchart TD
 
 1. Boot **Tails** offline com pendrive da Parte 1.  
 2. Importe master + `revogacao.asc` se necessário.  
-3. Revogue subkeys antigas ou publique revogação — [OpenPGP-GPG do Zero ao Expert, COMANDO 1.4](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).  
+3. Revogue subkeys antigas ou publique revogação — [OpenPGP-GPG do Zero ao Expert, COMANDO 3.1](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#comando-3-1-revogacao-ztc).  
 4. Gere novas subkeys ou restaure de `subkeys-for-lab.asc` **antes** de `keytocard` destruir cópias no disco.  
 5. `keytocard` em cartão **novo**.  
 6. Atualize `sshcontrol`, `authorized_keys` e GitHub com nova chave SSH exportada.
@@ -1798,7 +1798,7 @@ gpg --verify /tmp/revogacao-lab.asc
 
 1. Boot Tails offline · importar backup da master **só** no air-gap.  
 2. `gpg --import revogacao.asc` (já criado no COMANDO 1.3).  
-3. Publicar revogação: `gpg --keyserver hkps://keys.openpgp.org --send-keys REVOGATION_ID` — veja [OpenPGP-GPG COMANDO 1.4](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).  
+3. Publicar revogação: `gpg --keyserver hkps://keys.openpgp.org --send-keys REVOGATION_ID` — veja [OpenPGP-GPG COMANDO 3.1](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#comando-3-1-revogacao-ztc).  
 4. Comunicar fingerprint novo / serviços que confiam na chave antiga.
 
 > 📎 O COMANDO 6.1 cobre **perda de token**; o 6.2 cobre **o músculo da revogação**. Na turma, dedique 15 min para explicar a diferença — reduz estresse se algo sair do controle.
@@ -1893,13 +1893,13 @@ Revise quando: mudar de emprego, país, provedor VPS, ou adicionar FIDO2/YubiKey
 | **Kyber / ML-KEM (OpenPGP)** | ⚫ Padronização em curso | Acompanhe [openpgp.org](https://www.openpgp.org/) |
 | **Híbrido clássico+PQC** | ⚫ Horizonte | Segunda subkey quando RFC + interoperabilidade estiverem 🟢 |
 
-**Regra:** identidade **nova** em 2026 = ECC (Ed25519/Cv25519) no Tails com GnuPG **2.4.x** estável. Planeje **subkey ou identidade paralela** PQC quando o [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) e o upstream documentarem híbridos interoperáveis — não revogue tudo por headline.
+**Regra:** identidade **nova** em 2026 = ECC (Ed25519/Cv25519) no Tails com GnuPG **2.4.x** estável. Planeje **subkey ou identidade paralela** PQC quando o [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#-1-mapa-do-curso-visão-geral) e o upstream documentarem híbridos interoperáveis — não revogue tudo por headline.
 
 #### ▸ COMANDO 8.1: Checklist de preparação (sem pânico)
 
 - [ ] Fingerprint e data de expiração das subkeys anotados  
 - [ ] Backup master testado no Tails **este ano**  
-- [ ] Inscrito ou revisando release notes GnuPG / [OpenPGP-GPG](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert)  
+- [ ] Inscrito ou revisando release notes GnuPG / [OpenPGP-GPG](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-10-ztc)  
 - [ ] **Não** publicar master em repositório nem nuvem “temporária”
 
 * * *
@@ -1939,7 +1939,7 @@ expire
 save
 ```
 
-Exporte chave pública atualizada e distribua (`gpg --export -a`). Se subkeys estão no cartão, pode ser necessário novo `keytocard` após renovação — consulte [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) (manutenção e Módulo 9).
+Exporte chave pública atualizada e distribua (`gpg --export -a`). Se subkeys estão no cartão, pode ser necessário novo `keytocard` após renovação — consulte [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-10-ztc) (manutenção e Módulo 9).
 
 * * *
 
@@ -2108,7 +2108,7 @@ ssh-add -L
 | **ECC atual** | Padrão deste curso | Manter; renovar expiração no Tails |
 | **PQC híbrido** | Ferramentas estáveis + interoperabilidade | Nova subkey ou nova identidade; **não** apagar RSA/ECC até testar SSH e e-mail |
 
-> 📎 Algoritmos e teoria OpenPGP em profundidade: [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).
+> 📎 Algoritmos e teoria OpenPGP em profundidade: [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#-1-mapa-do-curso-visão-geral).
 
 * * *
 
@@ -2141,7 +2141,7 @@ Você percorreu do **Tails offline** ao **backup testado**, passando por tokens 
 
 1. Marque os três CHECKPOINTs no calendário de revisão anual.  
 2. Contribua com melhorias no repositório [VIPs-com](https://github.com/VIPs-com).  
-3. Aprofunde OpenPGP em [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert); volte ao [Módulo 8](#-módulo-8-preparação-pós-quântica-horizonte) quando PQC híbrido for 🟢 na sua stack.
+3. Aprofunde OpenPGP em [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core); volte ao [Módulo 8](#-módulo-8-preparação-pós-quântica-horizonte) quando PQC híbrido for 🟢 na sua stack.
 
 > *“Não é paranoia se o threat model está escrito.”* — princípio Zero Trust Core
 
