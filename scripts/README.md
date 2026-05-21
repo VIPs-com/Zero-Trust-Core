@@ -10,13 +10,14 @@ cp ztc-health.sh ztc-rsync-offsite.sh ztc-open-cofre.sh ~/bin/
 chmod +x ~/bin/ztc-*.sh
 cp ztc.conf.example ~/ztc-backup/ztc.conf
 # Edite ~/ztc-backup/ztc.conf com seus caminhos e IP da VM (WireGuard)
+~/bin/ztc-health.sh --check-conf
 ```
 
 ## Arquivos
 
 | Arquivo | Função |
 | --- | --- |
-| `ztc-health.sh` | Smartcard, `ssh-add`, NFC opcional, manifesto `sha256` |
+| `ztc-health.sh` | `--check-conf` + smartcard, `ssh-add`, NFC, manifesto |
 | `ztc-rsync-offsite.sh` | Envia `vault.hc` + manifestos para VM (só blobs opacos) |
 | `ztc-open-cofre.sh` | NTAG opcional → monta VeraCrypt → abre KeePassXC |
 | `ztc.conf.example` | Modelo de configuração (`ZTC_*`) |

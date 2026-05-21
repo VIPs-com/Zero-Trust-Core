@@ -141,4 +141,29 @@ Curso: [🎓 Zero-Trust-Core-Expert - Versão 1.0.md](../🎓%20Zero-Trust-Core-
 
 * * *
 
+## Disciplina operacional (o que a turma precisa ouvir)
+
+O curso não vende paranoia — vende **rotina que vira reflexo**:
+
+| Hábito | Quando sai do controle, você sabe a volta |
+| --- | --- |
+| Restore mensal (4.3) | HD/VM não são “caixa preta” |
+| Simulação 6.1 (cartão #2) | Perda do NTAG #1 não vira pânico |
+| Ensaio 6.2 (revogação lab) | Roubo de smartcard → Tails, não improviso |
+| `ztc-health.sh --check-conf` | Scripts falham com mensagem clara, não mistério |
+| Runbook impresso no cartão reserva | Fase 1–3 sem depender da memória |
+
+**Frase para a sala:** *a master fica offline; o resto é subkey e disciplina* — se a disciplina existir, a volta é mecânica.
+
+* * *
+
+## Refinamentos pós-sign-off (opcional, já no repositório)
+
+| Item | Onde |
+| --- | --- |
+| `ztc-health.sh --check-conf` | COMANDO 5.0 |
+| Ensaio revogação lab (sem queimar produção) | COMANDO 6.2 |
+
+* * *
+
 *Documento de fechamento · maio/2026 · alinhado a [AUDITORIA-v1.0.1.md](./AUDITORIA-v1.0.1.md)*

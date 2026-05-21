@@ -260,7 +260,7 @@ Clique para ir direto ao módulo. Se um link não saltar, use `Ctrl+F` pelo nome
 | **Onboarding** | [§0](#-0-onboarding-o-que-você-vê-antes-de-começar) · [Carta](#-carta-do-professor) · [Trilhas](#-escolha-seu-caminho) · [Ferramentas](#-checklist-de-ferramentas-necessárias) · [Mandamentos](#-20-mandamentos-da-criptografia-artesanal-forte) |
 | **Parte 1** 🔴 Expert | [Legenda](#-legenda-de-cores-guia-visual) · [Mód. 0](#-módulo-0-preparação-do-ambiente) · [Mód. 1](#-módulo-1-sua-primeira-chave-no-air-gap-tails) · [CHECKPOINT 1](#-checkpoint-1-identidade-air-gapped) |
 | **Parte 2** | [Mód. 2A](#-módulo-2a-openpgp-smartcard-keytocard) · [Mód. 2B](#-módulo-2b-ntag--keyfile-keepassxc) ([2B.2 age](#-comando-2b2-backup-cifrado-do-keyfile-age--obrigatório-antes-dos-ntags)) · [Mód. 3.1](#-módulo-31-keepassxc--veracrypt) · [Mód. 3.2](#-módulo-32-ssh-via-gpg-agent-subchave-a) · [CHECKPOINT 2](#-checkpoint-2-token--cofre--ssh) |
-| **Parte 3** | [Mód. 4](#-módulo-4-backup-3-2-1-1-0-por-ativo) · [Mód. 4.2](#-módulo-42-vm-off-site--wireguard--rsync) · [Mód. 5](#-módulo-5-automação-e-health-check) ([5.3 NFC](#-comando-53-keepass--veracrypt-condicional-nfc-opcional)) · [Mód. 6](#-módulo-6-plano-de-contingência) · [CHECKPOINT 3](#-checkpoint-3-backup-e-contingência) |
+| **Parte 3** | [Mód. 4](#-módulo-4-backup-3-2-1-1-0-por-ativo) · [Mód. 4.2](#-módulo-42-vm-off-site--wireguard--rsync) · [Mód. 5](#-módulo-5-automação-e-health-check) ([5.0 conf](#-comando-50-validar-ztcconf-antes-dos-scripts) · [5.3 NFC](#-comando-53-keepass--veracrypt-condicional-nfc-opcional)) · [Mód. 6](#-módulo-6-plano-de-contingência) ([6.1](#-comando-61-simulação-de-mesa-obrigatória) · [6.2 revogação lab](#-comando-62-ensaio-de-revogação-em-lab)) · [CP3](#-checkpoint-3-backup-e-contingência) |
 | **Parte 4** | [Mód. 7](#-módulo-7-threat-modeling-e-opsec) · [Mód. 8](#-módulo-8-preparação-pós-quântica-horizonte) · [Mód. 9](#-módulo-9-manutenção-de-longo-prazo) · [Exame](#-exame-final-e-projeto) |
 | **Apêndices** | [A erros](#apêndice-a--top-15-erros-comuns) · [B scripts](#apêndice-b--índice-de-scripts-v1) · [C hardware BR](#apêndice-c--hardware-recomendado-brasil--2026) · [F inventário](#apêndice-f--inventário-software-e-hardware) · [D multi-SO](#apêndice-d--guia-multiplataforma) · [E PQC](#apêndice-e--migração-rsa--ecc--pqc) · [Conclusão](#-conclusão--soberania-digital) |
 
@@ -1557,7 +1557,27 @@ flowchart LR
 
 * * *
 
+#### ▸ COMANDO 5.0: Validar `ztc.conf` antes dos scripts
+
+Evita a classe de erro mais comum no primeiro uso: caminho errado, `ZTC_NFC_UID` mal formatado ou conf ausente.
+
+```sh
+cp scripts/ztc.conf.example ~/ztc-backup/ztc.conf
+# Edite caminhos reais (ZTC_VAULT_HC, ZTC_REMOTE, ZTC_NFC_UID opcional)
+~/bin/ztc-health.sh --check-conf
+```
+
+| Saída | Significado |
+| --- | --- |
+| `[OK] check-conf` | Pode rodar `ztc-rsync-offsite.sh` e `ztc-open-cofre.sh` |
+| `[WARN]` | Funciona, mas revise (ex.: volume ainda não criado) |
+| `[FAIL]` | Corrija o conf antes de automatizar |
+
+* * *
+
 #### ▸ COMANDO 5.1: Script `ztc-health.sh`
+
+Rode **`--check-conf`** (COMANDO 5.0) na primeira vez e após editar o conf. Depois, health completo:
 
 ```sh
 #!/bin/sh
@@ -1599,6 +1619,7 @@ echo "=== fim ==="
 
 ```sh
 chmod +x ~/bin/ztc-health.sh
+~/bin/ztc-health.sh --check-conf
 ~/bin/ztc-health.sh
 ```
 
@@ -1749,8 +1770,38 @@ flowchart TD
 | 2 | Retire o smartcard A — use só o cartão B |
 | 3 | Restaure `vault.hc` do HD externo em VM lab |
 | 4 | Documente tempo gasto e bloqueios encontrados |
+| 5 | **Expert (recomendado):** [COMANDO 6.2](#-comando-62-ensaio-de-revogação-em-lab) — gesto de revogação **sem** queimar a identidade de produção |
 
 Se a simulação falhar, **não** avance para Parte 4 (threat modeling) até corrigir o runbook.
+
+* * *
+
+#### ▸ COMANDO 6.2: Ensaio de revogação em lab
+
+> 🎯 **Objetivo:** praticar o **gesto** de revogação antes de precisar no pânico — **nunca** envie revogação da sua master de produção para keyservers neste exercício.
+
+Use a **identidade de laboratório** do [COMANDO 0.6](#-comando-06-identidade-de-laboratório-no-pc-não-é-a-master) (ou uma chave descartável no Tails **sem** internet):
+
+```sh
+# No Tails OFFLINE ou PC lab — chave FICTÍCIA lab-revoke@exemplo.local
+export GNUPGHOME=/tmp/gnupg-lab-revoke
+mkdir -p "$GNUPGHOME"
+chmod 700 "$GNUPGHOME"
+gpg --quick-generate-key "Lab Revoke Test <lab@test.local>" ed25519 sign 0
+
+FP=$(gpg --list-keys --with-colons lab@test.local | awk -F: '/^fpr:/ {print $10; exit}')
+gpg --output /tmp/revogacao-lab.asc --gen-revoke "$FP"
+gpg --verify /tmp/revogacao-lab.asc
+```
+
+**Checklist mental (produção — anote no caderno, não execute em lab):**
+
+1. Boot Tails offline · importar backup da master **só** no air-gap.  
+2. `gpg --import revogacao.asc` (já criado no COMANDO 1.3).  
+3. Publicar revogação: `gpg --keyserver hkps://keys.openpgp.org --send-keys REVOGATION_ID` — veja [OpenPGP-GPG COMANDO 1.4](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert).  
+4. Comunicar fingerprint novo / serviços que confiam na chave antiga.
+
+> 📎 O COMANDO 6.1 cobre **perda de token**; o 6.2 cobre **o músculo da revogação**. Na turma, dedique 15 min para explicar a diferença — reduz estresse se algo sair do controle.
 
 * * *
 
@@ -1765,6 +1816,7 @@ Marque **todos** antes da Parte 4:
 - [ ] Cron ou ritual manual documentado (backup + restore mensal)  
 - [ ] **Restore test** executado e anotado (data no calendário)  
 - [ ] Simulação COMANDO 6.1 concluída (NTAG #2 + smartcard B ou ramo C documentado)  
+- [ ] **Expert:** COMANDO 6.2 (ensaio revogação lab) ou nota “revogação revisada no Tails”  
 - [ ] Runbook Fases 1–3 impresso ou PDF no cofre físico  
 
 **Rubrica:** perda simultânea de casa + PC + cartão #1 ainda permite recuperação via **cartão #2 ou #3** + HD frio + VM — sem expor master online.
