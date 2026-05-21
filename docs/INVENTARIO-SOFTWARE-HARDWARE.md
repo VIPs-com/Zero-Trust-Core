@@ -366,7 +366,7 @@ Expert essencial + off-site (VM) + itens de contingência física.
 | --- | --- |
 | Curso canônico | [🎓 Zero-Trust-Core-Expert](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) |
 | Release v1.0.2 | https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.2 |
-| OpenPGP (pré-requisito Expert) | https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core |
+| OpenPGP (pré-requisito Expert) | https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert |
 
 ---
 

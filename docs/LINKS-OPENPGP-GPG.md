@@ -16,7 +16,7 @@ https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%
 
 | O que o ZTC cita | Link direto |
 | --- | --- |
-| Trilha integrada + manual ZTC | [README § Trilha ZTC](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core) |
+| Trilha integrada + manual ZTC | [README § Trilha ZTC](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert) |
 | Mapa / início do curso OpenPGP | [§1 Mapa OpenPGP](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#-1-mapa-do-curso-visão-geral) |
 | **Módulos 0–3** (mínimo Expert) | [Mód. 0](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-0-ztc) · [Mód. 1](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-1-ztc) · [Mód. 2](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-2-ztc) · [Mód. 3](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-3-ztc) |
 | Mód. 0 (terminal, apt, GPG) | [#modulo-0-ztc](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-0-ztc) |
@@ -29,6 +29,8 @@ https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%
 | Mód. 10 (manutenção) | [#modulo-10-ztc](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-10-ztc) |
 
 > ⚠️ **Correção editorial:** revogação no OpenPGP-GPG é **COMANDO 3.1** (Módulo 3), **não** COMANDO 1.4 (1.4 = adicionar subchaves).
+
+> **README OpenPGP:** o GitHub gera o slug do título como `#trilha-integrada-zero-trust-core-expert`. Use esse fragmento nos links (match exato com o renderizado).
 
 * * *
 

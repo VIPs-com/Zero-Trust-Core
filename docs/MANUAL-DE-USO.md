@@ -2,7 +2,7 @@
 
 **Para quem acabou de chegar ao repositório** · Maio/2026 · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
-Este manual **não substitui** o curso. Ele explica **como navegar o repositório**, **como este projeto se liga ao [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core)** e **o que você será capaz de fazer** ao concluir cada trilha.
+Este manual **não substitui** o curso. Ele explica **como navegar o repositório**, **como este projeto se liga ao [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert)** e **o que você será capaz de fazer** ao concluir cada trilha.
 
 * * *
 
@@ -87,7 +87,7 @@ flowchart LR
 | Preciso fazer os dois cursos? | **Trilha Expert:** sim, no mínimo OpenPGP Módulos **0–3** antes ou em paralelo com a Parte 1 deste curso. **Trilha Turbo:** pode começar só com KeePass + NTAG (Parte 2B + 3.1). |
 | O que o OpenPGP-GPG ensina e este não repete? | Teoria de chaves, algoritmos, `gpg` básico, Git assinado, detalhe de Tails/COMANDO 6.1. |
 | O que **só** o Zero Trust Core ensina? | KeePass + VeraCrypt + keyfile NTAG, matriz 3-2-1-1-0, VM + WireGuard + `rsync`, runbook de perda de cartão, scripts `ztc-*`. |
-| Por onde começo no OpenPGP-GPG? | [Trilha integrada no README OpenPGP](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core) · [Módulos 0–3](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-0-ztc) · tabela de links: [LINKS-OPENPGP-GPG.md](./LINKS-OPENPGP-GPG.md). |
+| Por onde começo no OpenPGP-GPG? | [Trilha integrada no README OpenPGP](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert) · [Módulos 0–3](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-0-ztc) · tabela de links: [LINKS-OPENPGP-GPG.md](./LINKS-OPENPGP-GPG.md). |
 
 **Ordem recomendada (Expert):**
 
@@ -184,7 +184,7 @@ Resumo em texto:
 1. Abra [`🎓 Zero-Trust-Core-Expert - Versão 1.0.md`](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md).  
 2. Leia: **Carta do Professor**, **20 Mandamentos**, **Escolha seu caminho**.  
 3. Decida: **Turbo**, **Expert** ou **Curioso**.  
-4. Se Expert: abra em outra aba o [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core) e confira o README (secção Zero Trust Core).
+4. Se Expert: abra em outra aba o [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert) e confira o README (secção Zero Trust Core).
 
 ### Passo B — Laboratório mínimo (30 min)
 
@@ -302,7 +302,7 @@ Confira o cabeçalho do `.md`: Tails [tails.net/latest](https://tails.net/latest
 | --- | --- |
 | Repositório | https://github.com/VIPs-com/Zero-Trust-Core |
 | Curso (arquivo) | [🎓 Zero-Trust-Core-Expert - Versão 1.0.md](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) |
-| OpenPGP-GPG (base) | https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core |
+| OpenPGP-GPG (base) | https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert |
 | Links profundos (mantenedores) | [LINKS-OPENPGP-GPG.md](./LINKS-OPENPGP-GPG.md) |
 | Releases (v1.0.1, v1.0.2) | https://github.com/VIPs-com/Zero-Trust-Core/releases |
 | Auditoria + v1.0.2 | [AUDITORIA-v1.0.1.md](./AUDITORIA-v1.0.1.md) |
