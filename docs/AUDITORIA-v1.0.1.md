@@ -140,6 +140,36 @@ Rastreamento: [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) �
 
 ---
 
+## Roadmap v1.0.3 → scorecard 10/10
+
+Meta: atualizar a tabela **Reavaliação (v1.0.2)** após evidência de turma + pacote didático abaixo. **Segurança operacional** já está em 10/10 — manter disciplina (2B.2, 6.1, runbook).
+
+| Dimensão | v1.0.2 | Meta v1.0.3 | Entregável | Responsável |
+| --- | :---: | :---: | --- | --- |
+| Cobertura técnica | 9/10 | **10/10** | [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) fechada + tabela **dispositivos testados** no inventário + checklist Tails no Mód. 1 | Equipe + commit |
+| Didática | 8/10 | **10/10** | [`GABARITO-CHECKPOINTS.md`](./GABARITO-CHECKPOINTS.md) + [`FAQ-TROUBLESHOOTING.md`](./FAQ-TROUBLESHOOTING.md) + feedback turma piloto (≥3 itens no FAQ) | Editorial |
+| Praticabilidade NFC | 8/10 | **10/10** | Evidência `ztc-open-cofre.sh` no issue #2 + fallback manual destacado no COMANDO 5.3 | Hardware lab |
+| Segurança operacional | 10/10 | 10/10 | Sem mudança de nota — revalidar restore 2B.2 por turma | Instrutor |
+
+### Checklist de fechamento v1.0.3
+
+- [x] Gabarito CHECKPOINT 1–3 publicado (instrutor + autoavaliação)  
+- [x] FAQ troubleshooting (esqueleto; expandir após piloto)  
+- [ ] Fechar [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) com log NFC + Tails  
+- [ ] Turma piloto: anotar 3 pontos de atrito → patch FAQ ou curso  
+- [ ] Atualizar scorecard neste arquivo para **v1.0.3** e tag Git opcional `v1.0.3`  
+
+### Scorecard previsto (v1.0.3 — após itens acima)
+
+| Dimensão | Nota | Observação |
+| --- | :---: | --- |
+| Cobertura técnica | 10/10 | COMANDOs + evidência hardware + Tails por turma documentado |
+| Didática | 10/10 | Gabarito + FAQ + piloto incorporado |
+| Praticabilidade NFC | 10/10 | Script validado no kit real dos alunos |
+| Segurança operacional | 10/10 | Mantido |
+
+---
+
 ## Conclusão
 
 A auditoria original classificou o **Zero Trust Core Expert v1.0.1** como material completo e honesto, com três complementos obrigatórios antes da turma. A **versão 1.0.2** incorpora esses complementos no curso canônico e na pasta `scripts/`, elevando praticabilidade NFC e segurança operacional do keyfile sem refatorar a estrutura pedagógica (checkpoints, mandamentos, simulação).
@@ -148,6 +178,8 @@ A auditoria original classificou o **Zero Trust Core Expert v1.0.1** como materi
 
 - Curso: [`🎓 Zero-Trust-Core-Expert - Versão 1.0.md`](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md)  
 - Manual: [`docs/MANUAL-DE-USO.md`](./MANUAL-DE-USO.md)  
+- Gabarito CHECKPOINTs: [`docs/GABARITO-CHECKPOINTS.md`](./GABARITO-CHECKPOINTS.md)  
+- FAQ: [`docs/FAQ-TROUBLESHOOTING.md`](./FAQ-TROUBLESHOOTING.md)  
 - Scripts: [`scripts/README.md`](../scripts/README.md)  
 - Diagramas: [`docs/DIAGRAMAS-VISUAIS.md`](./DIAGRAMAS-VISUAIS.md)
 

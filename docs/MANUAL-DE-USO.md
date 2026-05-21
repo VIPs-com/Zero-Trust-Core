@@ -52,6 +52,8 @@ Zero-Trust-Core/
 | `🎓 Zero-Trust-Core-Expert - Versão 1.0.md` | **Sim** | Todo o conteúdo didático (Partes 1–4, apêndices, COMANDOs) |
 | `docs/MANUAL-DE-USO.md` | Recomendado | Este guia de navegação |
 | `docs/INVENTARIO-SOFTWARE-HARDWARE.md` | Recomendado | Lista de software/hardware antes de comprar/montar o PC |
+| `docs/GABARITO-CHECKPOINTS.md` | Instrutor / autoavaliação | Como **provar** cada item dos CHECKPOINTs 1–3 |
+| `docs/FAQ-TROUBLESHOOTING.md` | Consulta | Erros comuns (GPG, VeraCrypt, NFC, SSH) |
 | `scripts/` | Turbo: opcional · **Expert: obrigatório** (Mód. 4.2 e 5) | Automação |
 | `README.md` | 2 min | Visão geral + links |
 
@@ -205,7 +207,7 @@ Resumo em texto:
 | Elemento | Significado | Ação |
 | --- | --- | --- |
 | **COMANDO X.Y** | Passo executável no terminal ou GUI | Copiar, adaptar caminhos, executar no **lab** |
-| **CHECKPOINT N** | Lista `- [ ]` — critério de saída | Só avance quando **todos** marcados |
+| **CHECKPOINT N** | Lista `- [ ]` — critério de saída | Só avance quando **todos** marcados; gabarito em [GABARITO-CHECKPOINTS.md](./GABARITO-CHECKPOINTS.md) |
 | 🔴 🟡 🟢 🔵 ⚫ | Legenda de maturidade | 🔴 = não faça; 🟢 = padrão 2026 |
 | `> 📎` | Link ou pré-requisito externo | Abrir OpenPGP-GPG ou doc oficial |
 | **§1 Mapa ASCII** | Índice visual | Consulta; **não** substitui Partes 2–6 |

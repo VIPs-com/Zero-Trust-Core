@@ -964,6 +964,18 @@ Marque **todos** antes de abrir a Parte 2:
 
 **Rubrica mínima:** se alguém roubar o notebook hoje, não deve obter a capacidade de **revogar ou recertificar** sua identidade — só operar subkeys até você revogar no Tails.
 
+### 📋 Gabarito — CHECKPOINT 1 (instrutor e autoavaliação)
+
+| Item | Prova rápida |
+| --- | --- |
+| Tails verificado | `gpg --verify` da imagem OK · boot Tails |
+| Master só air-gap | `gpg -K` no PC diário **sem** `sec` da master |
+| Subkeys | `gpg -K --with-subkey-fingerprint` → [S][E][A] |
+| Revogação ×2 | `revogacao.asc` + fingerprint em papel/metal |
+| Backup master | restore `.age`/VeraCrypt **no Tails** |
+
+Detalhe (comandos e falhas comuns): [docs/GABARITO-CHECKPOINTS.md](docs/GABARITO-CHECKPOINTS.md#checkpoint-1--identidade-air-gapped) · [FAQ](docs/FAQ-TROUBLESHOOTING.md).
+
 * * *
 
 ## 🟡 3. PARTE 2: HARDWARE E INTEGRAÇÃO (Semana 2)
@@ -1322,6 +1334,19 @@ Marque **todos** antes da Parte 3 (backup):
 - [ ] Segundo smartcard ou backup cifrado de subkeys existe  
 
 **Rubrica:** roubo do laptop **sem** cartão + **sem** keyfile → atacante não abre cofre nem SSH; roubo do cartão → acione o plano de contingência (Parte 3, Módulo 6).
+
+### 📋 Gabarito — CHECKPOINT 2 (instrutor e autoavaliação)
+
+| Item | Prova rápida |
+| --- | --- |
+| Cartão | `gpg --card-status` sem erro |
+| Assinatura | `gpg --clearsign` com PIN OK |
+| NTAG ×3 + backup | mesmo keyfile · `age -d` do 2B.2 OK |
+| Cofre | VeraCrypt monta · KeePass abre |
+| SSH | `ssh-add -L` · `ssh -T git@github.com` OK |
+| NFC (Expert) | `ztc-open-cofre.sh` → `[OK] NTAG presente` |
+
+Detalhe: [docs/GABARITO-CHECKPOINTS.md](docs/GABARITO-CHECKPOINTS.md#checkpoint-2--token--cofre--ssh) · evidência turma [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2).
 
 * * *
 
@@ -1820,6 +1845,20 @@ Marque **todos** antes da Parte 4:
 - [ ] Runbook Fases 1–3 impresso ou PDF no cofre físico  
 
 **Rubrica:** perda simultânea de casa + PC + cartão #1 ainda permite recuperação via **cartão #2 ou #3** + HD frio + VM — sem expor master online.
+
+### 📋 Gabarito — CHECKPOINT 3 (instrutor e autoavaliação)
+
+| Item | Prova rápida |
+| --- | --- |
+| Matriz 3-2-1-1-0 | caminhos **reais** preenchidos |
+| HD + manifesto | `sha256sum -c manifest.txt` → OK |
+| VM / WG | rsync off-site testado |
+| Health | `ztc-health.sh` (e `--check-conf`) sem FAIL crítico |
+| Restore | data anotada · um blob restaurado do HD frio |
+| Mesa 6.1 + 6.2 | simulação assinada · revogação lab (Expert) |
+| Runbook | Fases 1–3 em PDF/cofre físico |
+
+Detalhe: [docs/GABARITO-CHECKPOINTS.md](docs/GABARITO-CHECKPOINTS.md#checkpoint-3--backup-e-contingência) · [FAQ](docs/FAQ-TROUBLESHOOTING.md).
 
 * * *
 
