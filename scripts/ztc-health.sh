@@ -73,9 +73,11 @@ echo "=== Zero Trust Core Health ==="
 ztc_check_conf || true
 
 # 1) Smartcard OpenPGP
-if gpg --card-status >/tmp/ztc-card.out 2>&1; then
+CARD_TMP=$(mktemp /tmp/ztc-card.XXXXXX)
+trap 'rm -f "$CARD_TMP"' EXIT INT TERM
+if gpg --card-status >"$CARD_TMP" 2>&1; then
   echo "[OK] gpg --card-status"
-  grep -E '^(Serial number|URL of public)' /tmp/ztc-card.out 2>/dev/null || true
+  grep -E '^(Serial number|URL of public)' "$CARD_TMP" 2>/dev/null || true
 else
   echo "[FAIL] smartcard — pcscd ativo? cartão inserido?"
 fi

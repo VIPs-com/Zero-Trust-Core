@@ -20,7 +20,7 @@ if [ -n "${ZTC_NFC_UID:-}" ]; then
     echo "[FAIL] nfc-list ausente; instale libnfc ou remova ZTC_NFC_UID do conf"
     exit 1
   fi
-  if ! nfc-list 2>/dev/null | grep -q "$ZTC_NFC_UID"; then
+  if ! nfc-list 2>/dev/null | grep -qF "$ZTC_NFC_UID"; then
     echo "[FAIL] NTAG ausente (UID esperado: $ZTC_NFC_UID)"
     exit 1
   fi
