@@ -6,7 +6,10 @@ Use este arquivo quando quiser **só os fluxos**, sem os COMANDOs. O conteúdo d
 
 **Como gerar PDF:** abra no GitHub → *Print* do navegador, ou cole cada bloco em [mermaid.live](https://mermaid.live) → *Export* PNG/SVG.
 
-**Montagem do ambiente (software/hardware):** [INVENTARIO-SOFTWARE-HARDWARE.md](./INVENTARIO-SOFTWARE-HARDWARE.md).
+**Montagem do ambiente (software/hardware):** [INVENTARIO-SOFTWARE-HARDWARE.md](./INVENTARIO-SOFTWARE-HARDWARE.md) · **Guia complementar (9 capítulos + ref. rápida):** [APOSTILA-GUIA-PRATICO.md](./APOSTILA-GUIA-PRATICO.md).
+
+> **Diagramas A–E** — fluxo do curso (trilha Expert).  
+> **Diagramas F–J** — modelos de setup, Módulos H Turbo Híbrido, playbook de incidentes, cockpit de automação e mapa da apostila. Use-os para **decidir qual caminho montar** antes de começar.
 
 * * *
 
@@ -23,6 +26,9 @@ Use este arquivo quando quiser **só os fluxos**, sem os COMANDOs. O conteúdo d
 | Verde | `#15803d` | Checkpoints concluídos |
 | Vermelho | `#991b1b` | Contingência, perda, roubo |
 | Cinza | `#475569` | Parte 4 — expert e horizonte |
+| Laranja | `#c2410c` | Módulos H Turbo Híbrido (Apêndice G) |
+| Esmeralda | `#047857` | DIY / Frankenstein Key (Apostila Cap 4) |
+| Rosa | `#be185d` | Cockpit / automação avançada (Apostila Cap 9) |
 
 * * *
 
@@ -295,15 +301,269 @@ flowchart LR
 
 * * *
 
+## F) Modelos de setup — escolha o seu
+
+Antes de começar, escolha o modelo que reflete seu **orçamento e objetivo**. Cada modelo é válido — não existe errado.
+
+```mermaid
+flowchart TD
+    S{Qual o seu perfil?} 
+    S -->|Quero cofre seguro\ncom custo minimo| M1
+    S -->|Quero identidade PGP\nair-gap completo| M2
+    S -->|Tenho hardware em casa\ne quero aproveitar| M3
+    S -->|Quero construir\nO proprio token DIY| M4
+
+    subgraph M1["Modelo 1 — Turbo basico  ~R$50-105"]
+        direction LR
+        M1A["3x NTAG keyfile"] --> M1B["KeePassXC + VeraCrypt"] --> M1C["HD externo backup"]
+    end
+
+    subgraph M2["Modelo 2 — Expert completo  ~R$725+"]
+        direction LR
+        M2A["Tails air-gap\nmaster PGP"] --> M2B["Smartcard OpenPGP\nsubkeys S E A"]
+        M2A --> M2C["3x NTAG keyfile"]
+        M2B & M2C --> M2D["KeePassXC + VeraCrypt"]
+        M2D --> M2E["VM WireGuard + HD externo"]
+        M2E --> M2F["Scripts ztc cron health"]
+    end
+
+    subgraph M3["Modelo 3 — Turbo Hibrido  ~R$50-155"]
+        direction LR
+        M3A["Base Turbo\nModelo 1"] --> M3B["+ Modulo H escolhido\nver Diagrama G"]
+    end
+
+    subgraph M4["Modelo 4 — DIY Frankenstein  ~R$39-200"]
+        direction LR
+        M4A["Kit 1 STM32 + SoloKeys\nFIDO2 R$39-79"]
+        M4B["Kit 3 JCOP JavaCard\nOpenPGP DIY R$15-40"]
+        M4C["Kit 5 STM32 + SE050\nFIDO2 + OpenPGP R$80-150"]
+        M4A & M4B & M4C --> M4D["Combinar com NTAG\ne cofres do Modelo 1"]
+    end
+
+    classDef turbo fill:#0369a1,color:#fff
+    classDef expert fill:#0f766e,color:#fff
+    classDef hibrido fill:#c2410c,color:#fff
+    classDef diy fill:#047857,color:#fff
+    classDef decisao fill:#b45309,color:#fff
+
+    class M1A,M1B,M1C turbo
+    class M2A,M2B,M2C,M2D,M2E,M2F expert
+    class M3A,M3B hibrido
+    class M4A,M4B,M4C,M4D diy
+    class S decisao
+```
+
+> Apostila com guia completo de cada modelo: **[APOSTILA-GUIA-PRATICO.md](./APOSTILA-GUIA-PRATICO.md)** · Cap 2 (tokens), Cap 4 (DIY), Cap 6 (manutenção).
+
+* * *
+
+## G) Módulos H Turbo Híbrido — o que tenho → o que faço
+
+Cada H é independente. Ative só os que fazem sentido para o hardware que você **já possui**.
+
+```mermaid
+flowchart TD
+    T{O que voce ja tem?}
+
+    T -->|Impressora qualquer| H1["H1 — QR Code fingerprint\nsudo apt install qrencode\nImprimir + laminar"]
+    T -->|Metal + jogo de punsao| H2["H2 — Placa de metal\nFingerprint gravado\nResiste fogo 900°C"]
+    T -->|Android principal + NFC| H3a["H3a — KeePassDX + NTAG\nCofre no celular\nF-Droid gratuito"]
+    T -->|Android antigo com Termux| H3b["H3b — Termux sshd\nServidor backup R$0\npkg install openssh"]
+    T -->|Celular spare modo aviao| H3c["H3c — Air-gap leve\nOpenKeychain offline\nSem rede permanente"]
+    T -->|iPhone| H4["H4 — KeePassium iOS\nCliente cofre\nSem VeraCrypt no iPhone"]
+    T -->|PC com 4GB RAM livre| H5a["H5a — VM VirtualBox\nWireGuard local\napt install virtualbox"]
+    T -->|TV Box Android| H5c["H5c — UserLAnd Debian\nServidor 24/7\nMenos de 10W R$7 mes"]
+    T -->|Raspberry Pi 4 ou 5| H5d["H5d — Pi servidor\nSetup canonico\nDocumentacao ampla"]
+    T -->|Mini PC N100 ou J4125| H5e["H5e — Mini PC\nUbuntu Server nativo\nSem virtualizacao"]
+    T -->|Android + Aegis F-Droid| H6["H6 — TOTP offline\nAegis Authenticator\n2FA sem cloud"]
+
+    classDef h fill:#c2410c,color:#fff
+    classDef hserver fill:#7c3aed,color:#fff
+    classDef decisao fill:#b45309,color:#fff
+
+    class H1,H2,H3a,H3b,H3c,H4,H6 h
+    class H5a,H5c,H5d,H5e hserver
+    class T decisao
+```
+
+> Conteúdo completo dos módulos H: **[Apêndice G no curso](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-g--módulos-h-turbo-híbrido)** · comunicar na abertura de turma: [CHECKLIST-PRE-TURMA-EQUIPE.md §4](./CHECKLIST-PRE-TURMA-EQUIPE.md#4-módulos-h-disponíveis--apêndice-g-opcional).
+
+* * *
+
+## H) Playbook de incidentes — 5 cenários
+
+O que aconteceu → qual cenário → runbook de 3 fases.
+
+```mermaid
+flowchart TD
+    INC{O que aconteceu?}
+
+    INC -->|Perdi ou danifiquei\num NTAG| I1
+    INC -->|Smartcard parou\nou travou PIN| I2
+    INC -->|Suspeita de firmware\ncomprometido| I3
+    INC -->|Backup inacessivel\nVM ou HD morreu| I4
+    INC -->|Roubo ou perda fisica\ndo dispositivo| I5
+
+    subgraph I1["Cenario 1 — Perda de NTAG"]
+        I1A["Usar NTAG reserva 2 ou 3\nKeePass ainda abre"] --> I1B["Clonar novo NTAG\ndo backup age\nCOMANDO 2B.2"] --> I1C["Repor no local fisico\nCofre ou off-site"]
+    end
+
+    subgraph I2["Cenario 2 — Falha do smartcard"]
+        I2A["Cartao B ou Tails air-gap\npara operacoes urgentes"] --> I2B["Novo keytocard\nno cartao substituto"] --> I2C["Revogar cartao antigo\nse PIN permanentemente bloqueado"]
+    end
+
+    subgraph I3["Cenario 3 — Firmware comprometido"]
+        I3A["Isolar dispositivo\nSo operar no Tails offline"] --> I3B["Reinstalar firmware\nautenticado via assinatura"] --> I3C["Novo keytocard\ne keyfile NTAG"]
+    end
+
+    subgraph I4["Cenario 4 — Backup inacessivel"]
+        I4A["Acionar copia 2 ou 3\nda matriz 3-2-1-1-0"] --> I4B["Restore test imediato\nsha256sum verificar"] --> I4C["Reconstruir copia\nfaltante em 24h"]
+    end
+
+    subgraph I5["Cenario 5 — Perda fisica do dispositivo"]
+        I5A["Fase 1 contencao 0-4h\nRevogar subkeys no Tails\nAlt+publicar revogacao"] --> I5B["Fase 2 diagnostico 4-24h\nInventariar o que foi perdido\nNotificar servicos criticos"] --> I5C["Fase 3 restabelecer\nNovo smartcard + NTAG\nRestaurar a partir de backup"]
+    end
+
+    F3(["Todos os cenarios\nterminam na Fase 3\nRunbook Modulo 6"])
+    I1C & I2C & I3C & I4C & I5C --> F3
+
+    classDef incident fill:#991b1b,color:#fff
+    classDef fase fill:#7c3aed,color:#fff
+    classDef ok fill:#15803d,color:#fff
+    classDef decisao fill:#b45309,color:#fff
+
+    class I1A,I2A,I3A,I4A,I5A incident
+    class I1B,I2B,I3B,I4B,I5B fase
+    class I1C,I2C,I3C,I4C,I5C fase
+    class F3 ok
+    class INC decisao
+```
+
+> Guia completo de cada cenário com comandos: **[Apostila Cap 8](./APOSTILA-GUIA-PRATICO.md#capítulo-8--lição-8-playbook-de-incidentes)** · Runbook no curso: **Módulo 6**.
+
+* * *
+
+## I) Arquitetura do cockpit de automação
+
+Visão end-to-end: coleta de métricas → alertas → resposta automática → visualização.
+
+```mermaid
+flowchart LR
+    subgraph col["Coleta — Textfile Collectors"]
+        B["backup.sh\nstatus copia"]
+        FW["firmware.sh\nversao + assinatura"]
+        NT["ntag.sh\nUID presente"]
+        SC["smartcard.sh\ngpg card-status"]
+    end
+
+    subgraph prom["Prometheus + Node Exporter"]
+        PE["Metricas .prom\n/var/lib/node_exporter/"]
+        PR["Regras YAML\nalert.rules.yml"]
+        B & FW & NT & SC --> PE
+        PE --> PR
+    end
+
+    subgraph alerta["Alertmanager"]
+        AM["Webhook HTTP\nalert_webhook.sh"]
+        PR --> AM
+    end
+
+    subgraph resposta["Resposta automatica"]
+        RB["restore_backup.sh\nSLA 4h backup"]
+        RF["reinstall_firmware.sh\nIsolamento firmware"]
+        RT["enable_reserve_token.sh\nATivacao token reserva"]
+        RA["restart_auth_service.sh\nRecuperacao SSH GPG"]
+        AM --> RB & RF & RT & RA
+    end
+
+    subgraph viz["Visualizacao"]
+        GR["Grafana\nJSON importavel\n4 zonas widescreen"]
+        RM["Rainmeter\nWindows cockpit\nupdate_dashboard.ps1"]
+        PE --> GR
+        PE -.->|Windows| RM
+    end
+
+    classDef coleta fill:#0369a1,color:#fff
+    classDef metricas fill:#4f46e5,color:#fff
+    classDef alerta fill:#b45309,color:#fff
+    classDef resposta fill:#991b1b,color:#fff
+    classDef viz fill:#be185d,color:#fff
+
+    class B,FW,NT,SC coleta
+    class PE,PR metricas
+    class AM alerta
+    class RB,RF,RT,RA resposta
+    class GR,RM viz
+```
+
+> Scripts completos (bash + PowerShell), Alertmanager YAML e Grafana JSON importável: **[Apostila Cap 9](./APOSTILA-GUIA-PRATICO.md#capítulo-9--lição-9-automação-do-cockpit)**.
+
+* * *
+
+## J) Mapa da Apostila — onde está cada tema
+
+Use para navegar diretamente ao capítulo certo sem reler tudo.
+
+```mermaid
+flowchart TD
+    AP["APOSTILA-GUIA-PRATICO.md"]
+
+    subgraph P1["PARTE I — Fundamentos"]
+        C1["Cap 1 — Campo de batalha\nOpenPGP vs FIDO2\nPor que este curso"]
+        C2["Cap 2 — Escolha suas armas\nRanking Top 20 hardware keys\n4 que suportam OpenPGP\nProjetos chineses"]
+        C3["Cap 3 — Construa o cofre\nKeePassXC 2FA\nNTAG como keyfile\nFluxo seguro passo a passo"]
+    end
+
+    subgraph P2["PARTE II — Setup avancado"]
+        C4["Cap 4 — Frankenstein Key DIY\n5 Kits comparados\nMontagem + firmware\nOnde comprar BR e AliExpress"]
+        C5["Cap 5 — Expanda os protocolos\nPKCS11 PIV OATH PQC\nServico a servico\nDIY vs comprar por uso"]
+        C6["Cap 6 — Manutencao profissional\nINSIGHT CRITICO\nNTAG rotacao 6-12 meses\nSmartcard nao rota\nCronograma mes a mes"]
+    end
+
+    subgraph P3["PARTE III — Governanca Home Lab"]
+        C7["Cap 7 — Governe como empresa\nPolitica de Seguranca 8 secoes\nRoles Admin DevOps Auditor Infra\nFluxo processos 6 fases"]
+        C8["Cap 8 — Playbook de incidentes\n5 cenarios com comandos\nVer Diagrama H"]
+        C9["Cap 9 — Automacao cockpit\nPrometheus Grafana Rainmeter\nScripts resposta automatica\nVer Diagrama I"]
+    end
+
+    C10["Cap 10 — Referencia rapida\n45 COMMANDs em 7 cenarios\nDeep links para ancoras do curso\nNavigacao por situacao"]
+
+    AP --> P1 & P2 & P3 & C10
+    C1 --> C2 --> C3
+    C4 --> C5 --> C6
+    C7 --> C8 --> C9
+
+    classDef parte1 fill:#0f766e,color:#fff
+    classDef parte2 fill:#0369a1,color:#fff
+    classDef parte3 fill:#7c3aed,color:#fff
+    classDef ref fill:#15803d,color:#fff
+    classDef ap fill:#1e3a8a,color:#fff
+
+    class C1,C2,C3 parte1
+    class C4,C5,C6 parte2
+    class C7,C8,C9 parte3
+    class C10 ref
+    class AP ap
+```
+
+> Acesse diretamente: **[APOSTILA-GUIA-PRATICO.md](./APOSTILA-GUIA-PRATICO.md)** — use o SUMÁRIO interno para pular ao capítulo.
+
+* * *
+
 ## Índice rápido → módulo no curso
 
-| Diagrama | Ir para no curso |
-| --- | --- |
-| A | Visão geral antes da Parte 1 |
-| B | Durante Partes 1–3; revisar antes do Módulo 6 |
-| C | Antes da Parte 2; revisar antes da Parte 3 |
-| D | Sempre que mudar de Parte |
-| E | Início da Parte 3 |
-| OpenPGP ↔ ZTC | [Manual de uso](./MANUAL-DE-USO.md) §3 |
+| Diagrama | Quando usar | Ir para |
+| --- | --- | --- |
+| **A** | Visão geral antes de começar | Antes da Parte 1 |
+| **B** | Jornada passo a passo + contingência | Partes 1–3; revisar antes do Módulo 6 |
+| **C** | Arquitetura de peças conectadas | Antes da Parte 2; revisar antes da Parte 3 |
+| **D** | Partes × CHECKPOINTs | Sempre que mudar de Parte |
+| **E** | Módulos 4–6 interligados | Início da Parte 3 |
+| **F** | **Escolher o modelo de setup** | Antes de comprar hardware |
+| **G** | **Módulos H disponíveis** | Apêndice G — turma + aluno avançado |
+| **H** | **Playbook de incidentes** | Emergência; ensaio antes do Módulo 6 |
+| **I** | **Cockpit de automação** | Apostila Cap 9; Módulo 5 avançado |
+| **J** | **Mapa da Apostila** | Ao usar a apostila pela 1ª vez |
+| OpenPGP ↔ ZTC | Trilha integrada | [Manual de uso](./MANUAL-DE-USO.md) §3 |
 
 *Manual visual · [VIPs-com/Zero-Trust-Core](https://github.com/VIPs-com/Zero-Trust-Core)*
