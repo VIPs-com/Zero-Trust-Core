@@ -226,7 +226,7 @@ Quando chegar à **Parte 3 (Módulo 5)**:
 git clone https://github.com/VIPs-com/Zero-Trust-Core.git
 cd Zero-Trust-Core/scripts
 mkdir -p ~/bin ~/ztc-backup/manifest
-cp ztc-health.sh ztc-rsync-offsite.sh ~/bin/
+cp ztc-health.sh ztc-rsync-offsite.sh ztc-open-cofre.sh ~/bin/
 chmod +x ~/bin/ztc-*.sh
 cp ztc.conf.example ~/ztc-backup/ztc.conf
 nano ~/ztc-backup/ztc.conf   # caminhos reais + IP WireGuard

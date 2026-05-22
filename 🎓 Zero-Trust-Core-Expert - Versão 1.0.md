@@ -844,13 +844,16 @@ export GNUPGHOME=/home/amnesia/.gnupg
 # Master: apenas Certificação (ed25519)
 gpg --quick-generate-key "$UID_MASTER" ed25519 cert 3y
 
+# Extrair fingerprint da master recem criada
+FP_MASTER=$(gpg --list-keys --with-colons "$UID_MASTER" | awk -F: '/^fpr:/ {print $10; exit}')
+
 # Subchaves (no mesmo Tails, ainda offline)
-gpg --quick-add-key "$UID_MASTER" ed25519 sign 2y
-gpg --quick-add-key "$UID_MASTER" cv25519 encrypt 2y
-gpg --quick-add-key "$UID_MASTER" ed25519 auth 2y
+gpg --quick-add-key "$FP_MASTER" ed25519 sign 2y
+gpg --quick-add-key "$FP_MASTER" cv25519 encrypt 2y
+gpg --quick-add-key "$FP_MASTER" ed25519 auth 2y
 
 # Confira hierarquia
-gpg --list-secret-keys --keyid-format long "$UID_MASTER"
+gpg --list-secret-keys --keyid-format long "$FP_MASTER"
 ```
 
 **O que você deve ver:** uma linha `sec` (master) e três `ssb` com `[S]`, `[E]`, `[A]`.
@@ -863,7 +866,7 @@ gpg --list-secret-keys --keyid-format long "$UID_MASTER"
 
 ```sh
 FP_MASTER=$(gpg --list-secret-keys --with-colons "$UID_MASTER" | awk -F: '/^fpr:/ {print $10; exit}')
-gpg --output ~/revogacao.asc --gen-revoke "$FP_MASTER"
+gpg --output ~/revogacao.asc --generate-revocation "$FP_MASTER"
 ```
 
 Guarde `revogacao.asc` em:
@@ -1131,7 +1134,7 @@ ls -lh ~/ztc-backup/keepass-keyfile.ztc.age
 
 ```sh
 age -d ~/ztc-backup/keepass-keyfile.ztc.age > ~/keepass-keyfile-restored.ztc
-cmp ~/keepass-keyfile-restored.ztc <(age -d ~/ztc-backup/keepass-keyfile.ztc.age) && echo "OK"
+cmp ~/keepass-keyfile-restored.ztc ~/keepass-keyfile.ztc && echo "OK — restore integro"
 shred -u ~/keepass-keyfile-restored.ztc
 ```
 
@@ -1198,7 +1201,10 @@ Use **[VeraCrypt 1.26.24](https://www.veracrypt.fr/en/Downloads.html)** (última
 
 ```sh
 # Criar volume 500 MiB (substitua a senha; use gerenciador de senhas ou prompt interativo)
-sudo apt install -y veracrypt
+# VeraCrypt nao esta nos repos Ubuntu — baixe o .deb em:
+# https://www.veracrypt.fr/en/Downloads.html  (escolha Ubuntu 24.04)
+sudo dpkg -i veracrypt-*.deb
+sudo apt-get install -f -y   # instala dependencias se necessario
 VAULT="/caminho/seguro/vault.hc"
 sudo veracrypt -t --create "$VAULT" \
   --size 500M \
@@ -1280,7 +1286,7 @@ Anote a linha `Keygrip = ...`.
 
 ```sh
 KEYGRIP_AUTH="COLE_O_KEYGRIP_AQUI"
-echo "$KEYGRIP_AUTH" >> ~/.gnupg/sshcontrol
+grep -qF "$KEYGRIP_AUTH" ~/.gnupg/sshcontrol 2>/dev/null || echo "$KEYGRIP_AUTH" >> ~/.gnupg/sshcontrol
 
 gpgconf --kill gpg-agent
 gpgconf --launch gpg-agent
@@ -1440,9 +1446,13 @@ gpg --clearsign manifest/$(date +%Y%m%d)-local.sha256
 # Monte o HD externo (exFAT ou ext4) — desmonte quando terminar
 rsync -av --progress \
   /caminho/seguro/vault.hc \
-  /caminho/seguro/*.asc.gpg \
   ~/ztc-backup/manifest/ \
   /media/HD-EXTERNO/ztc-offline/
+
+# Backups cifrados (*.asc.gpg) — loop POSIX, sem erro se nao existirem ainda
+for f in /caminho/seguro/*.asc.gpg; do
+  [ -f "$f" ] && rsync -av "$f" /media/HD-EXTERNO/ztc-offline/
+done
 
 sync
 # Desmonte o HD — política "cold storage"
@@ -1666,7 +1676,7 @@ Exemplo (ajuste horários):
 0 3 * * 0 /home/SEU_USUARIO/bin/ztc-rsync-offsite.sh >> /home/SEU_USUARIO/ztc-backup/rsync.log 2>&1
 
 # Lembrete restore — primeiro domingo do mês (manual: receba e-mail ou notificação)
-0 9 1-7 * 0 echo "Lembrete: teste de restore 3-2-1-1-0" | logger -t ztc
+0 9 * * 0 [ "$(date +\%d)" -le 7 ] && echo "Lembrete: teste de restore 3-2-1-1-0" | logger -t ztc
 ```
 
 > 📎 Scripts copiáveis: pasta [`scripts/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/master/scripts) no repositório + **Apêndice B**. Valide o ritual; depois endurece com `systemd` timers e alertas.
@@ -1812,11 +1822,15 @@ Use a **identidade de laboratório** do [COMANDO 0.6](#-comando-06-identidade-de
 export GNUPGHOME=/tmp/gnupg-lab-revoke
 mkdir -p "$GNUPGHOME"
 chmod 700 "$GNUPGHOME"
-gpg --quick-generate-key "Lab Revoke Test <lab@test.local>" ed25519 sign 0
+gpg --quick-generate-key "Lab Revoke Test <lab@test.local>" ed25519 cert 0
 
 FP=$(gpg --list-keys --with-colons lab@test.local | awk -F: '/^fpr:/ {print $10; exit}')
-gpg --output /tmp/revogacao-lab.asc --gen-revoke "$FP"
-gpg --verify /tmp/revogacao-lab.asc
+gpg --output /tmp/revogacao-lab.asc --generate-revocation "$FP"
+
+# Importar e confirmar revogacao no keyring de lab
+gpg --import /tmp/revogacao-lab.asc
+gpg --list-keys lab@test.local
+# Deve exibir: [revoked: ...]
 ```
 
 **Checklist mental (produção — anote no caderno, não execute em lab):**

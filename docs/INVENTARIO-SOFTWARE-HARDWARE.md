@@ -78,7 +78,8 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 
 ```sh
 sudo apt install -y gnupg2 pcscd scdaemon libccid openssh-client \
-  keepassxc veracrypt age rsync wireguard libnfc-bin
+  keepassxc age rsync wireguard libnfc-bin
+# VeraCrypt: baixar .deb em https://www.veracrypt.fr/en/Downloads.html → sudo dpkg -i veracrypt-*.deb
 ```
 
 ---
