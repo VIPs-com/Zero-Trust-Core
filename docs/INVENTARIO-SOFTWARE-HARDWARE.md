@@ -5,7 +5,8 @@
 Lista **completa e organizada** do que o aluno encontra no repositório e do que precisa montar no ambiente — por plataforma, por papel no curso e por trilha (**Turbo** / **Expert**).
 
 **Curso (COMANDOs):** [🎓 Zero-Trust-Core-Expert - Versão 1.0.md](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md)  
-**Fluxos visuais:** [DIAGRAMAS-VISUAIS.md](./DIAGRAMAS-VISUAIS.md) · **Hardware BR (preços):** [Apêndice C](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-c--hardware-recomendado-brasil--2026) · **Multiplataforma:** [Apêndice D](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-d--guia-multiplataforma)
+**Fluxos visuais:** [DIAGRAMAS-VISUAIS.md](./DIAGRAMAS-VISUAIS.md) · **Hardware BR (preços):** [Apêndice C](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-c--hardware-recomendado-brasil--2026) · **Multiplataforma:** [Apêndice D](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-d--guia-multiplataforma)  
+**Ranking Top 20 · DIY · Governança · Cockpit:** [APOSTILA-GUIA-PRATICO.md](./APOSTILA-GUIA-PRATICO.md)
 
 * * *
 
@@ -28,6 +29,7 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 | `docs/DIAGRAMAS-VISUAIS.md` | Aluno / instrutor | Impressão ou PDF dos fluxos A–E |
 | `docs/INVENTARIO-SOFTWARE-HARDWARE.md` | **Aluno** | Montar PC, **kits em R$**, conferir versões |
 | `docs/MANUAL-DE-USO.md` | Aluno novo | Primeira hora no GitHub / ZIP |
+| `docs/APOSTILA-GUIA-PRATICO.md` | **Aluno avançado** | Hardware alternativo, DIY, governança, cockpit — 9 capítulos + referência rápida |
 | `scripts/ztc-health.sh` | Aluno (Expert) | Módulo 5 — health-check |
 | `scripts/ztc-rsync-offsite.sh` | Aluno (Expert) | Módulo 4.2 — backup VM |
 | `scripts/ztc-open-cofre.sh` | Aluno (Expert) | Módulo 5.3 — após Checkpoint 2 |

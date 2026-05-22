@@ -35,6 +35,7 @@ Zero-Trust-Core/
 │   ├── MANUAL-DE-USO.md              ← Você está aqui
 │   ├── DIAGRAMAS-VISUAIS.md         ← Fluxogramas coloridos (PDF/impressão)
 │   ├── INVENTARIO-SOFTWARE-HARDWARE.md ← Software/hardware · kits A–D (R$)
+│   ├── APOSTILA-GUIA-PRATICO.md     ← Guia complementar 9 capítulos + ref. rápida
 │   ├── SLIDES-ABERTURA-TURMA.md     ← Instrutor: 1ª aula (+ .marp.md)
 │   ├── AUDITORIA-v1.0.1.md          ← Auditoria VIPs-com + status v1.0.2
 │   └── CHECKLIST-PRE-TURMA-EQUIPE.md ← Mantenedores: testes antes da turma
@@ -52,6 +53,7 @@ Zero-Trust-Core/
 | `🎓 Zero-Trust-Core-Expert - Versão 1.0.md` | **Sim** | Todo o conteúdo didático (Partes 1–4, apêndices, COMANDOs) |
 | `docs/MANUAL-DE-USO.md` | Recomendado | Este guia de navegação |
 | `docs/INVENTARIO-SOFTWARE-HARDWARE.md` | Recomendado | Lista de software/hardware antes de comprar/montar o PC |
+| `docs/APOSTILA-GUIA-PRATICO.md` | Avançado | Guia complementar 9 capítulos: hardware, DIY, governança, automação, cockpit |
 | `docs/GABARITO-CHECKPOINTS.md` | Instrutor / autoavaliação | Como **provar** cada item dos CHECKPOINTs 1–3 |
 | `docs/FAQ-TROUBLESHOOTING.md` | Consulta | Erros comuns (GPG, VeraCrypt, NFC, SSH) |
 | `scripts/` | Turbo: opcional · **Expert: obrigatório** (Mód. 4.2 e 5) | Automação |
@@ -244,23 +246,31 @@ Documentação: [scripts/README.md](../scripts/README.md) · Apêndice B no curs
 
 ## 10. Onde está cada tema no curso
 
-| Tema | Seção no `.md` canônico |
-| --- | --- |
-| Instalar ferramentas | §0 Checklist + Módulo 0 |
-| Tails + master offline | Parte 1, Módulo 1 |
-| Smartcard `keytocard` | Parte 2, Módulo **2A** |
-| NTAG + KeePass keyfile | Parte 2, Módulo **2B** |
-| VeraCrypt + `.kdbx` | Parte 2, Módulo **3.1** |
-| SSH `gpg-agent` | Parte 2, Módulo **3.2** |
-| Backup 3-2-1-1-0 | Parte 3, Módulo **4** |
-| VM + WireGuard + rsync | Parte 3, Módulo **4.2** |
-| Cron + health | Parte 3, Módulo **5** |
-| Perda de cartão | Parte 3, Módulo **6** |
-| Threat model | Parte 4, Módulo **7** |
-| PQC (horizonte) | Parte 4, Módulo **8** |
-| 15 erros comuns | Apêndice **A** |
-| Windows / WSL2 / macOS | Apêndice **D** |
-| Hardware Brasil | Apêndice **C** |
+| Tema | Seção no `.md` canônico | Aprofundamento |
+| --- | --- | --- |
+| Instalar ferramentas | §0 Checklist + Módulo 0 | — |
+| Tails + master offline | Parte 1, Módulo 1 | — |
+| Smartcard `keytocard` | Parte 2, Módulo **2A** | Apostila Cap 2 (comparativo tokens) |
+| NTAG + KeePass keyfile | Parte 2, Módulo **2B** | Apostila Cap 3 (KeePass 2FA) |
+| VeraCrypt + `.kdbx` | Parte 2, Módulo **3.1** | — |
+| SSH `gpg-agent` | Parte 2, Módulo **3.2** | — |
+| Backup 3-2-1-1-0 | Parte 3, Módulo **4** | — |
+| VM + WireGuard + rsync | Parte 3, Módulo **4.2** | Apostila Cap 9 (cockpit automação) |
+| Cron + health | Parte 3, Módulo **5** | Apostila Cap 9 (Prometheus + Grafana) |
+| Perda de cartão | Parte 3, Módulo **6** | Apostila Cap 8 (playbook 5 cenários) |
+| Threat model | Parte 4, Módulo **7** | Apostila Cap 7 (governança home lab) |
+| PQC (horizonte) | Parte 4, Módulo **8** | Apostila Cap 5 (protocolos avançados) |
+| 15 erros comuns | Apêndice **A** | — |
+| Windows / WSL2 / macOS | Apêndice **D** | — |
+| Hardware Brasil | Apêndice **C** | Apostila Cap 2 (Top 20 ranking) |
+| Ranking hardware keys Top 20 | — | **[Apostila Cap 2](./APOSTILA-GUIA-PRATICO.md#capítulo-2--lição-2-escolha-suas-armas-hardware)** |
+| Frankenstein Key DIY (5 kits) | — | **[Apostila Cap 4](./APOSTILA-GUIA-PRATICO.md#capítulo-4--lição-4-forje-sua-própria-chave-frankenstein-key)** |
+| Protocolos avançados (PKCS#11/PIV/OATH/PQC) | — | **[Apostila Cap 5](./APOSTILA-GUIA-PRATICO.md#capítulo-5--lição-5-expanda-os-protocolos)** |
+| Cronograma de manutenção | — | **[Apostila Cap 6](./APOSTILA-GUIA-PRATICO.md#capítulo-6--lição-6-manutenção-profissional)** |
+| Governança corporativa home lab | — | **[Apostila Cap 7](./APOSTILA-GUIA-PRATICO.md#capítulo-7--lição-7-governe-como-uma-empresa)** |
+| Playbook de incidentes (5 cenários) | — | **[Apostila Cap 8](./APOSTILA-GUIA-PRATICO.md#capítulo-8--lição-8-playbook-de-incidentes)** |
+| Cockpit Prometheus/Grafana/Rainmeter | — | **[Apostila Cap 9](./APOSTILA-GUIA-PRATICO.md#capítulo-9--lição-9-automação-do-cockpit)** |
+| Módulos H Turbo Híbrido (H1–H6) | Apêndice **G** | [CHECKLIST-PRE-TURMA-EQUIPE.md §4](./CHECKLIST-PRE-TURMA-EQUIPE.md#4-módulos-h-disponíveis--apêndice-g-opcional) |
 
 * * *
 
@@ -304,12 +314,16 @@ Confira o cabeçalho do `.md`: Tails [tails.net/latest](https://tails.net/latest
 | --- | --- |
 | Repositório | https://github.com/VIPs-com/Zero-Trust-Core |
 | Curso (arquivo) | [🎓 Zero-Trust-Core-Expert - Versão 1.0.md](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) |
+| **Apostila prática** | [docs/APOSTILA-GUIA-PRATICO.md](./APOSTILA-GUIA-PRATICO.md) |
+| Inventário software/hardware | [docs/INVENTARIO-SOFTWARE-HARDWARE.md](./INVENTARIO-SOFTWARE-HARDWARE.md) |
+| FAQ erros comuns | [docs/FAQ-TROUBLESHOOTING.md](./FAQ-TROUBLESHOOTING.md) |
 | OpenPGP-GPG (base) | https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert |
 | Links profundos (mantenedores) | [LINKS-OPENPGP-GPG.md](./LINKS-OPENPGP-GPG.md) |
 | Releases (v1.0.1, v1.0.2) | https://github.com/VIPs-com/Zero-Trust-Core/releases |
 | Auditoria + v1.0.2 | [AUDITORIA-v1.0.1.md](./AUDITORIA-v1.0.1.md) |
 | Tails | https://tails.net/latest/ |
 | KeePassXC | https://keepassxc.org/ |
+| VeraCrypt | https://www.veracrypt.fr/ |
 
 * * *
 

@@ -30,6 +30,10 @@ Complementa [`AUDITORIA-v1.0.1.md`](./AUDITORIA-v1.0.1.md) (gaps v1.0.1 → v1.0
 - Mapa §1 do curso (3 camadas, índice clicável, trilhas Turbo/Expert)
 - Release [v1.0.2](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.2)
 
+**Adições pós-v1.0.2 (sem nova tag ainda):**
+- **Apêndice G — Módulos H Turbo Híbrido** (commit `2b48034`): H1 QR · H2 metal · H3 Android (a/b/c/d) · H4 iPhone · H5 servidor 5 opções · H6 TOTP+Aegis. Custo extra R$0–50 por módulo. Requer abertura de turma comunicando os módulos disponíveis.
+- **[APOSTILA-GUIA-PRATICO.md](./APOSTILA-GUIA-PRATICO.md)** (commit `c41020f`): guia complementar 9 capítulos — ranking Top 20, Frankenstein Key DIY, protocolos avançados, cronograma manutenção, governança home lab, playbook 5 cenários, cockpit Prometheus/Grafana + PowerShell/Rainmeter. Incorpora 61 arquivos de pesquisa.
+
 * * *
 
 ## Checklist técnico — repositório
@@ -52,9 +56,10 @@ Complementa [`AUDITORIA-v1.0.1.md`](./AUDITORIA-v1.0.1.md) (gaps v1.0.1 → v1.0
 | --- | --- | :---: |
 | [MANUAL-DE-USO.md](./MANUAL-DE-USO.md) | 1ª visita ao repo | ✅ |
 | [INVENTARIO-SOFTWARE-HARDWARE.md](./INVENTARIO-SOFTWARE-HARDWARE.md) | SW/HW + kits A–D (R$) | ✅ |
+| [APOSTILA-GUIA-PRATICO.md](./APOSTILA-GUIA-PRATICO.md) | Aluno avançado — 9 capítulos + ref. rápida | ✅ |
 | [DIAGRAMAS-VISUAIS.md](./DIAGRAMAS-VISUAIS.md) | Fluxos A–E (PDF) | ✅ |
 | [SLIDES-ABERTURA-TURMA.md](./SLIDES-ABERTURA-TURMA.md) | 1ª aula (+ `.marp.md`) | ✅ |
-| [CHECKLIST-PRE-TURMA-EQUIPE.md](./CHECKLIST-PRE-TURMA-EQUIPE.md) | Instrutor | ✅ |
+| [CHECKLIST-PRE-TURMA-EQUIPE.md](./CHECKLIST-PRE-TURMA-EQUIPE.md) | Instrutor + Módulos H | ✅ |
 | [AUDITORIA-v1.0.1.md](./AUDITORIA-v1.0.1.md) | Histórico editorial | ✅ |
 | **Este arquivo** | Sign-off pré-turma | ✅ |
 
@@ -118,6 +123,9 @@ Complementa [`AUDITORIA-v1.0.1.md`](./AUDITORIA-v1.0.1.md) (gaps v1.0.1 → v1.0
 README → MANUAL → Curso §0 → Curso §1 (índice clicável) → COMANDOs → CHECKPOINTs
          ↓
     INVENTARIO (kits R$) · DIAGRAMAS · SLIDES (instrutor)
+         ↓ (avançado)
+    APOSTILA Cap 1–9 (DIY, governança, cockpit) + Cap 10 (ref. rápida por cenário)
+    Apêndice G (Módulos H Turbo Híbrido — conforme hardware do aluno)
 ```
 
 Curso: [🎓 Zero-Trust-Core-Expert - Versão 1.0.md](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md)
