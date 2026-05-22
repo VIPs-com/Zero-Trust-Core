@@ -47,8 +47,8 @@
 
 | Prioridade | Gap (auditoria original) | Status v1.0.2 | Onde foi resolvido |
 | :---: | --- | :---: | --- |
-| 🔴 Alto | Backup do keyfile NTAG subestimado | ✅ Fechado | [COMANDO 2B.2](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/%F0%9F%8E%93%20Zero-Trust-Core-Expert%20-%20Vers%C3%A3o%201.0.md), matriz de ativos, CHECKPOINT 2 |
-| 🟡 Médio | COMANDO 5.3 era esboço | ✅ Fechado | [COMANDO 5.3](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/%F0%9F%8E%93%20Zero-Trust-Core-Expert%20-%20Vers%C3%A3o%201.0.md), [`scripts/ztc-open-cofre.sh`](../scripts/ztc-open-cofre.sh) |
+| 🔴 Alto | Backup do keyfile NTAG subestimado | ✅ Fechado | [COMANDO 2B.2](https://github.com/VIPs-com/Zero-Trust-Core/blob/master/%F0%9F%8E%93%20Zero-Trust-Core-Expert%20-%20Vers%C3%A3o%201.0.md), matriz de ativos, CHECKPOINT 2 |
+| 🟡 Médio | COMANDO 5.3 era esboço | ✅ Fechado | [COMANDO 5.3](https://github.com/VIPs-com/Zero-Trust-Core/blob/master/%F0%9F%8E%93%20Zero-Trust-Core-Expert%20-%20Vers%C3%A3o%201.0.md), [`scripts/ztc-open-cofre.sh`](../scripts/ztc-open-cofre.sh) |
 | 🟡 Médio | CLI VeraCrypt não validado | ✅ Fechado | COMANDO 3.1.1 (`veracrypt -t`, Ubuntu 24.04 + 1.26.24) |
 | 🟡 Médio | WSL2 sem passo a passo | ✅ Fechado | Apêndice D.1 no curso |
 | Pedagogia | Ramo D só no Módulo 6 | ✅ Fechado | Callout no início do Módulo 2B |

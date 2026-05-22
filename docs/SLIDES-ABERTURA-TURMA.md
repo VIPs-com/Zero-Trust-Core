@@ -189,7 +189,7 @@ flowchart TB
 
 - Repositório: https://github.com/VIPs-com/Zero-Trust-Core  
 - Pré-turma (instrutor): [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) + [CHECKLIST-PRE-TURMA-EQUIPE.md](./CHECKLIST-PRE-TURMA-EQUIPE.md)  
-- Trilha OpenPGP (Expert): [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert) · Mód. [0–3](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/master/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-0-ztc)
+- Trilha OpenPGP (Expert): [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert) · Mód. [0–3](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/main/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-0-ztc)
 
 ---
 
