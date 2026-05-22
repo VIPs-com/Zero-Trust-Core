@@ -118,14 +118,15 @@ flowchart TD
 ```mermaid
 flowchart TB
     subgraph uso_diario["Uso diario - Parte 2"]
-        NFC["NTAG keyfile ou smartcard OpenPGP"]
+        NTAG["NTAG keyfile - Mod 2B"]
+        SCARD["Smartcard OpenPGP - Mod 2A"]
         KC["KeePassXC .kdbx"]
         VC["Volume VeraCrypt"]
         GPG["GnuPG e gpg-agent"]
         SSH["SSH servidores Git"]
-        NFC -->|keyfile| KC
+        NTAG -->|keyfile| KC
         KC --> VC
-        NFC -->|subkeys no token| GPG
+        SCARD -->|subkeys no token| GPG
         GPG --> SSH
     end
 
@@ -135,20 +136,21 @@ flowchart TB
         REV["Revogacao e backup master"]
         TAILS --> MASTER
         TAILS --> REV
-        MASTER -.->|so subkeys| NFC
+        MASTER -.->|so subkeys| SCARD
     end
 
     subgraph backup["Backup 3-2-1-1-0 - Parte 3"]
         LOCAL["HD externo frio"]
         OFFSITE["VM via WireGuard"]
-        PHYS["2o cartao NTAG ou smartcard B"]
+        PHYS["NTAG reserva 2 e 3 + smartcard B"]
         IMMUT["Papel metal fingerprints"]
         KC --> LOCAL
         VC --> LOCAL
         KC --> OFFSITE
         GPG --> LOCAL
         REV --> IMMUT
-        NFC --> PHYS
+        NTAG --> PHYS
+        SCARD --> PHYS
     end
 
     subgraph automacao["Automacao - Modulo 5"]
@@ -164,7 +166,7 @@ flowchart TB
     classDef automacao fill:#4f46e5,color:#fff
 
     class TAILS,MASTER,REV airgap
-    class NFC,KC,VC,GPG,SSH camada
+    class NTAG,SCARD,KC,VC,GPG,SSH camada
     class LOCAL,OFFSITE,PHYS,IMMUT resiliencia
     class HC,RSYNC automacao
 ```

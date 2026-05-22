@@ -342,7 +342,7 @@ Expert essencial + off-site (VM) + itens de contingência física.
 | --- | :---: | --- |
 | GnuPG, KeePassXC, VeraCrypt, OpenSSH | 🟢 Incluso | Baseline documentada |
 | pcscd / smartcard | 🟢 Incluso | Módulo 2A |
-| Tails 7.7+ | 🟢 Incluso | Baseline 7.8; revalidar por turma |
+| Tails 7.8+ | 🟢 Incluso | Baseline 7.8; revalidar por turma |
 | OpenKeychain, NFC Tools | 🟢/🟡 Incluso | Android |
 | Gpg4win, WSL2 | 🟡 Incluso | Apêndice D + D.1 |
 | WireGuard, age, rsync | 🟢/🟡 Incluso | Parte 3–4 |

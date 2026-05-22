@@ -48,7 +48,7 @@ time ~/bin/ztc-open-cofre.sh; echo "exit=$?"
 - **Leitor NFC:** [PREENCHER ex.: ACS ACR122U — colar linha relevante do `lsusb`]
 - **libnfc:** [PREENCHER versão pacote ou saída `nfc-list --version`]
 - **VeraCrypt:** [PREENCHER ex.: 1.26.24]
-- **KeePassXC:** [PREENCHER ex.: 2.7.x]
+- **KeePassXC:** [PREENCHER ex.: 2.7.12]
 
 ### Configuração (`~/ztc-backup/ztc.conf`)
 - **`ZTC_NFC_UID`:** `04:xx:xx:xx:xx:xx` *(mascarar bytes finais se issue público)*

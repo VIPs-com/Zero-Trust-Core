@@ -24,7 +24,7 @@ Este documento descreve validações que **não** se resolvem só com commit: ha
 
 Use o **mesmo perfil de hardware** que os alunos terão (ou documente divergências).
 
-- Ubuntu 24.04 (ou distro alvo da turma) com VeraCrypt 1.26.24 e KeePassXC instalados
+- Ubuntu 24.04 (ou distro alvo da turma) com VeraCrypt 1.26.24 e KeePassXC 2.7.12+ instalados
 - Leitor NFC USB (ex.: ACR122U) reconhecido pelo sistema
 - `libnfc` + ferramentas CLI (`nfc-list`)
 - Volume VeraCrypt de **lab** (`vault.hc`), `.kdbx` e keyfile no disco conforme o curso (Módulos 2B e 3.1)
