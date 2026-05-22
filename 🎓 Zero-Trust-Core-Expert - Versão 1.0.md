@@ -121,6 +121,13 @@ Ao final deste curso, você será capaz de:
 │   ───────────────                                                           │
 │   • Onboarding + arquitetura + mapa visual — sem obrigação de checkpoints    │
 │                                                                             │
+│   ⚡ TURBO HÍBRIDO — Ative conforme o que você já tem                        │
+│   ──────────────────────────────────────────────────                        │
+│   • Qualquer módulo H (Apêndice G) adicionado ao Turbo base                 │
+│   • H1 QR · H2 metal · H3 Android · H4 iPhone · H5 servidor · H6 TOTP      │
+│   • Custo extra: R$0–50 · Tempo: +1–3h por módulo escolhido                 │
+│   • Ver: Apêndice G — Módulos H (ao final dos Apêndices)                    │
+│                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -262,7 +269,7 @@ Clique para ir direto ao módulo. Se um link não saltar, use `Ctrl+F` pelo nome
 | **Parte 2** | [Mód. 2A](#-módulo-2a-openpgp-smartcard-keytocard) · [Mód. 2B](#-módulo-2b-ntag--keyfile-keepassxc) ([2B.2 age](#-comando-2b2-backup-cifrado-do-keyfile-age--obrigatório-antes-dos-ntags)) · [Mód. 3.1](#-módulo-31-keepassxc--veracrypt) · [Mód. 3.2](#-módulo-32-ssh-via-gpg-agent-subchave-a) · [CHECKPOINT 2](#-checkpoint-2-token--cofre--ssh) |
 | **Parte 3** | [Mód. 4](#-módulo-4-backup-3-2-1-1-0-por-ativo) · [Mód. 4.2](#-módulo-42-vm-off-site--wireguard--rsync) · [Mód. 5](#-módulo-5-automação-e-health-check) ([5.0 conf](#-comando-50-validar-ztcconf-antes-dos-scripts) · [5.3 NFC](#-comando-53-keepass--veracrypt-condicional-nfc-opcional)) · [Mód. 6](#-módulo-6-plano-de-contingência) ([6.1](#-comando-61-simulação-de-mesa-obrigatória) · [6.2 revogação lab](#-comando-62-ensaio-de-revogação-em-lab)) · [CP3](#-checkpoint-3-backup-e-contingência) |
 | **Parte 4** | [Mód. 7](#-módulo-7-threat-modeling-e-opsec) · [Mód. 8](#-módulo-8-preparação-pós-quântica-horizonte) · [Mód. 9](#-módulo-9-manutenção-de-longo-prazo) · [Exame](#-exame-final-e-projeto) |
-| **Apêndices** | [A erros](#apêndice-a--top-15-erros-comuns) · [B scripts](#apêndice-b--índice-de-scripts-v1) · [C hardware BR](#apêndice-c--hardware-recomendado-brasil--2026) · [F inventário](#apêndice-f--inventário-software-e-hardware) · [D multi-SO](#apêndice-d--guia-multiplataforma) · [E PQC](#apêndice-e--migração-rsa--ecc--pqc) · [Conclusão](#-conclusão--soberania-digital) |
+| **Apêndices** | [A erros](#apêndice-a--top-15-erros-comuns) · [B scripts](#apêndice-b--índice-de-scripts-v1) · [C hardware BR](#apêndice-c--hardware-recomendado-brasil--2026) · [F inventário](#apêndice-f--inventário-software-e-hardware) · [D multi-SO](#apêndice-d--guia-multiplataforma) · [E PQC](#apêndice-e--migração-rsa--ecc--pqc) · [G Turbo Híbrido](#apêndice-g--módulos-h-turbo-híbrido) · [Conclusão](#-conclusão--soberania-digital) |
 
 **COMANDOs mais consultados:** [0.5 Tails](#-comando-05-pré-vôo-do-tails-no-host-com-internet) · [1.2 master](#-comando-12-gerar-master--subkeys-offline) · [3.1.1 VeraCrypt](#-comando-311-criar-volume-veracrypt) · [4.3 restore](#-comando-43-teste-de-restauração-ritual-mensal) · [6.1 simulação](#-comando-61-simulação-de-mesa-obrigatória)
 
@@ -323,6 +330,7 @@ Clique para ir direto ao módulo. Se um link não saltar, use `Ctrl+F` pelo nome
     ├── F — inventário SW/HW (→ docs/INVENTARIO…)
     ├── D — multiplataforma (+ D.1 WSL2)
     ├── E — RSA → ECC → PQC
+    ├── G — Módulos H: Turbo Híbrido (H1–H6)
     ├── Glossário completo
     └── Conclusão — soberania digital
 ```
@@ -2177,6 +2185,275 @@ ssh-add -L
 | **NDEF** | Formato de dados em tags NFC simples |
 | **Subkey [S][E][A]** | Assinatura, cifra, autenticação (SSH) |
 | **Zero Trust Core** | Este ecossistema em 5 camadas (cofre, token, PGP, SSH, backup) |
+
+* * *
+
+### Apêndice G — Módulos H: Turbo Híbrido
+
+> Ative um ou mais módulos conforme o que você já possui.
+> Cada H é independente — não há ordem obrigatória entre eles.
+
+#### Tabela rápida: o que tenho → o que faço
+
+| O que você tem | Módulo recomendado | Ganho |
+| --- | --- | --- |
+| Impressora + kit metal R$30–50 | H1 + H2 | Backup físico indestrutível |
+| Celular Android spare | H3b (servidor) ou H3c (air-gap) | Backup local R$0 |
+| Celular Android principal | H3a (KeePass + NFC) | Cofre no bolso |
+| iPhone | H4 | Leitura do cofre no iOS |
+| PC com 4 GB RAM livre | H5a (VM) | Servidor WireGuard local |
+| TV Box Android | H5c | Servidor 24/7 < 10 W |
+| Qualquer Android | H6 (TOTP + Aegis) | 2FA sem cloud |
+
+---
+
+#### H1 — QR Code: fingerprint visual
+
+Imprimir o QR do fingerprint → laminar → carteira ou cofre físico.
+Permite verificação offline da identidade sem precisar abrir o PC.
+
+> ⚠️ **REGRA:** QR Code somente para o fingerprint público. **Nunca** gere QR de senhas, PINs ou segredos em claro.
+
+```sh
+# Instalar qrencode
+sudo apt install qrencode
+
+# Gerar QR do fingerprint (substitua EMAIL pelo seu)
+FP=$(gpg --fingerprint EMAIL | grep -A1 "^pub" | tail -1 | tr -d ' ')
+qrencode -o ~/fingerprint-qr.png -s 6 "$FP"
+
+# Imprimir em papel → laminar
+# Verso opcional: nome, validade das subkeys, localização do revogacao.asc
+```
+
+---
+
+#### H2 — Placa de metal: backup imutável físico
+
+Resistente a fogo ≥ 900 °C, água e impacto. Duração: décadas.
+
+**O que gravar:**
+- Fingerprint completo (ou últimos 16 caracteres para identificação)
+- Data de criação + validade da master key
+- `REVOGAÇÃO EM: [local físico do revogacao.asc]`
+- **NÃO gravar:** senha, PIN, chave privada, seed mnemônica
+
+**Materiais (MercadoLivre):**
+- Kit de punção metálica (~R$30–40) + placa de alumínio 1 mm (~R$10)
+- Ou gravador rotativo tipo Dremel (~R$80)
+- Alternativa low-cost: discos de aço inox de cozinha + punção
+
+---
+
+#### H3 — Android Power User
+
+**H3a — KeePass + NFC no celular principal** 🟢
+
+```sh
+# Android: instalar via F-Droid
+# • KeePassDX — abre .kdbx com senha + keyfile
+# • NFC Tools — ler/gravar NTAGs (mesmo keyfile do Módulo 2B)
+
+# Sync .kdbx sem cloud — cabo USB + simple-mtpfs (no PC Linux)
+sudo apt install simple-mtpfs
+mkdir ~/mnt-android
+simple-mtpfs ~/mnt-android
+cp ~/cofre/lab-passwords.kdbx ~/mnt-android/Documents/
+fusermount -u ~/mnt-android
+```
+
+Resultado: cofre no celular, desbloqueado com NTAG físico ou senha mestra.
+
+---
+
+**H3b — Celular antigo Android como servidor de backup** 🟡
+
+Custo: R$0 (celular que você já tem) · Consumo: ~3–5 W
+
+```sh
+# No celular: instalar Termux (F-Droid)
+pkg update && pkg upgrade
+pkg install openssh rsync
+
+# Gerar chave do host (uma vez)
+ssh-keygen -A
+
+# Iniciar servidor SSH (porta padrão Termux: 8022)
+sshd
+
+# Ver o IP do celular
+ip addr | grep "inet 192"
+# ex.: 192.168.1.105
+# Roteador: reservar IP fixo pelo MAC address do celular
+```
+
+```sh
+# No PC: configurar ~/.ssh/config
+Host backup-android
+  HostName 192.168.1.105
+  Port 8022
+  User u0_a123        # usuário Termux — confirme com: whoami
+  IdentityFile ~/.ssh/id_ed25519_ztc
+
+# Copiar chave pública para o Termux
+ssh-copy-id -p 8022 -i ~/.ssh/id_ed25519_ztc.pub u0_a123@192.168.1.105
+
+# Apontar ztc.conf para o celular:
+# ZTC_REMOTE="backup-android:~/storage/shared/ztc-backup/"
+```
+
+> ⚠️ **Limitação:** o Termux SSH fecha se o Android matar processos em background.
+> Fixar: Configurações → Bateria → Termux → **Sem otimização de bateria** + `termux-wake-lock`.
+
+---
+
+**H3c — Celular antigo em modo avião: air-gap leve** 🟡
+
+Alternativa simples ao Tails para operações que **não** envolvem a master key.
+
+```
+Configuração (uma vez):
+1. Reset de fábrica no celular spare
+2. Modo avião permanente (WiFi + dados desligados)
+3. Instalar via USB (sem rede): OpenKeychain APK + KeePassDX APK
+4. Carregar .kdbx e keyfile via USB
+
+Usos válidos:
+✅ Verificar assinatura GPG de arquivos
+✅ Consultar senhas offline
+✅ Gerar senhas fortes offline
+✅ Ler NTAGs com NFC Tools
+
+NÃO usar para:
+❌ Gerar master PGP (somente Tails — COMANDO 1.2)
+❌ keytocard (exige pcscd, indisponível no Android)
+```
+
+**H3d — GrapheneOS** 🔵 *(referência)*
+
+Para máxima privacidade no Android — somente Pixels.
+Setup completo: [grapheneos.org/install](https://grapheneos.org/install/)
+Apps: mesmos do H3a/H3b via F-Droid. Totalmente compatível com este curso.
+
+---
+
+#### H4 — iPhone: cliente de cofre
+
+iPhone = leitura de cofre. Não é host de segurança — sem Termux, sem sideload.
+
+**Apps (App Store, gratuitos):**
+- **KeePassium** — abre `.kdbx` com senha + keyfile
+- **NFC Tools** — lê/grava NTAGs (keyfile do Módulo 2B)
+- **Strongbox** — alternativa com mais recursos (freemium)
+
+```
+Fluxo iOS seguro (sem cloud):
+1. Conectar iPhone ao PC via USB
+2. iTunes/Finder → Compartilhamento de arquivos → KeePassium
+3. Arrastar lab-passwords.kdbx + keyfile para o app
+4. KeePassium: abrir vault → selecionar keyfile → senha mestra
+```
+
+**Limitações documentadas (honestidade técnica):**
+- Smartcard OpenPGP: YubiKey app iOS com suporte parcial; não é trilha oficial deste curso
+- Sem `rsync`, sem `sshd`, sem WireGuard nativo no iOS
+- Escrita em NTAGs requer NFC Tools Pro (versão paga)
+- iOS = cliente somente — mantenha Linux como host principal
+
+---
+
+#### H5 — Servidor caseiro
+
+Tabela comparativa — escolha conforme o que você tem:
+
+| Opção | Custo extra | Consumo 24/7 | Complexidade | Ideal para |
+| --- | ---: | :---: | :---: | --- |
+| **H5a VM no PC** | R$0 | ~PC ligado | ⭐ Fácil | Backup quando PC está on |
+| **H5b Android Termux** | R$0 | ~4 W · R$3/mês | ⭐⭐ Médio | Celular que já existe |
+| **H5c TV Box + Debian** | R$80–200 | <10 W · R$7/mês | ⭐⭐ Médio | 24/7 barato |
+| **H5d Raspberry Pi 4/5** | R$200–400 | ~6 W · R$5/mês | ⭐⭐ Médio | Setup canônico |
+| **H5e Mini PC N100** | R$300–500 | 12 W · R$9/mês | ⭐ Fácil | Mais versátil |
+
+---
+
+**H5a — VM no PC atual** (substitui VPS cloud do Módulo 4.2)
+
+```sh
+# Ubuntu/Debian: instalar VirtualBox
+sudo apt install virtualbox
+
+# Criar VM via VirtualBox GUI:
+# • Ubuntu Server 24.04 · 1 vCPU · 1 GB RAM · 20 GB disco
+# • Rede: Bridged Adapter (VM visível na rede local)
+
+# Dentro da VM: setup WireGuard + rsync (idêntico ao Módulo 4.2)
+sudo apt install wireguard rsync openssh-server
+```
+
+Depois: apontar `ZTC_REMOTE` para o IP da VM na rede local.
+
+---
+
+**H5b — Android antigo como servidor** *(veja H3b — setup idêntico)*
+
+Adicionar WireGuard no Termux para acesso externo:
+
+```sh
+pkg install wireguard-tools
+# Configurar wg0.conf igual ao Módulo 4.2.1
+wg-quick up wg0
+```
+
+---
+
+**H5c — TV Box Android + Debian**
+
+```sh
+# 1. Instalar UserLAnd (F-Droid ou Play Store) na TV Box
+# 2. Criar sessão Debian no UserLAnd
+# 3. Dentro do Debian:
+apt update && apt install openssh-server rsync wireguard-tools
+systemctl enable ssh
+# 4. Mesma config WireGuard do Módulo 4.2.1
+```
+
+> Consumo < 10 W · ~R$7/mês 24/7.
+> IP fixo: configurar no roteador pelo MAC da TV Box.
+
+---
+
+**H5d — Raspberry Pi 4/5**
+
+Documentação oficial: [raspberrypi.com](https://www.raspberrypi.com/)
+WireGuard + rsync: mesmo fluxo do Módulo 4.2. Inserir IP do Pi em `ZTC_REMOTE`.
+
+---
+
+**H5e — Mini PC (N100 / J4125)**
+
+Ubuntu Server 24.04 nativo (x86\_64). Setup idêntico ao VPS do Módulo 4.2.
+Vantagem: sem camadas de virtualização, mais rápido, VeraCrypt CLI nativo.
+
+---
+
+#### H6 — TOTP + Aegis: 2FA sem cloud 🔵
+
+Complementa o cofre KeePassXC com TOTP offline — sem Google Authenticator, sem nuvem.
+
+```sh
+# Android: instalar Aegis Authenticator (F-Droid — open source, auditado)
+
+# KeePassXC TOTP built-in (alternativa desktop):
+# Abrir entrada → botão direito → Configurar TOTP → colar a seed
+
+# Backup dos seeds TOTP:
+# Seeds ficam dentro do vault.hc (VeraCrypt) → já protegidos pelo cofre
+# Exportar do Aegis: Configurações → Backups → arquivo criptografado (.json)
+# Salvar em ~/ztc-backup/ → vai junto no rsync off-site
+```
+
+> **Contexto:** TOTP complementa senhas; **não** substitui OpenPGP para identidade
+> criptográfica. Use Aegis para contas de serviço (GitHub, e-mail, etc.).
 
 * * *
 

@@ -129,7 +129,8 @@ sudo apt install -y gnupg2 pcscd scdaemon libccid openssh-client \
 | **[NFC Tools](https://www.wakdev.com/en/apps/nfc-tools.html)** | 🟢 Turbo | Gravar NTAG / ler UID (2B.3) |
 | **OpenKeychain** (F-Droid / APK offline) | 🟡 | Backup móvel PGP; sem substituir smartcard no PC |
 | **KeePassDX** / **KeePass2Android** | 🟡 | Alternativa a KeePassXC desktop — sincronize só `.kdbx` cifrado |
-| **Termux** | 🔵 | Lab CLI; **não** é trilha oficial do curso |
+| **Termux** + sshd/rsync | 🔵 H3b/H5b | Servidor SSH de backup em celular antigo; ver Apêndice G |
+| **Aegis Authenticator** (F-Droid) | 🟢 H6 | TOTP offline — open source, auditado, sem cloud |
 
 ---
 
@@ -144,6 +145,23 @@ sudo apt install -y gnupg2 pcscd scdaemon libccid openssh-client \
 | **Apps NFC** | 🔵 | Depende do modelo; NTAG keyfile = ritual no **PC** |
 
 > Onboarding do curso: iPhone como dispositivo **principal** → planejar **Android ou PC Linux** para trilha Expert.
+
+---
+
+### 🔹 Servidores caseiros — Apêndice G Módulo H5
+
+Para quem quer substituir ou complementar o VPS cloud do Módulo 4.2 com hardware próprio.
+
+| Opção | Custo extra | Consumo 24/7 | Software base | Ideal para |
+| --- | ---: | :---: | --- | --- |
+| **VM no PC** (H5a) | R$0 | ~PC ligado | VirtualBox + Ubuntu Server 24.04 | Backup quando PC está on |
+| **Android Termux** (H5b) | R$0 | ~4 W | Termux + sshd + rsync | Celular antigo que já existe |
+| **TV Box Android** (H5c) | R$80–200 | <10 W | UserLAnd + Debian | 24/7 barato |
+| **Raspberry Pi 4/5** (H5d) | R$200–400 | ~6 W | Raspberry Pi OS / Ubuntu Server | Setup canônico, documentação ampla |
+| **Mini PC N100/J4125** (H5e) | R$300–500 | 12 W | Ubuntu Server 24.04 nativo | Mais versátil, sem virtualização |
+
+> Todos os cenários usam o mesmo fluxo WireGuard + rsync do Módulo 4.2.
+> Inserir o IP do servidor em `ZTC_REMOTE` no `ztc.conf`.
 
 * * *
 

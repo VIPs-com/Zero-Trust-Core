@@ -23,6 +23,9 @@
 | `gpg --verify revogacao.asc` falha com erro | Certificado de revogação é pacote OpenPGP cru — **não** mensagem assinada | `gpg --import revogacao.asc` e `gpg --list-keys` para confirmar `[revoked:]`; `--verify` não se aplica |
 | `gpg --gen-revoke` não reconhecido | Opção renomeada no GnuPG 2.2+ | Usar `gpg --generate-revocation` (COMANDO 1.3) |
 | Cron configurado mas só dispara às vezes | Sintaxe `1-7 * 0` = OR não AND — domingos de qualquer semana + dias 1–7 de qualquer dia | Usar guarda de data: `[ "$(date +\%d)" -le 7 ] &&` (COMANDO 5.2) |
+| Termux SSH fecha quando tela do celular desliga | Android mata processos em background por padrão | Configurações → Bateria → Termux → **Sem otimização de bateria** + rodar `termux-wake-lock` no Termux (Apêndice G H3b) |
+| KeePassDX não abre o cofre com keyfile do NTAG | NTAG presente não é o mesmo gravado no COMANDO 2B.3 | Confirmar com `nfc-list` que o UID confere; restaurar keyfile de `keepass-keyfile.ztc.age` (2B.2) se necessário |
+| VM no PC não acessa a rede local / rsync falha | Adaptador de rede configurado como NAT (padrão VirtualBox) | Trocar para **Bridged Adapter** nas configurações de rede da VM (Apêndice G H5a) |
 
 **Instrutor:** registre novos itens após a turma piloto (issue ou PR em `docs/FAQ-TROUBLESHOOTING.md`).
 

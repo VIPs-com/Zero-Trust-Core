@@ -183,7 +183,27 @@ Cole no [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) (pode d
 
 ---
 
-## 4. Outros itens recomendados (não bloqueiam o issue)
+## 4. Módulos H disponíveis — Apêndice G (opcional)
+
+Comunicar na abertura de turma. Nenhum módulo H é pré-requisito para os CHECKPOINTs.
+
+| Módulo | O que o aluno precisa ter | Instrutor verifica |
+| --- | --- | --- |
+| **H1 QR** | `qrencode` instalado no Linux | `which qrencode` |
+| **H2 metal** | Kit de punção (próprio do aluno) | — |
+| **H3a** KeePassDX + NFC | Android + F-Droid | NFC Tools lê o NTAG do 2B.3 |
+| **H3b/H5b** Termux sshd | Celular Android antigo com Termux | `sshd` rodando, porta 8022 acessível |
+| **H3c** air-gap leve | Celular spare + modo avião | APKs instalados offline |
+| **H4** iPhone | iPhone + KeePassium | `.kdbx` + keyfile transferidos por USB |
+| **H5a** VM no PC | VirtualBox instalado, 4 GB RAM livre | VM com Ubuntu Server + Bridged Adapter |
+| **H5c** TV Box | UserLAnd instalado | Debian + sshd OK |
+| **H6** Aegis | Android + Aegis (F-Droid) | Seeds TOTP exportados para `~/ztc-backup/` |
+
+> 📎 Conteúdo completo dos módulos H: [Apêndice G](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-g--módulos-h-turbo-híbrido)
+
+---
+
+## 5. Outros itens recomendados (não bloqueiam o issue)
 
 - Alunos **só Windows:** revisar [Apêndice D.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) na aula de SSH  
 - Imprimir runbook (Módulo 6) + guardar com NTAG #2 / smartcard reserva  
