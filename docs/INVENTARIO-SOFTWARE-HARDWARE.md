@@ -54,6 +54,34 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 
 * * *
 
+## 🔬 Dispositivos testados (compatibilidade confirmada)
+
+> 🔵 **Contribua:** execute os testes do [`CHECKLIST-PRE-TURMA-EQUIPE.md`](./CHECKLIST-PRE-TURMA-EQUIPE.md) e registre no [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2). Esta tabela é atualizada com evidência real de cada turma.
+
+| # | Categoria | Dispositivo / versão | Status | SO / ambiente | COMANDO / módulo | Observação |
+| :---: | --- | --- | :---: | --- | --- | --- |
+| 1 | **Host OS** | Ubuntu 24.04 LTS (Noble) | ✅ | — | Todos | Distro canônica do curso |
+| 2 | **Tails** | Tails 7.8 | ✅ | — | [0.5](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-05-pré-vôo-do-tails-no-host-com-internet) · [1.x](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-1-sua-primeira-chave-no-air-gap-tails) | Revalidar em [tails.net/latest](https://tails.net/latest/) antes de cada turma |
+| 3 | **KeePassXC** | 2.7.12+ | ✅ | Ubuntu 24.04 | [2B](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-2b-ntag--keyfile-keepassxc) · [3.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-31-keepassxc--veracrypt) | `apt install keepassxc` |
+| 4 | **VeraCrypt** | 1.26.24 | ✅ | Ubuntu 24.04 | [3.1.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-311-criar-volume-veracrypt)–[3.1.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-313-política-de-sincronização) | `dpkg -i` oficial obrigatório; flag `-t` validada |
+| 5 | **GnuPG** | 2.4.4+ | ✅ | Ubuntu 24.04 | 0.x · 1.x · [3.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-32-ssh-via-gpg-agent-subchave-a) | `gpg --version` |
+| 6 | **Leitor NFC USB** | ACS ACR122U | ⏳ | Ubuntu 24.04 | `nfc-list` · [5.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-53-keepass--veracrypt-condicional-nfc-opcional) | Referência do curso — aguarda [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) |
+| 7 | **Leitor NFC USB** | PN532 genérico USB | ⏳ | Ubuntu 24.04 | `nfc-list` | Compatível com `libnfc` — aguarda evidência |
+| 8 | **Tag NFC** | NTAG215 (diversos) | ⏳ | Android NFC + `nfc-list` | [2B.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b3-gravar-o-mesmo-keyfile-em-3-ntags) | Tamanho ideal para keyfile — aguarda [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) |
+| 9 | **Tag NFC** | NTAG213 (diversos) | ⏳ | Android NFC + `nfc-list` | [2B.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b3-gravar-o-mesmo-keyfile-em-3-ntags) | 144 bytes; suficiente para keyfile de 44 bytes |
+| 10 | **Smartcard OpenPGP** | Nitrokey 3A NFC | ⏳ | Ubuntu 24.04 + pcscd | [2A.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a1-preparar-leitor-e-cartão)–[2A.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a3-pins-user-e-admin) | Recomendado Kit C/D |
+| 11 | **Smartcard OpenPGP** | YubiKey 5 NFC | ⏳ | Ubuntu 24.04 + pcscd | [2A.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a1-preparar-leitor-e-cartão)–[2A.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a3-pins-user-e-admin) | Interface OpenPGP (não FIDO2) |
+| 12 | **Smartcard OpenPGP** | JavaCard / JCOP genérico | ⏳ | Ubuntu 24.04 + pcscd | [2A.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a1-preparar-leitor-e-cartão)–[2A.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a3-pins-user-e-admin) | Mais barato; auditoria limitada |
+| 13 | **Windows + WSL2** | Windows 11 23H2 + Gpg4win 5.x | 🟡 | WSL2 Ubuntu | [3.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-32-ssh-via-gpg-agent-subchave-a) (parcial) | [Apêndice D.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-d1--wsl2--gpg-agent-passo-a-passo) — NFC frágil; preferir Linux |
+| 14 | **macOS** | Sonoma 14+ + GPG Suite | 🟡 | macOS | [3.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-32-ssh-via-gpg-agent-subchave-a) (parcial) | [Apêndice D](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-d--guia-multiplataforma) — sem `nfc-list` nativo |
+
+**Legenda de status desta tabela:**
+- ✅ Testado e documentado pela equipe (evidência no repositório ou commit de validação)
+- ⏳ Pendente — aguarda evidência física (contribua via [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2))
+- 🟡 Compatível esperado com ressalvas documentadas
+
+* * *
+
 ## 🖥️ Software por plataforma
 
 ### 🔹 Linux (Ubuntu / Debian — PC de uso diário)

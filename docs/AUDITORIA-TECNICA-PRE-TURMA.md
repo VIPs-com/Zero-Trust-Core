@@ -33,6 +33,9 @@ Complementa [`AUDITORIA-v1.0.1.md`](./AUDITORIA-v1.0.1.md) (gaps v1.0.1 → v1.0
 **Adições pós-v1.0.2 (sem nova tag ainda):**
 - **Apêndice G — Módulos H Turbo Híbrido** (commit `2b48034`): H1 QR · H2 metal · H3 Android (a/b/c/d) · H4 iPhone · H5 servidor 5 opções · H6 TOTP+Aegis. Custo extra R$0–50 por módulo. Requer abertura de turma comunicando os módulos disponíveis.
 - **[APOSTILA-GUIA-PRATICO.md](./APOSTILA-GUIA-PRATICO.md)** (commit `c41020f`): guia complementar 9 capítulos — ranking Top 20, Frankenstein Key DIY, protocolos avançados, cronograma manutenção, governança home lab, playbook 5 cenários, cockpit Prometheus/Grafana + PowerShell/Rainmeter. Incorpora 61 arquivos de pesquisa.
+- **[playbooks/ — diagramas Mermaid](../playbooks/)** (commit `db89547`): `## Visão geral do processo` em cada um dos 10 playbooks com flowchart por módulo + atualização de `playbooks/README.md` e `docs/DIAGRAMAS-VISUAIS.md`.
+- **Auditoria de links** (commit `2766a2c`): deep links para COMMANDs em todos os 10 playbooks, FAQ, INICIE-AQUI, DIAGRAMAS, CHECKLIST, GABARITO, INVENTARIO, APOSTILA e MANUAL — 18 arquivos, zero referências soltas.
+- **Tabela de dispositivos testados** no [INVENTARIO](./INVENTARIO-SOFTWARE-HARDWARE.md): 14 linhas (SO, Tails, KeePassXC, VeraCrypt, leitores NFC, NTAG, smartcards, Windows, macOS) com status ✅/⏳/🟡 e links diretos para COMMANDs. Itens ⏳ fecham com issue #2.
 
 * * *
 
