@@ -9,6 +9,30 @@
 
 ---
 
+## Visão geral do processo
+
+```mermaid
+flowchart TD
+    A["1 — Instalar KeePassXC"] --> B["2 — Gerar keyfile\ndd urandom → base64 → .ztc"]
+    B --> C["3 — Criar banco KeePassXC\nsenha forte + keyfile"]
+    C --> D["4 — Testar abertura\nkeepassxc --keyfile"]
+    D --> E["5 — Copiar keyfile\npara Android (MTP)"]
+    E --> F["6 — Gravar 3 tags NTAG\nNFC Tools Android"]
+    F --> G["7 — Verificar UID\nnfc-list no Linux"]
+    G --> H["✅ Cofre protegido\nsenha + NTAG físico"]
+
+    style A fill:#10b981,color:#fff
+    style B fill:#10b981,color:#fff
+    style C fill:#10b981,color:#fff
+    style D fill:#10b981,color:#fff
+    style E fill:#10b981,color:#fff
+    style F fill:#10b981,color:#fff
+    style G fill:#10b981,color:#fff
+    style H fill:#eab308,color:#000,stroke:#854d0e,stroke-width:2px
+```
+
+---
+
 ## 1 — Instalar KeePassXC
 
 ```sh

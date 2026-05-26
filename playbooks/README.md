@@ -3,6 +3,7 @@
 **Execução direta. Zero teoria. Copie e cole.**
 
 Cada arquivo = um procedimento completo, do zero ao "funcionou".  
+Cada playbook começa com um **diagrama "Visão geral do processo"** — olhe antes de executar.  
 Para entender *por quê* cada passo existe → curso principal (link no rodapé de cada playbook).
 
 ---
@@ -29,9 +30,22 @@ Para entender *por quê* cada passo existe → curso principal (link no rodapé 
 
 ---
 
+## Estrutura de cada playbook
+
+```
+# Título
+Objetivo · Tempo · Pré-requisitos
+---
+## Visão geral do processo   ← diagrama Mermaid do fluxo completo
+## 1 — Passo 1               ← comandos, sem teoria
+...
+✅ Concluído                  ← próximo passo + referência no curso
+```
+
 ## Regras deste formato
 
 - **Cada passo tem no máximo 2 linhas de texto** — o resto é código
+- **Diagrama Mermaid obrigatório** — o aluno enxerga o fluxo antes de executar
 - **Nenhum link externo obrigatório** — o playbook é autossuficiente
 - **Último bloco sempre:** `✅ Concluído` + link de referência no curso
 - Se um passo exigir leitura extra → está errado — simplifique ou separe em outro playbook

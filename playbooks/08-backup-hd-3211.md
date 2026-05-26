@@ -8,6 +8,35 @@
 
 ---
 
+## Visão geral do processo
+
+```mermaid
+flowchart TD
+    A["1 — Identificar HD externo\nlsblk"] --> B["2 — Montar HD\nmount /dev/sdb1"]
+    B --> C["3 — Criar estrutura\nmkdir vault + manifests"]
+    C --> D["4 — Copiar arquivos\nrsync vault.hc + .age + ztc.conf"]
+    D --> E["5 — Gerar manifesto\nsha256sum → YYYY-MM-DD.sha256"]
+    E --> F["6 — Verificar manifesto\nsha256sum -c → OK?"]
+    F --> G{Tudo OK?}
+    G -- Não --> D
+    G -- Sim --> H["7 — Assinar manifesto\ngpg --detach-sign (opcional)"]
+    H --> I["8 — Desmontar com segurança\nsync + umount"]
+    I --> J["✅ Backup frio verificável\nintegridade provada pelo manifesto"]
+
+    style A fill:#7c3aed,color:#fff
+    style B fill:#7c3aed,color:#fff
+    style C fill:#7c3aed,color:#fff
+    style D fill:#7c3aed,color:#fff
+    style E fill:#7c3aed,color:#fff
+    style F fill:#7c3aed,color:#fff
+    style G fill:#475569,color:#fff
+    style H fill:#7c3aed,color:#fff
+    style I fill:#7c3aed,color:#fff
+    style J fill:#eab308,color:#000,stroke:#854d0e,stroke-width:2px
+```
+
+---
+
 ## 1 — Identificar o HD externo
 
 ```sh

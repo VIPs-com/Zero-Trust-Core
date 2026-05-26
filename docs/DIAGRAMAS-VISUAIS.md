@@ -9,7 +9,9 @@ Use este arquivo quando quiser **só os fluxos**, sem os COMANDOs. O conteúdo d
 **Montagem do ambiente (software/hardware):** [INVENTARIO-SOFTWARE-HARDWARE.md](./INVENTARIO-SOFTWARE-HARDWARE.md) · **Guia complementar (9 capítulos + ref. rápida):** [APOSTILA-GUIA-PRATICO.md](./APOSTILA-GUIA-PRATICO.md).
 
 > **Diagramas A–E** — fluxo do curso (trilha Expert).  
-> **Diagramas F–J** — modelos de setup, Módulos H Turbo Híbrido, playbook de incidentes, cockpit de automação e mapa da apostila. Use-os para **decidir qual caminho montar** antes de começar.
+> **Diagramas F–J** — modelos de setup, Módulos H Turbo Híbrido, playbook de incidentes, cockpit de automação e mapa da apostila. Use-os para **decidir qual caminho montar** antes de começar.  
+> **Diagramas K–N** — sequências operacionais e comparação NTAG × Smartcard.  
+> **Playbooks 01–10** — cada playbook tem um diagrama **"Visão geral do processo"** embutido no arquivo. Use-os enquanto executa. → [`playbooks/`](../playbooks/)
 
 * * *
 
@@ -740,6 +742,7 @@ flowchart LR
 | **L** | **Sequence: SSH via gpg-agent** | Módulo 3.2 — autenticação hardware |
 | **M** | **Sequence: contingência / runbook** | Módulo 6 — perda de token |
 | **N** | **NTAG vs Smartcard OpenPGP** | Antes do Módulo 2A ou 2B — erro nº 1 |
+| **Playbooks 01–10** | Visão geral de cada procedimento | Dentro de cada arquivo [`playbooks/`](../playbooks/) — use enquanto executa |
 | OpenPGP ↔ ZTC | Trilha integrada | [Manual de uso](./MANUAL-DE-USO.md) §3 |
 
 *Manual visual · [VIPs-com/Zero-Trust-Core](https://github.com/VIPs-com/Zero-Trust-Core)*

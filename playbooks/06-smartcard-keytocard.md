@@ -9,6 +9,30 @@
 
 ---
 
+## Visão geral do processo
+
+```mermaid
+flowchart TD
+    A["1 — Instalar dependências\npcscd scdaemon libccid"] --> B["2 — Verificar smartcard\ngpg --card-status\n3x none = virgem ✓"]
+    B --> C["3 — Importar subkeys do pendrive\nage -d → gpg --import\nsec# = master ausente ✓"]
+    C --> D["4 — keytocard × 3\n--edit-key → key1/2/3 → keytocard"]
+    D --> E["5 — Verificar transferência\n--card-status → 3 fingerprints"]
+    E --> F["6 — Alterar PINs\nUser PIN + Admin PIN"]
+    F --> G["7 — Testar assinatura\necho | gpg --clearsign"]
+    G --> H["✅ Subkeys no hardware\nMaster fica no Tails — nunca no PC"]
+
+    style A fill:#3b82f6,color:#fff
+    style B fill:#3b82f6,color:#fff
+    style C fill:#3b82f6,color:#fff
+    style D fill:#3b82f6,color:#fff
+    style E fill:#3b82f6,color:#fff
+    style F fill:#3b82f6,color:#fff
+    style G fill:#3b82f6,color:#fff
+    style H fill:#eab308,color:#000,stroke:#854d0e,stroke-width:2px
+```
+
+---
+
 ## 1 — Instalar dependências
 
 ```sh

@@ -9,6 +9,31 @@
 
 ---
 
+## Visão geral do processo
+
+```mermaid
+flowchart TD
+    A["1 — Instalar scripts\ngit clone → cp → chmod +x"] --> B["2 — Obter UID da tag\nnfc-list"]
+    B --> C["3 — Configurar ztc.conf\nUID + caminhos do vault"]
+    C --> D["4 — Validar configuração\nztc-health.sh --check-conf"]
+    D --> E{Tudo OK?}
+    E -- Não --> C
+    E -- Sim --> F["5 — Testar abertura\nztc-open-cofre.sh"]
+    F --> G["6 — PATH + atalho\n(opcional)"]
+    G --> H["✅ Um comando abre tudo\nNTAG → VeraCrypt → KeePassXC"]
+
+    style A fill:#10b981,color:#fff
+    style B fill:#10b981,color:#fff
+    style C fill:#10b981,color:#fff
+    style D fill:#10b981,color:#fff
+    style E fill:#475569,color:#fff
+    style F fill:#10b981,color:#fff
+    style G fill:#10b981,color:#fff
+    style H fill:#eab308,color:#000,stroke:#854d0e,stroke-width:2px
+```
+
+---
+
 ## 1 — Instalar o script
 
 ```sh

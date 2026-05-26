@@ -10,6 +10,32 @@
 
 ---
 
+## Visão geral do processo
+
+```mermaid
+flowchart TD
+    subgraph TAILS["🖥️  Tails — offline, WiFi desligado"]
+        A["1 — Boot Tails\nconfirmar rede desligada"] --> B["2 — Configurar GPG\ndefinir EMAIL + NOME"]
+        B --> C["3 — Master key ed25519/cert\ngpg --quick-generate-key"]
+        C --> D["4 — Capturar fingerprint\nanotar no papel agora"]
+        D --> E["5 — Subkeys S + E + A\ngpg --quick-add-key x3"]
+        E --> F["6 — Certificado de revogação\n--generate-revocation"]
+        F --> G["7 — Export subkeys\n→ pendrive cifrado com age"]
+        G --> H["8 — Backup master\n→ pendrive cifrado com age"]
+        H --> I["9 — Anotar fingerprint\nem papel físico"]
+        I --> J["10 — Shutdown Tails\nRAM apagada automaticamente"]
+    end
+    J --> K["✅ Master nunca tocou internet\nSubkeys prontas para smartcard"]
+
+    style TAILS fill:#0f172a,stroke:#0f766e,color:#e2e8f0
+    style A fill:#0f766e,color:#fff
+    style K fill:#eab308,color:#000,stroke:#854d0e,stroke-width:2px
+```
+
+> ⚠️ **Cada nó acima acontece SOMENTE no Tails.** Nada deste fluxo toca seu PC de uso diário.
+
+---
+
 ## ANTES DE COMEÇAR
 
 ```

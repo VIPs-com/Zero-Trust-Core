@@ -8,6 +8,29 @@
 
 ---
 
+## Visão geral do processo
+
+```mermaid
+flowchart TD
+    A["1 — Instalar age"] --> B["2 — Cifrar keyfile\nage -p -o .ztc.age"]
+    B --> C["3 — Verificar integridade\nage -d → cmp → BACKUP OK"]
+    C --> D{Idêntico?}
+    D -- Sim --> E["4 — Copiar para pendrive\nlsblk → mount → cp → sync"]
+    D -- Não --> B
+    E --> F["5 — Opcional: shred original\nsó após NTAGs confirmados"]
+    F --> G["✅ Backup cifrado\nem pendrive separado dos NTAGs"]
+
+    style A fill:#10b981,color:#fff
+    style B fill:#10b981,color:#fff
+    style C fill:#10b981,color:#fff
+    style D fill:#475569,color:#fff
+    style E fill:#10b981,color:#fff
+    style F fill:#10b981,color:#fff
+    style G fill:#eab308,color:#000,stroke:#854d0e,stroke-width:2px
+```
+
+---
+
 ## 1 — Instalar `age`
 
 ```sh

@@ -8,6 +8,34 @@
 
 ---
 
+## Visão geral do processo
+
+```mermaid
+flowchart TD
+    A["1 — Verificar manifesto HD\nsha256sum -c → OK"] --> B["2 — Restaurar keyfile\nage -d → cmp → KEYFILE OK"]
+    B --> C["3 — Restaurar vault\ncp vault.hc /tmp → veracrypt mount"]
+    C --> D["Abrir .kdbx\nkeepassxc --keyfile"]
+    D --> E{Tudo abriu\ncorretamente?}
+    E -- Sim --> F["4 — Desmontar e limpar\nveracrypt -d + shred /tmp"]
+    E -- Não --> ERR["⚠️ Corrigir backup AGORA\n→ FAQ-TROUBLESHOOTING.md"]
+    F --> G["5 — Verificar off-site\nssh → ls + sha256sum"]
+    G --> H["6 — Registrar teste\ncat >> restore-log.txt"]
+    H --> I["✅ Backup verificado\nnão é backup até ser testado"]
+
+    style A fill:#7c3aed,color:#fff
+    style B fill:#7c3aed,color:#fff
+    style C fill:#7c3aed,color:#fff
+    style D fill:#7c3aed,color:#fff
+    style E fill:#475569,color:#fff
+    style F fill:#7c3aed,color:#fff
+    style G fill:#7c3aed,color:#fff
+    style H fill:#7c3aed,color:#fff
+    style I fill:#eab308,color:#000,stroke:#854d0e,stroke-width:2px
+    style ERR fill:#991b1b,color:#fff
+```
+
+---
+
 ```
 ⚠️  REGRA: Backup não testado = sem backup.
     Este teste é obrigatório para o CHECKPOINT 3.

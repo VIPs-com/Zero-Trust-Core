@@ -9,6 +9,37 @@
 
 ---
 
+## Visão geral do processo
+
+```mermaid
+flowchart TD
+    subgraph SRV["🖥️  Servidor (VM remota)"]
+        S1["S1 — Instalar WireGuard\napt install wireguard rsync"] --> S2["S2 — Gerar chaves WG\nserver-private/public.key"]
+        S2 --> S3["S3 — wg0.conf\nAddress 10.66.66.1/24"]
+    end
+
+    subgraph CLI["💻 PC Local"]
+        C1["C1 — Instalar WireGuard"] --> C2["C2 — Gerar chaves WG\nclient-private/public.key"]
+        C2 --> C3["C3 — Publicar pubkey\nno wg0.conf do servidor"]
+        C3 --> C4["C4 — wg0.conf cliente\nAddress 10.66.66.2/24"]
+        C4 --> C5["C5 — Testar tunnel\nping 10.66.66.1"]
+    end
+
+    S2 -. "trocar pubkeys" .-> C3
+
+    C5 --> R1["R1 — Criar chave SSH\nssh-keygen id_ed25519_ztc"]
+    R1 --> R2["R2 — Atualizar ztc.conf\nZTC_REMOTE + ZTC_SSH_KEY"]
+    R2 --> R3["R3 — Testar rsync\nztc-rsync-offsite.sh"]
+    R3 --> R4["R4 — Cron todo domingo 03h"]
+    R4 --> FIM["✅ Blobs cifrados na VM\nKeyfile e master NUNCA saem do PC"]
+
+    style SRV fill:#1e3a8a,stroke:#3b82f6,color:#e2e8f0
+    style CLI fill:#1e3a8a,stroke:#3b82f6,color:#e2e8f0
+    style FIM fill:#eab308,color:#000,stroke:#854d0e,stroke-width:2px
+```
+
+---
+
 ## SERVIDOR (VM remota) — execute via SSH
 
 ### S1 — Instalar WireGuard e criar usuário de backup

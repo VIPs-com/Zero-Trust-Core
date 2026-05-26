@@ -8,6 +8,28 @@
 
 ---
 
+## Visão geral do processo
+
+```mermaid
+flowchart TD
+    A["1 — Instalar VeraCrypt\nwget + dpkg -i .deb"] --> B["2 — Criar volume\nveracrypt -t --create vault.hc"]
+    B --> C["3 — Montar volume\n/media/veracrypt-ztc"]
+    C --> D["4 — Mover .kdbx\npara dentro do volume"]
+    D --> E["5 — Desmontar\nveracrypt -t -d"]
+    E --> F["6 — Testar abertura completa\nveracrypt → keepassxc --keyfile"]
+    F --> G["✅ Duas camadas independentes\nVeraCrypt + KeePassXC + NTAG"]
+
+    style A fill:#10b981,color:#fff
+    style B fill:#10b981,color:#fff
+    style C fill:#10b981,color:#fff
+    style D fill:#10b981,color:#fff
+    style E fill:#10b981,color:#fff
+    style F fill:#10b981,color:#fff
+    style G fill:#eab308,color:#000,stroke:#854d0e,stroke-width:2px
+```
+
+---
+
 ## 1 — Instalar VeraCrypt
 
 ```sh

@@ -8,6 +8,33 @@
 
 ---
 
+## Visão geral do processo
+
+```mermaid
+flowchart TD
+    A["1 — Keygrip da subchave A\ngpg -K --with-keygrip"] --> B["2 — sshcontrol\ngrep -qF KEYGRIP || echo >> sshcontrol"]
+    B --> C["3 — gpg-agent.conf\nenable-ssh-support"]
+    C --> D["4 — ~/.bashrc\nSSH_AUTH_SOCK → gpgconf"]
+    D --> E["5 — Reiniciar agente\ngpgconf --kill → --launch"]
+    E --> F{ssh-add -L\nmostrou chave?}
+    F -- Não --> E
+    F -- Sim --> G["6 — Publicar chave no servidor\ngpg --export-ssh-key"]
+    G --> H["7 — Testar SSH\nssh -T git@github.com"]
+    H --> I["✅ SSH via smartcard\nchave privada nunca sai do hardware"]
+
+    style A fill:#3b82f6,color:#fff
+    style B fill:#3b82f6,color:#fff
+    style C fill:#3b82f6,color:#fff
+    style D fill:#3b82f6,color:#fff
+    style E fill:#3b82f6,color:#fff
+    style F fill:#475569,color:#fff
+    style G fill:#3b82f6,color:#fff
+    style H fill:#3b82f6,color:#fff
+    style I fill:#eab308,color:#000,stroke:#854d0e,stroke-width:2px
+```
+
+---
+
 ## 1 — Obter o keygrip da subchave [A]
 
 ```sh
