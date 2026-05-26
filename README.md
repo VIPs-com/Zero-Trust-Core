@@ -27,7 +27,9 @@ flowchart LR
 
 ## Primeira vez aqui?
 
-Leia o **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura do repositório, trilha integrada com [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert), o que cada parte do curso permite fazer e roteiro da primeira hora.
+Leia o **[INICIE AQUI](docs/INICIE-AQUI.md)** — 8 minutos, mapa visual das trilhas, o que comprar e como começar sem se sobrecarregar.
+
+Depois, o **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura do repositório, trilha integrada com [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert), o que cada parte do curso permite fazer e roteiro da primeira hora.
 
 **Montar o ambiente (software + hardware + kits em R$)?** → **[docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md)**
 

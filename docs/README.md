@@ -2,7 +2,8 @@
 
 | Documento | Para quê |
 | --- | --- |
-| [**MANUAL-DE-USO.md**](./MANUAL-DE-USO.md) | **Comece aqui** se acabou de clonar ou baixar o ZIP — estrutura do repo, trilhas, interligação com OpenPGP-GPG, primeiros passos |
+| [**INICIE-AQUI.md**](./INICIE-AQUI.md) | **Primeira vez no curso** — 8 min, mapa visual das trilhas, o que comprar, ordem de estudo |
+| [**MANUAL-DE-USO.md**](./MANUAL-DE-USO.md) | **Estrutura do repositório** — trilhas, interligação com OpenPGP-GPG, scripts, primeiros passos |
 | [**DIAGRAMAS-VISUAIS.md**](./DIAGRAMAS-VISUAIS.md) | **Fluxos A–E com cores** — síntese para imprimir/PDF (sem COMANDOs) |
 | [**INVENTARIO-SOFTWARE-HARDWARE.md**](./INVENTARIO-SOFTWARE-HARDWARE.md) | **Aluno:** software + hardware + **kits de compra (R$)** + checklist Turbo/Expert |
 | [**SLIDES-ABERTURA-TURMA.md**](./SLIDES-ABERTURA-TURMA.md) | **Instrutor:** 4 slides + [como projetar](./SLIDES-ABERTURA-TURMA.md#como-projetar-passo-a-passo) (VS Code, GitHub, PDF, Marp) |

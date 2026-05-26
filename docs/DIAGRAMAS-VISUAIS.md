@@ -32,46 +32,45 @@ Use este arquivo quando quiser **só os fluxos**, sem os COMANDOs. O conteúdo d
 
 * * *
 
-## A) Fluxograma geral da estratégia
+## A) Roadmap geral — escolha seu caminho
 
-Da decisão de montar o ecossistema até o plano de contingência.
+Três trilhas, um destino: sistema de segurança pessoal completo e testado.
 
 ```mermaid
 flowchart TD
-    A["Inicio - planejamento e trilha"] --> B["Aprendizado e ferramentas"]
-    B --> C["Ambiente air-gapped Tails"]
-    C --> D["Geracao master e subkeys OpenPGP"]
-    D --> E["Tokens: 2A smartcard e 2B NTAG"]
-    E --> F["Cofres diarios KeePass e VeraCrypt"]
-    F --> G["Backup 3-2-1-1-0"]
-    G --> H["Automacao e health-check"]
-    H --> I["Uso diario SSH e cofres"]
-    I --> J["Monitoramento e restore mensal"]
-    J --> K["Contingencia perda ou roubo"]
+    Start["Voce comeca aqui"] --> Escolha{"Qual trilha?"}
 
-    subgraph camadas["Camadas de seguranca"]
-        F
-        E
-        I
-    end
+    Escolha --> Turbo["Turbo\n8-12h / R$50-265\nMaioria dos alunos"]
+    Escolha --> Expert["Expert\n25-35h / R$725 mais\nMaxima seguranca"]
+    Escolha --> Hibrido["Turbo Hibrido\nBase Turbo + modulo H\nAproveite o que ja tem"]
 
-    subgraph airgap["Air-gap"]
-        C
-        D
-    end
+    Turbo --> Parte2["Parte 2\nNTAG + KeePass + VeraCrypt\nModulos 2B e 3.1"]
+    Expert --> Parte1["Parte 1\nTails + Chave Mestra offline\nModulo 1"]
+    Parte1 --> Parte2A["Parte 2A e 3.2\nSmartcard OpenPGP + SSH"]
+    Parte2A --> Parte2
+    Hibrido --> HMod["Modulo H escolhido\nAndroid, VM, TOTP\nApendice G"]
+    HMod --> Parte2
 
-    classDef inicio fill:#1e3a8a,color:#fff,stroke:#1e40af
-    classDef airgap fill:#0f766e,color:#fff,stroke:#115e59
-    classDef camada fill:#0369a1,color:#fff,stroke:#075985
-    classDef resiliencia fill:#7c3aed,color:#fff,stroke:#6d28d9
-    classDef alerta fill:#991b1b,color:#fff,stroke:#7f1d1d
+    Parte2 --> CP2["CHECKPOINT 2\nCofre funcional"]
+    CP2 --> Parte3["Parte 3\nBackup 3-2-1-1-0\nScripts + Runbook\nModulos 4-6"]
+    Parte3 --> CP3["CHECKPOINT 3\nSistema completo e resiliente"]
+    CP3 --> Parte4["Parte 4\nThreat Model + PQC\nManutencao anual"]
 
-    class A,B inicio
-    class C,D airgap
-    class E,F,I camada
-    class G,H resiliencia
-    class J camada
-    class K alerta
+    classDef start fill:#1e3a8a,color:#fff
+    classDef turbo fill:#10b981,color:#fff
+    classDef expert fill:#3b82f6,color:#fff
+    classDef hibrido fill:#c2410c,color:#fff
+    classDef check fill:#eab308,color:#000,stroke:#854d0e,stroke-width:3px
+    classDef neutro fill:#475569,color:#fff
+    classDef decisao fill:#b45309,color:#fff
+
+    class Start start
+    class Turbo,Parte2 turbo
+    class Expert,Parte1,Parte2A expert
+    class Hibrido,HMod hibrido
+    class CP2,CP3 check
+    class Parte3,Parte4 neutro
+    class Escolha decisao
 ```
 
 * * *
@@ -550,20 +549,197 @@ flowchart TD
 
 * * *
 
+## K) Abertura do cofre — fluxo completo (Sequence)
+
+O fluxo mais importante do uso diário: NTAG presente → VeraCrypt monta → KeePassXC abre.
+
+```mermaid
+sequenceDiagram
+    actor User as Usuário
+    participant NFC as NTAG tag
+    participant Script as ztc-open-cofre.sh
+    participant Age as age decifração
+    participant VC as VeraCrypt
+    participant KP as KeePassXC
+
+    Note over User,NFC: Fator de Posse — algo que você tem
+
+    User->>NFC: Aproxima a tag NTAG
+    activate NFC
+    NFC-->>Script: UID confirma presença
+    deactivate NFC
+
+    activate Script
+    Script->>Age: Decifra keyfile.age
+    activate Age
+    Age-->>Script: keyfile.bin decifrado
+    deactivate Age
+
+    Script->>VC: Monta vault.hc com senha + keyfile
+    activate VC
+    VC-->>Script: Volume montado com sucesso
+    deactivate VC
+
+    Script->>KP: Abre KeePassXC com keyfile
+    activate KP
+    KP-->>User: Cofre de senhas aberto ✅
+    deactivate KP
+    deactivate Script
+
+    Note right of KP: Sistema pronto para uso diário
+```
+
+> COMANDO 5.3 no curso · script [`ztc-open-cofre.sh`](../scripts/ztc-open-cofre.sh) · Módulo 3.1 (VeraCrypt) + Módulo 2B (NTAG keyfile).
+
+* * *
+
+## L) SSH via gpg-agent — autenticação com hardware (Sequence)
+
+Como a subchave [A] no smartcard autentica o SSH sem expor a chave privada ao sistema.
+
+```mermaid
+sequenceDiagram
+    actor User as Usuário
+    participant SSH as SSH Client
+    participant GPG as gpg-agent
+    participant Card as Smartcard OpenPGP
+
+    Note over User,Card: Autenticação com Chave Física — subchave A
+
+    User->>SSH: ssh user@servidor.com
+    activate SSH
+    SSH->>GPG: Solicita assinatura SSH
+    activate GPG
+    GPG->>Card: Pedido de assinatura subchave A
+    activate Card
+
+    rect rgb(254, 249, 195)
+        Card->>Card: Usuário digita PIN
+    end
+
+    Card-->>GPG: Assinatura gerada no hardware
+    deactivate Card
+    GPG-->>SSH: Chave autenticada
+    deactivate GPG
+    SSH-->>User: Conexão estabelecida ✅
+    deactivate SSH
+
+    Note right of SSH: Chave privada nunca saiu do smartcard
+```
+
+> COMANDO 3.2.3 no curso · a master key permanece no Tails — o smartcard carrega apenas as subkeys.
+
+* * *
+
+## M) Contingência — perda ou roubo de token (Sequence)
+
+Runbook de campo: o que fazer nas primeiras horas após perder um token.
+
+```mermaid
+sequenceDiagram
+    actor User as Usuário
+    participant Res as NTAG Reserva 2 ou 3
+    participant Age as age decifração
+    participant VC as VeraCrypt
+    participant Action as Ação pós-acesso
+
+    Note over User,Res: Plano de Contingência — Perda ou Roubo
+
+    User->>Res: Usa token reserva
+    activate Res
+    Res-->>Age: keyfile.age do backup
+    deactivate Res
+
+    activate Age
+    Age->>User: Digite senha do age
+    User-->>Age: Senha correta
+    Age-->>VC: keyfile.bin decifrado
+    deactivate Age
+
+    activate VC
+    VC->>User: Digite senha mestra VeraCrypt
+    User-->>VC: Senha correta
+    VC-->>User: Cofre montado ✅
+    deactivate VC
+
+    activate Action
+    Action->>Action: Revogar token perdido se necessário
+    Action->>Action: Repor NTAG reserva com novo clone
+    Action->>Action: Registrar no inventário
+    deactivate Action
+
+    Note right of Action: Runbook Módulo 6 — Fases 1 a 3
+```
+
+> Runbook completo: Módulo 6 do curso · Diagrama H (5 cenários) · [Apostila Cap 8](./APOSTILA-GUIA-PRATICO.md#capítulo-8--lição-8-playbook-de-incidentes).
+
+* * *
+
+## N) NTAG vs Smartcard OpenPGP — não são a mesma coisa
+
+O erro mais comum de iniciantes. Duas tecnologias NFC com papéis completamente diferentes.
+
+```mermaid
+flowchart LR
+    Q{"Para que\nvai usar?"}
+
+    Q -->|"Keyfile KeePassXC\ncofre de senhas"| NTAG
+    Q -->|"Subkeys PGP\nautenticação SSH"| SC
+
+    subgraph NTAG["Tag NTAG 213/215 — Módulo 2B"]
+        N1["Memória passiva\nsem processador interno"]
+        N2["Qualquer app NFC lê\nsem PIN obrigatório"]
+        N3["Clonável: SIM — por design\nCompre 3 idênticos"]
+        N4["R$5-15 por tag"]
+        N5["Perde 1: use o reserva 2 ou 3"]
+    end
+
+    subgraph SC["Smartcard OpenPGP — Módulo 2A"]
+        S1["Microprocessador criptográfico\noperações no hardware"]
+        S2["PIN obrigatório\nUser PIN e Admin PIN"]
+        S3["Clonável: NAO\nproteção por hardware"]
+        S4["R$280-750\nNitrokey, YubiKey, JCOP"]
+        S5["Perde 1: use o Cartão B\nou revogue e refaça no Tails"]
+    end
+
+    WARN(["NAO SAO INTERCAMBIAVEIS\nNTAG não faz keytocard OpenPGP\nSmartcard não substitui keyfile KeePass\nCurso explica quando usar cada um"])
+
+    NTAG --> WARN
+    SC --> WARN
+
+    classDef ntag fill:#0369a1,color:#fff
+    classDef sc fill:#7c3aed,color:#fff
+    classDef warn fill:#991b1b,color:#fff
+    classDef decisao fill:#b45309,color:#fff
+
+    class N1,N2,N3,N4,N5 ntag
+    class S1,S2,S3,S4,S5 sc
+    class WARN warn
+    class Q decisao
+```
+
+> Conceito crítico explicado no curso: Módulo 2A (smartcard), Módulo 2B (NTAG), [MANUAL-DE-USO.md §5](./MANUAL-DE-USO.md#5-conceito-chave-três-tokens-diferentes).
+
+* * *
+
 ## Índice rápido → módulo no curso
 
 | Diagrama | Quando usar | Ir para |
 | --- | --- | --- |
-| **A** | Visão geral antes de começar | Antes da Parte 1 |
-| **B** | Jornada passo a passo + contingência | Partes 1–3; revisar antes do Módulo 6 |
+| **A** | **Roadmap das 3 trilhas — começo** | Antes de qualquer módulo |
+| **B** | Jornada Expert passo a passo + contingência | Partes 1–3; revisar antes do Módulo 6 |
 | **C** | Arquitetura de peças conectadas | Antes da Parte 2; revisar antes da Parte 3 |
 | **D** | Partes × CHECKPOINTs | Sempre que mudar de Parte |
 | **E** | Módulos 4–6 interligados | Início da Parte 3 |
-| **F** | **Escolher o modelo de setup** | Antes de comprar hardware |
-| **G** | **Módulos H disponíveis** | Apêndice G — turma + aluno avançado |
-| **H** | **Playbook de incidentes** | Emergência; ensaio antes do Módulo 6 |
-| **I** | **Cockpit de automação** | Apostila Cap 9; Módulo 5 avançado |
-| **J** | **Mapa da Apostila** | Ao usar a apostila pela 1ª vez |
+| **F** | Escolher o modelo de setup | Antes de comprar hardware |
+| **G** | Módulos H Turbo Híbrido disponíveis | Apêndice G — turma + aluno avançado |
+| **H** | Playbook de incidentes 5 cenários | Emergência; ensaio antes do Módulo 6 |
+| **I** | Cockpit de automação (arquitetura) | Apostila Cap 9; Módulo 5 avançado |
+| **J** | Mapa da Apostila | Ao usar a apostila pela 1ª vez |
+| **K** | **Sequence: abertura do cofre** | Módulo 3.1 / 5.3 — fluxo diário |
+| **L** | **Sequence: SSH via gpg-agent** | Módulo 3.2 — autenticação hardware |
+| **M** | **Sequence: contingência / runbook** | Módulo 6 — perda de token |
+| **N** | **NTAG vs Smartcard OpenPGP** | Antes do Módulo 2A ou 2B — erro nº 1 |
 | OpenPGP ↔ ZTC | Trilha integrada | [Manual de uso](./MANUAL-DE-USO.md) §3 |
 
 *Manual visual · [VIPs-com/Zero-Trust-Core](https://github.com/VIPs-com/Zero-Trust-Core)*
