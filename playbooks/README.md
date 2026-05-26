@@ -50,6 +50,10 @@ Objetivo · Tempo · Pré-requisitos
 - **Último bloco sempre:** `✅ Concluído` + link de referência no curso
 - Se um passo exigir leitura extra → está errado — simplifique ou separe em outro playbook
 
+## Quer mais playbooks? Repo irmão
+
+O curso base [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) tem sua própria pasta [`playbooks/`](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/tree/main/playbooks) com **9 guias código-primeiro** cobrindo GnuPG do zero — ambiente, primeira chave, cifrar/assinar, backup, Git assinado, SSH, Tails e manutenção. Útil se você está fazendo os dois cursos em paralelo (trilha Expert).
+
 ---
 
 *Zero Trust Core Expert · VIPs-com · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)*
