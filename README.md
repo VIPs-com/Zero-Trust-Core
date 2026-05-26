@@ -112,7 +112,7 @@ Arquivos: [`ztc-health.sh`](./scripts/ztc-health.sh), [`ztc-rsync-offsite.sh`](.
 
 ## Status
 
-✅ **Versão 1.0.2** — Curso completo + correções pós-auditoria (backup keyfile `age`, VeraCrypt CLI, mount NFC condicional). Pasta [`scripts/`](./scripts/) pública. Tags: `v1.0.1`, `v1.0.2` · link recíproco no [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert).
+✅ **Versão 1.0.2 — encerrado editorialmente** (2026-05-26) — Auditoria técnica completa (P1–P6 + segurança scripts + links + CHECKPOINTs + FAQ). Pasta [`scripts/`](./scripts/) pública. Tags: `v1.0.1`, `v1.0.2` · link recíproco no [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert). **Tag `v1.0.3` após turma piloto.**
 
 **Adições pós-v1.0.2 (master):**
 - **[Apêndice G](./🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-g--módulos-h-turbo-híbrido)** — Módulos H Turbo Híbrido (H1 QR · H2 metal · H3 Android · H4 iPhone · H5 servidor · H6 TOTP). Ative conforme o hardware que você já tem — custo extra R$0–50 por módulo.
