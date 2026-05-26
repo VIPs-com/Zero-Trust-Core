@@ -42,7 +42,7 @@ gpg -K | head -20
 | 1 | `gpg --card-status` OK | Cartão inserido: `gpg --card-status` | `Signature key` … `URL of public key` sem erro de leitor |
 | 2 | Assinatura teste | `echo test | gpg --clearsign` (PIN) | Bloco `BEGIN PGP SIGNED MESSAGE` |
 | 3 | Três NTAG com mesmo keyfile | `nfc-list` em cada tag; hash do keyfile idêntico | Mesmo UID de conteúdo gravado (3 mídias) ou política 1+2 espelho documentada |
-| 4 | Backup `.age` do keyfile | COMANDO 2B.2: `age -d file.age > /tmp/kf.test` | Arquivo restaurado = byte-a-byte do original |
+| 4 | Backup `.age` do keyfile | [COMANDO 2B.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b2-backup-cifrado-do-keyfile-age--obrigatório-antes-dos-ntags): `age -d file.age > /tmp/kf.test` | Arquivo restaurado = byte-a-byte do original |
 | 5 | KeePass abre | Senha + keyfile (arquivo ou NTAG) | KeePassXC abre entrada de lab |
 | 6 | VeraCrypt monta | `veracrypt -t /path/vault.hc /mount/point` | `.kdbx` visível em `$ZTC_MOUNT_POINT` |
 | 7 | SSH via subchave [A] | `ssh-add -L`; `ssh -T git@github.com` | Chave listada; GitHub: *Hi USER! You've successfully authenticated* |
@@ -69,7 +69,7 @@ Evidência de turma: [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issu
 | :---: | --- | --- | --- |
 | 1 | Matriz 3-2-1-1-0 preenchida | Planilha ou tabela no caderno com **caminhos reais** | Cada ativo (master, subkeys, keyfile, kdbx, vault) tem ≥3 cópias em ≥2 mídias |
 | 2 | HD externo + `sha256` | `sha256sum -c manifest.txt` após cópia | `OK` em todos os blobs listados |
-| 3 | VM só WireGuard | `ssh` na VM **sem** WG falha; com WG OK | Acesso off-site conforme COMANDO 4.2 |
+| 3 | VM só WireGuard | `ssh` na VM **sem** WG falha; com WG OK | Acesso off-site conforme [COMANDO 4.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-42-backup-frio-no-hd-externo) |
 | 4 | `ztc-health.sh` | `~/bin/ztc-health.sh` (+ `--check-conf` se Expert) | Sem linhas `[FAIL]` críticas; cartão detectado |
 | 5 | Ritual backup documentado | Calendário + cron ou checklist mensal | Data da última execução anotada |
 | 6 | Restore test | Restaurar **um** blob (ex.: `.kdbx` ou keyfile `.age`) do HD frio | Arquivo abre no ambiente de lab |

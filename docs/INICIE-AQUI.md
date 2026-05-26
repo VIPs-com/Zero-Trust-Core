@@ -77,7 +77,7 @@ flowchart TD
 
 > **Recomendação forte:** comece pela **Trilha Turbo**. Você sempre pode avançar para Expert depois — os conhecimentos acumulam.
 
-**Turbo Híbrido:** se você já tem um celular Android antigo, uma TV Box ou um PC com RAM sobrando, o Apêndice G do curso tem módulos opcionais (H1–H6) que aproveitam exatamente esse hardware, sem custo extra.
+**Turbo Híbrido:** se você já tem um celular Android antigo, uma TV Box ou um PC com RAM sobrando, o [Apêndice G do curso](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-g--módulos-h-turbo-híbrido) tem módulos opcionais (H1–H6) que aproveitam exatamente esse hardware, sem custo extra.
 
 ---
 
@@ -103,9 +103,9 @@ flowchart TD
 2. Leia o **[Manual de uso](./MANUAL-DE-USO.md)** — 10 min, explica a estrutura do repositório
 3. Monte o **Kit A** com as tags NTAG
 4. Abra o curso e siga o **§0 ONBOARDING**
-5. Faça o **Módulo 2B** (NTAG + KeePass) e o **Módulo 3.1** (VeraCrypt)
+5. Faça o **[Módulo 2B](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-2b-ntag--keyfile-keepassxc)** (NTAG + KeePass) e o **[Módulo 3.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-31-keepassxc--veracrypt)** (VeraCrypt)
 6. Complete o **CHECKPOINT 2** — você já tem um cofre funcional!
-7. Continue para a Parte 3 (Backup) ou, se quiser ir mais fundo, para a Parte 1 (Tails + Master PGP)
+7. Continue para a [Parte 3 (Backup)](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-parte-3-resiliência-e-operação-semana-3) ou, se quiser ir mais fundo, para a Parte 1 (Tails + Master PGP)
 
 ---
 
@@ -116,7 +116,7 @@ flowchart TD
 - **Use os CHECKPOINTs como marcos de vitória** — cada um significa que algo está funcionando de verdade.
 - **Dúvida técnica?** → **[FAQ-TROUBLESHOOTING.md](./FAQ-TROUBLESHOOTING.md)**
 - **NTAG ≠ Smartcard OpenPGP** — são objetos diferentes com funções diferentes. O curso explica com calma. Não confunda agora.
-- **Não tem Linux?** O Apêndice D do curso cobre Windows/WSL2 e macOS.
+- **Não tem Linux?** O [Apêndice D do curso](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-d--guia-multiplataforma) cobre Windows/WSL2 e macOS.
 
 ---
 

@@ -103,4 +103,4 @@ shred -u ~/keepass-keyfile.ztc
 
 **Regra:** se os 3 NTAGs e o pendrive ficarem no mesmo lugar → você não tem backup real.
 
-📖 **Referência no curso:** COMANDO 2B.2
+📖 **Referência no curso:** [COMANDO 2B.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b2-backup-cifrado-do-keyfile-age--obrigatório-antes-dos-ntags)

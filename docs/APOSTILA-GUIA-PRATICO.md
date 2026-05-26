@@ -1226,7 +1226,7 @@ EMERGÊNCIA → Tails offline → gpg --import revogacao.asc → gpg --send-keys
 | FAQ | [`gpg --verify` falha em revogação?](./FAQ-TROUBLESHOOTING.md) | Usar `--import`, não `--verify` |
 | FAQ | [`--gen-revoke` não existe?](./FAQ-TROUBLESHOOTING.md) | Usar `--generate-revocation` |
 
-> ⚠️ Nunca revogue uma chave de produção em lab. Use chave descartável no COMANDO 6.2.
+> ⚠️ Nunca revogue uma chave de produção em lab. Use chave descartável no [COMANDO 6.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-62-ensaio-de-revogação-em-lab).
 
 ---
 

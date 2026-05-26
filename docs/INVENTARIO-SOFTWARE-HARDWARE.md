@@ -25,17 +25,17 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 
 | Arquivo / recurso | Para quem | Quando usar |
 | --- | --- | --- |
-| `🎓 Zero-Trust-Core-Expert - Versão 1.0.md` | **Aluno** | Estudo; COMANDO a COMANDO; apêndices A–F |
-| `docs/DIAGRAMAS-VISUAIS.md` | Aluno / instrutor | Impressão ou PDF dos fluxos A–E |
-| `docs/INVENTARIO-SOFTWARE-HARDWARE.md` | **Aluno** | Montar PC, **kits em R$**, conferir versões |
-| `docs/MANUAL-DE-USO.md` | Aluno novo | Primeira hora no GitHub / ZIP |
-| `docs/APOSTILA-GUIA-PRATICO.md` | **Aluno avançado** | Hardware alternativo, DIY, governança, cockpit — 9 capítulos + referência rápida |
-| `scripts/ztc-health.sh` | Aluno (Expert) | Módulo 5 — health-check |
-| `scripts/ztc-rsync-offsite.sh` | Aluno (Expert) | Módulo 4.2 — backup VM |
-| `scripts/ztc-open-cofre.sh` | Aluno (Expert) | Módulo 5.3 — após Checkpoint 2 |
-| `docs/AUDITORIA-v1.0.1.md` | Equipe / comunidade | Por que a v1.0.2 existe |
-| `docs/CHECKLIST-PRE-TURMA-EQUIPE.md` | **Instrutor** | Antes de cada turma |
-| `docs/SLIDES-ABERTURA-TURMA.md` | **Instrutor** | Primeira aula (4 slides) |
+| [`🎓 Zero-Trust-Core-Expert - Versão 1.0.md`](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) | **Aluno** | Estudo; COMANDO a COMANDO; apêndices A–F |
+| [`docs/DIAGRAMAS-VISUAIS.md`](./DIAGRAMAS-VISUAIS.md) | Aluno / instrutor | Impressão ou PDF dos fluxos A–N |
+| [`docs/INVENTARIO-SOFTWARE-HARDWARE.md`](./INVENTARIO-SOFTWARE-HARDWARE.md) | **Aluno** | Montar PC, **kits em R$**, conferir versões |
+| [`docs/MANUAL-DE-USO.md`](./MANUAL-DE-USO.md) | Aluno novo | Primeira hora no GitHub / ZIP |
+| [`docs/APOSTILA-GUIA-PRATICO.md`](./APOSTILA-GUIA-PRATICO.md) | **Aluno avançado** | Hardware alternativo, DIY, governança, cockpit — 9 capítulos + referência rápida |
+| [`scripts/ztc-health.sh`](../scripts/ztc-health.sh) | Aluno (Expert) | [Módulo 5](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-5-automação-e-health-check) — health-check |
+| [`scripts/ztc-rsync-offsite.sh`](../scripts/ztc-rsync-offsite.sh) | Aluno (Expert) | [Módulo 4.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-42-vm-off-site--wireguard--rsync) — backup VM |
+| [`scripts/ztc-open-cofre.sh`](../scripts/ztc-open-cofre.sh) | Aluno (Expert) | [COMANDO 5.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-53-keepass--veracrypt-condicional-nfc-opcional) — após Checkpoint 2 |
+| [`docs/AUDITORIA-v1.0.1.md`](./AUDITORIA-v1.0.1.md) | Equipe / comunidade | Por que a v1.0.2 existe |
+| [`docs/CHECKLIST-PRE-TURMA-EQUIPE.md`](./CHECKLIST-PRE-TURMA-EQUIPE.md) | **Instrutor** | Antes de cada turma |
+| [`docs/SLIDES-ABERTURA-TURMA.md`](./SLIDES-ABERTURA-TURMA.md) | **Instrutor** | Primeira aula (4 slides) |
 | [Issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) | Instrutor | Evidência hardware NFC + Tails |
 
 * * *
@@ -310,7 +310,7 @@ Expert essencial + off-site (VM) + itens de contingência física.
 ### Depois de comprar (antes da aula 1)
 
 1. Conferir [baseline de versões](#baseline-de-versões-revalidar-antes-da-turma) (Tails, KeePassXC, VeraCrypt).  
-2. Gravar Tails no pendrive (COMANDO 0.5 / 1.1).  
+2. Gravar Tails no pendrive ([COMANDO 0.5](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-05-pré-vôo-do-tails-no-host-com-internet) / [1.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-11-gravar-e-iniciar-o-tails)).  
 3. Testar `gpg --card-status` com smartcard **antes** do `keytocard`.  
 4. Testar `nfc-list` ou NFC Tools com as 3 tags.  
 5. Instrutor: [CHECKLIST-PRE-TURMA-EQUIPE.md](./CHECKLIST-PRE-TURMA-EQUIPE.md) + [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2).

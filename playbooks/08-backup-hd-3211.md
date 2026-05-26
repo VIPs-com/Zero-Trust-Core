@@ -156,4 +156,4 @@ sudo umount /media/backup-hd
 **Próximo passo Expert:** → [Playbook 09 — WireGuard + VM off-site](./09-wireguard-vm.md)  
 **Verificação mensal:** → [Playbook 10 — Restore test](./10-restore-test.md)
 
-📖 **Referência no curso:** COMANDO 4.1, 4.2, 4.3
+📖 **Referência no curso:** [COMANDO 4.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-41-inventário-e-hashes-locais) · [4.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-42-backup-frio-no-hd-externo) · [4.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-43-teste-de-restauração-ritual-mensal)

@@ -91,7 +91,7 @@ time ~/bin/ztc-open-cofre.sh; echo "exit=$?"
 | `nfc-list` ausente | `[FAIL] nfc-list ausente; instale libnfc ou remova ZTC_NFC_UID do conf` |
 | `ZTC_NFC_UID` vazio no conf | Script **não** exige NFC; só monta VeraCrypt e abre KeePass |
 
-> 💡 Para turma sem leitor NFC no PC: deixe `ZTC_NFC_UID=""` e documente fluxo manual (COMANDO 3.1.2).
+> 💡 Para turma sem leitor NFC no PC: deixe `ZTC_NFC_UID=""` e documente fluxo manual ([COMANDO 3.1.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-312-montar-e-guardar-o-kdbx-dentro)).
 
 ### Dados mínimos para o comentário no issue #2
 
@@ -114,7 +114,7 @@ Copie e preencha o [modelo de comentário](#modelo-de-comentário-issue-2) abaix
 ## 2. Revalidação do Tails (cada turma)
 
 1. Abra [https://tails.net/latest/](https://tails.net/latest/) no dia da preparação da turma.  
-2. Compare com a versão citada no curso (**COMANDO 0.5** e **COMANDO 1.1** — baseline editorial, ex. Tails 7.8).  
+2. Compare com a versão citada no curso (**[COMANDO 0.5](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-05-pré-vôo-do-tails-no-host-com-internet)** e **[COMANDO 1.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-11-gravar-e-iniciar-o-tails)** — baseline editorial, ex. Tails 7.8).  
 3. Se a estável mudou:
    - Atualize as referências no arquivo `🎓 Zero-Trust-Core-Expert - Versão 1.0.md`
    - Commit + nota na release ou changelog interno
@@ -205,7 +205,7 @@ Comunicar na abertura de turma. Nenhum módulo H é pré-requisito para os CHECK
 
 ## 5. Outros itens recomendados (não bloqueiam o issue)
 
-- Alunos **só Windows:** revisar [Apêndice D.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) na aula de SSH  
+- Alunos **só Windows:** revisar [Apêndice D.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-d1--wsl2--gpg-agent-passo-a-passo) na aula de SSH  
 - Imprimir runbook (Módulo 6) + guardar com NTAG #2 / smartcard reserva  
 - Slides: NTAG clonável = modelo de ameaça, não defeito do curso  
 
@@ -221,7 +221,7 @@ Ver também checklist em [`AUDITORIA-v1.0.1.md`](./AUDITORIA-v1.0.1.md).
 | Issue #2 | https://github.com/VIPs-com/Zero-Trust-Core/issues/2 |
 | Release v1.0.2 | https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.2 |
 | Script | [`scripts/ztc-open-cofre.sh`](../scripts/ztc-open-cofre.sh) |
-| COMANDO 5.3 | [curso — Módulo 5](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) |
+| [COMANDO 5.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-53-keepass--veracrypt-condicional-nfc-opcional) | [curso — Módulo 5](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-5-automação-e-health-check) |
 
 ---
 

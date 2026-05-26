@@ -50,14 +50,14 @@ Zero-Trust-Core/
 
 | Arquivo | Obrigatório? | Função |
 | --- | :---: | --- |
-| `🎓 Zero-Trust-Core-Expert - Versão 1.0.md` | **Sim** | Todo o conteúdo didático (Partes 1–4, apêndices, COMANDOs) |
-| `docs/MANUAL-DE-USO.md` | Recomendado | Este guia de navegação |
-| `docs/INVENTARIO-SOFTWARE-HARDWARE.md` | Recomendado | Lista de software/hardware antes de comprar/montar o PC |
-| `docs/APOSTILA-GUIA-PRATICO.md` | Avançado | Guia complementar 9 capítulos: hardware, DIY, governança, automação, cockpit |
-| `docs/GABARITO-CHECKPOINTS.md` | Instrutor / autoavaliação | Como **provar** cada item dos CHECKPOINTs 1–3 |
-| `docs/FAQ-TROUBLESHOOTING.md` | Consulta | Erros comuns (GPG, VeraCrypt, NFC, SSH) |
-| `scripts/` | Turbo: opcional · **Expert: obrigatório** (Mód. 4.2 e 5) | Automação |
-| `README.md` | 2 min | Visão geral + links |
+| [`🎓 Zero-Trust-Core-Expert - Versão 1.0.md`](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) | **Sim** | Todo o conteúdo didático (Partes 1–4, apêndices, COMANDOs) |
+| [`docs/MANUAL-DE-USO.md`](./MANUAL-DE-USO.md) | Recomendado | Este guia de navegação |
+| [`docs/INVENTARIO-SOFTWARE-HARDWARE.md`](./INVENTARIO-SOFTWARE-HARDWARE.md) | Recomendado | Lista de software/hardware antes de comprar/montar o PC |
+| [`docs/APOSTILA-GUIA-PRATICO.md`](./APOSTILA-GUIA-PRATICO.md) | Avançado | Guia complementar 9 capítulos: hardware, DIY, governança, automação, cockpit |
+| [`docs/GABARITO-CHECKPOINTS.md`](./GABARITO-CHECKPOINTS.md) | Instrutor / autoavaliação | Como **provar** cada item dos CHECKPOINTs 1–3 |
+| [`docs/FAQ-TROUBLESHOOTING.md`](./FAQ-TROUBLESHOOTING.md) | Consulta | Erros comuns (GPG, VeraCrypt, NFC, SSH) |
+| [`scripts/`](../scripts/README.md) | Turbo: opcional · **Expert: obrigatório** (Mód. 4.2 e 5) | Automação |
+| [`README.md`](../README.md) | 2 min | Visão geral + links |
 
 > 💡 Pode estudar **só o `.md` do curso** num pendrive, sem Git. Os scripts exigem Linux (ou WSL com ressalvas — Apêndice D do curso).
 

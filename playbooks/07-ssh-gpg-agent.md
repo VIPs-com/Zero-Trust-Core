@@ -173,4 +173,4 @@ EOF
 
 **Próximo passo:** → [Playbook 08 — Backup HD 3-2-1-1-0](./08-backup-hd-3211.md)
 
-📖 **Referência no curso:** COMANDO 3.2.1, 3.2.2, 3.2.3
+📖 **Referência no curso:** [COMANDO 3.2.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-321-keygrip-da-subchave-a) · [3.2.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-322-sshcontrol--agente) · [3.2.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-323-chave-pública-ssh-e-testes)

@@ -189,4 +189,4 @@ Adicionar linha:
 
 **Próximo passo:** → [Playbook 10 — Restore test mensal](./10-restore-test.md)
 
-📖 **Referência no curso:** COMANDO 4.2.1, 4.2.2, 4.2.3
+📖 **Referência no curso:** [COMANDO 4.2.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-421-wireguard-na-vm-lado-servidor) · [4.2.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-422-usuário-e-diretório-de-backup-na-vm) · [4.2.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-423-rsync-só-blobs-com-ou-sem-nfc)

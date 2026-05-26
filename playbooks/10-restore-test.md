@@ -151,4 +151,4 @@ cat ~/ztc-backup/restore-log.txt
 
 **Se o vault não abriu ou o manifesto falhou:** abra o FAQ do curso — [docs/FAQ-TROUBLESHOOTING.md](../docs/FAQ-TROUBLESHOOTING.md)
 
-📖 **Referência no curso:** COMANDO 4.3, CHECKPOINT 3
+📖 **Referência no curso:** [COMANDO 4.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-43-teste-de-restauração-ritual-mensal) · [CHECKPOINT 3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-checkpoint-3-backup-e-contingência)
