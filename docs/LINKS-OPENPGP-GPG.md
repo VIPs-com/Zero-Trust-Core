@@ -27,6 +27,7 @@ https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/main/%F0%9F%8E%93
 | **COMANDO 3.1** (certificado de revogação) | [#comando-3-1-revogacao-ztc](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/main/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#comando-3-1-revogacao-ztc) |
 | Mód. 6 (Tails offline, master) | [#modulo-6-ztc](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/main/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-6-ztc) |
 | Mód. 10 (manutenção) | [#modulo-10-ztc](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/main/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-10-ztc) |
+| **Playbooks (código primeiro)** | [playbooks/README.md](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/tree/main/playbooks) — 9 guias Mód. 0–10 |
 
 > ⚠️ **Correção editorial:** revogação no OpenPGP-GPG é **COMANDO 3.1** (Módulo 3), **não** COMANDO 1.4 (1.4 = adicionar subchaves).
 

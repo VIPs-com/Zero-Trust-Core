@@ -117,6 +117,8 @@ Arquivos: [`ztc-health.sh`](./scripts/ztc-health.sh), [`ztc-rsync-offsite.sh`](.
 **Adições pós-v1.0.2 (master):**
 - **[Apêndice G](./🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-g--módulos-h-turbo-híbrido)** — Módulos H Turbo Híbrido (H1 QR · H2 metal · H3 Android · H4 iPhone · H5 servidor · H6 TOTP). Ative conforme o hardware que você já tem — custo extra R$0–50 por módulo.
 - **[docs/APOSTILA-GUIA-PRATICO.md](docs/APOSTILA-GUIA-PRATICO.md)** — guia complementar estilo livro (9 capítulos): ranking Top 20 hardware keys, Frankenstein Key DIY (5 kits), protocolos avançados, cronograma manutenção, governança home lab, playbook de incidentes (5 cenários), cockpit Prometheus/Grafana + PowerShell/Rainmeter.
+- **[playbooks/](playbooks/) — fluxogramas Mermaid** em cada um dos 10 playbooks ZTC (`## Visão geral do processo`) + deep links para COMMANDs em 18 arquivos de docs (zero referências soltas) + tabela de 14 dispositivos testados no [Inventário](docs/INVENTARIO-SOFTWARE-HARDWARE.md).
+- **Repositório irmão:** [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) ganhou [`playbooks/`](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/tree/main/playbooks) — 9 guias código-primeiro (Módulos 0–10) com fluxogramas Mermaid.
 
 ## Licença
 
