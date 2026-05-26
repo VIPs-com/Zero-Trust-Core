@@ -33,6 +33,8 @@ Depois, o **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura do repositór
 
 **Montar o ambiente (software + hardware + kits em R$)?** → **[docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md)**
 
+**Quero executar agora (zero teoria, copiar e colar)?** → **[playbooks/](playbooks/)** — 10 guias código-primeiro: KeePassXC+NTAG, VeraCrypt, SSH, WireGuard, Tails, restore test e mais.
+
 **Ir além do curso (hardware alternativo, DIY, governança, automação)?** → **[docs/APOSTILA-GUIA-PRATICO.md](docs/APOSTILA-GUIA-PRATICO.md)** — guia prático em 9 capítulos + referência rápida por cenário (Capítulo 10)
 
 **Instrutor — abertura de turma:** → **[docs/SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md)** (VS Code, GitHub, Marp) · **[.marp.md](docs/SLIDES-ABERTURA-TURMA.marp.md)**
