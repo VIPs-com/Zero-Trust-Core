@@ -1,4 +1,4 @@
-# Modelo de comentário — issue #2
+﻿# Modelo de comentário — issue #2
 
 **Uso:** execute os testes em [`CHECKLIST-PRE-TURMA-EQUIPE.md`](./CHECKLIST-PRE-TURMA-EQUIPE.md), cole a saída nos blocos abaixo e publique em  
 https://github.com/VIPs-com/Zero-Trust-Core/issues/2  
@@ -100,7 +100,7 @@ time ~/bin/ztc-open-cofre.sh; echo "exit=$?"
 [PREENCHER — ex.: precisou `sudo` para VeraCrypt; polkit; leitor só funciona em USB2; Kit B do inventário]
 
 ---
-*Checklist: [`docs/CHECKLIST-PRE-TURMA-EQUIPE.md`](https://github.com/VIPs-com/Zero-Trust-Core/blob/master/docs/CHECKLIST-PRE-TURMA-EQUIPE.md) · Gabarito CP2: [`docs/GABARITO-CHECKPOINTS.md`](https://github.com/VIPs-com/Zero-Trust-Core/blob/master/docs/GABARITO-CHECKPOINTS.md)*
+*Checklist: [`docs/CHECKLIST-PRE-TURMA-EQUIPE.md`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/docs/CHECKLIST-PRE-TURMA-EQUIPE.md) · Gabarito CP2: [`docs/GABARITO-CHECKPOINTS.md`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/docs/GABARITO-CHECKPOINTS.md)*
 ```
 
 ---
@@ -140,7 +140,7 @@ Depois dos dois blocos preenchidos:
 
 **Resumo:** Aprovado para turma Expert com [leitor/modelo] · Tails [X.Y] alinhado ao curso.
 
-Próximo marco: scorecard v1.0.3 em [`docs/AUDITORIA-v1.0.1.md`](https://github.com/VIPs-com/Zero-Trust-Core/blob/master/docs/AUDITORIA-v1.0.1.md#roadmap-v103--scorecard-1010).
+Próximo marco: scorecard v1.0.3 em [`docs/AUDITORIA-v1.0.1.md`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/docs/AUDITORIA-v1.0.1.md#roadmap-v103--scorecard-1010).
 ```
 
 ---

@@ -1,4 +1,4 @@
----
+﻿---
 marp: true
 theme: default
 paginate: true
@@ -40,7 +40,7 @@ VIPs-com · v1.0.2 · [Repositório](https://github.com/VIPs-com/Zero-Trust-Core
 | **C** | Expert (PGP + HD) | **~R$ 725 – 1.770** |
 | **D** | Expert + VM | **~R$ 770 – 2.150** + VPS/mês |
 
-`A → B → C → D` · Detalhes: [Inventário § Kits](https://github.com/VIPs-com/Zero-Trust-Core/blob/master/docs/INVENTARIO-SOFTWARE-HARDWARE.md#-kit-mínimo-de-compra-brasil--referência-2026)
+`A → B → C → D` · Detalhes: [Inventário § Kits](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/docs/INVENTARIO-SOFTWARE-HARDWARE.md#-kit-mínimo-de-compra-brasil--referência-2026)
 
 ---
 
@@ -73,6 +73,6 @@ VIPs-com · v1.0.2 · [Repositório](https://github.com/VIPs-com/Zero-Trust-Core
 
 ## Links
 
-- Curso: [Zero-Trust-Core-Expert](https://github.com/VIPs-com/Zero-Trust-Core/blob/master/%F0%9F%8E%93%20Zero-Trust-Core-Expert%20-%20Vers%C3%A3o%201.0.md)
-- Manual: [MANUAL-DE-USO.md](https://github.com/VIPs-com/Zero-Trust-Core/blob/master/docs/MANUAL-DE-USO.md)
+- Curso: [Zero-Trust-Core-Expert](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/%F0%9F%8E%93%20Zero-Trust-Core-Expert%20-%20Vers%C3%A3o%201.0.md)
+- Manual: [MANUAL-DE-USO.md](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/docs/MANUAL-DE-USO.md)
 - Versão com notas do instrutor: [SLIDES-ABERTURA-TURMA.md](./SLIDES-ABERTURA-TURMA.md)

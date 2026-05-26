@@ -1,4 +1,4 @@
-# 🎤 Abertura de turma — Zero Trust Core Expert
+﻿# 🎤 Abertura de turma — Zero Trust Core Expert
 
 **4 slides** · Instrutor · Maio/2026 · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
@@ -26,7 +26,7 @@ Escolha **um** método. Para aula presencial, **Marp** ou **PDF** costumam ficar
 
 ### Opção B — GitHub no navegador (projetor / link para alunos)
 
-1. Abra: https://github.com/VIPs-com/Zero-Trust-Core/blob/master/docs/SLIDES-ABERTURA-TURMA.md  
+1. Abra: https://github.com/VIPs-com/Zero-Trust-Core/blob/main/docs/SLIDES-ABERTURA-TURMA.md  
 2. O GitHub renderiza **tabelas e Mermaid** do Slide 3 automaticamente.  
 3. **Tela cheia:** `F11` no navegador; aumente zoom (`Ctrl` + `+`) até ~125–150%.  
 4. Role de `## SLIDE 1` até `## SLIDE 4` (10–15 min).  

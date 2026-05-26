@@ -1,4 +1,4 @@
-# 🎓 Zero Trust Core Expert – **VERSÃO 1.0 (canônica)**
+﻿# 🎓 Zero Trust Core Expert – **VERSÃO 1.0 (canônica)**
 
 **Air-Gap + NFC + OpenPGP + KeePassXC + VeraCrypt**
 
@@ -1687,7 +1687,7 @@ Exemplo (ajuste horários):
 0 9 * * 0 [ "$(date +\%d)" -le 7 ] && echo "Lembrete: teste de restore 3-2-1-1-0" | logger -t ztc
 ```
 
-> 📎 Scripts copiáveis: pasta [`scripts/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/master/scripts) no repositório + **Apêndice B**. Valide o ritual; depois endurece com `systemd` timers e alertas.
+> 📎 Scripts copiáveis: pasta [`scripts/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/scripts) no repositório + **Apêndice B**. Valide o ritual; depois endurece com `systemd` timers e alertas.
 
 * * *
 
@@ -2062,7 +2062,7 @@ Exporte chave pública atualizada e distribua (`gpg --export -a`). Se subkeys es
 | `ztc.conf` | `scripts/ztc.conf.example` | Variáveis `ZTC_*` |
 | Cron exemplo | [COMANDO 5.2](#-comando-52-cron-backup--health) | Agendamento |
 
-**Instalação rápida:** copie de [`scripts/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/master/scripts) no repositório para `~/bin/` (veja `scripts/README.md`), ou copie os blocos `sh` dos COMANDOs acima.
+**Instalação rápida:** copie de [`scripts/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/scripts) no repositório para `~/bin/` (veja `scripts/README.md`), ou copie os blocos `sh` dos COMANDOs acima.
 
 Versões futuras: prefixe `v2-` ao mudar comportamento; mantenha changelog no seu repositório pessoal.
 
