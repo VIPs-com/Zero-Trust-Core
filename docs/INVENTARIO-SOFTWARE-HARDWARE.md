@@ -119,7 +119,7 @@ sudo apt install -y gnupg2 pcscd scdaemon libccid openssh-client \
 | Software | Curso | Notas |
 | --- | :---: | --- |
 | **Tails** 7.8+ | 🟢 Expert | Boot USB; **sem** persistência na primeira master |
-| **GnuPG** (incluído no Tails) | 🟢 Expert | COMANDO 1.1–1.6 |
+| **GnuPG** (incluído no Tails) | 🟢 Expert | [COMANDO 1.1–1.6](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-1-sua-primeira-chave-no-air-gap-tails) |
 | **GNOME Secrets** | 🟡 | Padrão Tails 7.6+; opcional se quiser `.kdbx` no Tails |
 | **KeePassXC** no Tails | 🔵 | [Software adicional](https://tails.net/doc/persistent_storage/additional_software/index.en.html) — curso não exige |
 | **age**, **wget**, **curl** | 🟢 | Instalação COMANDO 1.x (`apt` no Tails com persistência ou sessão) |
@@ -356,7 +356,7 @@ Expert essencial + off-site (VM) + itens de contingência física.
 | **0 erros** — `sha256` + manifesto assinado [S] | 🟢 | 4.x |
 | **Revogação** em papel + segunda mídia | 🟢 | 1.x, Checkpoint 1 |
 | **Cartão reserva** (NTAG #2/#3 ou smartcard B) | 🟢 | 6.x runbook |
-| **Simulação de mesa** obrigatória | 🟢 | COMANDO 6.1 |
+| **Simulação de mesa** obrigatória | 🟢 | [COMANDO 6.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-61-simulação-de-mesa-obrigatória) |
 | **Break-glass** VM (sem depender do NTAG diário) | 🟢 | 4.2 |
 | Hidden volume VeraCrypt | 🔵 | Não ensinado passo a passo na v1.0.2 |
 
