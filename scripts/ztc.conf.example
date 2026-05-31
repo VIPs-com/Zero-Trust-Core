@@ -16,6 +16,16 @@ ZTC_MOUNT_POINT="/media/veracrypt-ztc"
 ZTC_KDBX="/media/veracrypt-ztc/lab-passwords.kdbx"
 ZTC_KEYFILE="$HOME/keepass-keyfile.ztc"
 
+# VeraCrypt — supressao de prompts desnecessarios no mount.
+# Por default (sem PIM, sem keyfile do VeraCrypt, sem volume oculto), o CLI
+# pede 4 coisas: senha, PIM, keyfile, hidden. Os 3 ultimos sao desnecessarios
+# no setup padrao deste curso. Os defaults abaixo eliminam esses prompts —
+# o veracrypt vai pedir SO a senha. Se voce usa PIM custom ou keyfile no
+# VeraCrypt (camada extra opcional), edite as variaveis abaixo.
+ZTC_VC_PIM="0"                 # 0 = sem PIM custom (default VeraCrypt)
+ZTC_VC_KEYFILES=""             # vazio = sem keyfile no VeraCrypt
+ZTC_VC_PROTECT_HIDDEN="no"     # no = nao tem volume oculto
+
 # Modo de abertura do KeePassXC: 'gui' (default) ou 'cli'.
 # - gui: abre o KeePassXC graficamente; voce seleciona o keyfile no dialogo
 #        na primeira vez (depois ele lembra). Recomendado para uso diario.

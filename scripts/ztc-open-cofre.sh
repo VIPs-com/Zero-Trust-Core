@@ -30,9 +30,22 @@ fi
 if mountpoint -q "$ZTC_MOUNT_POINT" 2>/dev/null; then
   echo "[INFO] $ZTC_MOUNT_POINT ja montado"
 else
-  echo "Montando $ZTC_VAULT_HC em $ZTC_MOUNT_POINT (senha do volume no prompt)..."
+  echo "Montando $ZTC_VAULT_HC em $ZTC_MOUNT_POINT (so a senha sera pedida)..."
   sudo mkdir -p "$ZTC_MOUNT_POINT"
-  veracrypt -t "$ZTC_VAULT_HC" "$ZTC_MOUNT_POINT"
+  # Flags abaixo suprimem prompts desnecessarios do CLI VeraCrypt:
+  #   --pim=0            : sem PIM custom (default)
+  #   --keyfiles=""      : sem keyfile do VeraCrypt (o keyfile e do KeePassXC, dentro do vault)
+  #   --protect-hidden=no: sem volume oculto
+  # Se voce usa PIM/keyfile/hidden, defina ZTC_VC_PIM, ZTC_VC_KEYFILES,
+  # ZTC_VC_PROTECT_HIDDEN no ztc.conf para sobrescrever os defaults.
+  ZTC_VC_PIM="${ZTC_VC_PIM:-0}"
+  ZTC_VC_KEYFILES="${ZTC_VC_KEYFILES:-}"
+  ZTC_VC_PROTECT_HIDDEN="${ZTC_VC_PROTECT_HIDDEN:-no}"
+  veracrypt -t \
+    --pim="$ZTC_VC_PIM" \
+    --keyfiles="$ZTC_VC_KEYFILES" \
+    --protect-hidden="$ZTC_VC_PROTECT_HIDDEN" \
+    "$ZTC_VAULT_HC" "$ZTC_MOUNT_POINT"
 fi
 
 if [ ! -f "$ZTC_KDBX" ]; then
