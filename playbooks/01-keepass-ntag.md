@@ -91,11 +91,9 @@ O CLI vai pedir a senha e abrir o banco em modo interativo. Digite `exit` para s
 
 ## 5 — Copiar keyfile para o celular
 
-**Opção A — Gerenciador de arquivos GNOME (recomendado em Ubuntu 22.04+):**
+> **Base testada:** Debian 13 (Trixie). Em outras distros, ajuste o gerenciador de pacotes e procure o equivalente local.
 
-Conecte o Android via USB → desbloqueie → escolha **"Transferência de arquivos"** → arraste `~/keepass-keyfile.ztc` para a pasta `Documents` do celular. O GNOME monta MTP nativamente, sem pacotes extras.
-
-**Opção B — Via terminal (`simple-mtpfs`):**
+**Opção A — Via terminal (`simple-mtpfs`):**
 
 ```sh
 sudo apt install -y simple-mtpfs
@@ -107,7 +105,11 @@ cp ~/keepass-keyfile.ztc ~/mnt-android/Documents/
 fusermount -u ~/mnt-android
 ```
 
-> ⚠️ `simple-mtpfs` tem problemas conhecidos no **Ubuntu 24.04**. Se falhar, use a Opção A, Bluetooth ou microSD.
+**Opção B — Gerenciador de arquivos do desktop (GNOME, KDE, XFCE):**
+
+Conecte o Android via USB → desbloqueie → escolha **"Transferência de arquivos"** → arraste `~/keepass-keyfile.ztc` para a pasta `Documents` do celular. O Nautilus/Dolphin monta MTP nativamente, sem pacotes extras.
+
+> ⚠️ Se você estiver no **Ubuntu 24.04**, `simple-mtpfs` tem regressão conhecida — use a Opção B, Bluetooth ou microSD.
 
 > **iPhone:** o iOS não monta como drive USB no Linux (protocolo AFC, não MTP) e o **Core NFC não permite gravar arquivos binários em NTAG215**. Use Android emprestado para gravar as tags; o iPhone consegue só ler depois (NFC Tools Pro, ~R$15).
 

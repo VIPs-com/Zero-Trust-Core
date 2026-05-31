@@ -32,15 +32,21 @@ flowchart TD
 
 ## 1 — Instalar VeraCrypt
 
+VeraCrypt **não está nos repos Debian/Ubuntu** — baixe o `.deb` oficial em https://veracrypt.fr/en/Downloads.html e escolha o pacote que combina com sua distro.
+
 ```sh
-# Baixar o .deb oficial (NÃO está nos repos Ubuntu)
+# Em Debian 13 (Trixie), o .deb para Ubuntu 22.04 funciona via compatibilidade glibc.
+# Aluno em outra distro: baixe o .deb correspondente (Ubuntu 22.04, 24.04, etc.)
 wget -O /tmp/veracrypt.deb \
-  "https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Ubuntu-24.04-amd64.deb"
+  "https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Ubuntu-22.04-amd64.deb"
 
 sudo dpkg -i /tmp/veracrypt.deb
+sudo apt -f install   # corrige dependências se faltarem
 
 veracrypt --version   # deve mostrar 1.26.24
 ```
+
+> **Outras distros:** Fedora/openSUSE têm `.rpm` na mesma página. Arch tem o pacote `veracrypt` no AUR.
 
 ---
 
