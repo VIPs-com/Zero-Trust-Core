@@ -13,6 +13,7 @@
 | **KeePassXC diz "Destrancar falhou — você quer tentar com senha vazia?"** | `keepassxc --keyfile X file.kdbx` **ignora `--keyfile`** em 2.7.x — abre sem keyfile e falha | Use `keepassxc file.kdbx` e marque **Key File** no diálogo (ele lembra). Ou `keepassxc-cli open --key-file X file.kdbx` para CLI. Script atualizado em `ztc-open-cofre.sh` |
 | `nfc-list` vazio | Driver, cabo, tag não ISO14443A | `lsusb`; outro leitor (ver inventário Kit B) |
 | `ztc-open-cofre.sh` FAIL NTAG ausente | UID errado em `ztc.conf` ou tag longe | `nfc-list` → copiar UID exato para `ZTC_NFC_UID` |
+| Nomes dos arquivos (`vault.hc`, `keepass-keyfile.ztc`, script `ztc-*`) são gritantes | Setup do curso é didático por design | Seção 9 do [Playbook 04](../playbooks/1-cofre/04-abrir-cofre-auto.md) — migração OpSec para nomes discretos (`archive-2023.tar`, `morning-routine.sh`, etc.) |
 | Script monta sem NFC | `ZTC_NFC_UID=""` | Esperado em lab sem leitor; turma Expert deve preencher UID |
 | `ssh -T git@github.com` Permission denied | Chave [A] não no agente | `gpg --card-status`; `ssh-add -L` |
 | `ztc-health.sh` FAIL card | Cartão não inserido ou CCID | Reinserir cartão; `pcscd` ativo |

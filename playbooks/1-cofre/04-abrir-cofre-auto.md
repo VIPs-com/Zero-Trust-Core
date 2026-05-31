@@ -192,6 +192,113 @@ EOF
 
 ✅ **Concluído** — `ztc-open-cofre.sh` + `ztc-close-cofre.sh` funcionando. Dois cliques no desktop para a rotina diária.
 
+---
+
+## 9 — (Avançado) OpSec — disfarçar artefatos no disco
+
+> 🥷 Esta seção é **opcional** e roda DEPOIS de tudo funcionar. O setup padrão do curso usa nomes didáticos (`vault.hc`, `keepass-keyfile.ztc`, `ztc-open-cofre.sh`) porque é mais fácil de aprender. Em produção, esses nomes denunciam o que você guarda.
+
+### O que é gritante por padrão
+
+| Local | Nome óbvio | Visto por... |
+|-------|------------|---------------|
+| `~/cofre/vault.hc` | "tem um cofre VeraCrypt aqui" | qualquer `ls`, navegador de arquivos |
+| `~/keepass-keyfile.ztc` | "isto é keyfile do KeePass" | qualquer `ls` no home |
+| `~/bin/ztc-open-cofre.sh` | "este script abre um cofre" | quem lista `~/bin/` ou `ps` |
+| `~/ztc-backup/ztc.conf` | "pasta de backup com config" | qualquer `ls` |
+| Menu de apps: "Abrir Cofre ZTC" | denuncia tudo | qualquer um na máquina |
+
+> ⚠️ **Limite honesto:** quem ler o **código-fonte** do script vai entender o que ele faz (veracrypt + keepassxc). OpSec por nomes protege contra **listagem rápida**, não contra análise forense.
+
+### Migração — antes vs depois
+
+```sh
+# Antes (didático)                          # Depois (discreto)
+~/cofre/vault.hc                       →   ~/Documents/archive-2023.tar
+~/keepass-keyfile.ztc                  →   ~/.config/.cache_session_b7f2.bin
+~/bin/ztc-open-cofre.sh                →   ~/.local/bin/morning-routine.sh
+~/bin/ztc-close-cofre.sh               →   ~/.local/bin/end-session.sh
+~/ztc-backup/ztc.conf                  →   ~/.config/sync/cfg
+/media/veracrypt-ztc/lab-passwords.kdbx →  /media/veracrypt-ztc/recipes.dat
+"Abrir Cofre ZTC" (desktop entry)      →   "Morning Routine"
+```
+
+### Como aplicar a migração
+
+**1. Rename físico dos arquivos (com cofre desmontado):**
+```sh
+mv ~/cofre/vault.hc                       ~/Documents/archive-2023.tar
+mv ~/keepass-keyfile.ztc                  ~/.config/.cache_session_b7f2.bin
+
+mkdir -p ~/.local/bin ~/.config/sync
+mv ~/bin/ztc-open-cofre.sh                ~/.local/bin/morning-routine.sh
+mv ~/bin/ztc-close-cofre.sh               ~/.local/bin/end-session.sh
+mv ~/ztc-backup/ztc.conf                  ~/.config/sync/cfg
+```
+
+**2. Atualizar `cfg` (o ex-`ztc.conf`) com os novos caminhos:**
+```sh
+ZTC_VAULT_HC="$HOME/Documents/archive-2023.tar"
+ZTC_KEYFILE="$HOME/.config/.cache_session_b7f2.bin"
+ZTC_KDBX="/media/veracrypt-ztc/recipes.dat"
+ZTC_MOUNT_POINT="/media/veracrypt-ztc"   # pode manter — só aparece quando montado
+```
+
+**3. Renomear o `.kdbx` na primeira abertura após montar:**
+```sh
+# Monta com a senha
+veracrypt -t --pim=0 --keyfiles="" --protect-hidden=no \
+  ~/Documents/archive-2023.tar /media/veracrypt-ztc
+
+mv /media/veracrypt-ztc/lab-passwords.kdbx /media/veracrypt-ztc/recipes.dat
+```
+
+**4. Apontar os scripts para o novo `cfg` via env var:**
+```sh
+# Edite os 2 .desktop:
+nano ~/.local/share/applications/ztc-cofre-abrir.desktop
+nano ~/.local/share/applications/ztc-cofre-fechar.desktop
+```
+
+Trocar `Name=`, `Exec=` e nome do arquivo `.desktop`:
+```ini
+[Desktop Entry]
+Name=Morning Routine
+Exec=bash -c 'ZTC_CONF=$HOME/.config/sync/cfg ~/.local/bin/morning-routine.sh'
+Icon=keepassxc
+Terminal=true
+Type=Application
+```
+
+```sh
+mv ~/.local/share/applications/ztc-cofre-abrir.desktop \
+   ~/.local/share/applications/morning-routine.desktop
+
+mv ~/.local/share/applications/ztc-cofre-fechar.desktop \
+   ~/.local/share/applications/end-session.desktop
+```
+
+**5. Testar:**
+```sh
+ZTC_CONF=$HOME/.config/sync/cfg ~/.local/bin/morning-routine.sh
+# Deve abrir como antes
+```
+
+### Disciplina ao migrar
+
+- [ ] Variáveis internas (`ZTC_VAULT_HC`, etc.) **podem ficar com nome ZTC** — só são vistas por quem lê o código do script
+- [ ] Não renomeie os scripts antes de fazer backup do `cfg` antigo
+- [ ] **Atualize o cron** se rodava `ztc-health.sh` ou `ztc-rsync-offsite.sh` automaticamente
+- [ ] **Anote no Bitwarden** os caminhos novos — você vai esquecer em 6 meses
+
+### O que NÃO vale a pena disfarçar
+
+- Os nomes das variáveis dentro do script (`ZTC_VAULT_HC`) — só visíveis em análise de código
+- O nome `keepassxc` no executável — é um pacote do sistema, todo mundo tem
+- O nome `veracrypt` no executável — idem
+
+**OpSec por nomes não é segurança forte** — é uma camada de inconveniência para quem só passa rápido pela máquina. A segurança real vem das **camadas criptográficas** (senha + keyfile + cofre cifrado). Mas disfarçar custa pouco e ajuda contra olhares casuais.
+
 **Próximo passo Turbo:** → [Playbook 10 — Restore test mensal](../3-backup-resiliencia/10-restore-test.md)  
 **Próximo passo Expert:** → [Playbook 05 — Chave mestra PGP no Tails](../2-identidade-pgp/05-tails-master-pgp.md)
 
