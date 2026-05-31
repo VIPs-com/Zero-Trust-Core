@@ -16,15 +16,35 @@ ZTC_MOUNT_POINT="/media/veracrypt-ztc"
 ZTC_KDBX="/media/veracrypt-ztc/lab-passwords.kdbx"
 ZTC_KEYFILE="$HOME/keepass-keyfile.ztc"
 
-# VeraCrypt — supressao de prompts desnecessarios no mount.
-# Por default (sem PIM, sem keyfile do VeraCrypt, sem volume oculto), o CLI
-# pede 4 coisas: senha, PIM, keyfile, hidden. Os 3 ultimos sao desnecessarios
-# no setup padrao deste curso. Os defaults abaixo eliminam esses prompts —
-# o veracrypt vai pedir SO a senha. Se voce usa PIM custom ou keyfile no
-# VeraCrypt (camada extra opcional), edite as variaveis abaixo.
-ZTC_VC_PIM="0"                 # 0 = sem PIM custom (default VeraCrypt)
-ZTC_VC_KEYFILES=""             # vazio = sem keyfile no VeraCrypt
-ZTC_VC_PROTECT_HIDDEN="no"     # no = nao tem volume oculto
+# ============================================================
+# VeraCrypt — camadas opcionais (habilitar/desabilitar)
+# ============================================================
+# Defaults abaixo: TODAS DESLIGADAS — VeraCrypt pede SO a senha.
+# Para ativar uma camada, troque o valor da variavel (e descomente
+# o exemplo se quiser referencia). Tudo funciona em conjunto.
+
+# --- Camada 1: PIM (Personal Iterations Multiplier) ---
+# Aumenta o trabalho de forca bruta multiplicando as iteracoes de
+# derivacao da chave. Voce precisa lembrar o numero exato em cada
+# mount — perdeu o PIM, perdeu o cofre.
+# Valores tipicos: 485 (recomendado quando ativo), ate 999999.
+ZTC_VC_PIM="0"                          # 0 = desligado (default)
+# ZTC_VC_PIM="485"                      # exemplo: PIM ativo
+
+# --- Camada 2: Keyfile do VeraCrypt ---
+# Arquivo extra exigido no mount (separado do keyfile do KeePass!).
+# Sem esse arquivo, o cofre nao abre mesmo com a senha correta.
+# Multiplos keyfiles: separe por virgula.
+ZTC_VC_KEYFILES=""                      # vazio = desligado (default)
+# ZTC_VC_KEYFILES="$HOME/.ztc-vc-keyfile"
+# ZTC_VC_KEYFILES="$HOME/key1.bin,$HOME/key2.bin"
+
+# --- Camada 3: Volume Oculto (plausible deniability) ---
+# Permite ter um volume "isca" visivel + um volume real escondido
+# dentro do espaco livre. Util para casos de coacao fisica.
+# Setup avancado — veja docs/APOSTILA-GUIA-PRATICO.md antes.
+ZTC_VC_PROTECT_HIDDEN="no"              # no = desligado (default)
+# ZTC_VC_PROTECT_HIDDEN="yes"           # exemplo: protege hidden no mount
 
 # Modo de abertura do KeePassXC: 'gui' (default) ou 'cli'.
 # - gui: abre o KeePassXC graficamente; voce seleciona o keyfile no dialogo

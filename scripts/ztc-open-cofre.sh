@@ -30,17 +30,25 @@ fi
 if mountpoint -q "$ZTC_MOUNT_POINT" 2>/dev/null; then
   echo "[INFO] $ZTC_MOUNT_POINT ja montado"
 else
-  echo "Montando $ZTC_VAULT_HC em $ZTC_MOUNT_POINT (so a senha sera pedida)..."
-  sudo mkdir -p "$ZTC_MOUNT_POINT"
-  # Flags abaixo suprimem prompts desnecessarios do CLI VeraCrypt:
-  #   --pim=0            : sem PIM custom (default)
-  #   --keyfiles=""      : sem keyfile do VeraCrypt (o keyfile e do KeePassXC, dentro do vault)
-  #   --protect-hidden=no: sem volume oculto
-  # Se voce usa PIM/keyfile/hidden, defina ZTC_VC_PIM, ZTC_VC_KEYFILES,
-  # ZTC_VC_PROTECT_HIDDEN no ztc.conf para sobrescrever os defaults.
+  # Camadas opcionais do VeraCrypt — definidas no ztc.conf
+  # (PIM, keyfile extra, volume oculto). Defaults: todas desligadas.
   ZTC_VC_PIM="${ZTC_VC_PIM:-0}"
   ZTC_VC_KEYFILES="${ZTC_VC_KEYFILES:-}"
   ZTC_VC_PROTECT_HIDDEN="${ZTC_VC_PROTECT_HIDDEN:-no}"
+
+  # Mostra quais camadas extras estao ativas (transparencia ao aluno)
+  vc_extras=""
+  [ "$ZTC_VC_PIM" != "0" ]              && vc_extras="${vc_extras} PIM=$ZTC_VC_PIM"
+  [ -n "$ZTC_VC_KEYFILES" ]             && vc_extras="${vc_extras} keyfile-vc"
+  [ "$ZTC_VC_PROTECT_HIDDEN" = "yes" ]  && vc_extras="${vc_extras} hidden-volume"
+  if [ -n "$vc_extras" ]; then
+    echo "[INFO] VeraCrypt camadas extras ativas:$vc_extras"
+    echo "Montando $ZTC_VAULT_HC em $ZTC_MOUNT_POINT (senha + camadas acima)..."
+  else
+    echo "Montando $ZTC_VAULT_HC em $ZTC_MOUNT_POINT (modo Turbo — so a senha)..."
+  fi
+
+  sudo mkdir -p "$ZTC_MOUNT_POINT"
   veracrypt -t \
     --pim="$ZTC_VC_PIM" \
     --keyfiles="$ZTC_VC_KEYFILES" \
