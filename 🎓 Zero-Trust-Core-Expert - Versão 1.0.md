@@ -3,7 +3,7 @@
 **Air-Gap + NFC + OpenPGP + KeePassXC + VeraCrypt**
 
 **Autor:** Projeto Colaborativo (VIPs-com)  
-**GnuPG:** **2.4.4+** (Ubuntu 24.04 LTS / `apt`; repositório [gnupg.org](https://gnupg.org/) se precisar do upstream) — alinhado ao [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert)  
+**GnuPG:** **2.4.4+** (Debian 13 Trixie / `apt`; repositório [gnupg.org](https://gnupg.org/) se precisar do upstream) — alinhado ao [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert)  
 **Tails:** **7.8** (estável em [tails.net/latest](https://tails.net/latest/) — **revalide** antes de gravar o USB)  
 **KeePassXC:** **2.7.12+** no PC de uso diário ([keepassxc.org](https://keepassxc.org/)) — no Tails 7.6+ o padrão é **GNOME Secrets**; GnuPG no Tails segue sendo o foco do air-gap  
 **VeraCrypt:** **1.26.24** ([veracrypt.fr](https://www.veracrypt.fr/en/Downloads.html))  
@@ -716,7 +716,7 @@ sudo apt install -y gnupg2 pcscd scdaemon libccid rng-tools age wget curl
 gpg --version
 ```
 
-**Saída esperada:** série **2.4.x** no Ubuntu 24.04 LTS (adequado a este curso).
+**Saída esperada:** série **2.4.x** no Debian 13 (Trixie) — adequado a este curso.
 
 * * *
 
@@ -1205,12 +1205,12 @@ Use **[VeraCrypt 1.26.24](https://www.veracrypt.fr/en/Downloads.html)** (última
 
 **🟢 Recomendado para a primeira turma:** criar o volume pela **interface gráfica** (AES + SHA-512 ou Argon2id, conforme o assistente).
 
-**🟡 CLI (VeraCrypt 1.26.24 · testado em Ubuntu 24.04):** o modo texto exige `-t` / `--text` como **primeiro** argumento ([documentação Unix](https://www.veracrypt.fr/en/Command%20Line%20Usage.html)).
+**🟡 CLI (VeraCrypt 1.26.24 · testado em Debian 13 Trixie):** o modo texto exige `-t` / `--text` como **primeiro** argumento ([documentação Unix](https://www.veracrypt.fr/en/Command%20Line%20Usage.html)).
 
 ```sh
 # Criar volume 500 MiB (substitua a senha; use gerenciador de senhas ou prompt interativo)
-# VeraCrypt nao esta nos repos Ubuntu — baixe o .deb em:
-# https://www.veracrypt.fr/en/Downloads.html  (escolha Ubuntu 24.04)
+# VeraCrypt nao esta nos repos Debian/Ubuntu — baixe o .deb em:
+# https://www.veracrypt.fr/en/Downloads.html  (em Debian 13, use o .deb Ubuntu 22.04 — compativel via glibc)
 sudo dpkg -i veracrypt-*.deb
 sudo apt-get install -f -y   # instala dependencias se necessario
 VAULT="/caminho/seguro/vault.hc"
@@ -2383,7 +2383,7 @@ Tabela comparativa — escolha conforme o que você tem:
 sudo apt install virtualbox
 
 # Criar VM via VirtualBox GUI:
-# • Ubuntu Server 24.04 · 1 vCPU · 1 GB RAM · 20 GB disco
+# • Debian 13 (Trixie) netinst · 1 vCPU · 1 GB RAM · 20 GB disco
 # • Rede: Bridged Adapter (VM visível na rede local)
 
 # Dentro da VM: setup WireGuard + rsync (idêntico ao Módulo 4.2)
@@ -2431,7 +2431,7 @@ WireGuard + rsync: mesmo fluxo do Módulo 4.2. Inserir IP do Pi em `ZTC_REMOTE`.
 
 **H5e — Mini PC (N100 / J4125)**
 
-Ubuntu Server 24.04 nativo (x86\_64). Setup idêntico ao VPS do Módulo 4.2.
+Debian 13 (Trixie) nativo (x86\_64). Setup idêntico ao VPS do Módulo 4.2.
 Vantagem: sem camadas de virtualização, mais rápido, VeraCrypt CLI nativo.
 
 ---

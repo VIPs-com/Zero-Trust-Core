@@ -24,7 +24,7 @@ Este documento descreve validações que **não** se resolvem só com commit: ha
 
 Use o **mesmo perfil de hardware** que os alunos terão (ou documente divergências).
 
-- Ubuntu 24.04 (ou distro alvo da turma) com VeraCrypt 1.26.24 e KeePassXC 2.7.12+ instalados
+- Debian 13 (Trixie) — distro canônica da turma — com VeraCrypt 1.26.24 e KeePassXC 2.7.12+ instalados
 - Leitor NFC USB (ex.: ACR122U) reconhecido pelo sistema
 - `libnfc` + ferramentas CLI (`nfc-list`)
 - Volume VeraCrypt de **lab** (`vault.hc`), `.kdbx` e keyfile no disco conforme o curso (Módulos 2B e 3.1)
@@ -146,7 +146,7 @@ Cole no [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) (pode d
 
 **Data:** AAAA-MM-DD  
 **Responsável:** @usuario  
-**Host:** Ubuntu 24.04 / kernel …
+**Host:** Debian 13 (Trixie) / kernel …
 
 ### Ambiente
 - Leitor NFC: …
@@ -195,7 +195,7 @@ Comunicar na abertura de turma. Nenhum módulo H é pré-requisito para os CHECK
 | **H3b/H5b** Termux sshd | Celular Android antigo com Termux | `sshd` rodando, porta 8022 acessível |
 | **H3c** air-gap leve | Celular spare + modo avião | APKs instalados offline |
 | **H4** iPhone | iPhone + KeePassium | `.kdbx` + keyfile transferidos por USB |
-| **H5a** VM no PC | VirtualBox instalado, 4 GB RAM livre | VM com Ubuntu Server + Bridged Adapter |
+| **H5a** VM no PC | VirtualBox instalado, 4 GB RAM livre | VM com Debian 13 (Trixie) + Bridged Adapter |
 | **H5c** TV Box | UserLAnd instalado | Debian + sshd OK |
 | **H6** Aegis | Android + Aegis (F-Droid) | Seeds TOTP exportados para `~/ztc-backup/` |
 

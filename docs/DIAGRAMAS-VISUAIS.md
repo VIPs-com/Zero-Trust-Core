@@ -375,7 +375,7 @@ flowchart TD
     T -->|PC com 4GB RAM livre| H5a["H5a — VM VirtualBox\nWireGuard local\napt install virtualbox"]
     T -->|TV Box Android| H5c["H5c — UserLAnd Debian\nServidor 24/7\nMenos de 10W R$7 mes"]
     T -->|Raspberry Pi 4 ou 5| H5d["H5d — Pi servidor\nSetup canonico\nDocumentacao ampla"]
-    T -->|Mini PC N100 ou J4125| H5e["H5e — Mini PC\nUbuntu Server nativo\nSem virtualizacao"]
+    T -->|Mini PC N100 ou J4125| H5e["H5e — Mini PC\nDebian 13 nativo\nSem virtualizacao"]
     T -->|Android + Aegis F-Droid| H6["H6 — TOTP offline\nAegis Authenticator\n2FA sem cloud"]
 
     classDef h fill:#c2410c,color:#fff

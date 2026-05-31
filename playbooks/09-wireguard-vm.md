@@ -3,7 +3,7 @@
 **Objetivo:** Tunnel WireGuard entre PC local e VM remota para backup criptografado off-site.  
 **Tempo:** ~30 min  
 **Pré-requisitos:**
-- [ ] VM Linux (Ubuntu 24.04) acessível com IP público ou VPS contratado
+- [ ] VM Linux (Debian 13 Trixie) acessível com IP público ou VPS contratado
 - [ ] Acesso SSH root/sudo à VM
 - [ ] `vault.hc` e keyfiles prontos (Playbooks 01–03)
 

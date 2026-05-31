@@ -18,7 +18,7 @@ Use este arquivo para marcar **como provar** cada item do curso. Não cole senha
 | 3 | Subkeys [S][E][A] listadas | `gpg -K --with-subkey-fingerprint` | Três subkeys (sign, encrypt, auth) visíveis |
 | 4 | `revogacao.asc` em 2 contextos | Inventário físico + `ls` em mídia air-gap | Arquivo existe; fingerprint anotado no papel/metal |
 | 5 | Backup master offline | `age -d` testa restore **sem** rede no PC diário | Arquivo `.age` abre no Tails; **nunca** copiar master para PC online |
-| 6 | PC diário sem master | `gpg -K` no Ubuntu/WSL | Mostra `sec>` subkeys ou `ssb` — **não** `sec` da master exportável |
+| 6 | PC diário sem master | `gpg -K` no Debian/WSL | Mostra `sec>` subkeys ou `ssb` — **não** `sec` da master exportável |
 | 7 | Explica NTAG × smartcard × master | Pergunta oral ou 3 linhas escritas | NTAG = keyfile KeePass; smartcard = subkeys; master = só Tails |
 
 **Comandos de referência (lab):**

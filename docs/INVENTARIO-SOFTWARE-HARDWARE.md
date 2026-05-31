@@ -60,18 +60,18 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 
 | # | Categoria | Dispositivo / versão | Status | SO / ambiente | COMANDO / módulo | Observação |
 | :---: | --- | --- | :---: | --- | --- | --- |
-| 1 | **Host OS** | Ubuntu 24.04 LTS (Noble) | ✅ | — | Todos | Distro canônica do curso |
+| 1 | **Host OS** | Debian 13 (Trixie) | ✅ | — | Todos | Distro canônica do curso |
 | 2 | **Tails** | Tails 7.8 | ✅ | — | [0.5](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-05-pré-vôo-do-tails-no-host-com-internet) · [1.x](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-1-sua-primeira-chave-no-air-gap-tails) | Revalidar em [tails.net/latest](https://tails.net/latest/) antes de cada turma |
-| 3 | **KeePassXC** | 2.7.12+ | ✅ | Ubuntu 24.04 | [2B](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-2b-ntag--keyfile-keepassxc) · [3.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-31-keepassxc--veracrypt) | `apt install keepassxc` |
-| 4 | **VeraCrypt** | 1.26.24 | ✅ | Ubuntu 24.04 | [3.1.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-311-criar-volume-veracrypt)–[3.1.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-313-política-de-sincronização) | `dpkg -i` oficial obrigatório; flag `-t` validada |
-| 5 | **GnuPG** | 2.4.4+ | ✅ | Ubuntu 24.04 | 0.x · 1.x · [3.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-32-ssh-via-gpg-agent-subchave-a) | `gpg --version` |
-| 6 | **Leitor NFC USB** | ACS ACR122U | ⏳ | Ubuntu 24.04 | `nfc-list` · [5.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-53-keepass--veracrypt-condicional-nfc-opcional) | Referência do curso — aguarda [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) |
-| 7 | **Leitor NFC USB** | PN532 genérico USB | ⏳ | Ubuntu 24.04 | `nfc-list` | Compatível com `libnfc` — aguarda evidência |
+| 3 | **KeePassXC** | 2.7.12+ | ✅ | Debian 13 | [2B](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-2b-ntag--keyfile-keepassxc) · [3.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-31-keepassxc--veracrypt) | `apt install keepassxc` |
+| 4 | **VeraCrypt** | 1.26.24 | ✅ | Debian 13 | [3.1.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-311-criar-volume-veracrypt)–[3.1.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-313-política-de-sincronização) | `dpkg -i` oficial obrigatório; flag `-t` validada |
+| 5 | **GnuPG** | 2.4.4+ | ✅ | Debian 13 | 0.x · 1.x · [3.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-32-ssh-via-gpg-agent-subchave-a) | `gpg --version` |
+| 6 | **Leitor NFC USB** | ACS ACR122U | ⏳ | Debian 13 | `nfc-list` · [5.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-53-keepass--veracrypt-condicional-nfc-opcional) | Referência do curso — aguarda [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) |
+| 7 | **Leitor NFC USB** | PN532 genérico USB | ⏳ | Debian 13 | `nfc-list` | Compatível com `libnfc` — aguarda evidência |
 | 8 | **Tag NFC** | NTAG215 (diversos) | ⏳ | Android NFC + `nfc-list` | [2B.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b3-gravar-o-mesmo-keyfile-em-3-ntags) | Tamanho ideal para keyfile — aguarda [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) |
 | 9 | **Tag NFC** | NTAG213 (diversos) | ⏳ | Android NFC + `nfc-list` | [2B.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b3-gravar-o-mesmo-keyfile-em-3-ntags) | 144 bytes; suficiente para keyfile de 44 bytes |
-| 10 | **Smartcard OpenPGP** | Nitrokey 3A NFC | ⏳ | Ubuntu 24.04 + pcscd | [2A.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a1-preparar-leitor-e-cartão)–[2A.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a3-pins-user-e-admin) | Recomendado Kit C/D |
-| 11 | **Smartcard OpenPGP** | YubiKey 5 NFC | ⏳ | Ubuntu 24.04 + pcscd | [2A.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a1-preparar-leitor-e-cartão)–[2A.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a3-pins-user-e-admin) | Interface OpenPGP (não FIDO2) |
-| 12 | **Smartcard OpenPGP** | JavaCard / JCOP genérico | ⏳ | Ubuntu 24.04 + pcscd | [2A.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a1-preparar-leitor-e-cartão)–[2A.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a3-pins-user-e-admin) | Mais barato; auditoria limitada |
+| 10 | **Smartcard OpenPGP** | Nitrokey 3A NFC | ⏳ | Debian 13 + pcscd | [2A.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a1-preparar-leitor-e-cartão)–[2A.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a3-pins-user-e-admin) | Recomendado Kit C/D |
+| 11 | **Smartcard OpenPGP** | YubiKey 5 NFC | ⏳ | Debian 13 + pcscd | [2A.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a1-preparar-leitor-e-cartão)–[2A.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a3-pins-user-e-admin) | Interface OpenPGP (não FIDO2) |
+| 12 | **Smartcard OpenPGP** | JavaCard / JCOP genérico | ⏳ | Debian 13 + pcscd | [2A.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a1-preparar-leitor-e-cartão)–[2A.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a3-pins-user-e-admin) | Mais barato; auditoria limitada |
 | 13 | **Windows + WSL2** | Windows 11 23H2 + Gpg4win 5.x | 🟡 | WSL2 Ubuntu | [3.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-32-ssh-via-gpg-agent-subchave-a) (parcial) | [Apêndice D.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-d1--wsl2--gpg-agent-passo-a-passo) — NFC frágil; preferir Linux |
 | 14 | **macOS** | Sonoma 14+ + GPG Suite | 🟡 | macOS | [3.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-32-ssh-via-gpg-agent-subchave-a) (parcial) | [Apêndice D](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-d--guia-multiplataforma) — sem `nfc-list` nativo |
 
@@ -84,7 +84,7 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 
 ## 🖥️ Software por plataforma
 
-### 🔹 Linux (Ubuntu / Debian — PC de uso diário)
+### 🔹 Linux (Debian 13 / Ubuntu — PC de uso diário)
 
 | Software | Curso | Módulo / uso |
 | --- | :---: | --- |
@@ -104,7 +104,7 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 | **rclone crypt** (S3) | 🔵 | Alternativa segundo off-site (4.2) |
 | **Tailscale** | 🔵 | Alternativa ao WireGuard (4.2) |
 
-**Pacote típico (lab Ubuntu 24.04):**
+**Pacote típico (lab Debian 13):**
 
 ```sh
 sudo apt install -y gnupg2 pcscd scdaemon libccid openssh-client \
@@ -184,11 +184,11 @@ Para quem quer substituir ou complementar o VPS cloud do Módulo 4.2 com hardwar
 
 | Opção | Custo extra | Consumo 24/7 | Software base | Ideal para |
 | --- | ---: | :---: | --- | --- |
-| **VM no PC** (H5a) | R$0 | ~PC ligado | VirtualBox + Ubuntu Server 24.04 | Backup quando PC está on |
+| **VM no PC** (H5a) | R$0 | ~PC ligado | VirtualBox + Debian 13 (Trixie) | Backup quando PC está on |
 | **Android Termux** (H5b) | R$0 | ~4 W | Termux + sshd + rsync | Celular antigo que já existe |
 | **TV Box Android** (H5c) | R$80–200 | <10 W | UserLAnd + Debian | 24/7 barato |
-| **Raspberry Pi 4/5** (H5d) | R$200–400 | ~6 W | Raspberry Pi OS / Ubuntu Server | Setup canônico, documentação ampla |
-| **Mini PC N100/J4125** (H5e) | R$300–500 | 12 W | Ubuntu Server 24.04 nativo | Mais versátil, sem virtualização |
+| **Raspberry Pi 4/5** (H5d) | R$200–400 | ~6 W | Raspberry Pi OS (Debian-based) | Setup canônico, documentação ampla |
+| **Mini PC N100/J4125** (H5e) | R$300–500 | 12 W | Debian 13 (Trixie) nativo | Mais versátil, sem virtualização |
 
 > Todos os cenários usam o mesmo fluxo WireGuard + rsync do Módulo 4.2.
 > Inserir o IP do servidor em `ZTC_REMOTE` no `ztc.conf`.
