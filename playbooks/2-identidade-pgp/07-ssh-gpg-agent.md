@@ -1,4 +1,4 @@
-# Playbook 07 — SSH via gpg-agent (smartcard)
+﻿# Playbook 07 — SSH via gpg-agent (smartcard)
 
 **Objetivo:** Usar a subchave [A] do smartcard como chave SSH. Login em servidores sem chave privada no disco.  
 **Tempo:** ~15 min  
@@ -171,6 +171,6 @@ EOF
 
 ✅ **Concluído** — SSH autenticado pelo smartcard. A chave privada nunca sai do hardware.
 
-**Próximo passo:** → [Playbook 08 — Backup HD 3-2-1-1-0](./08-backup-hd-3211.md)
+**Próximo passo:** → [Playbook 08 — Backup HD 3-2-1-1-0](../3-backup-resiliencia/08-backup-hd-3211.md)
 
-📖 **Referência no curso:** [COMANDO 3.2.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-321-keygrip-da-subchave-a) · [3.2.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-322-sshcontrol--agente) · [3.2.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-323-chave-pública-ssh-e-testes)
+📖 **Referência no curso:** [COMANDO 3.2.1](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-321-keygrip-da-subchave-a) · [3.2.2](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-322-sshcontrol--agente) · [3.2.3](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-323-chave-pública-ssh-e-testes)

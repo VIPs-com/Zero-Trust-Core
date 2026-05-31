@@ -1,4 +1,4 @@
-# Playbook 04 — Script de abertura automática
+﻿# Playbook 04 — Script de abertura automática
 
 **Objetivo:** Configurar `ztc-open-cofre.sh` para abrir vault + KeePassXC com um comando.  
 **Tempo:** ~15 min  
@@ -162,7 +162,7 @@ EOF
 
 ✅ **Concluído** — `ztc-open-cofre.sh` funcionando. Um comando abre tudo.
 
-**Próximo passo Turbo:** → [Playbook 10 — Restore test mensal](./10-restore-test.md)  
-**Próximo passo Expert:** → [Playbook 05 — Chave mestra PGP no Tails](./05-tails-master-pgp.md)
+**Próximo passo Turbo:** → [Playbook 10 — Restore test mensal](../3-backup-resiliencia/10-restore-test.md)  
+**Próximo passo Expert:** → [Playbook 05 — Chave mestra PGP no Tails](../2-identidade-pgp/05-tails-master-pgp.md)
 
-📖 **Referência no curso:** [COMANDO 5.0](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-50-validar-ztcconf-antes-dos-scripts) · [5.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-53-keepass--veracrypt-condicional-nfc-opcional)
+📖 **Referência no curso:** [COMANDO 5.0](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-50-validar-ztcconf-antes-dos-scripts) · [5.3](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-53-keepass--veracrypt-condicional-nfc-opcional)

@@ -1,9 +1,9 @@
-# Playbook 05 — Chave mestra PGP no Tails (air-gap)
+﻿# Playbook 05 — Chave mestra PGP no Tails (air-gap)
 
 **Objetivo:** Gerar master key [C] + subkeys [S][E][A] offline, certificado de revogação e backup cifrado.  
 **Tempo:** ~45 min  
 **Pré-requisitos:**
-- [ ] Pendrive Tails 7.8+ gravado ([COMANDO 0.5](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-05-pré-vôo-do-tails-no-host-com-internet) do curso)
+- [ ] Pendrive Tails 7.8+ gravado ([COMANDO 0.5](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-05-pré-vôo-do-tails-no-host-com-internet) do curso)
 - [ ] Pendrive extra (para exportar subkeys e backup)
 - [ ] Papel e caneta (para anotar fingerprint)
 - [ ] **Desligar WiFi e remover cabo de rede antes de iniciar**
@@ -191,4 +191,4 @@ sync
 
 **Próximo passo:** → [Playbook 06 — Smartcard keytocard](./06-smartcard-keytocard.md)
 
-📖 **Referência no curso:** [COMANDO 1.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-12-gerar-master--subkeys-offline) · [1.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-13-certificado-de-revogação-no-mesmo-dia) · [1.4](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-14-backup-da-master-mídia-offline-dedicada) · [1.5](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-15-exportar-material-para-o-pc-de-trabalho-sem-a-master) · [1.6](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-16-checklist-antes-de-desligar-o-tails)
+📖 **Referência no curso:** [COMANDO 1.2](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-12-gerar-master--subkeys-offline) · [1.3](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-13-certificado-de-revogação-no-mesmo-dia) · [1.4](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-14-backup-da-master-mídia-offline-dedicada) · [1.5](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-15-exportar-material-para-o-pc-de-trabalho-sem-a-master) · [1.6](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-16-checklist-antes-de-desligar-o-tails)

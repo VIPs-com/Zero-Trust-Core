@@ -1,4 +1,4 @@
-# Playbook 03 — Backup do keyfile com `age`
+﻿# Playbook 03 — Backup do keyfile com `age`
 
 **Objetivo:** Cifrar o keyfile NTAG com `age` e guardar em pendrive separado.  
 **Tempo:** ~5 min  
@@ -111,4 +111,4 @@ shred -u ~/keepass-keyfile.ztc
 
 ✅ **Concluído** — backup cifrado do keyfile em pendrive separado dos NTAGs.
 
-📖 **Referência no curso:** [COMANDO 2B.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b2-backup-cifrado-do-keyfile-age--obrigatório-antes-dos-ntags)
+📖 **Referência no curso:** [COMANDO 2B.2](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b2-backup-cifrado-do-keyfile-age--obrigatório-antes-dos-ntags)

@@ -1,4 +1,4 @@
-# Playbook 02 — VeraCrypt vault
+﻿# Playbook 02 — VeraCrypt vault
 
 **Objetivo:** Criar volume VeraCrypt e mover o `.kdbx` para dentro dele.  
 **Tempo:** ~10 min  
@@ -125,4 +125,4 @@ veracrypt -t -d /media/veracrypt-ztc
 
 **Próximo passo:** → [Playbook 04 — Script de abertura automática](./04-abrir-cofre-auto.md)
 
-📖 **Referência no curso:** [COMANDO 3.1.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-311-criar-volume-veracrypt) · [3.1.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-312-montar-e-guardar-o-kdbx-dentro) · [3.1.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-313-política-de-sincronização)
+📖 **Referência no curso:** [COMANDO 3.1.1](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-311-criar-volume-veracrypt) · [3.1.2](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-312-montar-e-guardar-o-kdbx-dentro) · [3.1.3](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-313-política-de-sincronização)

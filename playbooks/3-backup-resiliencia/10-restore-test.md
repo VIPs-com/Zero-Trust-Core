@@ -1,4 +1,4 @@
-# Playbook 10 — Restore test mensal
+﻿# Playbook 10 — Restore test mensal
 
 **Objetivo:** Provar que seu backup funciona de verdade. Execute no 1º domingo de cada mês.  
 **Tempo:** ~20 min  
@@ -149,6 +149,6 @@ cat ~/ztc-backup/restore-log.txt
 
 ✅ **Concluído** — backup verificado. Se algum passo falhou, corrija agora (não quando precisar de verdade).
 
-**Se o vault não abriu ou o manifesto falhou:** abra o FAQ do curso — [docs/FAQ-TROUBLESHOOTING.md](../docs/FAQ-TROUBLESHOOTING.md)
+**Se o vault não abriu ou o manifesto falhou:** abra o FAQ do curso — [docs/FAQ-TROUBLESHOOTING.md](../../docs/FAQ-TROUBLESHOOTING.md)
 
-📖 **Referência no curso:** [COMANDO 4.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-43-teste-de-restauração-ritual-mensal) · [CHECKPOINT 3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-checkpoint-3-backup-e-contingência)
+📖 **Referência no curso:** [COMANDO 4.3](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-43-teste-de-restauração-ritual-mensal) · [CHECKPOINT 3](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-checkpoint-3-backup-e-contingência)

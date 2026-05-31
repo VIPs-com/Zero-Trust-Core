@@ -1,4 +1,4 @@
-# Playbook 01 — KeePassXC + NTAG keyfile
+﻿# Playbook 01 — KeePassXC + NTAG keyfile
 
 **Objetivo:** Criar cofre KeePassXC protegido por senha + keyfile gravado em 3 tags NTAG.  
 **Tempo:** ~20 min  
@@ -153,4 +153,4 @@ nfc-list
 **Próximo passo obrigatório:** → [Playbook 03 — Backup do keyfile com age](./03-age-backup-keyfile.md) (não pule)  
 **Depois:** → [Playbook 02 — Volume VeraCrypt](./02-veracrypt-vault.md)
 
-📖 **Referência no curso:** [COMANDO 2B.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b1-gerar-keyfile-no-keepassxc) · [2B.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b2-backup-cifrado-do-keyfile-age--obrigatório-antes-dos-ntags) · [2B.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b3-gravar-o-mesmo-keyfile-em-3-ntags) · [2B.4](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b4-abrir-cofre-com-senha--keyfile)
+📖 **Referência no curso:** [COMANDO 2B.1](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b1-gerar-keyfile-no-keepassxc) · [2B.2](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b2-backup-cifrado-do-keyfile-age--obrigatório-antes-dos-ntags) · [2B.3](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b3-gravar-o-mesmo-keyfile-em-3-ntags) · [2B.4](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b4-abrir-cofre-com-senha--keyfile)

@@ -1,4 +1,4 @@
-# Playbook 08 — Backup HD + manifesto sha256
+﻿# Playbook 08 — Backup HD + manifesto sha256
 
 **Objetivo:** Cópia fria do vault + kdbx em HD externo com manifesto de integridade verificável.  
 **Tempo:** ~10 min  
@@ -156,4 +156,4 @@ sudo umount /media/backup-hd
 **Próximo passo Expert:** → [Playbook 09 — WireGuard + VM off-site](./09-wireguard-vm.md)  
 **Verificação mensal:** → [Playbook 10 — Restore test](./10-restore-test.md)
 
-📖 **Referência no curso:** [COMANDO 4.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-41-inventário-e-hashes-locais) · [4.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-42-backup-frio-no-hd-externo) · [4.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-43-teste-de-restauração-ritual-mensal)
+📖 **Referência no curso:** [COMANDO 4.1](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-41-inventário-e-hashes-locais) · [4.2](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-42-backup-frio-no-hd-externo) · [4.3](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-43-teste-de-restauração-ritual-mensal)

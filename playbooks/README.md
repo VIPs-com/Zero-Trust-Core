@@ -2,31 +2,81 @@
 
 **Execução direta. Zero teoria. Copie e cole.**
 
-Cada arquivo = um procedimento completo, do zero ao "funcionou".  
-Cada playbook começa com um **diagrama "Visão geral do processo"** — olhe antes de executar.  
-Para entender *por quê* cada passo existe → curso principal (link no rodapé de cada playbook).
+Cada playbook é um procedimento completo, do zero ao "funcionou".
+Cada um começa com um **diagrama "Visão geral do processo"** — olhe antes de executar.
+Para entender *por quê* cada passo existe → [curso principal](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md).
+
+> **Distro canônica:** Debian 13 (Trixie). Aluno em outra distro adapta gerenciador de pacotes / `.deb` específico.
 
 ---
 
-## Trilha Turbo — comece aqui
+## Organização em 3 blocos
 
-| # | Playbook | O que você terá ao final | Tempo |
-|---|----------|--------------------------|------:|
-| [01](./01-keepass-ntag.md) | KeePassXC + NTAG keyfile | Cofre de senhas com fator físico | ~20 min |
-| [02](./02-veracrypt-vault.md) | VeraCrypt vault | Volume criptografado com `.kdbx` dentro | ~10 min |
-| [03](./03-age-backup-keyfile.md) | Backup do keyfile com `age` | Cópia cifrada do keyfile em pendrive/nuvem | ~5 min |
-| [04](./04-abrir-cofre-auto.md) | Script de abertura automática | `ztc-open-cofre.sh` configurado e funcionando | ~15 min |
-| [10](./10-restore-test.md) | Restore test mensal | Prova de que seu backup realmente funciona | ~20 min |
+```
+playbooks/
+├── 1-cofre/                  ← KeePass + VeraCrypt + NFC (Turbo)
+├── 2-identidade-pgp/         ← Tails + Smartcard + SSH (Expert)
+└── 3-backup-resiliencia/     ← HD + off-site + restore (3-2-1-1-0)
+```
 
-## Trilha Expert — depois do Turbo
+```mermaid
+flowchart LR
+    A["🔐 1 — Cofre<br/>KeePass + VeraCrypt + NFC"] --> B["🔑 2 — Identidade PGP<br/>Tails + Smartcard + SSH"]
+    B --> C["💾 3 — Backup + Resiliência<br/>HD + off-site + restore"]
+    A -.Turbo termina aqui.-> C
+    style A fill:#10b981,color:#fff
+    style B fill:#3b82f6,color:#fff
+    style C fill:#7c3aed,color:#fff
+```
 
-| # | Playbook | O que você terá ao final | Tempo |
-|---|----------|--------------------------|------:|
-| [05](./05-tails-master-pgp.md) | Chave mestra PGP no Tails | Master [C] offline + subkeys [S][E][A] + revogação | ~45 min |
-| [06](./06-smartcard-keytocard.md) | Smartcard — keytocard | Subkeys no token físico + PINs configurados | ~20 min |
-| [07](./07-ssh-gpg-agent.md) | SSH via gpg-agent | Login SSH com hardware físico como segundo fator | ~15 min |
-| [08](./08-backup-hd-3211.md) | Backup HD + manifesto | Cópia fria local com sha256 verificado | ~10 min |
-| [09](./09-wireguard-vm.md) | WireGuard + VM off-site | Backup remoto criptografado via túnel | ~30 min |
+---
+
+## 🔐 Bloco 1 — Cofre [`1-cofre/`](./1-cofre/) — Trilha Turbo
+
+| # | Playbook | O que você terá | Tempo |
+|---|----------|-----------------|------:|
+| [01](./1-cofre/01-keepass-ntag.md) | KeePassXC + NTAG keyfile | Cofre de senhas com fator físico | ~20 min |
+| [02](./1-cofre/02-veracrypt-vault.md) | VeraCrypt vault | Volume cifrado com `.kdbx` dentro | ~10 min |
+| [03](./1-cofre/03-age-backup-keyfile.md) | Backup do keyfile com `age` | Cópia cifrada em pendrive off-site | ~5 min |
+| [04](./1-cofre/04-abrir-cofre-auto.md) | Script de abertura automática | `ztc-open-cofre.sh` configurado | ~15 min |
+
+> **NFC é opcional** — `ZTC_NFC_UID=""` no `ztc.conf` desliga sem quebrar nada.
+
+---
+
+## 🔑 Bloco 2 — Identidade PGP [`2-identidade-pgp/`](./2-identidade-pgp/) — Trilha Expert
+
+| # | Playbook | O que você terá | Tempo |
+|---|----------|-----------------|------:|
+| [05](./2-identidade-pgp/05-tails-master-pgp.md) | Chave mestra PGP no Tails | Master [C] offline + subkeys + revogação | ~45 min |
+| [06](./2-identidade-pgp/06-smartcard-keytocard.md) | Smartcard — keytocard | Subkeys no token físico + PINs | ~20 min |
+| [07](./2-identidade-pgp/07-ssh-gpg-agent.md) | SSH via gpg-agent | Login SSH com smartcard como 2FA | ~15 min |
+
+---
+
+## 💾 Bloco 3 — Backup + Resiliência [`3-backup-resiliencia/`](./3-backup-resiliencia/) — 3-2-1-1-0
+
+| # | Playbook | O que você terá | Tempo |
+|---|----------|-----------------|------:|
+| [08](./3-backup-resiliencia/08-backup-hd-3211.md) | Backup HD + manifesto | Cópia fria local com `sha256` verificado | ~10 min |
+| [09](./3-backup-resiliencia/09-wireguard-vm.md) | WireGuard + VM off-site | Backup remoto cifrado via túnel | ~30 min |
+| [10](./3-backup-resiliencia/10-restore-test.md) | Restore test mensal | Prova de que o backup funciona | ~20 min |
+
+> ⚠️ Playbook 10 é obrigatório para Turbo e Expert. Backup nunca testado = backup que não existe.
+
+---
+
+## Trilhas — qual ordem seguir?
+
+**Trilha Turbo** (8-12h · R$50-265):
+```
+Bloco 1 (01 → 02 → 03 → 04)  →  Bloco 3 (10 restore test)
+```
+
+**Trilha Expert** (25-35h · R$725-2.150):
+```
+Bloco 1 (01-04)  →  Bloco 2 (05-07)  →  Bloco 3 (08-10)
+```
 
 ---
 

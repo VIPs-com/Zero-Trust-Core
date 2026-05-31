@@ -1,4 +1,4 @@
-# Playbook 06 — Smartcard keytocard + PINs
+﻿# Playbook 06 — Smartcard keytocard + PINs
 
 **Objetivo:** Transferir subkeys [S][E][A] para o smartcard e configurar PINs.  
 **Tempo:** ~20 min  
@@ -164,4 +164,4 @@ echo "teste" | gpg --clearsign
 
 **Próximo passo:** → [Playbook 07 — SSH via gpg-agent](./07-ssh-gpg-agent.md)
 
-📖 **Referência no curso:** [COMANDO 2A.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a1-preparar-leitor-e-cartão) · [2A.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a2-keytocard-mover-subkeys) · [2A.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a3-pins-user-e-admin)
+📖 **Referência no curso:** [COMANDO 2A.1](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a1-preparar-leitor-e-cartão) · [2A.2](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a2-keytocard-mover-subkeys) · [2A.3](../../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a3-pins-user-e-admin)
