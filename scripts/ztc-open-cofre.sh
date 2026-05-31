@@ -45,5 +45,27 @@ if [ ! -f "$ZTC_KEYFILE" ]; then
   exit 1
 fi
 
-echo "[OK] Abrindo KeePassXC..."
-exec keepassxc --keyfile "$ZTC_KEYFILE" "$ZTC_KDBX"
+# Modo de abertura: 'gui' (default) ou 'cli'.
+# Nota: keepassxc (GUI) IGNORA --keyfile em 2.7.x — abrimos só o .kdbx e
+# deixamos a GUI pedir o keyfile no diálogo. KeePassXC LEMBRA o keyfile
+# depois da primeira abertura (gravado no perfil do banco).
+# Para automação total sem GUI, defina ZTC_KEEPASSXC_MODE=cli no ztc.conf.
+ZTC_KEEPASSXC_MODE="${ZTC_KEEPASSXC_MODE:-gui}"
+
+case "$ZTC_KEEPASSXC_MODE" in
+  cli)
+    if ! command -v keepassxc-cli >/dev/null 2>&1; then
+      echo "[FAIL] keepassxc-cli ausente; use modo gui ou instale o pacote"
+      exit 1
+    fi
+    echo "[OK] Abrindo KeePassXC (CLI interativo, exit para sair)..."
+    exec keepassxc-cli open --key-file "$ZTC_KEYFILE" "$ZTC_KDBX"
+    ;;
+  gui|*)
+    echo "[OK] Abrindo KeePassXC (GUI)..."
+    echo "     Primeira abertura: marque 'Key File' no dialogo e selecione:"
+    echo "       $ZTC_KEYFILE"
+    echo "     KeePassXC vai lembrar nas proximas vezes."
+    exec keepassxc "$ZTC_KDBX"
+    ;;
+esac

@@ -1181,10 +1181,15 @@ Rotulagem física:
 #### ▸ COMANDO 2B.4: Abrir cofre com senha + keyfile
 
 ```sh
-keepassxc --keyfile ~/keepass-keyfile.ztc ~/lab-passwords.kdbx
+# GUI — KeePassXC IGNORA --keyfile como argumento em 2.7.x.
+# Abra so o .kdbx e marque "Key File" no dialogo (ele lembra na 2a vez).
+keepassxc ~/lab-passwords.kdbx
+
+# CLI alternativa (interativa no terminal — sem GUI):
+keepassxc-cli open --key-file ~/keepass-keyfile.ztc ~/lab-passwords.kdbx
 ```
 
-Na interface: senha mestra **e** keyfile obrigatórios.
+Na primeira abertura GUI: marque **Key File**, selecione `~/keepass-keyfile.ztc`, digite a senha mestra. KeePassXC grava o caminho do keyfile no perfil do banco — nas próximas vezes só a senha é solicitada.
 
 | Erro comum | Correção |
 | --- | --- |

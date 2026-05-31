@@ -15,3 +15,12 @@ ZTC_NFC_UID=""
 ZTC_MOUNT_POINT="/media/veracrypt-ztc"
 ZTC_KDBX="/media/veracrypt-ztc/lab-passwords.kdbx"
 ZTC_KEYFILE="$HOME/keepass-keyfile.ztc"
+
+# Modo de abertura do KeePassXC: 'gui' (default) ou 'cli'.
+# - gui: abre o KeePassXC graficamente; voce seleciona o keyfile no dialogo
+#        na primeira vez (depois ele lembra). Recomendado para uso diario.
+# - cli: abre keepassxc-cli interativo no terminal (sem GUI). Bom para
+#        automacao, scripts ou maquinas headless.
+# Por que nao usar 'keepassxc --keyfile X file.kdbx'? O flag --keyfile e
+# IGNORADO pela GUI em 2.7.x — o banco abre sem keyfile e falha o unlock.
+ZTC_KEEPASSXC_MODE="gui"

@@ -10,6 +10,7 @@
 | `veracrypt: command not found` após `apt install` | VeraCrypt **não está** nos repos Debian/Ubuntu — instalação via `.deb` oficial | Baixar em veracrypt.fr/en/Downloads.html → `sudo dpkg -i veracrypt-*.deb` (em Debian 13, use o .deb Ubuntu 22.04 — compatível via glibc) ([COMANDO 3.1.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-311-criar-volume-veracrypt)) |
 | VeraCrypt `Wrong password` com senha certa | Header corrompido ou `-t` em versão antiga | `veracrypt --version`; [COMANDO 3.1.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-311-criar-volume-veracrypt) flags 1.26.24 |
 | KeePass “keyfile invalid” | NTAG não é o keyfile gravado no 2B.3 | Restaurar de `keepass-keyfile.ztc.age` (2B.2) |
+| **KeePassXC diz "Destrancar falhou — você quer tentar com senha vazia?"** | `keepassxc --keyfile X file.kdbx` **ignora `--keyfile`** em 2.7.x — abre sem keyfile e falha | Use `keepassxc file.kdbx` e marque **Key File** no diálogo (ele lembra). Ou `keepassxc-cli open --key-file X file.kdbx` para CLI. Script atualizado em `ztc-open-cofre.sh` |
 | `nfc-list` vazio | Driver, cabo, tag não ISO14443A | `lsusb`; outro leitor (ver inventário Kit B) |
 | `ztc-open-cofre.sh` FAIL NTAG ausente | UID errado em `ztc.conf` ou tag longe | `nfc-list` → copiar UID exato para `ZTC_NFC_UID` |
 | Script monta sem NFC | `ZTC_NFC_UID=""` | Esperado em lab sem leitor; turma Expert deve preencher UID |
