@@ -52,3 +52,16 @@ if mountpoint -q "$ZTC_MOUNT_POINT" 2>/dev/null; then
 fi
 
 echo "[OK] Cofre fechado — todas as camadas seladas"
+
+# 6) Snapshot automatico apos fechar (default ligado, controle no ztc.conf)
+ZTC_AUTO_SNAPSHOT="${ZTC_AUTO_SNAPSHOT:-yes}"
+if [ "$ZTC_AUTO_SNAPSHOT" = "yes" ]; then
+  SNAP_SCRIPT="$(dirname "$0")/ztc-snapshot-vault.sh"
+  if [ -x "$SNAP_SCRIPT" ]; then
+    echo ""
+    echo "--- Snapshot automatico do vault ---"
+    "$SNAP_SCRIPT" || echo "[WARN] Snapshot falhou — vault esta fechado, mas sem versao nova"
+  else
+    echo "[INFO] Snapshot script ausente em $SNAP_SCRIPT (ignorando)"
+  fi
+fi

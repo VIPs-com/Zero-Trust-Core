@@ -20,7 +20,8 @@ cp ztc.conf.example ~/ztc-backup/ztc.conf
 | `ztc-health.sh` | `--check-conf` + smartcard, `ssh-add`, NFC, manifesto |
 | `ztc-rsync-offsite.sh` | Envia `vault.hc` + manifestos para VM (só blobs opacos) |
 | `ztc-open-cofre.sh` | NTAG opcional → monta VeraCrypt → abre KeePassXC |
-| `ztc-close-cofre.sh` | Detecta KeePassXC aberto → `sync` → desmonta VeraCrypt |
+| `ztc-close-cofre.sh` | Detecta KeePassXC aberto → `sync` → desmonta VeraCrypt → snapshot automático |
+| `ztc-snapshot-vault.sh` | Cópia versionada do `vault.hc` (sha256 + rotação de N versões) |
 | `ztc.conf.example` | Modelo de configuração (`ZTC_*`) |
 
 ## Segurança

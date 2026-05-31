@@ -46,6 +46,18 @@ ZTC_VC_KEYFILES=""                      # vazio = desligado (default)
 ZTC_VC_PROTECT_HIDDEN="no"              # no = desligado (default)
 # ZTC_VC_PROTECT_HIDDEN="yes"           # exemplo: protege hidden no mount
 
+# ============================================================
+# Snapshot local do vault.hc (Camada 1 de backup)
+# ============================================================
+# Apos fechar o cofre, o ztc-close-cofre.sh chama o ztc-snapshot-vault.sh
+# que copia o vault.hc para uma pasta versionada com sha256 + rotacao.
+# Protege contra: corrupcao do arquivo, deleção acidental, ransomware
+# (parcial — fica no mesmo disco). Para off-site veja Playbook 09.
+
+ZTC_AUTO_SNAPSHOT="yes"                          # yes/no — snapshot ao fechar o cofre
+ZTC_SNAPSHOT_DIR="$HOME/ztc-backup/snapshots"   # onde guardar as copias versionadas
+ZTC_SNAPSHOT_KEEP="7"                            # quantas versoes manter (rotacao)
+
 # Modo de abertura do KeePassXC: 'gui' (default) ou 'cli'.
 # - gui: abre o KeePassXC graficamente; voce seleciona o keyfile no dialogo
 #        na primeira vez (depois ele lembra). Recomendado para uso diario.

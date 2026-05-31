@@ -194,7 +194,104 @@ EOF
 
 ---
 
-## 9 — (Avançado) OpSec — disfarçar artefatos no disco
+## 9 — Backup do vault em camadas (não pule — o cofre vale o que você protege)
+
+O `.kdbx` interno já tem backup automático do KeePassXC (`.kdbx.old` no mesmo diretório, dentro do vault). Mas o **`vault.hc` em si** é um único arquivo binário — se corromper, perde tudo. Por isso usamos camadas:
+
+| # | Camada | Protege contra | Onde | Custo |
+|---|--------|----------------|------|-------|
+| **1** | Snapshot local versionado (`ztc-snapshot-vault.sh`) | corrupção, deleção acidental | mesmo disco, pasta `~/ztc-backup/snapshots/` | 500MB × N versões |
+| **2** | HD externo periódico ([Playbook 08](../3-backup-resiliencia/08-backup-hd-3211.md)) | falha do disco principal | HD plugado semanalmente | 1× HD externo |
+| **3** | Off-site cifrado ([Playbook 09](../3-backup-resiliencia/09-wireguard-vm.md)) | roubo, incêndio, ransomware total | VM/cloud (vault já é AES-256) | ~R$0-25/mês |
+
+### Camada 1 — já está automática
+
+O `ztc-close-cofre.sh` chama `ztc-snapshot-vault.sh` **toda vez que você fecha o cofre**:
+
+```sh
+# Instalar (uma vez)
+cp /tmp/ztc-repo/scripts/ztc-snapshot-vault.sh ~/bin/
+chmod +x ~/bin/ztc-snapshot-vault.sh
+```
+
+```sh
+# O fluxo automático ao clicar "Fechar Cofre ZTC":
+# 1. KeePassXC fecha
+# 2. veracrypt -t -d desmonta
+# 3. ztc-snapshot-vault.sh roda automaticamente:
+#    - copia vault.hc → ~/ztc-backup/snapshots/vault-AAAAMMDD-HHMMSS.hc
+#    - verifica sha256 (origem = cópia)
+#    - rotação: mantém últimas 7 versões
+#    - registra no MANIFEST.sha256 (datado)
+```
+
+**Saída esperada após fechar:**
+```
+[OK] Cofre fechado — todas as camadas seladas
+
+--- Snapshot automatico do vault ---
+Snapshot: ~/cofre/vault.hc (500M) -> vault-20260601-143022.hc
+[OK] sha256 confere
+[OK] 7 snapshots mantidos (3.5G total em ~/ztc-backup/snapshots)
+```
+
+### Configurar quantas versões manter
+
+No `ztc.conf`:
+```sh
+ZTC_AUTO_SNAPSHOT="yes"                          # yes = snapshot ao fechar (default)
+ZTC_SNAPSHOT_DIR="$HOME/ztc-backup/snapshots"   # onde guardar
+ZTC_SNAPSHOT_KEEP="7"                            # rotação — 7 últimas versões
+```
+
+> **Cálculo de espaço:** 500MB × 7 versões = 3.5GB. Ajuste `ZTC_SNAPSHOT_KEEP` conforme espaço disponível. Se o vault é menor (ex: 100MB), pode subir para 30 versões.
+
+### Restore rápido de um snapshot
+
+Se o `vault.hc` corromper, recupere a versão mais recente:
+
+```sh
+# Listar snapshots disponíveis (mais novo primeiro)
+ls -lht ~/ztc-backup/snapshots/vault-*.hc | head -5
+
+# Restaurar o último (verificar hash antes!)
+LATEST=$(ls -1t ~/ztc-backup/snapshots/vault-*.hc | head -1)
+sha256sum "$LATEST"
+# Compare com a linha correspondente no MANIFEST.sha256
+
+# Restaurar
+cp "$LATEST" ~/cofre/vault.hc
+
+# Testar abertura
+~/bin/ztc-open-cofre.sh
+```
+
+### Camada 2 e 3 — quando ir além
+
+- **HD externo (Camada 2):** se você guarda dados realmente importantes (chaves PGP, 2FA codes, identidade), faça também o [Playbook 08](../3-backup-resiliencia/08-backup-hd-3211.md) — 1× por semana, plug-and-rotate.
+- **Off-site (Camada 3):** se o cenário inclui roubo/incêndio, [Playbook 09](../3-backup-resiliencia/09-wireguard-vm.md) leva os blobs cifrados pra VM via WireGuard. Como o `vault.hc` já é AES-256, **qualquer cloud serve** (rclone para Backblaze B2, Google Drive, OneDrive cabe os 500MB no plano free).
+
+### Restore test mensal (importante!)
+
+Backup que nunca foi testado **não é backup** — pode estar corrompido em silêncio. Pelo menos 1x por mês:
+
+```sh
+# Restaurar snapshot mais antigo + tentar abrir
+OLDEST=$(ls -1t ~/ztc-backup/snapshots/vault-*.hc | tail -1)
+cp "$OLDEST" /tmp/vault-test.hc
+sudo mkdir -p /mnt/vault-test
+veracrypt -t --pim=0 --keyfiles="" --protect-hidden=no \
+  /tmp/vault-test.hc /mnt/vault-test
+ls /mnt/vault-test/   # deve listar o .kdbx
+veracrypt -t -d /mnt/vault-test
+sudo rm -rf /mnt/vault-test /tmp/vault-test.hc
+```
+
+Detalhes completos: [Playbook 10 — Restore test mensal](../3-backup-resiliencia/10-restore-test.md).
+
+---
+
+## 10 — (Avançado) OpSec — disfarçar artefatos no disco
 
 > 🥷 Esta seção é **opcional** e roda DEPOIS de tudo funcionar. O setup padrão do curso usa nomes didáticos (`vault.hc`, `keepass-keyfile.ztc`, `ztc-open-cofre.sh`) porque é mais fácil de aprender. Em produção, esses nomes denunciam o que você guarda.
 
