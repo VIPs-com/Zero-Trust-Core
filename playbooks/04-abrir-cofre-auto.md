@@ -9,6 +9,14 @@
 
 ---
 
+> ⚠️ **Leia antes de começar — sobre a segurança do UID NTAG:**
+> O script `ztc-open-cofre.sh` verifica o UID da tag como **checagem de presença física**, não como segredo criptográfico.
+> NTAG215 pode ser clonada com hardware acessível (Proxmark3, apps Android avançados). O UID **não é segredo**.
+> O que protege o cofre é o *conteúdo* da tag (o keyfile) combinado com a senha do VeraCrypt e a senha do KeePassXC.
+> Quem tiver a tag **e** souber as senhas consegue abrir — trate a tag como uma chave física, não como uma senha.
+
+---
+
 ## Visão geral do processo
 
 ```mermaid
@@ -94,6 +102,8 @@ ZTC_MANIFEST_DIR="$HOME/ztc-backup/manifest"
 ```
 
 Salvar: `Ctrl+O → Enter → Ctrl+X`
+
+> **Nota sobre `ZTC_KEYFILE`:** se você executou o Passo 5 do Playbook 03 (`shred -u ~/keepass-keyfile.ztc`), o script não conseguirá ler o keyfile do disco. Nesse caso, copie o keyfile de uma das tags NTAG de volta para `~/keepass-keyfile.ztc` antes de rodar — ou mantenha o arquivo no disco com `chmod 400` (alternativa indicada no Playbook 03 Passo 5).
 
 ---
 

@@ -16,7 +16,7 @@ flowchart TD
     B --> C["3 — Montar volume\n/media/veracrypt-ztc"]
     C --> D["4 — Mover .kdbx\npara dentro do volume"]
     D --> E["5 — Desmontar\nveracrypt -t -d"]
-    E --> F["6 — Testar abertura completa\nveracrypt → keepassxc --keyfile"]
+    E --> F["6 — Testar abertura completa\nveracrypt → keepassxc-cli open"]
     F --> G["✅ Duas camadas independentes\nVeraCrypt + KeePassXC + NTAG"]
 
     style A fill:#10b981,color:#fff
@@ -50,16 +50,19 @@ veracrypt --version   # deve mostrar 1.26.24
 mkdir -p ~/cofre
 
 veracrypt -t --create ~/cofre/vault.hc \
-  --size=100M \
+  --size=500M \
   --encryption=AES \
   --hash=SHA-512 \
   --filesystem=Ext4 \
   --volume-type=Normal \
-  --password="" \
   --random-source=/dev/urandom
 ```
 
-> O comando vai pedir a **senha mestra** interativamente. Use uma senha forte e diferente da do KeePass.
+> O comando vai pedir a **senha mestra** interativamente (2x para confirmar). Use uma senha forte e diferente da do KeePass.
+
+> **Por que 500M e não 100M?** VeraCrypt **não permite redimensionar** volumes depois. 500MB cabe o `.kdbx` + chaves PGP + documentos sensíveis sem precisar recriar. Se preferir menor, use `--size=100M` ciente da limitação.
+
+> ⚠️ **Por que o `--password=""` foi removido?** Em modo não-interativo, esse flag cria o volume com **senha vazia** (falha silenciosa de segurança). Sem o flag, o VeraCrypt pede a senha interativamente — sem ambiguidade.
 
 ---
 
@@ -99,13 +102,16 @@ veracrypt -t -d /media/veracrypt-ztc
 # Montar volume
 veracrypt -t ~/cofre/vault.hc /media/veracrypt-ztc
 
-# Abrir KeePassXC com o banco dentro do volume
-keepassxc --keyfile ~/keepass-keyfile.ztc \
+# Abrir KeePassXC com o banco dentro do volume (sintaxe correta para 2.7.x+)
+keepassxc-cli open \
+  --key-file ~/keepass-keyfile.ztc \
   /media/veracrypt-ztc/lab-passwords.kdbx
 
-# Ao fechar o KeePassXC, desmontar:
+# Ao sair do CLI (digite exit), desmontar:
 veracrypt -t -d /media/veracrypt-ztc
 ```
+
+> **Nota:** Use `keepassxc-cli open` (não `keepassxc --keyfile`). O flag `--keyfile` da versão GUI não funciona como argumento de linha de comando nas versões 2.7.x.
 
 ---
 

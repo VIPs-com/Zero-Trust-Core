@@ -6,6 +6,7 @@
 - [ ] KeePassXC 2.7.12+ instalado
 - [ ] 3 tags NTAG215 em mãos
 - [ ] Celular Android com NFC + app **NFC Tools** instalado (F-Droid ou Play Store)
+- [ ] `age` instalado (`sudo apt install -y age`) — necessário no Playbook 03
 
 ---
 
@@ -13,9 +14,9 @@
 
 ```mermaid
 flowchart TD
-    A["1 — Instalar KeePassXC"] --> B["2 — Gerar keyfile\ndd urandom → base64 → .ztc"]
+    A["1 — Instalar KeePassXC"] --> B["2 — Gerar keyfile\nopenssl rand → base64 → .ztc"]
     B --> C["3 — Criar banco KeePassXC\nsenha forte + keyfile"]
-    C --> D["4 — Testar abertura\nkeepassxc --keyfile"]
+    C --> D["4 — Testar abertura\nkeepassxc-cli open --key-file"]
     D --> E["5 — Copiar keyfile\npara Android (MTP)"]
     E --> F["6 — Gravar 3 tags NTAG\nNFC Tools Android"]
     F --> G["7 — Verificar UID\nnfc-list no Linux"]
@@ -48,12 +49,13 @@ keepassxc --version   # deve mostrar 2.7.x ou superior
 # Criar pasta de trabalho
 mkdir -p ~/cofre ~/ztc-backup
 
-# Gerar keyfile aleatório (32 bytes = 256 bits)
-dd if=/dev/urandom bs=32 count=1 2>/dev/null | base64 > ~/keepass-keyfile.ztc
+# Gerar keyfile com 64 bytes de entropia (512 bits) — padrão NIST 2026
+openssl rand -base64 64 > ~/keepass-keyfile.ztc
 chmod 600 ~/keepass-keyfile.ztc
 
 # Confirmar que foi criado
 ls -lh ~/keepass-keyfile.ztc
+wc -c ~/keepass-keyfile.ztc   # deve mostrar ~89 bytes (base64 de 64 bytes)
 ```
 
 ---
@@ -76,17 +78,26 @@ ls -lh ~/keepass-keyfile.ztc
 ## 4 — Testar abertura (confirmar que senha + keyfile são necessários)
 
 ```sh
-keepassxc --keyfile ~/keepass-keyfile.ztc ~/cofre/lab-passwords.kdbx
+# Use keepassxc-cli (sintaxe correta para 2.7.x+)
+keepassxc-cli open --key-file ~/keepass-keyfile.ztc ~/cofre/lab-passwords.kdbx
 ```
 
-O banco deve abrir pedindo só a senha. Feche após confirmar.
+O CLI vai pedir a senha e abrir o banco em modo interativo. Digite `exit` para sair.
+
+> **Nota:** O comando `keepassxc --keyfile <arquivo>` **não funciona** na maioria das versões 2.7.x.
+> Para abrir via GUI, simplesmente abra o KeePassXC normalmente — ele lembrará o keyfile configurado.
 
 ---
 
 ## 5 — Copiar keyfile para o celular
 
+**Opção A — Gerenciador de arquivos GNOME (recomendado em Ubuntu 22.04+):**
+
+Conecte o Android via USB → desbloqueie → escolha **"Transferência de arquivos"** → arraste `~/keepass-keyfile.ztc` para a pasta `Documents` do celular. O GNOME monta MTP nativamente, sem pacotes extras.
+
+**Opção B — Via terminal (`simple-mtpfs`):**
+
 ```sh
-# Via cabo USB (Android File Transfer / MTP)
 sudo apt install -y simple-mtpfs
 mkdir -p ~/mnt-android
 simple-mtpfs ~/mnt-android
@@ -96,7 +107,9 @@ cp ~/keepass-keyfile.ztc ~/mnt-android/Documents/
 fusermount -u ~/mnt-android
 ```
 
-> Alternativa sem `simple-mtpfs`: copie o arquivo via Bluetooth, cabo com gerenciador de arquivos do SO, ou cartão microSD.
+> ⚠️ `simple-mtpfs` tem problemas conhecidos no **Ubuntu 24.04**. Se falhar, use a Opção A, Bluetooth ou microSD.
+
+> **iPhone:** o iOS não monta como drive USB no Linux (protocolo AFC, não MTP) e o **Core NFC não permite gravar arquivos binários em NTAG215**. Use Android emprestado para gravar as tags; o iPhone consegue só ler depois (NFC Tools Pro, ~R$15).
 
 ---
 
@@ -109,10 +122,15 @@ No celular Android com **NFC Tools**:
 3. Aproxime a tag NTAG → **Write / OK**
 4. Repita para as outras 2 tags
 
-**Destinos das tags:**
+**Destinos das tags (separação obrigatória):**
 - Tag 1 → bolsa/bolso (uso diário)
 - Tag 2 → gaveta/cofre em casa (reserva)
 - Tag 3 → local off-site (familiar, escritório)
+
+> ⚠️ **NTAG215 é clonável** com hardware acessível (Proxmark3, apps Android avançados).
+> O UID **não é segredo nem fator de autenticação forte** — é apenas um identificador.
+> A segurança real vem do *conteúdo* gravado na tag (o keyfile), combinado com a senha do KeePassXC.
+> Trate a tag como uma chave física: quem a tiver **e** souber a senha consegue abrir o cofre.
 
 ---
 

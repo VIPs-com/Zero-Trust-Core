@@ -8,6 +8,13 @@
 
 ---
 
+> ⚠️ **Leia antes de começar — regra de separação física:**
+> O backup só tem valor se ficar em local **diferente** dos NTAGs.
+> Se os 3 NTAGs e o pendrive estiverem no mesmo lugar (mesma gaveta, mesma mochila), você não tem backup real — tem um ponto único de falha.
+> **Guarde o pendrive em local off-site: familiar de confiança, cofre bancário ou escritório.**
+
+---
+
 ## Visão geral do processo
 
 ```mermaid
@@ -59,12 +66,15 @@ age -p -o ~/ztc-backup/keepass-keyfile.ztc.age ~/keepass-keyfile.ztc
 # Decifrar em arquivo temporário
 age -d ~/ztc-backup/keepass-keyfile.ztc.age > /tmp/keyfile-check.ztc
 
-# Comparar com o original (deve mostrar nada = idênticos)
-cmp ~/keepass-keyfile.ztc /tmp/keyfile-check.ztc && echo "BACKUP OK"
+# Comparar com o original (saída vazia = idênticos = backup OK)
+cmp ~/keepass-keyfile.ztc /tmp/keyfile-check.ztc && echo "✅ BACKUP OK — arquivos idênticos"
 
-# Apagar o temporário
+# Apagar o temporário com segurança
 shred -u /tmp/keyfile-check.ztc
 ```
+
+> Se o `cmp` mostrar diferença (qualquer saída antes da mensagem ✅), **apague o `.age` e repita o Passo 2**.
+> Nunca prossiga com um backup que não passou na verificação.
 
 ---
 
@@ -100,7 +110,5 @@ shred -u ~/keepass-keyfile.ztc
 ---
 
 ✅ **Concluído** — backup cifrado do keyfile em pendrive separado dos NTAGs.
-
-**Regra:** se os 3 NTAGs e o pendrive ficarem no mesmo lugar → você não tem backup real.
 
 📖 **Referência no curso:** [COMANDO 2B.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2b2-backup-cifrado-do-keyfile-age--obrigatório-antes-dos-ntags)
