@@ -6,7 +6,7 @@ Scripts oficiais do curso [Zero Trust Core Expert](https://github.com/VIPs-com/Z
 
 ```sh
 mkdir -p ~/bin ~/ztc-backup/manifest
-cp ztc-health.sh ztc-rsync-offsite.sh ztc-open-cofre.sh ~/bin/
+cp ztc-health.sh ztc-rsync-offsite.sh ztc-open-cofre.sh ztc-close-cofre.sh ~/bin/
 chmod +x ~/bin/ztc-*.sh
 cp ztc.conf.example ~/ztc-backup/ztc.conf
 # Edite ~/ztc-backup/ztc.conf com seus caminhos e IP da VM (WireGuard)
@@ -20,6 +20,7 @@ cp ztc.conf.example ~/ztc-backup/ztc.conf
 | `ztc-health.sh` | `--check-conf` + smartcard, `ssh-add`, NFC, manifesto |
 | `ztc-rsync-offsite.sh` | Envia `vault.hc` + manifestos para VM (só blobs opacos) |
 | `ztc-open-cofre.sh` | NTAG opcional → monta VeraCrypt → abre KeePassXC |
+| `ztc-close-cofre.sh` | Detecta KeePassXC aberto → `sync` → desmonta VeraCrypt |
 | `ztc.conf.example` | Modelo de configuração (`ZTC_*`) |
 
 ## Segurança

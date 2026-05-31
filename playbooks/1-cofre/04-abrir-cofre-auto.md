@@ -143,10 +143,10 @@ ztc-open-cofre.sh
 
 ---
 
-## 7 — (Opcional) Atalho de desktop
+## 7 — (Opcional) Atalho de desktop — abrir cofre
 
 ```sh
-cat > ~/.local/share/applications/ztc-cofre.desktop << 'EOF'
+cat > ~/.local/share/applications/ztc-cofre-abrir.desktop << 'EOF'
 [Desktop Entry]
 Name=Abrir Cofre ZTC
 Comment=NFC + VeraCrypt + KeePassXC
@@ -160,7 +160,37 @@ EOF
 
 ---
 
-✅ **Concluído** — `ztc-open-cofre.sh` funcionando. Um comando abre tudo.
+## 8 — Instalar o script de FECHAR + atalho desktop
+
+```sh
+cp /tmp/ztc-repo/scripts/ztc-close-cofre.sh ~/bin/
+chmod +x ~/bin/ztc-close-cofre.sh
+```
+
+```sh
+cat > ~/.local/share/applications/ztc-cofre-fechar.desktop << 'EOF'
+[Desktop Entry]
+Name=Fechar Cofre ZTC
+Comment=Sync + dismount VeraCrypt
+Exec=bash -c 'source ~/.bashrc; ~/bin/ztc-close-cofre.sh; read -p "Pressione Enter para sair..."'
+Icon=system-lock-screen
+Terminal=true
+Type=Application
+Categories=Security;
+EOF
+```
+
+**O que ele faz:**
+- Detecta se KeePassXC ainda está aberto (avisa para salvar e fechar primeiro)
+- `sync` para garantir gravação no disco
+- `veracrypt -t -d` desmonta o volume
+- Confirma com `[OK] Cofre fechado`
+
+> 💡 **Disciplina diária:** ao terminar de trabalhar, clique "Fechar Cofre ZTC" no menu de aplicativos. 2 segundos pra blindar tudo de novo.
+
+---
+
+✅ **Concluído** — `ztc-open-cofre.sh` + `ztc-close-cofre.sh` funcionando. Dois cliques no desktop para a rotina diária.
 
 **Próximo passo Turbo:** → [Playbook 10 — Restore test mensal](../3-backup-resiliencia/10-restore-test.md)  
 **Próximo passo Expert:** → [Playbook 05 — Chave mestra PGP no Tails](../2-identidade-pgp/05-tails-master-pgp.md)
