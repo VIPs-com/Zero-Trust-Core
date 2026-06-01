@@ -1177,6 +1177,11 @@ age -p -o ~/ztc-backup/keepass-keyfile.ztc.age ~/ztc-backup/keepass-keyfile.ztc
 shred -u ~/ztc-backup/keepass-keyfile.ztc
 
 # Copie APENAS o arquivo .age para mídia offline (não no mesmo pendrive dos NTAGs de bolso)
+```
+
+> **Nota:** o `shred` acima apaga a cópia em `~/ztc-backup/` **após** cifrar com `age`. O keyfile original (`~/keepass-keyfile.ztc`) permanece no disco — é o que o KeePassXC usa no dia a dia, protegido por `chmod 600` e pelo volume VeraCrypt fechado.
+
+```sh
 ls -lh ~/ztc-backup/keepass-keyfile.ztc.age
 ```
 
@@ -1774,7 +1779,7 @@ Exemplo (ajuste horários):
 #### ▸ COMANDO 5.3: KeePass + VeraCrypt condicional (NFC opcional)
 
 Fluxo de **abrir**: presença NTAG (opcional) → montar VeraCrypt → abrir KeePassXC com keyfile no disco.
-Fluxo de **fechar**: confirma KeePass fechado → `sync` → desmontar → snapshot automático do `vault.hc`.
+Fluxo de **fechar**: confirma KeePass fechado → `sync` → aguarda processos que ainda acessam o mount point (`fuser -m`) → desmontar → snapshot automático do `vault.hc`.
 
 **1. Configure `~/ztc-backup/ztc.conf`** (veja `scripts/ztc.conf.example`):
 ```sh
@@ -1786,6 +1791,8 @@ ZTC_AUTO_SNAPSHOT=yes  ZTC_SNAPSHOT_DIR=...  ZTC_SNAPSHOT_KEEP=7
 ```
 
 > 🔴 **Obrigatório:** `chmod 600 ~/ztc-backup/ztc.conf` (contém caminhos de chave SSH).
+> O arquivo expõe o *caminho* da chave (`ZTC_SSH_KEY`), não a chave privada em si.
+> Sem `chmod 600`, outro usuário local lê o path e sabe onde procurar a chave.
 
 **2. Copie os 4 scripts:**
 
@@ -1814,6 +1821,8 @@ chmod 600 ~/ztc-backup/ztc.conf
 
 ```sh
 ~/bin/ztc-close-cofre.sh
+# Sincronizando escritas no disco...
+# [WARN] Processos ainda acessam /media/veracrypt-ztc — aguardando 3s...  (se aplicável)
 # [OK] Cofre fechado — todas as camadas seladas
 # --- Snapshot automático do vault ---
 # Snapshot: vault.hc (500M) -> vault-AAAAMMDD-HHMMSS.hc
@@ -1834,7 +1843,7 @@ chmod 600 ~/ztc-backup/ztc.conf
 | `ZTC_VC_PIM` / `ZTC_VC_KEYFILES` / `ZTC_VC_PROTECT_HIDDEN` | Camadas extras VeraCrypt (PIM, keyfile, volume oculto) — todas opcionais |
 | `ZTC_KEEPASSXC_MODE` | `gui` (default) ou `cli` (headless/scripts) |
 | `ZTC_AUTO_SNAPSHOT` | Snapshot do `vault.hc` após cada fechamento (default `yes`) |
-| `ZTC_SNAPSHOT_KEEP` | Versões mantidas na rotação (default 7 — 7 dias com uso diário) |
+| `ZTC_SNAPSHOT_KEEP` | Versões mantidas na rotação (default 7 — com uso diário, janela de 7 dias para detectar corrupção; aumente se usar o cofre com menos frequência) |
 
 > ⚠️ **Bug histórico:** `keepassxc --keyfile <arquivo>` **não funciona** em KeePassXC 2.7.x (GUI ignora silenciosamente o flag). O script usa `keepassxc "$ZTC_KDBX"` (GUI) ou `keepassxc-cli open --key-file ... "$ZTC_KDBX"` (CLI).
 
