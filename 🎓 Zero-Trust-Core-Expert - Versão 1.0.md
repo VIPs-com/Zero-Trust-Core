@@ -231,8 +231,12 @@ Zero-Trust-Core/  (v1.0.2)
 │
 ├── README.md ........................ porta de entrada · badges · jornada · kits R$
 ├── 🎓 Zero-Trust-Core-Expert - Versão 1.0.md ... VOCÊ ESTÁ AQUI (curso canônico)
-├── scripts/ ......................... ztc-health · ztc-rsync-offsite · ztc-open-cofre
+├── scripts/ ......................... 5 scripts: open · close · snapshot · health · rsync-offsite
 │   └── ztc.conf.example
+├── playbooks/ ....................... execução direta (copie e cole · zero teoria)
+│   ├── 1-cofre/ ................... KeePass + VeraCrypt + NFC (Turbo) — 01-04
+│   ├── 2-identidade-pgp/ .......... Tails + Smartcard + SSH (Expert) — 05-07
+│   └── 3-backup-resiliencia/ ...... HD + off-site + restore (3-2-1-1-0) — 08-10
 └── docs/
     ├── MANUAL-DE-USO.md ............. 1ª vez no repo (leia antes da Parte 1)
     ├── INVENTARIO-SOFTWARE-HARDWARE.md  software/HW · kits A–D em R$
@@ -241,6 +245,8 @@ Zero-Trust-Core/  (v1.0.2)
     ├── AUDITORIA-v1.0.1.md .......... histórico v1.0.1 → v1.0.2
     └── CHECKLIST-PRE-TURMA-EQUIPE.md  testes NFC + Tails (instrutor)
 ```
+
+> ⚡ **Playbooks (atalho de execução):** se você prefere **copiar e colar comandos** sem ler a teoria, a pasta [`playbooks/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/playbooks) tem 10 guias código-primeiro organizados em 3 blocos. Cada COMANDO deste curso tem um playbook correspondente. Use os playbooks para **executar**, volte ao curso para **entender**.
 
 ---
 
@@ -255,6 +261,14 @@ Zero-Trust-Core/  (v1.0.2)
 | 5 | [A](#apêndice-a--top-15-erros-comuns) · [C](#apêndice-c--hardware-recomendado-brasil--2026) · [F](#apêndice-f--inventário-software-e-hardware) | [Parte 4](#-5-parte-4-expert-e-futuro-semana-4) + [Apêndices](#-6-apêndices) |
 
 **Expert:** `scripts/` nos Módulos **4.2** e **5** são **obrigatórios** (não opcionais). **Turbo:** fluxo manual do KeePass/VeraCrypt basta.
+
+**Mapa COMANDO ↔ playbook** (para quem executa copiando e colando):
+
+| Bloco de playbook | Cobre os COMANDOs | Trilha |
+| --- | --- | --- |
+| [`1-cofre/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/playbooks/1-cofre) (01-04) | 2B.1–2B.4 · 3.1.1–3.1.3 · 5.0 · 5.3 | Turbo + Expert |
+| [`2-identidade-pgp/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/playbooks/2-identidade-pgp) (05-07) | 1.2–1.6 · 2A.1–2A.4 · 3.2.1–3.2.3 | Expert |
+| [`3-backup-resiliencia/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/playbooks/3-backup-resiliencia) (08-10) | 4.1–4.3 · 4.2.1–4.2.3 | Turbo (10) + Expert (08-09) |
 
 ---
 
@@ -313,7 +327,7 @@ Clique para ir direto ao módulo. Se um link não saltar, use `Ctrl+F` pelo nome
 ├── §4  PARTE 3 — Resiliência e operação (6–8 h)
 │   ├── Módulo 4: 4.1–4.3 (3-2-1-1-0, restore mensal)
 │   ├── Módulo 4.2: 4.2.1–4.2.3 (WireGuard, rsync, ztc-rsync) … Expert
-│   ├── Módulo 5: 5.1 ztc-health · 5.2 cron · 5.3 ztc-open-cofre (NFC)
+│   ├── Módulo 5: 5.1 ztc-health · 5.2 cron · 5.3 open/close/snapshot (NFC)
 │   ├── Módulo 6: runbook + COMANDO 6.1 simulação de mesa
 │   └── 🏁 CHECKPOINT 3
 │
@@ -1065,24 +1079,39 @@ gpg> save
 
 * * *
 
-#### ▸ COMANDO 2A.3: PINs User e Admin
+#### ▸ COMANDO 2A.3: PINs User, Admin **e Reset Code** (não pule o Reset Code)
 
 ```sh
 gpg --change-pin
-# Opção 1: PIN do usuário (3 tentativas no cartão)
-# Opção 3: PIN de administrador (para reset — anote em cofre físico)
+# Opção 1: PIN do usuário (≥ 6 dígitos)
+# Opção 3: PIN de administrador (≥ 8 dígitos)
+# Opção 4: Reset Code (CRÍTICO — sem ele, 3 typos no Admin PIN destroem o cartão)
 ```
 
-| PIN | Uso |
-| --- | --- |
-| **User** | Dia a dia (SSH, assinar, decriptar) |
-| **Admin** | Reset do cartão — **não** compartilhe; guarde offline |
+| Credencial | Uso | Consequência se errar 3x |
+|---|---|---|
+| **User PIN** | Dia a dia (SSH, assinar, decriptar) | Cartão bloqueia — desbloqueia com Admin PIN ou Reset Code |
+| **Admin PIN** | Trocar User PIN, raras operações | 🔴 **Cartão destruído permanentemente** (R$300+ no lixo) |
+| **Reset Code** | Emergência: desbloquear User PIN sem usar Admin | (mesma proteção do Admin) |
+
+> 🔴 **O Reset Code é a sua rede de segurança.** Sem ele, se você errar o User PIN 3x, vai precisar do Admin PIN — e se errar o Admin PIN 3x também, o cartão **morre permanentemente**. Com Reset Code, errar o User PIN não obriga uso do Admin.
+
+Salve as **3 credenciais** no Bitwarden / KeePassXC imediatamente após criar.
 
 Teste:
 
 ```sh
 echo "teste" | gpg --clearsign
 gpg --card-status
+```
+
+Como usar o Reset Code (se um dia precisar):
+
+```sh
+gpg --card-edit
+gpg/card> admin
+gpg/card> unblock
+# Pede o Reset Code → permite definir novo User PIN
 ```
 
 * * *
@@ -1113,10 +1142,23 @@ Para **dois cartões idênticos** em uso:
 
 #### ▸ COMANDO 2B.1: Gerar keyfile no KeePassXC
 
+**Opção A — gerar pelo KeePassXC (GUI):**
+
 1. Abra o KeePassXC ([keepassxc.org/docs](https://keepassxc.org/docs/)).  
 2. Crie um banco novo ou use banco de **laboratório**.  
 3. **Database → Database Security → Add key file → Generate**  
 4. Salve `keepass-keyfile.ztc` em pasta local — **não** na nuvem.
+
+**Opção B — gerar pelo terminal (`openssl`, usada no [Playbook 01](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/playbooks/1-cofre/01-keepass-ntag.md)):**
+
+```sh
+# 64 bytes de entropia (512 bits) — padrão NIST 2026
+openssl rand -base64 64 > ~/keepass-keyfile.ztc
+chmod 600 ~/keepass-keyfile.ztc
+```
+Depois aponte esse arquivo em **Database Security → Add key file → Browse**.
+
+> Ambas funcionam. A Opção B é reproduzível e auditável; a A é mais simples no fluxo gráfico. Evite `dd if=/dev/urandom bs=32` (só 256 bits — abaixo do recomendado para 2026).
 
 Documentação oficial: [KeePassXC FAQ — Key Files](https://keepassxc.org/docs/#key-files).
 
@@ -1559,6 +1601,31 @@ ssh-keygen -t ed25519 -f ~/.ssh/ztc-bkp-ed25519 -C "ztc-offsite"
 ssh-copy-id -i ~/.ssh/ztc-bkp-ed25519.pub ztc-bkp@10.66.66.1
 ```
 
+🔴 **OBRIGATÓRIO — restringir a chave SSH na VM com `command=rrsync`:**
+
+Sem isso, se o PC for comprometido, o adversário usa a chave para shell completo na VM e exfiltra todos os `vault.hc` históricos para brute-force offline.
+
+```sh
+# Na VM (como usuário ztc-bkp):
+sudo apt install -y rsync
+sudo cp /usr/share/doc/rsync/scripts/rrsync /usr/local/bin/
+sudo chmod +x /usr/local/bin/rrsync
+
+# Editar authorized_keys e prefixar a linha da chave com restrições:
+nano ~/.ssh/authorized_keys
+```
+
+```
+command="/usr/local/bin/rrsync /var/backups/ztc/incoming/",no-agent-forwarding,no-port-forwarding,no-pty,no-X11-forwarding ssh-ed25519 AAAA...
+```
+
+Testar (no PC):
+```sh
+ssh -i ~/.ssh/ztc-bkp-ed25519 ztc-bkp@10.66.66.1
+# Esperado: "Refusing connection without rsync arguments" ou conexão fecha
+# SE abriu shell, a restrição não foi aplicada — confira o authorized_keys
+```
+
 > 📎 **Break-glass:** guarde **uma** senha ou chave de recuperação da VM em papel (memorizada), **fora** do KeePass que depende do cartão perdido — senão, perda do NTAG + PC trava também o off-site.
 
 * * *
@@ -1578,13 +1645,21 @@ SRC_MANIFEST="$HOME/ztc-backup/manifest/"
 # Opcional: exija cartão antes do sync
 # nfc-list | grep -q "$NFC_UID_ESPERADO" || { echo "NTAG ausente"; exit 1; }
 
-rsync -avz -e "ssh -i $HOME/.ssh/ztc-bkp-ed25519" \
+# --checksum: detecta substituição silenciosa de arquivos no servidor
+# StrictHostKeyChecking=yes: falha ruidosa se chave do servidor mudar (anti-MITM)
+rsync -avz --checksum \
+  -e "ssh -i $HOME/.ssh/ztc-bkp-ed25519 -o BatchMode=yes -o StrictHostKeyChecking=yes" \
   "$SRC_HC" \
   "$SRC_MANIFEST" \
   "$REMOTE"
 
-ssh -i "$HOME/.ssh/ztc-bkp-ed25519" ztc-bkp@10.66.66.1 \
-  "sha256sum /var/backups/ztc/incoming/* 2>/dev/null | tail -5"
+# Nota: o sha256sum remoto abaixo FALHA (esperado) se você ativou
+# command="rrsync ..." no authorized_keys da VM. A integridade já
+# foi verificada via --checksum durante a transferência.
+ssh -i "$HOME/.ssh/ztc-bkp-ed25519" -o StrictHostKeyChecking=yes \
+  ztc-bkp@10.66.66.1 \
+  "sha256sum /var/backups/ztc/incoming/* 2>/dev/null | tail -5" || \
+  echo "(sha256 remoto bloqueado — esperado com command=rrsync ativo)"
 ```
 
 **Modo B — noturno:** blobs já são opacos; NFC no sync é **reforço**, não substituto da criptografia do cofre.
@@ -1698,35 +1773,70 @@ Exemplo (ajuste horários):
 
 #### ▸ COMANDO 5.3: KeePass + VeraCrypt condicional (NFC opcional)
 
-Fluxo: **presença NTAG (opcional)** → montar VeraCrypt → abrir KeePassXC com keyfile no disco (cópia local do ritual NTAG, não lida direto da tag pelo script).
+Fluxo de **abrir**: presença NTAG (opcional) → montar VeraCrypt → abrir KeePassXC com keyfile no disco.
+Fluxo de **fechar**: confirma KeePass fechado → `sync` → desmontar → snapshot automático do `vault.hc`.
 
-1. Configure `~/ztc-backup/ztc.conf` (veja `scripts/ztc.conf.example`): `ZTC_VAULT_HC`, `ZTC_MOUNT_POINT`, `ZTC_KDBX`, `ZTC_KEYFILE`, `ZTC_NFC_UID` (opcional).  
-2. Copie o script:
+**1. Configure `~/ztc-backup/ztc.conf`** (veja `scripts/ztc.conf.example`):
+```sh
+ZTC_VAULT_HC=...  ZTC_MOUNT_POINT=...  ZTC_KDBX=...  ZTC_KEYFILE=...
+ZTC_NFC_UID=...                       # opcional — exige NTAG presente
+ZTC_VC_PIM=0  ZTC_VC_KEYFILES=""  ZTC_VC_PROTECT_HIDDEN=no   # camadas extras
+ZTC_KEEPASSXC_MODE=gui                 # ou 'cli' para automação headless
+ZTC_AUTO_SNAPSHOT=yes  ZTC_SNAPSHOT_DIR=...  ZTC_SNAPSHOT_KEEP=7
+```
+
+> 🔴 **Obrigatório:** `chmod 600 ~/ztc-backup/ztc.conf` (contém caminhos de chave SSH).
+
+**2. Copie os 4 scripts:**
 
 ```sh
-# Na raiz do clone Zero-Trust-Core
-cp scripts/ztc-open-cofre.sh ~/bin/
-chmod +x ~/bin/ztc-open-cofre.sh
+cp scripts/ztc-open-cofre.sh \
+   scripts/ztc-close-cofre.sh \
+   scripts/ztc-snapshot-vault.sh \
+   scripts/ztc-health.sh ~/bin/
+chmod +x ~/bin/ztc-*.sh
 cp scripts/ztc.conf.example ~/ztc-backup/ztc.conf
+chmod 600 ~/ztc-backup/ztc.conf
 # Edite ~/ztc-backup/ztc.conf com seus caminhos
 ```
 
-3. Execute (pede senha do volume VeraCrypt no terminal):
+**3. Abrir o cofre** (pede senha do VeraCrypt; KeePassXC abre GUI pedindo só a senha após primeira configuração do keyfile):
 
 ```sh
 ~/bin/ztc-open-cofre.sh
+# [INFO] VeraCrypt camadas extras ativas: (nenhuma — modo Turbo)
+# Montando ... (modo Turbo — só a senha)...
+# Enter password for vault.hc: ***
+# [OK] Abrindo KeePassXC (GUI)...
 ```
 
-4. Ao terminar:
+**4. Fechar o cofre** (desmonta + snapshot versionado automático):
 
 ```sh
-veracrypt -t -d /media/veracrypt-ztc
+~/bin/ztc-close-cofre.sh
+# [OK] Cofre fechado — todas as camadas seladas
+# --- Snapshot automático do vault ---
+# Snapshot: vault.hc (500M) -> vault-AAAAMMDD-HHMMSS.hc
+# [OK] sha256 confere
+# [OK] N snapshots mantidos (X.XG total)
+```
+
+**5. Atalhos de desktop** (recomendado — clica e roda):
+
+```sh
+# Veja Playbook 04, Passos 7-8 — cria .desktop pra "Abrir Cofre ZTC" e "Fechar Cofre ZTC"
 ```
 
 | Variável | Função |
 | --- | --- |
 | `ZTC_NFC_UID` | Se preenchido, exige tag presente (`nfc-list`) antes de montar |
 | `ZTC_KEYFILE` | Caminho do keyfile **no disco** (sincronize do NTAG manualmente ou restore do `.age`) |
+| `ZTC_VC_PIM` / `ZTC_VC_KEYFILES` / `ZTC_VC_PROTECT_HIDDEN` | Camadas extras VeraCrypt (PIM, keyfile, volume oculto) — todas opcionais |
+| `ZTC_KEEPASSXC_MODE` | `gui` (default) ou `cli` (headless/scripts) |
+| `ZTC_AUTO_SNAPSHOT` | Snapshot do `vault.hc` após cada fechamento (default `yes`) |
+| `ZTC_SNAPSHOT_KEEP` | Versões mantidas na rotação (default 7 — 7 dias com uso diário) |
+
+> ⚠️ **Bug histórico:** `keepassxc --keyfile <arquivo>` **não funciona** em KeePassXC 2.7.x (GUI ignora silenciosamente o flag). O script usa `keepassxc "$ZTC_KDBX"` (GUI) ou `keepassxc-cli open --key-file ... "$ZTC_KDBX"` (CLI).
 
 > 📎 **WSL2:** mount VeraCrypt + NFC em WSL é frágil — prefira Linux nativo ou fluxo manual no Windows (Apêndice D).  
 > 📎 Trilha Turbo pode manter fluxo **manual** (COMANDO 3.1.2) sem este script.
@@ -2061,10 +2171,12 @@ Exporte chave pública atualizada e distribua (`gpg --export -a`). Se subkeys es
 
 | Script | Onde foi definido | Função |
 | --- | --- | --- |
-| `ztc-health.sh` | [COMANDO 5.1](#-comando-51-script-ztc-healthsh) | card-status, ssh-add, NFC, manifesto |
-| `ztc-rsync-offsite.sh` | [COMANDO 4.2.3](#-comando-423-rsync-só-blobs-com-ou-sem-nfc) | Sync blobs para VM |
-| `ztc-open-cofre.sh` | [COMANDO 5.3](#-comando-53-keepass--veracrypt-condicional-nfc-opcional) | NFC → VeraCrypt → KeePass |
-| `ztc.conf` | `scripts/ztc.conf.example` | Variáveis `ZTC_*` |
+| `ztc-health.sh` | [COMANDO 5.1](#-comando-51-script-ztc-healthsh) | `--check-conf` + card-status, ssh-add, NFC, manifesto |
+| `ztc-rsync-offsite.sh` | [COMANDO 4.2.3](#-comando-423-rsync-só-blobs-com-ou-sem-nfc) | Sync blobs para VM (com `--checksum` + `StrictHostKeyChecking`) |
+| `ztc-open-cofre.sh` | [COMANDO 5.3](#-comando-53-keepass--veracrypt-condicional-nfc-opcional) | NFC opcional → VeraCrypt (camadas toggáveis) → KeePassXC |
+| `ztc-close-cofre.sh` | [COMANDO 5.3](#-comando-53-keepass--veracrypt-condicional-nfc-opcional) | Confirma KeePass fechado → `sync` → dismount → snapshot |
+| `ztc-snapshot-vault.sh` | [COMANDO 5.3](#-comando-53-keepass--veracrypt-condicional-nfc-opcional) | Cópia versionada do `vault.hc` com sha256 + rotação |
+| `ztc.conf` | `scripts/ztc.conf.example` | Variáveis `ZTC_*` — proteja com `chmod 600` |
 | Cron exemplo | [COMANDO 5.2](#-comando-52-cron-backup--health) | Agendamento |
 
 **Instalação rápida:** copie de [`scripts/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/scripts) no repositório para `~/bin/` (veja `scripts/README.md`), ou copie os blocos `sh` dos COMANDOs acima.
