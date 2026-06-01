@@ -36,6 +36,8 @@ Complementa [`AUDITORIA-v1.0.1.md`](./AUDITORIA-v1.0.1.md) (gaps v1.0.1 → v1.0
 - **[playbooks/ — diagramas Mermaid](../playbooks/)** (commit `db89547`): `## Visão geral do processo` em cada um dos 10 playbooks com flowchart por módulo + atualização de `playbooks/README.md` e `docs/DIAGRAMAS-VISUAIS.md`.
 - **Auditoria de links** (commit `2766a2c`): deep links para COMMANDs em todos os 10 playbooks, FAQ, INICIE-AQUI, DIAGRAMAS, CHECKLIST, GABARITO, INVENTARIO, APOSTILA e MANUAL — 18 arquivos, zero referências soltas.
 - **Tabela de dispositivos testados** no [INVENTARIO](./INVENTARIO-SOFTWARE-HARDWARE.md): 14 linhas (SO, Tails, KeePassXC, VeraCrypt, leitores NFC, NTAG, smartcards, Windows, macOS) com status ✅/⏳/🟡 e links diretos para COMMANDs. Itens ⏳ fecham com issue #2.
+- **Playbooks reorganizados em 3 blocos** (commit `2888f22`): `1-cofre/`, `2-identidade-pgp/`, `3-backup-resiliencia/` com README por bloco. **2 scripts novos** (`ztc-close-cofre.sh`, `ztc-snapshot-vault.sh`) — total 5. Distro canônica padronizada para **Debian 13 (Trixie)**.
+- **Auditoria Red/Blue/Purple Team** (commit `a896e63`): 10 ataques simulados nos scripts reais. 1 crítico (A1: chave SSH sem `command=rrsync` na VM) + 5 médios + 4 cosméticos — **todos corrigidos**. Endurecimentos: `command=rrsync`, `rsync --checksum`, `StrictHostKeyChecking`, `chmod 600` no conf, Reset Code do smartcard. Detalhes em [AUDITORIA-v1.0.1.md](./AUDITORIA-v1.0.1.md). **Scorecard de segurança: 8.7 → 9.2/10.**
 
 * * *
 

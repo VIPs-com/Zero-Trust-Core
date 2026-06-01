@@ -2,7 +2,7 @@
 
 [![Versão](https://img.shields.io/github/v/tag/VIPs-com/Zero-Trust-Core?label=vers%C3%A3o&color=brightgreen)](https://github.com/VIPs-com/Zero-Trust-Core/releases/latest)
 [![Licença: CC BY-SA 4.0](https://img.shields.io/badge/licen%C3%A7a-CC%20BY--SA%204.0-lightgrey)](https://creativecommons.org/licenses/by-sa/4.0/)
-[![Último commit](https://img.shields.io/github/last-commit/VIPs-com/Zero-Trust-Core)](https://github.com/VIPs-com/Zero-Trust-Core/commits/master)
+[![Último commit](https://img.shields.io/github/last-commit/VIPs-com/Zero-Trust-Core)](https://github.com/VIPs-com/Zero-Trust-Core/commits/main)
 [![Issues abertos](https://img.shields.io/github/issues/VIPs-com/Zero-Trust-Core)](https://github.com/VIPs-com/Zero-Trust-Core/issues)
 
 Curso open-source em português para montar um ecossistema pessoal de segurança em camadas: **KeePassXC**, **VeraCrypt**, **NFC**, **OpenPGP em air-gap** e **SSH**, com backup **3-2-1-1-0** e operação disciplinada — sem depender de hardware proprietário caro, com controle total e responsabilidade sua.
@@ -33,7 +33,7 @@ Depois, o **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura do repositór
 
 **Montar o ambiente (software + hardware + kits em R$)?** → **[docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md)**
 
-**Quero executar agora (zero teoria, copiar e colar)?** → **[playbooks/](playbooks/)** — 10 guias código-primeiro: KeePassXC+NTAG, VeraCrypt, SSH, WireGuard, Tails, restore test e mais.
+**Quero executar agora (zero teoria, copiar e colar)?** → **[playbooks/](playbooks/)** — 10 guias código-primeiro em 3 blocos: **[1-cofre](playbooks/1-cofre/)** (KeePass+VeraCrypt+NFC), **[2-identidade-pgp](playbooks/2-identidade-pgp/)** (Tails+Smartcard+SSH), **[3-backup-resiliencia](playbooks/3-backup-resiliencia/)** (HD+off-site+restore).
 
 **Ir além do curso (hardware alternativo, DIY, governança, automação)?** → **[docs/APOSTILA-GUIA-PRATICO.md](docs/APOSTILA-GUIA-PRATICO.md)** — guia prático em 9 capítulos + referência rápida por cenário (Capítulo 10)
 
@@ -112,12 +112,15 @@ Arquivos: [`ztc-health.sh`](./scripts/ztc-health.sh), [`ztc-rsync-offsite.sh`](.
 
 ## Status
 
-✅ **Versão 1.0.2 — encerrado editorialmente** (2026-05-26) — Auditoria técnica completa (P1–P6 + segurança scripts + links + CHECKPOINTs + FAQ). Pasta [`scripts/`](./scripts/) pública. Tags: `v1.0.1`, `v1.0.2` · link recíproco no [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert). **Tag `v1.0.3` após turma piloto.**
+✅ **Versão 1.0.2 — pronto para turma piloto** — Auditoria técnica completa (P1–P6 + Red/Blue/Purple Team) · **scorecard 9.2/10**. Pasta [`scripts/`](./scripts/) com 5 scripts e [`playbooks/`](playbooks/) em 3 blocos. Tags: `v1.0.1`, `v1.0.2` · link recíproco no [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert). **Tag `v1.0.3` após turma piloto.**
 
-**Adições pós-v1.0.2 (master):**
+**Adições pós-v1.0.2 (main):**
 - **[Apêndice G](./🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-g--módulos-h-turbo-híbrido)** — Módulos H Turbo Híbrido (H1 QR · H2 metal · H3 Android · H4 iPhone · H5 servidor · H6 TOTP). Ative conforme o hardware que você já tem — custo extra R$0–50 por módulo.
 - **[docs/APOSTILA-GUIA-PRATICO.md](docs/APOSTILA-GUIA-PRATICO.md)** — guia complementar estilo livro (9 capítulos): ranking Top 20 hardware keys, Frankenstein Key DIY (5 kits), protocolos avançados, cronograma manutenção, governança home lab, playbook de incidentes (5 cenários), cockpit Prometheus/Grafana + PowerShell/Rainmeter.
-- **[playbooks/](playbooks/) — fluxogramas Mermaid** em cada um dos 10 playbooks ZTC (`## Visão geral do processo`) + deep links para COMMANDs em 18 arquivos de docs (zero referências soltas) + tabela de 14 dispositivos testados no [Inventário](docs/INVENTARIO-SOFTWARE-HARDWARE.md).
+- **[playbooks/](playbooks/) reorganizados em 3 blocos temáticos** — `1-cofre/` (KeePass+VeraCrypt+NFC), `2-identidade-pgp/` (Tails+Smartcard+SSH), `3-backup-resiliencia/` (HD+off-site+restore). Cada um com README próprio, fluxograma Mermaid e deep links para os COMANDOs.
+- **2 scripts novos:** [`ztc-close-cofre.sh`](scripts/ztc-close-cofre.sh) (fechar cofre + snapshot automático) e [`ztc-snapshot-vault.sh`](scripts/ztc-snapshot-vault.sh) (cópia versionada do `vault.hc` com sha256 + rotação). Total: 5 scripts.
+- **Auditoria Red/Blue/Purple Team** — 10 ataques simulados nos scripts reais. Endurecimentos aplicados: chave SSH com `command=rrsync` na VM, `rsync --checksum`, `StrictHostKeyChecking`, `chmod 600` no conf, Reset Code do smartcard documentado. Scorecard **8.7 → 9.2/10**.
+- **Distro canônica padronizada:** Debian 13 (Trixie) em todo o curso, scripts e docs.
 - **Repositório irmão:** [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) ganhou [`playbooks/`](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/tree/main/playbooks) — 9 guias código-primeiro (Módulos 0–10) com fluxogramas Mermaid.
 
 ## Licença

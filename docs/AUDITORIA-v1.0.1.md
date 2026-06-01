@@ -170,9 +170,44 @@ Meta: atualizar a tabela **Reavaliação (v1.0.2)** após evidência de turma + 
 
 ---
 
+## Auditoria Red/Blue/Purple Team (pós-v1.0.2 · scripts reais)
+
+Após a publicação dos 5 scripts e dos 10 playbooks, a equipe rodou uma auditoria adversária (Red Team tenta quebrar · Blue Team defende · Purple Team produz ação) sobre o código real. **10 ataques simulados**, cada um com trecho de código citado e severidade.
+
+### Achados e correções aplicadas
+
+| # | Sev | Achado | Correção |
+| :---: | :---: | --- | --- |
+| A1 | 🔴 | Chave SSH de backup sem `command=` na VM → comprometer o PC dava shell completo + exfiltração de todos os `vault.hc` | `command="rrsync ~/ztc-backup/"` no `authorized_keys` (Playbook 09 R1b + COMANDO 4.2.2) |
+| A2 | 🟡 | `rsync -avz` sem `--checksum` → substituição silenciosa de blob de mesmo tamanho/mtime no servidor | `rsync -avz --checksum` (`ztc-rsync-offsite.sh` + COMANDO 4.2.3) |
+| A3 | 🟡 | SSH com TOFU → MITM na 1ª conexão | `StrictHostKeyChecking=yes` no `SSH_CMD` |
+| A4 | 🟡 | `ztc.conf` world-readable expõe caminho da chave SSH | `chmod 600 ~/ztc-backup/ztc.conf` (Playbook 04 + conf.example + COMANDO 5.3) |
+| A5 | 🟡 | Reset Code do smartcard não documentado → 3 typos no Admin PIN destroem o token (R$300+) | Reset Code (opção 4) + tabela de consequências (Playbook 06 + COMANDO 2A.3) |
+| A6 | 🟡 | Passphrase `age` da master no Tails sem instrução de guardar → backup inútil se esquecer | Passo "salvar no KeePassXC antes de desligar o Tails" (Playbook 05) |
+| A7 | 🔵 | Playbook 10 ainda usava `keepassxc --keyfile` (bug que escapou da varredura) | `keepassxc-cli open --key-file` + alternativa GUI |
+| A8 | 🔵 | Janela de rotação de snapshots (7 dias) não explicitada | Nota sobre `ZTC_SNAPSHOT_KEEP=30` para uso diário (Playbook 04) |
+| A9 | 🔵 | FAT32 não suporta `chmod` no pendrive de backup | Nota + receita ext4 alternativa (Playbook 03) |
+| A10 | 🔵 | `sha256sum ${REMOTE_PATH}*` glob remoto permitia injeção via `ZTC_REMOTE` | Path explícito via `basename` (`ztc-rsync-offsite.sh`) |
+
+### Scorecard atualizado (pós-auditoria adversária)
+
+| Camada | Antes | Depois |
+| --- | :---: | :---: |
+| Cofre local (KeePass + VeraCrypt) | 9.5/10 | 9.5/10 |
+| Fator físico (NTAG) | 8.5/10 | 8.5/10 |
+| Identidade PGP (Tails + Smartcard) | 8.0/10 | **9.0/10** (+Reset Code +passphrase) |
+| Backup local (snapshot) | 9.5/10 | 9.5/10 |
+| Backup off-site (VM + WireGuard) | 7.5/10 | **9.0/10** (+`command=` +`--checksum` +`StrictHostKeyChecking`) |
+| Restore test | 9.0/10 | **9.5/10** (+`keepassxc-cli`) |
+| **Média geral** | **8.7/10** | **~9.2/10** |
+
+**Único achado crítico (A1)** corrigido — sem bloqueadores para a turma piloto.
+
+---
+
 ## Conclusão
 
-A auditoria original classificou o **Zero Trust Core Expert v1.0.1** como material completo e honesto, com três complementos obrigatórios antes da turma. A **versão 1.0.2** incorpora esses complementos no curso canônico e na pasta `scripts/`, elevando praticabilidade NFC e segurança operacional do keyfile sem refatorar a estrutura pedagógica (checkpoints, mandamentos, simulação).
+A auditoria original classificou o **Zero Trust Core Expert v1.0.1** como material completo e honesto, com três complementos obrigatórios antes da turma. A **versão 1.0.2** incorpora esses complementos no curso canônico e na pasta `scripts/`, elevando praticabilidade NFC e segurança operacional do keyfile sem refatorar a estrutura pedagógica (checkpoints, mandamentos, simulação). A **auditoria adversária pós-v1.0.2** (Red/Blue/Purple Team) endureceu o backup off-site e a identidade PGP, elevando o scorecard de segurança para **~9.2/10**.
 
 **Referências**
 
