@@ -33,7 +33,7 @@ Depois, o **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura do repositór
 
 **Montar o ambiente (software + hardware + kits em R$)?** → **[docs/INVENTARIO-SOFTWARE-HARDWARE.md](docs/INVENTARIO-SOFTWARE-HARDWARE.md)**
 
-**Quero executar agora (zero teoria, copiar e colar)?** → **[playbooks/](playbooks/)** — 10 guias código-primeiro em 3 blocos: **[1-cofre](playbooks/1-cofre/)** (KeePass+VeraCrypt+NFC), **[2-identidade-pgp](playbooks/2-identidade-pgp/)** (Tails+Smartcard+SSH), **[3-backup-resiliencia](playbooks/3-backup-resiliencia/)** (HD+off-site+restore).
+**Quero executar agora (zero teoria, copiar e colar)?** → **[playbooks/](playbooks/)** — 11 guias código-primeiro em 3 blocos: **[1-cofre](playbooks/1-cofre/)** (KeePass+VeraCrypt+NFC), **[2-identidade-pgp](playbooks/2-identidade-pgp/)** (Tails+Smartcard+SSH), **[3-backup-resiliencia](playbooks/3-backup-resiliencia/)** (HD+off-site+restore).
 
 **Ir além do curso (hardware alternativo, DIY, governança, automação)?** → **[docs/APOSTILA-GUIA-PRATICO.md](docs/APOSTILA-GUIA-PRATICO.md)** — guia prático em 9 capítulos + referência rápida por cenário (Capítulo 10)
 

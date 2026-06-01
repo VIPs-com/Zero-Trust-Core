@@ -35,6 +35,7 @@ flowchart LR
 
 | # | Playbook | O que você terá | Tempo |
 |---|----------|-----------------|------:|
+| [00](./1-cofre/00-uso-diario.md) | Uso diário + modelo de segurança | 3 fatores · abrir/fechar manual · limites (keylogger) | ~10 min |
 | [01](./1-cofre/01-keepass-ntag.md) | KeePassXC + NTAG keyfile | Cofre de senhas com fator físico | ~20 min |
 | [02](./1-cofre/02-veracrypt-vault.md) | VeraCrypt vault | Volume cifrado com `.kdbx` dentro | ~10 min |
 | [03](./1-cofre/03-age-backup-keyfile.md) | Backup do keyfile com `age` | Cópia cifrada em pendrive off-site | ~5 min |

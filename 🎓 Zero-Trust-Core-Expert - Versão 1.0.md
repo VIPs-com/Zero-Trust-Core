@@ -246,7 +246,7 @@ Zero-Trust-Core/  (v1.0.2)
     └── CHECKLIST-PRE-TURMA-EQUIPE.md  testes NFC + Tails (instrutor)
 ```
 
-> ⚡ **Playbooks (atalho de execução):** se você prefere **copiar e colar comandos** sem ler a teoria, a pasta [`playbooks/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/playbooks) tem 10 guias código-primeiro organizados em 3 blocos. Cada COMANDO deste curso tem um playbook correspondente. Use os playbooks para **executar**, volte ao curso para **entender**.
+> ⚡ **Playbooks (atalho de execução):** se você prefere **copiar e colar comandos** sem ler a teoria, a pasta [`playbooks/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/playbooks) tem 11 guias código-primeiro organizados em 3 blocos (incluindo o **Playbook 00 — uso diário + modelo de segurança + limites como keylogger**). Cada COMANDO deste curso tem um playbook correspondente. Use os playbooks para **executar**, volte ao curso para **entender**.
 
 ---
 
@@ -266,7 +266,7 @@ Zero-Trust-Core/  (v1.0.2)
 
 | Bloco de playbook | Cobre os COMANDOs | Trilha |
 | --- | --- | --- |
-| [`1-cofre/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/playbooks/1-cofre) (01-04) | 2B.1–2B.4 · 3.1.1–3.1.3 · 5.0 · 5.3 | Turbo + Expert |
+| [`1-cofre/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/playbooks/1-cofre) (00-04) | Modelo 3 fatores · 2B.1–2B.4 · 3.1.1–3.1.3 · 5.0 · 5.3 | Turbo + Expert |
 | [`2-identidade-pgp/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/playbooks/2-identidade-pgp) (05-07) | 1.2–1.6 · 2A.1–2A.4 · 3.2.1–3.2.3 | Expert |
 | [`3-backup-resiliencia/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/playbooks/3-backup-resiliencia) (08-10) | 4.1–4.3 · 4.2.1–4.2.3 | Turbo (10) + Expert (08-09) |
 

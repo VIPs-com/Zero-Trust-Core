@@ -128,7 +128,7 @@ flowchart TD
 | **[Inventário](./INVENTARIO-SOFTWARE-HARDWARE.md)** | Software + hardware + kits A–D em R$ | Antes de comprar qualquer coisa |
 | **[Diagramas visuais](./DIAGRAMAS-VISUAIS.md)** | 14 diagramas Mermaid — roadmap, fluxos, sequências | Para entender o todo |
 | **[FAQ](./FAQ-TROUBLESHOOTING.md)** | Erros comuns (VeraCrypt, NFC, GPG, SSH) | Quando travar |
-| **[Playbooks](../playbooks/)** | 10 guias código-primeiro em 3 blocos: [1-cofre](../playbooks/1-cofre/) · [2-identidade-pgp](../playbooks/2-identidade-pgp/) · [3-backup-resiliencia](../playbooks/3-backup-resiliencia/) | Quando quiser executar sem ler |
+| **[Playbooks](../playbooks/)** | 11 guias código-primeiro em 3 blocos: [1-cofre](../playbooks/1-cofre/) · [2-identidade-pgp](../playbooks/2-identidade-pgp/) · [3-backup-resiliencia](../playbooks/3-backup-resiliencia/) | Quando quiser executar sem ler |
 | **[Apostila](./APOSTILA-GUIA-PRATICO.md)** | Hardware alternativo, DIY, governança, cockpit | Depois do CHECKPOINT 2 |
 | **[Gabarito checkpoints](./GABARITO-CHECKPOINTS.md)** | Como provar que completou cada etapa | Antes de cada CHECKPOINT |
 

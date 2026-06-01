@@ -20,4 +20,4 @@
 | [README.md](../README.md) (raiz) | Visão geral e link para o curso canônico |
 | [🎓 Zero-Trust-Core-Expert - Versão 1.0.md](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) | Curso completo (COMANDOs e checkpoints) |
 | [scripts/README.md](../scripts/README.md) | 5 scripts `ztc-*` — open · close · snapshot · health · rsync |
-| [playbooks/README.md](../playbooks/README.md) | 10 guias código-primeiro em 3 blocos: cofre · PGP · backup |
+| [playbooks/README.md](../playbooks/README.md) | 11 guias código-primeiro em 3 blocos: cofre · PGP · backup |
