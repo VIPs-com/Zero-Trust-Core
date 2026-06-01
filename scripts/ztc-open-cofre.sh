@@ -87,6 +87,8 @@ case "$ZTC_KEEPASSXC_MODE" in
     echo "     Primeira abertura: marque 'Key File' no dialogo e selecione:"
     echo "       $ZTC_KEYFILE"
     echo "     KeePassXC vai lembrar nas proximas vezes."
+    # exec intencional: script vira o KeePassXC (sem cleanup pendente)
+    # Se adicionar cleanup pos-KeePassXC, trocar exec por chamada direta
     exec keepassxc "$ZTC_KDBX"
     ;;
 esac

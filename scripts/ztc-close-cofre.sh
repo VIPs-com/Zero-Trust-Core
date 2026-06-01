@@ -40,6 +40,12 @@ fi
 echo "Sincronizando escritas no disco..."
 sync
 
+# 3b) Guard: processos ainda acessando o mount point (N1 — auditoria v2)
+if command -v fuser >/dev/null 2>&1 && fuser -m "$ZTC_MOUNT_POINT" >/dev/null 2>&1; then
+  echo "[WARN] Processos ainda acessam $ZTC_MOUNT_POINT — aguardando 3s..."
+  sleep 3
+fi
+
 # 4) Desmonta o VeraCrypt
 echo "Desmontando $ZTC_MOUNT_POINT..."
 veracrypt -t -d "$ZTC_MOUNT_POINT"

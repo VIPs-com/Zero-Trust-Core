@@ -58,6 +58,7 @@ if [ "$TOTAL" -gt "$ZTC_SNAPSHOT_KEEP" ]; then
   REMOVE=$((TOTAL - ZTC_SNAPSHOT_KEEP))
   echo "Rotacao: removendo $REMOVE snapshot(s) antigo(s)..."
   # shellcheck disable=SC2012
+  # Nomes gerados por este script (vault-YYYYMMDD-HHMMSS.hc) — sem espacos/newlines
   ls -1t "$ZTC_SNAPSHOT_DIR"/vault-*.hc | tail -n "$REMOVE" | while read -r old; do
     rm -v "$old"
   done

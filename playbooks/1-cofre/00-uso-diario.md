@@ -179,7 +179,14 @@ keepassxc-cli open \
 
 # 2. Apague o keyfile temporário com segurança
 shred -u /tmp/keepass-keyfile.ztc
+```
 
+> **Nota:** o `shred` acima e para copias temporarias em `/tmp/`.
+> Se usou o arquivo do disco local (`~/keepass-keyfile.ztc`), nao faca shred —
+> apenas feche o cofre. O arquivo local esta protegido por `chmod 600`
+> e pelo VeraCrypt fechado.
+
+```sh
 # 3. Desmonte o volume VeraCrypt
 veracrypt -t -d /media/veracrypt-ztc
 # ou pela GUI: seleciona o slot → Dismount

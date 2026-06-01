@@ -87,6 +87,10 @@ rsync -av --progress \
   /media/backup-hd/ztc-backup/
 ```
 
+> **Nota de seguranca:** o `ztc.conf` copiado contem o *caminho* da chave SSH
+> (`ZTC_SSH_KEY`), nao a chave privada em si. Se o HD for roubado, o atacante
+> sabera o path — mas nao tera a chave. Risco baixo; documentado para transparencia.
+
 ---
 
 ## 5 — Gerar manifesto de integridade
