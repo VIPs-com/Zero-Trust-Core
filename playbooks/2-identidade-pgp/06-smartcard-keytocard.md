@@ -144,10 +144,40 @@ Menu de senhas:
 Q - sair
 ```
 
-Após alterar ambos:
+**🔴 OBRIGATÓRIO — configurar o Reset Code antes de sair (não pule!):**
+
+O smartcard tem proteção anti-brute-force agressiva:
+
+| Erro | Consequência |
+|------|--------------|
+| 3 tentativas erradas no **User PIN** | Cartão **bloqueia** — só desbloqueia com Admin PIN ou Reset Code |
+| 3 tentativas erradas no **Admin PIN** | Cartão **destruído permanentemente** — perde subkeys, R$300+ no lixo |
+
+O **Reset Code** é uma terceira credencial que permite desbloquear o User PIN **sem precisar do Admin PIN**. Configure agora — você só vai precisar dele se errar o User PIN 3x, mas se precisar, salva o cartão.
+
+Ainda no prompt `gpg/card> passwd`:
+
+```
+4 - configurar Reset Code  (≥ 8 caracteres — diferente dos dois PINs)
+```
+
+> Salve as 3 credenciais no Bitwarden / KeePassXC imediatamente:
+> - User PIN (uso diário)
+> - Admin PIN (raramente — só pra trocar User PIN)
+> - Reset Code (emergência — desbloquear User PIN se bater no limite)
+
+Após configurar todos:
 ```
 gpg/card> quit
 ```
+
+> **Como usar o Reset Code** (se um dia precisar):
+> ```
+> gpg --card-edit
+> gpg/card> admin
+> gpg/card> unblock
+> # Pede o Reset Code → defina novo User PIN
+> ```
 
 ---
 

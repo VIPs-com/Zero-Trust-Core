@@ -103,6 +103,14 @@ ZTC_MANIFEST_DIR="$HOME/ztc-backup/manifest"
 
 Salvar: `Ctrl+O → Enter → Ctrl+X`
 
+**🔴 OBRIGATÓRIO — proteger o `ztc.conf` (não pule):**
+
+```sh
+chmod 600 ~/ztc-backup/ztc.conf
+```
+
+> O `ztc.conf` contém o caminho da sua chave SSH (`ZTC_SSH_KEY`). Sem `chmod 600`, qualquer usuário do sistema (ou malware rodando como outro usuário) lê o arquivo. Permissão `600` = só você lê/escreve. Verifique com `ls -l ~/ztc-backup/ztc.conf` (deve mostrar `-rw-------`).
+
 > **Nota sobre `ZTC_KEYFILE`:** se você executou o Passo 5 do Playbook 03 (`shred -u ~/keepass-keyfile.ztc`), o script não conseguirá ler o keyfile do disco. Nesse caso, copie o keyfile de uma das tags NTAG de volta para `~/keepass-keyfile.ztc` antes de rodar — ou mantenha o arquivo no disco com `chmod 400` (alternativa indicada no Playbook 03 Passo 5).
 
 ---
@@ -245,6 +253,8 @@ ZTC_SNAPSHOT_KEEP="7"                            # rotação — 7 últimas vers
 ```
 
 > **Cálculo de espaço:** 500MB × 7 versões = 3.5GB. Ajuste `ZTC_SNAPSHOT_KEEP` conforme espaço disponível. Se o vault é menor (ex: 100MB), pode subir para 30 versões.
+
+> ⚠️ **Janela de histórico:** com `ZTC_SNAPSHOT_KEEP=7` e uso diário do cofre, você tem **apenas 7 dias** para detectar corrupção silenciosa antes que a última versão boa seja apagada pela rotação. Se você fecha o cofre múltiplas vezes por dia, a janela é ainda menor. Para janela de 30 dias com uso diário, ajuste para `ZTC_SNAPSHOT_KEEP="30"` (custo: 500MB × 30 = 15GB).
 
 ### Restore rápido de um snapshot
 

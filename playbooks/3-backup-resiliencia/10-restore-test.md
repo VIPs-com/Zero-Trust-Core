@@ -14,7 +14,7 @@
 flowchart TD
     A["1 — Verificar manifesto HD\nsha256sum -c → OK"] --> B["2 — Restaurar keyfile\nage -d → cmp → KEYFILE OK"]
     B --> C["3 — Restaurar vault\ncp vault.hc /tmp → veracrypt mount"]
-    C --> D["Abrir .kdbx\nkeepassxc --keyfile"]
+    C --> D["Abrir .kdbx\nkeepassxc-cli open --key-file"]
     D --> E{Tudo abriu\ncorretamente?}
     E -- Sim --> F["4 — Desmontar e limpar\nveracrypt -d + shred /tmp"]
     E -- Não --> ERR["⚠️ Corrigir backup AGORA\n→ FAQ-TROUBLESHOOTING.md"]
@@ -93,9 +93,13 @@ veracrypt -t /tmp/vault-restore-test.hc /media/veracrypt-test
 # Verificar o conteúdo
 ls -lh /media/veracrypt-test/
 
-# Verificar que o .kdbx abre
-keepassxc --keyfile ~/keepass-keyfile.ztc \
+# Verificar que o .kdbx abre (CLI interativo — bom para restore test sem GUI)
+keepassxc-cli open --key-file ~/keepass-keyfile.ztc \
   /media/veracrypt-test/lab-passwords.kdbx
+# Digite a senha quando pedir; se abrir, digite 'exit' para sair.
+
+# Alternativa GUI (selecionar o keyfile no diálogo):
+# keepassxc /media/veracrypt-test/lab-passwords.kdbx
 ```
 
 ---

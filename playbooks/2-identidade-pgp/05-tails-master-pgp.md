@@ -161,6 +161,23 @@ gpg --export-secret-keys "$FPRINT" | \
 # A master key em texto claro NUNCA vai para o PC diário
 ```
 
+**🔴 ANTES DE DESLIGAR O TAILS — guardar as 2 passphrases age:**
+
+Você acabou de definir DUAS passphrases `age` neste playbook (Passos 7 e 8):
+- Passphrase do `subkeys.gpg.age` (para restaurar subkeys no PC diário)
+- Passphrase do `master-backup.gpg.age` (para restaurar a master em emergência)
+
+> ⚠️ Se você desligar o Tails sem registrar essas passphrases, o backup **vira inútil** — não tem como recuperar.
+
+**Em outra máquina (PC diário ou celular), abra o KeePassXC** e crie 2 entradas:
+
+| Título | Senha | Notas |
+|--------|-------|-------|
+| `PGP — passphrase age (subkeys)` | passphrase do Passo 7 | Fingerprint: `[seu FPRINT]` |
+| `PGP — passphrase age (master)` | passphrase do Passo 8 | Apenas para emergência — restaurar master |
+
+> Como o Tails está air-gapped, registre as passphrases mentalmente / em papel intermediário e digite no KeePassXC do PC diário. Não fotografe o Tails com celular — câmera viola o air-gap.
+
 ---
 
 ## 9 — Imprimir ou anotar o fingerprint

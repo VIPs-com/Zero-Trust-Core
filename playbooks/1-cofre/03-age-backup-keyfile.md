@@ -95,6 +95,16 @@ sync
 sudo umount /mnt
 ```
 
+> **Pendrive em FAT32?** Sistemas de arquivos FAT/exFAT **não suportam permissões Unix** — `chmod 600` não tem efeito. Se quiser proteção de leitura por usuário no pendrive:
+> ```sh
+> # Reformate o pendrive como ext4 (apaga tudo!)
+> sudo mkfs.ext4 /dev/sdb1
+> # Depois monte com seu UID como dono:
+> sudo mount -o uid=$(id -u),gid=$(id -g) /dev/sdb1 /mnt
+> # E aplique chmod 600 no arquivo .age
+> ```
+> Trade-off: ext4 não é lido por Windows nativo. Se precisa ler em Windows, deixe FAT32 e confie no `age` (já cifrado por senha).
+
 ---
 
 ## 5 — (Opcional) Apagar o keyfile em texto claro do disco

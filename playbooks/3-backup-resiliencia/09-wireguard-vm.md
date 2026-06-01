@@ -151,6 +151,49 @@ ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_ztc -N ""
 ssh-copy-id -i ~/.ssh/id_ed25519_ztc.pub ztc-bkp@10.66.66.1
 ```
 
+### R1b — 🔴 OBRIGATÓRIO: restringir a chave SSH na VM (`command=`)
+
+> ⚠️ Sem este passo, se o PC do aluno for comprometido (malware, roubo) o adversário usa a chave para abrir **shell completo** na VM, baixar todos os `vault.hc` históricos e atacar offline.
+> Com este passo, a chave **só roda rsync** para o diretório específico — sem shell, sem ls livre, sem exfiltração.
+
+**Na VM** (como usuário `ztc-bkp`):
+
+```sh
+# Instalar rrsync (vem com o pacote rsync no Debian/Ubuntu)
+sudo apt install -y rsync
+which rrsync || ls /usr/share/doc/rsync/scripts/rrsync*
+
+# Se rrsync não estiver no PATH, copiar:
+sudo cp /usr/share/doc/rsync/scripts/rrsync /usr/local/bin/
+sudo chmod +x /usr/local/bin/rrsync
+
+# Editar o authorized_keys do usuário ztc-bkp:
+nano ~/.ssh/authorized_keys
+```
+
+Prefixar a chave pública (que o `ssh-copy-id` colocou no R1) com as restrições:
+
+```
+command="/usr/local/bin/rrsync ~/ztc-backup/",no-agent-forwarding,no-port-forwarding,no-pty,no-X11-forwarding ssh-ed25519 AAAA...sua-chave-publica...
+```
+
+> Tudo numa única linha. A chave pública original fica intacta após `command="..."`.
+
+**Testar que shell está bloqueado** (no PC do aluno):
+
+```sh
+ssh -i ~/.ssh/id_ed25519_ztc ztc-bkp@10.66.66.1
+# Esperado: "Refusing connection without rsync arguments"
+# Ou conexão fecha imediatamente — SEM prompt de shell.
+```
+
+**Testar que rsync continua funcionando** (no PC do aluno):
+
+```sh
+~/bin/ztc-rsync-offsite.sh
+# Deve sincronizar normalmente (rsync passa pelo rrsync wrapper).
+```
+
 ### R2 — Atualizar ztc.conf
 
 ```sh

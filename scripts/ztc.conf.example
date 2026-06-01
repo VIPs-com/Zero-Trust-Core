@@ -1,4 +1,6 @@
 # Copie para ~/ztc-backup/ztc.conf e ajuste.
+# OBRIGATORIO apos copiar: chmod 600 ~/ztc-backup/ztc.conf
+# (este arquivo contem caminhos de chaves SSH — protege contra leitura por outros usuarios)
 
 # Off-site (WireGuard — IP da VM na rede wg)
 ZTC_REMOTE="ztc-bkp@10.66.66.1:/var/backups/ztc/incoming/"
