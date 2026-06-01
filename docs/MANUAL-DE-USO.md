@@ -44,7 +44,13 @@ Zero-Trust-Core/
 │   ├── ztc-health.sh                  ← Health-check (Módulo 5)
 │   ├── ztc-rsync-offsite.sh           ← Backup VM (Módulo 4.2)
 │   ├── ztc-open-cofre.sh              ← NFC → VeraCrypt → KeePass (Módulo 5.3)
+│   ├── ztc-close-cofre.sh             ← Fechar cofre + snapshot automático (5.3)
+│   ├── ztc-snapshot-vault.sh          ← Cópia versionada vault.hc + sha256 + rotação
 │   └── ztc.conf.example               ← Configuração (copiar para ~/ztc-backup/)
+├── playbooks/
+│   ├── 1-cofre/                       ← KeePass + VeraCrypt + NFC (playbooks 01-04)
+│   ├── 2-identidade-pgp/              ← Tails + Smartcard + SSH (playbooks 05-07)
+│   └── 3-backup-resiliencia/          ← HD + off-site + restore (playbooks 08-10)
 └── 🎓 Zero-Trust-Core-Expert - Versão 1.0.md   ← CURSO (estude aqui)
 ```
 
@@ -221,27 +227,42 @@ Resumo em texto:
 
 * * *
 
-## 9. Scripts (`scripts/`)
+## 9. Scripts (`scripts/`) e Playbooks (`playbooks/`)
 
-Quando chegar à **Parte 3 (Módulo 5)**:
+### Scripts — Quando chegar à Parte 3 (Módulo 5)
 
 ```sh
 git clone https://github.com/VIPs-com/Zero-Trust-Core.git
 cd Zero-Trust-Core/scripts
 mkdir -p ~/bin ~/ztc-backup/manifest
-cp ztc-health.sh ztc-rsync-offsite.sh ztc-open-cofre.sh ~/bin/
+cp ztc-health.sh ztc-rsync-offsite.sh \
+   ztc-open-cofre.sh ztc-close-cofre.sh ztc-snapshot-vault.sh ~/bin/
 chmod +x ~/bin/ztc-*.sh
 cp ztc.conf.example ~/ztc-backup/ztc.conf
-nano ~/ztc-backup/ztc.conf   # caminhos reais + IP WireGuard
-~/bin/ztc-health.sh
+chmod 600 ~/ztc-backup/ztc.conf   # obrigatório — protege caminho da chave SSH
+nano ~/ztc-backup/ztc.conf        # caminhos reais + IP WireGuard
+~/bin/ztc-health.sh --check-conf
 ```
 
-| Script | Antes de usar | Nunca coloque em `ztc.conf` |
+| Script | Função | Módulo |
 | --- | --- | --- |
-| `ztc-health.sh` | Smartcard ou ambiente lab | Senhas |
-| `ztc-rsync-offsite.sh` | `vault.hc` fechado + VM configurada | Keyfile, master, PIN |
+| `ztc-health.sh` | `--check-conf` + smartcard, ssh-add, NFC, manifesto | 5.1 |
+| `ztc-rsync-offsite.sh` | Sync blobs cifrados para VM via WireGuard | 4.2.3 |
+| `ztc-open-cofre.sh` | NFC opcional → VeraCrypt (camadas toggláveis) → KeePassXC | 5.3 |
+| `ztc-close-cofre.sh` | Confirma KeePass fechado → sync → dismount → snapshot | 5.3 |
+| `ztc-snapshot-vault.sh` | Cópia versionada `vault.hc` com sha256 + rotação | 5.3 |
 
-Documentação: [scripts/README.md](../scripts/README.md) · Apêndice B no curso.
+Nunca coloque em `ztc.conf`: senhas, keyfile, master PGP ou PINs.
+
+### Playbooks — Execução direta (copie e cole)
+
+| Bloco | Conteúdo | Trilha |
+| --- | --- | --- |
+| [`playbooks/1-cofre/`](../playbooks/1-cofre/) | KeePass + VeraCrypt + NFC (01-04) | Turbo + Expert |
+| [`playbooks/2-identidade-pgp/`](../playbooks/2-identidade-pgp/) | Tails + Smartcard + SSH (05-07) | Expert |
+| [`playbooks/3-backup-resiliencia/`](../playbooks/3-backup-resiliencia/) | HD + off-site + restore (08-10) | Turbo (10) + Expert (08-09) |
+
+Documentação: [scripts/README.md](../scripts/README.md) · [playbooks/README.md](../playbooks/README.md) · Apêndice B no curso.
 
 * * *
 
