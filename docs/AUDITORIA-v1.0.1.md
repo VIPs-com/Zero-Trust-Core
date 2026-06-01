@@ -203,11 +203,19 @@ Após a publicação dos 5 scripts e dos 10 playbooks, a equipe rodou uma audito
 
 **Único achado crítico (A1)** corrigido — sem bloqueadores para a turma piloto.
 
+### Adições pós-auditoria adversária
+
+| Entrega | Commit | Impacto |
+|---------|--------|---------|
+| **Playbook 00 — Uso diário** | `512d18f` | Modelo 3 fatores + operação manual + auto-lock + seção keylogger — preenche lacuna operacional identificada pela auditoria Blue/Purple |
+| **Seção Keylogger no Módulo 7** | `21bcb61` | "Keylogger fora do escopo" removido — agora seção dedicada com 7 mitigações, tabela de operação por nível de valor, e conclusão honesta |
+| **FAQ — entrada keylogger** | (mesmo commit) | Ponte rápida para aluno que buscar a dúvida |
+
 ---
 
 ## Conclusão
 
-A auditoria original classificou o **Zero Trust Core Expert v1.0.1** como material completo e honesto, com três complementos obrigatórios antes da turma. A **versão 1.0.2** incorpora esses complementos no curso canônico e na pasta `scripts/`, elevando praticabilidade NFC e segurança operacional do keyfile sem refatorar a estrutura pedagógica (checkpoints, mandamentos, simulação). A **auditoria adversária pós-v1.0.2** (Red/Blue/Purple Team) endureceu o backup off-site e a identidade PGP, elevando o scorecard de segurança para **~9.2/10**.
+A auditoria original classificou o **Zero Trust Core Expert v1.0.1** como material completo e honesto, com três complementos obrigatórios antes da turma. A **versão 1.0.2** incorpora esses complementos no curso canônico e na pasta `scripts/`, elevando praticabilidade NFC e segurança operacional do keyfile sem refatorar a estrutura pedagógica (checkpoints, mandamentos, simulação). A **auditoria adversária pós-v1.0.2** (Red/Blue/Purple Team) endureceu o backup off-site e a identidade PGP, elevando o scorecard de segurança para **~9.2/10**. A lacuna "keylogger fora do escopo" foi resolvida com seção dedicada no Módulo 7 + Playbook 00 + FAQ — o curso agora é honesto sobre **o que cada camada cobre e o que não cobre**.
 
 **Referências**
 

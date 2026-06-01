@@ -18,6 +18,7 @@
 | `ssh -T git@github.com` Permission denied | Chave [A] não no agente | `gpg --card-status`; `ssh-add -L` |
 | `ztc-health.sh` FAIL card | Cartão não inserido ou CCID | Reinserir cartão; `pcscd` ativo |
 | rsync off-site falha | WG down ou `ZTC_*` paths | `ztc-health.sh --check-conf`; testar `ping` na VM |
+| **O cofre protege contra keylogger?** | Não totalmente — keylogger captura ANTES da cripto | SO limpo (base) + Tails para alto valor + smartcard (PIN inútil sem hardware). Ver [Módulo 7 § Keylogger](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-keylogger--o-que-o-cofre-não-protege-e-como-mitigar) e [Playbook 00](../playbooks/1-cofre/00-uso-diario.md) |
 | Restore `.age` falha | Passphrase errada ou arquivo truncado | Regenerar backup 2B.2 no Tails |
 | iPhone sem smartcard | Limitação da plataforma | Onboarding §0; fluxo PC/Android OpenKeychain |
 | Aluno só Windows | NFC 5.3 não suportado nativamente | WSL2 D.1 **ou** PC Linux/USB live para Mód. 5.3 |

@@ -38,6 +38,8 @@ Complementa [`AUDITORIA-v1.0.1.md`](./AUDITORIA-v1.0.1.md) (gaps v1.0.1 → v1.0
 - **Tabela de dispositivos testados** no [INVENTARIO](./INVENTARIO-SOFTWARE-HARDWARE.md): 14 linhas (SO, Tails, KeePassXC, VeraCrypt, leitores NFC, NTAG, smartcards, Windows, macOS) com status ✅/⏳/🟡 e links diretos para COMMANDs. Itens ⏳ fecham com issue #2.
 - **Playbooks reorganizados em 3 blocos** (commit `2888f22`): `1-cofre/`, `2-identidade-pgp/`, `3-backup-resiliencia/` com README por bloco. **2 scripts novos** (`ztc-close-cofre.sh`, `ztc-snapshot-vault.sh`) — total 5. Distro canônica padronizada para **Debian 13 (Trixie)**.
 - **Auditoria Red/Blue/Purple Team** (commit `a896e63`): 10 ataques simulados nos scripts reais. 1 crítico (A1: chave SSH sem `command=rrsync` na VM) + 5 médios + 4 cosméticos — **todos corrigidos**. Endurecimentos: `command=rrsync`, `rsync --checksum`, `StrictHostKeyChecking`, `chmod 600` no conf, Reset Code do smartcard. Detalhes em [AUDITORIA-v1.0.1.md](./AUDITORIA-v1.0.1.md). **Scorecard de segurança: 8.7 → 9.2/10.**
+- **Playbook 00 — Uso diário** (commit `512d18f`): reincluído após recomendação da auditoria Blue/Purple. Modelo 3 fatores + operação manual + auto-lock KeePassXC + seção keylogger com 7 mitigações. Total: **11 playbooks** em 3 blocos.
+- **Seção Keylogger no Módulo 7** (commit `21bcb61`): "Keylogger fora do escopo" eliminado do diagrama de superfície de ataque. Agora seção dedicada no curso com tabela de proteção, 7 mitigações ranqueadas, operação por nível de valor, e conclusão honesta.
 
 * * *
 
