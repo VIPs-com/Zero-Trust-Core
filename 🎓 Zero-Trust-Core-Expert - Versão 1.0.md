@@ -2030,15 +2030,65 @@ Detalhe: [docs/GABARITO-CHECKPOINTS.md](docs/GABARITO-CHECKPOINTS.md#checkpoint-
 | 1 | Roubo do notebook (sem token) | 🟡 | Cofre + volume opacos; sem master no disco |
 | 2 | Roubo do smartcard + PIN fraco | 🔴 | PIN forte; revogação; cartão B |
 | 3 | Clonagem NTAG (acesso físico prolongado) | 🟡 | Senha mestra forte; 3 tags; não confiar só no UID |
-| 4 | Malware no PC no momento do uso | 🔴 | Subkeys no token; air-gap para master |
+| 4 | **Keylogger** no PC no momento do uso | 🔴 | SO limpo + Tails para alto valor + smartcard (PIN inútil sem hardware) — **[ver seção dedicada abaixo](#-keylogger--o-que-o-cofre-não-protege-e-como-mitigar)** |
 | 5 | VPS comprometido | 🟡 | Só blobs cifrados; sem keyfile/PIN na VM |
 | 6 | Erro humano (sem backup / sem restore) | 🔴 | 3-2-1-1-0 + COMANDO 4.3 + 6.1 |
 
+#### 🔴 Keylogger — o que o cofre NÃO protege (e como mitigar)
+
+> Esta é a ameaça #4 da tabela acima e merece destaque próprio porque **nenhuma camada criptográfica resolve sozinha**.
+
+Um **keylogger** (malware, extensão de teclado, dispositivo USB espiã) captura o que você **digita** — incluindo as senhas do VeraCrypt e do KeePassXC — **no momento em que você as digita**, antes de qualquer cifragem. O ataque acontece na entrada do teclado, não no arquivo.
+
+```
+Você digita a senha  →  [KEYLOGGER captura aqui]  →  VeraCrypt/KeePassXC cifra
+                              ↑
+                    a criptografia não protege
+                    o que vem ANTES dela
+```
+
+**O que o cofre AINDA protege com keylogger ativo no host:**
+
+| Cenário | Protegido? | Por quê |
+|---|:---:|---|
+| Disco/backup roubado (cofre fechado) | ✅ | Keylogger não alcança dados em repouso |
+| Keyfile (não é digitado) | ✅ | O arquivo é lido pelo script, não “tecladado” |
+| Atacante tem **só** as senhas capturadas | ✅ | Ainda falta o keyfile físico (tag/arquivo) |
+| Atacante tem keylogger **+ acesso ao keyfile** | ❌ | Cofre comprometido enquanto aberto |
+
+**Mitigações por camada (da mais importante para a mais específica):**
+
+| # | Mitigação | O que resolve | Onde no curso |
+|---|---|---|---|
+| **1** | **SO limpo como base** — atualizações em dia, mínimo de software, zero pirataria/cracks, downloads verificados | Sem malware = sem keylogger. Esta é a defesa principal. | Todo o curso assume host não comprometido |
+| **2** | **Tails para alto valor** — gerar/usar master PGP, decisões críticas | RAM-only, ambiente conhecido, descartável — reduz chance de keylogger residente | Módulo 1 (Parte 1) · [Playbook 05](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/playbooks/2-identidade-pgp/05-tails-master-pgp.md) |
+| **3** | **Smartcard (Expert)** — PIN capturado é inútil sem o token físico | A chave **nunca sai do hardware**. Keylogger captura o PIN, mas sem o cartão → inútil | Módulo 2A · [Playbook 06](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/playbooks/2-identidade-pgp/06-smartcard-keytocard.md) |
+| **4** | **Auto-Type do KeePassXC** — preenche campos sem digitação | Derrota keyloggers de **userspace** (a maioria). Não resolve keylogger de kernel. | Configurações → Auto-Type |
+| **5** | **Auto-lock do KeePassXC** — bloqueia após inatividade | Limita a janela de exposição: cofre aberto = vulnerável. Fechou = protegido. | Ferramentas → Configurações → Segurança → 300s |
+| **6** | **2FA/TOTP em contas externas** — GitHub, email, cloud | Mesmo que senha vaze, o segundo fator limita o estrago | Módulo H6 (Apêndice G) |
+| **7** | **Cifra total do disco (LUKS)** — protege o boot chain | Impede que malware persistente sobreviva no disco sem a senha de boot | Pré-requisito recomendado (instalação Debian com LUKS) |
+
+**Operação recomendada por nível de valor:**
+
+| O que você vai fazer | Onde fazer | Por quê |
+|---|---|---|
+| Consultar uma senha do dia a dia | PC normal (com auto-lock) | Risco aceitável se host limpo |
+| Gerar/rotacionar senha crítica (banco, PGP, root) | PC normal com cofre + `shred /tmp/` depois | Cofre fechado = protegido |
+| Gerar/renovar **master PGP** | **Tails (air-gap)** — obrigatório | Não pode haver keylogger possível |
+| Assinar com subkey + smartcard | PC normal + smartcard inserido | PIN capturado é inútil sem hardware |
+| Suspeita de comprometimento | **Tails para verificação** + rotacionar senhas | Não confie no host comprometido para rotacionar |
+
+> 🔴 **Resumo:** se o seu SO de uso diário está **ativamente comprometido com keylogger de kernel**, nenhum cofre é seguro enquanto aberto. O ZTC **mitiga, não elimina**: SO limpo é a base; Tails para alto valor; smartcard onde o segredo capturável é inútil sem o hardware. Vender “segurança absoluta” seria mentira — **o valor do ZTC é a honestidade sobre o que cada camada cobre e o que não cobre.**
+
+> 📎 **Operação manual (passo a passo):** [Playbook 00 — Uso diário](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/playbooks/1-cofre/00-uso-diario.md) — modelo de 3 fatores + abrir/fechar manual + auto-lock + seção keylogger com exemplos práticos.
+
+* * *
+
 #### Quatro princípios de decisão
 
-1. **Defesa em profundidade** — nenhuma camada sozinha segura tudo.  
-2. **Menor privilégio** — master só no Tails; PC diário só subkeys.  
-3. **Assumir comprometimento** — runbook antes do desastre.  
+1. **Defesa em profundidade** — nenhuma camada sozinha segura tudo.
+2. **Menor privilégio** — master só no Tails; PC diário só subkeys.
+3. **Assumir comprometimento** — runbook antes do desastre.
 4. **Auditabilidade** — você entende cada COMANDO; nada “caixa preta”.
 
 #### ▸ COMANDO 7.1: Seu threat model em uma página
