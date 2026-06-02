@@ -2633,6 +2633,16 @@ Complementa o cofre KeePassXC com TOTP offline — sem Google Authenticator, sem
 
 * * *
 
+### 🐧 Usa Tails como sistema diário?
+
+O curso principal assume Debian 13 (Trixie). Se você usa **Tails** como sistema principal — ou quer operar nos dois mundos (air-gap + online) — acesse o guia dedicado:
+
+> **[🐧 Zero-Trust-Core-Tails.md](tails/🐧%20Zero-Trust-Core-Tails.md)** — cofre LUKS, identidade PGP via Tor, backup manual em USB cifrado, health check por sessão + diagrama "Três Mundos".
+
+O guia Tails tem seus próprios COMMANDOs (T.1–T.5), playbooks (T01–T04) e CHECKPOINT T. Funciona de forma independente — vá direto sem voltar aqui.
+
+* * *
+
 ## 🏁 CONCLUSÃO — SOBERANIA DIGITAL
 
 Você percorreu do **Tails offline** ao **backup testado**, passando por tokens físicos, cofres locais e runbook de contingência. Isso não é “mais um tutorial de senha”: é **gestão de identidade e segredos** com hardware de consumo e disciplina de quem opera infra crítica.

@@ -24,9 +24,12 @@ flowchart LR
     A["🔐 1 — Cofre<br/>KeePass + VeraCrypt + NFC"] --> B["🔑 2 — Identidade PGP<br/>Tails + Smartcard + SSH"]
     B --> C["💾 3 — Backup + Resiliência<br/>HD + off-site + restore"]
     A -.Turbo termina aqui.-> C
+    D["🐧 4 — Tails Diário<br/>LUKS + Tor + USB backup"]
+    D -.Alternativa Tails.-> A
     style A fill:#10b981,color:#fff
     style B fill:#3b82f6,color:#fff
     style C fill:#7c3aed,color:#fff
+    style D fill:#f59e0b,color:#000
 ```
 
 ---
@@ -64,6 +67,21 @@ flowchart LR
 | [10](./3-backup-resiliencia/10-restore-test.md) | Restore test mensal | Prova de que o backup funciona | ~20 min |
 
 > ⚠️ Playbook 10 é obrigatório para Turbo e Expert. Backup nunca testado = backup que não existe.
+
+---
+
+## 🐧 Bloco 4 — Tails Diário [`../tails/playbooks/`](../tails/playbooks/)
+
+Para quem usa **Tails como sistema principal** (não Debian). Guia isolado com cofre LUKS, identidade via Tor, backup manual e health check por sessão.
+
+| # | Playbook | O que você terá | Tempo |
+|---|----------|-----------------|------:|
+| [T01](../tails/playbooks/T01-tails-cofre-luks.md) | Tails Cofre LUKS | Persistent Storage + KeePassXC + keyfile USB | ~15 min |
+| [T02](../tails/playbooks/T02-tails-online-identity.md) | Tails Online Identity | Subkeys + gpg-agent via Tor | ~20 min |
+| [T03](../tails/playbooks/T03-tails-backup-manual.md) | Tails Backup Manual | USB cifrado com `age` + manifesto sha256 | ~15 min |
+| [T04](../tails/playbooks/T04-tails-health-manual.md) | Tails Health Check | Verificação manual por sessão | ~10 min |
+
+> Guia completo: [🐧 Zero-Trust-Core-Tails.md](../tails/🐧%20Zero-Trust-Core-Tails.md)
 
 ---
 

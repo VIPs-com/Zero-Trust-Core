@@ -35,6 +35,8 @@ Depois, o **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura do repositór
 
 **Quero executar agora (zero teoria, copiar e colar)?** → **[playbooks/](playbooks/)** — 11 guias código-primeiro em 3 blocos: **[1-cofre](playbooks/1-cofre/)** (KeePass+VeraCrypt+NFC), **[2-identidade-pgp](playbooks/2-identidade-pgp/)** (Tails+Smartcard+SSH), **[3-backup-resiliencia](playbooks/3-backup-resiliencia/)** (HD+off-site+restore).
 
+**Usa Tails como sistema diário?** → **[tails/](tails/🐧%20Zero-Trust-Core-Tails.md)** — guia dedicado com cofre LUKS, backup manual em USB cifrado, health check por sessão e diagrama "Três Mundos" (air-gap × online × Debian).
+
 **Ir além do curso (hardware alternativo, DIY, governança, automação)?** → **[docs/APOSTILA-GUIA-PRATICO.md](docs/APOSTILA-GUIA-PRATICO.md)** — guia prático em 9 capítulos + referência rápida por cenário (Capítulo 10)
 
 **Instrutor — abertura de turma:** → **[docs/SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md)** (VS Code, GitHub, Marp) · **[.marp.md](docs/SLIDES-ABERTURA-TURMA.marp.md)**

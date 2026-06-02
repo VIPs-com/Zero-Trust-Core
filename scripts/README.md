@@ -22,6 +22,10 @@ cp ztc.conf.example ~/ztc-backup/ztc.conf
 | `ztc-open-cofre.sh` | NTAG opcional → monta VeraCrypt → abre KeePassXC |
 | `ztc-close-cofre.sh` | Detecta KeePassXC aberto → `sync` → desmonta VeraCrypt → snapshot automático |
 | `ztc-snapshot-vault.sh` | Cópia versionada do `vault.hc` (sha256 + rotação de N versões) |
+| `ztc-tails-backup.sh` | **Tails:** backup Persistent → USB cifrado com `age` + manifesto sha256 |
+| `ztc-tails-health.sh` | **Tails:** health check manual (GPG, Persistent, KeePassXC, backup) |
+| `ztc-tails-manutencao.sh` | **Tails:** diagnóstico do pendrive (espaço, filesystem, flash USB, limpeza) |
+| `ztc-tails-restore-test.sh` | **Tails:** restore test completo (descriptografa + valida .kdbx + GPG + keyfile + revogação) |
 | `ztc.conf.example` | Modelo de configuração (`ZTC_*`) |
 
 ## Segurança
