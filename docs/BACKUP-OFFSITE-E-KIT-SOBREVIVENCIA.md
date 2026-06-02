@@ -87,9 +87,12 @@ export BORG_RSH="ssh -i ~/.ssh/ztc-bkp-ed25519 -o StrictHostKeyChecking=yes"
 borg init --encryption=repokey-blake2 "ssh://ztc-bkp@10.66.66.1/~/borg-ztc"
 ```
 
-> 🔴 **GUARDE A PASSPHRASE DO REPO NO KeePassXC.** Sem ela, o backup é **irrecuperável**. Como o
-> `vault.hc` já é um blob VeraCrypt, mesmo um servidor comprometido só veria dados **já cifrados** —
-> o `repokey` é uma segunda camada, não a única.
+> 🔴 **GUARDE A PASSPHRASE FORA do vault que o borg protege** — papel, mídia air-gap ou um 2º
+> gerenciador. Guardá-la **só** no KeePassXC que vive **dentro** do `vault.hc` é **dependência
+> circular**: no dia do desastre você precisa da passphrase para restaurar o vault, mas ela está
+> trancada no vault perdido. Sem a passphrase, o backup é **irrecuperável**. (Como o `vault.hc` já é
+> um blob VeraCrypt, mesmo um servidor comprometido só veria dados **já cifrados** — o `repokey` é a
+> segunda camada, não a única.)
 
 ### 2.3 — No cliente (toda vez — ou via cron)
 
@@ -166,7 +169,7 @@ Cada mídia tem uma propriedade. Combine **poucas** delas conforme o papel no 3-
 | 🔐 **Pendrive LUKS/VeraCrypt** | Cofre principal portátil | Senha-frase longa; desmontar sempre; 2ª cópia | Cópia #1 / #2 |
 | 🔑 **KeePassXC (`.kdbx`)** | Banco de senhas e seeds | Dentro do cofre; senha-mestra + keyfile (2FA) | O conteúdo a proteger |
 | 📲 **Celular antigo air-gap** | Cofre portátil offline | Reset de fábrica, **sem chip**, modo avião sempre; container cifrado (EDS Lite/DroidFS); nunca online | Cópia portátil extra |
-| 💿 **CD/DVD / M-DISC** | Arquivamento **imutável** | Grava 1× (WORM — ransomware não reescreve); M-DISC dura décadas; guarde fresco/escuro; tenha leitor | **1 imutável** (low-tech) |
+| 💿 **CD/DVD / M-DISC** | Arquivamento **imutável** | Use **-R / M-DISC** (grava 1× = WORM, ransomware não reescreve) — **nunca -RW**; M-DISC dura décadas; guarde fresco/escuro; tenha leitor | **1 imutável** (low-tech) |
 | 📄 **Papel (base64 / paperkey / QR)** | Backup final, sem eletricidade | `paperkey` p/ GPG; base64/QR p/ blobs pequenos; envelope lacrado; imune a EMP/bitrot | **1 imutável** definitivo |
 | 📲 **Micro SD** | Cápsula discreta | Marca boa; **2 cópias** (flash sofre bitrot); porta-SD hermético; verificar a cada 6 meses | Cópia escondida |
 

@@ -51,6 +51,8 @@ Zero-Trust-Core/
 │   ├── 1-cofre/                       ← KeePass + VeraCrypt + NFC (playbooks 01-04)
 │   ├── 2-identidade-pgp/              ← Tails + Smartcard + SSH (playbooks 05-07)
 │   └── 3-backup-resiliencia/          ← HD + off-site + restore (playbooks 08-10)
+├── tails/                             ← guia dedicado Tails (air-gap + online amnésico)
+├── whonix/                            ← guia dedicado Whonix (capstone — escritório anônimo via Tor)
 └── 🎓 Zero-Trust-Core-Expert - Versão 1.0.md   ← CURSO (estude aqui)
 ```
 
@@ -62,6 +64,9 @@ Zero-Trust-Core/
 | [`docs/APOSTILA-GUIA-PRATICO.md`](./APOSTILA-GUIA-PRATICO.md) | Avançado | Guia complementar 9 capítulos: hardware, DIY, governança, automação, cockpit |
 | [`docs/GABARITO-CHECKPOINTS.md`](./GABARITO-CHECKPOINTS.md) | Instrutor / autoavaliação | Como **provar** cada item dos CHECKPOINTs 1–3 |
 | [`docs/FAQ-TROUBLESHOOTING.md`](./FAQ-TROUBLESHOOTING.md) | Consulta | Erros comuns (GPG, VeraCrypt, NFC, SSH) |
+| [`docs/GUIA-DO-USUARIO-TRES-MUNDOS.md`](./GUIA-DO-USUARIO-TRES-MUNDOS.md) | Operacional | Jornada 3 mundos + OpSec (personalizar) + mídia air-gap |
+| [`docs/BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md`](./BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md) | Resiliência | Off-site (custo×energia), `borg`, backup Whonix, kit de mídias |
+| [`tails/`](../tails/🐧%20Zero-Trust-Core-Tails.md) · [`whonix/`](../whonix/🧅%20Zero-Trust-Core-Whonix.md) | Por sistema | Guias dedicados: Tails (air-gap) e Whonix (capstone online) |
 | [`scripts/`](../scripts/README.md) | Turbo: opcional · **Expert: obrigatório** (Mód. 4.2 e 5) | Automação |
 | [`README.md`](../README.md) | 2 min | Visão geral + links |
 

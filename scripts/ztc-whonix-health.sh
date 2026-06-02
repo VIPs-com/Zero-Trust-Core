@@ -38,7 +38,7 @@ fi
 
 # 1b) Checagem viva de Tor (opcional — depende de rede; pode ser lenta)
 if [ "${ZTC_WHONIX_TOR_CHECK:-no}" = "yes" ] && command -v curl >/dev/null 2>&1; then
-  if curl -s --max-time 30 https://check.torproject.org/api/ip 2>/dev/null | grep -q '"IsTor":true'; then
+  if curl -s --max-time 30 https://check.torproject.org/api/ip 2>/dev/null | grep -Eq '"IsTor": *true'; then
     echo "[OK] check.torproject.org confirma saida via Tor"
   else
     echo "[WARN] Nao confirmei saida via Tor (rede lenta? reconectando?) — rode systemcheck"

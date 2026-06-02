@@ -19,7 +19,9 @@
 # INIT DO REPO (uma vez, no cliente):
 #   export BORG_RSH="ssh -i ~/.ssh/ztc-bkp-ed25519 -o StrictHostKeyChecking=yes"
 #   borg init --encryption=repokey-blake2 "ssh://ztc-bkp@10.66.66.1/~/borg-ztc"
-#   >>> GUARDE A PASSPHRASE DO REPO NO KeePassXC. Sem ela, o backup e IRRECUPERAVEL.
+#   >>> GUARDE A PASSPHRASE FORA do vault que o borg protege (papel / midia air-gap / 2o
+#       gerenciador). So no KeePassXC DENTRO do vault = dependencia circular: perdeu o vault,
+#       perdeu a passphrase, nao restaura. Sem a passphrase, o backup e IRRECUPERAVEL.
 #
 # RETENCAO (rotacao real): em append-only, o CLIENTE nao apaga. Quem recupera
 #   espaco e um job no SERVIDOR (admin), periodicamente, FORA do modo append-only:
@@ -77,7 +79,7 @@ export BORG_RSH="ssh -i $ZTC_SSH_KEY -o BatchMode=yes -o StrictHostKeyChecking=y
 if ! borg list >/dev/null 2>&1; then
   echo "[FAIL] Repo borg inacessivel ou nao inicializado: $ZTC_BORG_REPO"
   echo "       Init (uma vez): borg init --encryption=repokey-blake2 \"$ZTC_BORG_REPO\""
-  echo "       E GUARDE a passphrase do repo no KeePassXC (sem ela = irrecuperavel)."
+  echo "       E GUARDE a passphrase FORA do vault (papel/air-gap) — so no vault = circular."
   exit 1
 fi
 
