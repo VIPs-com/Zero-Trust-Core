@@ -39,6 +39,26 @@ Este curso é para quem quer montar uma **fortaleza digital artesanal**: cofre d
 
 * * *
 
+### 🛡️ DISCIPLINA VENCE HARDWARE
+
+> *"E se o atacante tiver um **computador da NASA** e eu só um **PC velho com um pendrive**?"*
+
+Boa notícia: na maioria dos cenários reais, **poder computacional não é o que decide**. Veja, camada a camada, um 🔴 Red Team com supercomputador contra um 🔵 Blue Team com hardware modesto + disciplina:
+
+| Camada | O que o 🔴 Red Team tenta | O que o 🔵 Blue Team faz | Quem vence |
+|---|---|---|:---:|
+| **Física** | Roubar o pendrive / notebook | Pendrive guardado, PC desligado, seed em papel offline | 🔵 |
+| **Sistema** | Malware, alterar o boot | Tails amnésico, ISO verificada (assinatura) | 🔵 |
+| **Criptografia** | Força bruta no LUKS/VeraCrypt | Senha-frase longa e única, cifra moderna | 🔵 |
+| **Operacional** | Explorar erro humano | Assina offline, transmite online, nunca mistura ambientes | ⚠️ |
+| **Rede** | Rastrear IP / metadados | Tor (Tails/Whonix), sem login pessoal | 🔵 |
+
+A única linha **⚠️** é a **Operacional** — e ela não depende de hardware, depende de **você**. Mesmo com "computador da NASA", o Red Team raramente quebra a cifra: ele explora a rotina quebrada (senha fraca, seed digitada online, pendrive esquecido conectado). **O elo mais fraco é sempre o humano** — e é o único que o seu PC velho consegue blindar de graça.
+
+> 💡 **Moral:** não existe bala de prata, existe **rotina de aço**. A tecnologia é a muralha; o hábito é o portão.
+
+* * *
+
 ### 🎯 RESULTADOS ESPERADOS
 
 Ao final deste curso, você será capaz de:
@@ -180,6 +200,17 @@ Ao final deste curso, você será capaz de:
 | **Keyfile** | Arquivo extra exigido pelo KeePassXC além da senha |
 | **3-2-1-1-0** | 3 cópias · 2 mídias · 1 off-site · 1 imutável offline · 0 erros (teste) |
 | **Air-gap** | Ambiente sem rede (Tails / celular offline) |
+| **Whonix** | Sistema online persistente; todo o tráfego forçado por Tor (Gateway+Workstation) — o "escritório anônimo". Ver [guia Whonix](whonix/🧅%20Zero-Trust-Core-Whonix.md) |
+| **Tails efêmero × persistente** | Efêmero = roda na RAM e apaga tudo (mais seguro); persistente = grava no pendrive (cômodo, mas abre superfície de ataque) |
+
+**🧰 Quando usar cada ferramenta de cifra** (mnemônico de bolso):
+
+| Precisa de… | Ferramenta | Pense em… |
+| --- | --- | --- |
+| Proteger um volume / pendrive inteiro | **LUKS / VeraCrypt** | 🔒 Cofre grande |
+| Cifrar um arquivo para transporte rápido | **age** | ✉️ Envelope rápido |
+| Assinar ou enviar para terceiros | **GPG** | 📜 Carta assinada |
+| Guardar senhas e seeds | **KeePassXC** | 🗝️ Banco de chaves |
 
 * * *
 
@@ -2099,6 +2130,20 @@ Você digita a senha  →  [KEYLOGGER captura aqui]  →  VeraCrypt/KeePassXC ci
 2. **Menor privilégio** — master só no Tails; PC diário só subkeys.
 3. **Assumir comprometimento** — runbook antes do desastre.
 4. **Auditabilidade** — você entende cada COMANDO; nada “caixa preta”.
+
+#### Threat model aplicado — três perfis
+
+> O template fica abstrato sem exemplo. Veja o mesmo modelo (*o que protejo, contra quem, com qual camada*) aplicado a três perfis reais — todos com **recursos limitados** (PC modesto + pendrive). Repare que a camada que decide é quase sempre a **disciplina**, não o hardware.
+
+| Perfil | Ativo crítico | Camadas ZTC que aplica | Ataque típico do 🔴 Red Team | O que segura (se a disciplina não falhar) |
+|---|---|---|---|---|
+| 🕵️ **Jornalista** | Identidade das fontes; documentos | Tails air-gap para escrever; cofre opaco para o material; PGP para falar com fontes; backup 3-2-1-1-0 | Phishing de login + roubo do notebook | Não mistura conta pessoal com ambiente seguro; cofre ilegível se roubado; sem master no disco |
+| ✊ **Ativista** | Anonimato; lista de contatos | Tails / Whonix via Tor para planejar e comunicar; cofre para contatos; identidades separadas | Correlação de identidade + malware na rede | Ambiente pessoal ≠ ativismo (sem correlação); Tails amnésico / Whonix anti-vazamento; nada persiste para vincular |
+| 💰 **Trader de Bitcoin** | Seed; fundos | Seed **só** no air-gap; watch-only + PSBT (Tails/Whonix); cofre para backups; smartcard nas contas | Interceptar a transação + roubar a seed | Seed nunca online (assina offline); broadcast via Tor; cofre protege backups em repouso |
+
+O 🔴 Red Team **raramente quebra a criptografia** — ele explora o **elo humano**: senha fraca, seed digitada online, pendrive esquecido conectado, ISO não verificada, conta pessoal misturada com o ambiente seguro. Por isso o threat model termina na mesma conclusão da [simulação do Módulo 6](#-comando-61-simulação-de-mesa-obrigatória) e do [cartão de bolso (Playbook 00)](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/playbooks/1-cofre/00-uso-diario.md): **disciplina diária vence hardware**.
+
+> 🔵 **Para o perfil que opera online todo dia**, veja o [guia Whonix](whonix/🧅%20Zero-Trust-Core-Whonix.md) — o "escritório anônimo" persistente que complementa o air-gap do Tails (capstone da Parte 4).
 
 #### ▸ COMANDO 7.1: Seu threat model em uma página
 

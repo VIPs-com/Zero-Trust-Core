@@ -83,6 +83,8 @@ flowchart TD
 
 > **Aluno Tails-only:** seus mundos são 1 e 2. O Mundo 3 (Debian) é opcional — usado apenas se você tiver um PC diário com Linux instalado.
 >
+> **Mundo online persistente (avançado):** quem tem hardware para virtualização pode usar o **[Whonix](../whonix/🧅%20Zero-Trust-Core-Whonix.md)** como ambiente online de 1ª classe — Gateway+Workstation com anti-vazamento de IP por design. É o "escritório anônimo" que complementa este air-gap; ver o guia dedicado.
+>
 > **Diagramas adicionais** (fluxo USB, ciclo de vida por sessão, mapa de decisão): [DIAGRAMA-TAILS-MUNDOS.md](docs/DIAGRAMA-TAILS-MUNDOS.md)
 
 **Fluxo de dados entre mundos:**

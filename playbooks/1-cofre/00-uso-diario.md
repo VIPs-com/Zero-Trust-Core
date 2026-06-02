@@ -299,6 +299,37 @@ flowchart TD
 
 ---
 
+## 🛡️ Cartão de bolso — Rotina de Aço
+
+> Resumo imprimível de 1 página. O procedimento acima é o **como**; este cartão é o **lembrete diário** para não relaxar. Imprima, cole na parede ou guarde junto ao pendrive.
+
+**🌅 Ao ligar**
+- Sessão limpa (Tails/Whonix ou Debian atualizado); sistema/ISO verificados.
+- Conectar o pendrive só quando for usar.
+
+**🔐 Ao acessar o cofre**
+- Senha-frase longa e única (frase, não palavra).
+- Montar VeraCrypt/LUKS → usar → `shred /tmp/keyfile` → desmontar.
+- **Nunca** digitar seed em máquina online.
+
+**📲 No dia a dia**
+- Wi-Fi público só com Tor (ou bridge). Nada de "VPN grátis por garantia".
+- Não misturar conta pessoal com o ambiente seguro.
+- Não abrir anexo/link suspeito.
+
+**🌙 Ao desligar**
+- Desmontar o pendrive e guardar.
+- Desligar de fato (não suspender).
+- Conferir que não ficou mídia conectada.
+
+**⚠️ Regras de ouro**
+- **3-2-1-1-0**: 3 cópias · 2 mídias · 1 off-site · 1 imutável · 0 erros (teste o restore).
+- Disciplina > tecnologia. Camadas sem rotina = **teatro de segurança**.
+
+> 🧘 **Mantras:** *"Disciplina vence o Red Team."* · *"Não existe bala de prata — só rotina de aço."*
+
+---
+
 ✅ **Concluído** — você entende o modelo e sabe abrir/fechar o cofre manualmente.
 
 **Próximo passo:** → [Playbook 04 — Automação com ztc-open-cofre.sh](./04-abrir-cofre-auto.md) (colapsa tudo isso em 1 comando + atalho de desktop)

@@ -37,6 +37,8 @@ Depois, o **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura do repositór
 
 **Usa Tails como sistema diário?** → **[tails/](tails/🐧%20Zero-Trust-Core-Tails.md)** — guia dedicado com cofre LUKS, backup manual em USB cifrado, health check por sessão e diagrama "Três Mundos" (air-gap × online × Debian).
 
+**Quer um ambiente online persistente e anônimo (avançado)?** → **[whonix/](whonix/🧅%20Zero-Trust-Core-Whonix.md)** — guia dedicado: o "escritório anônimo" (Gateway+Workstation, todo o tráfego via Tor, anti-vazamento de IP) que complementa o air-gap do Tails. **Capstone da Parte 4.**
+
 **Ir além do curso (hardware alternativo, DIY, governança, automação)?** → **[docs/APOSTILA-GUIA-PRATICO.md](docs/APOSTILA-GUIA-PRATICO.md)** — guia prático em 9 capítulos + referência rápida por cenário (Capítulo 10)
 
 **Instrutor — abertura de turma:** → **[docs/SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md)** (VS Code, GitHub, Marp) · **[.marp.md](docs/SLIDES-ABERTURA-TURMA.marp.md)**
