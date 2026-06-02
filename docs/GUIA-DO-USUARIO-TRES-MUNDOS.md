@@ -181,6 +181,10 @@ arquivos e o backup junto). Duas camadas a cobrem:
 > append-only na VM (`command="borg serve --append-only ..."`), `borg init` uma vez, e a passphrase do
 > repo guardada no KeePassXC. A **rotação** (liberar espaço) é um job no **servidor**, não no cliente —
 > é isso que mantém a imutabilidade.
+>
+> 📘 **Passo a passo completo** — onde hospedar o off-site (HD frio / Raspberry Pi / VPS, com custo e
+> energia comparados), o setup append-only no servidor, o **backup do Whonix** (bare-metal × VM) e o
+> **Kit de Sobrevivência Digital**: [BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md](BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md).
 
 ---
 

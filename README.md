@@ -41,6 +41,8 @@ Depois, o **[Manual de uso](docs/MANUAL-DE-USO.md)** — estrutura do repositór
 
 **Perdido entre Debian, Tails e Whonix? Quer personalizar (OpSec)?** → **[docs/GUIA-DO-USUARIO-TRES-MUNDOS.md](docs/GUIA-DO-USUARIO-TRES-MUNDOS.md)** — a jornada em ordem (quando ligar cada mundo), como criar a mídia air-gap separada, e como mudar os padrões do curso (tamanho de keyfile, nomes) para o seu setup não ser idêntico.
 
+**Backup off-site sem gastar à toa (VPS/energia)? Kit de mídias?** → **[docs/BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md](docs/BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md)** — onde hospedar (HD frio / Raspberry Pi / VPS com custo e energia comparados), `borg` append-only passo a passo, backup do Whonix (bare-metal × VM) e o Kit de Sobrevivência Digital.
+
 **Ir além do curso (hardware alternativo, DIY, governança, automação)?** → **[docs/APOSTILA-GUIA-PRATICO.md](docs/APOSTILA-GUIA-PRATICO.md)** — guia prático em 9 capítulos + referência rápida por cenário (Capítulo 10)
 
 **Instrutor — abertura de turma:** → **[docs/SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md)** (VS Code, GitHub, Marp) · **[.marp.md](docs/SLIDES-ABERTURA-TURMA.marp.md)**
