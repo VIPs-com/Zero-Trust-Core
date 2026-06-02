@@ -96,6 +96,8 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 | **age** | 🟢 Expert | 2B.2 keyfile; backup master Tails |
 | **libnfc** + `nfc-list` | 🟡 | 5.1, 5.3 se `ZTC_NFC_UID` definido |
 | **WireGuard** | 🟡 Expert | 4.2 VM off-site |
+| **borgbackup** | 🔵 Expert | 4.2 off-site **imutável** (append-only) — `ztc-borg-offsite.sh` |
+| **VirtualBox / KVM** | 🔵 | Virtualização para **Whonix** (Gateway+Workstation) — capstone Parte 4 |
 | **rsync**, **OpenSSH** (cliente) | 🟢 Expert | 4.2.3 |
 | **sha256sum**, manifestos assinados | 🟢 Expert | 4.x integridade |
 | Scripts `ztc-*.sh` | 🔵 Expert | 5.x (bash, `cron` opcional) |
@@ -108,7 +110,7 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 
 ```sh
 sudo apt install -y gnupg2 pcscd scdaemon libccid openssh-client \
-  keepassxc age rsync wireguard libnfc-bin
+  keepassxc age rsync wireguard libnfc-bin borgbackup
 # VeraCrypt: baixar .deb em https://www.veracrypt.fr/en/Downloads.html → sudo dpkg -i veracrypt-*.deb
 ```
 

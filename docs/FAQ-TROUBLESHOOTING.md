@@ -33,6 +33,11 @@
 | **Tails: como fazer backup sem cron?** | Tails é amnésico — daemons resetam no reboot | Backup manual com `ztc-tails-backup.sh` antes de desligar. Ver [COMANDO T.4](../tails/🐧%20Zero-Trust-Core-Tails.md#-comando-t4-backup-manual-do-persistent-storage) |
 | **Tails: NFC/NTAG vale a pena?** | libnfc precisa reinstalar cada boot | Recomendado: USB keyfile em pendrive dedicado (mesmo nível prático). Ver [Guia Tails § NTAG](../tails/🐧%20Zero-Trust-Core-Tails.md#ntag-nfc-no-tails--por-que-não) |
 | VM no PC não acessa a rede local / rsync falha | Adaptador de rede configurado como NAT (padrão VirtualBox) | Trocar para **Bridged Adapter** nas configurações de rede da VM ([Apêndice G H5a](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-g--módulos-h-turbo-híbrido)) |
+| **Preciso de Whonix? Meu PC é fraco** | Whonix exige virtualização (2 VMs, ~8 GB RAM) | Em PC fraco, **use o Tails** (mais anonimato por real). Whonix é capstone opcional — ver [guia Whonix § requisitos](../whonix/🧅%20Zero-Trust-Core-Whonix.md#requisitos-reais-e-honestos-o-dilema-do-pc-velho) |
+| **VM/off-site é caro de energia?** | Confunde a máquina diária com o destino de backup | São separados; o off-site não fica 24/7: **HD frio = R$0 / 0 W**, **Raspberry Pi ~R$3–6/mês**, VPS ~R$20–40/mês; o `borg` roda sob demanda. Ver [guia de backup](./BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md) |
+| **Como sei que meu backup restaura?** | A "0 erros" do 3-2-1-1-0 é a perna que todos pulam | Rode `ztc-restore-test.sh` (monta o snapshot read-only e abre o `.kdbx`) — [COMANDO 4.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-43-teste-de-restauração-ritual-mensal) |
+| **borg: "append-only" não me deixa apagar versões** | É proposital — o cliente só adiciona (anti-ransomware) | A rotação roda no **servidor** (`borg prune` + `compact`), fora do append-only. Ver header do `ztc-borg-offsite.sh` |
+| **Onde guardo a passphrase do repo borg?** | Só no KeePassXC dentro do vault = dependência circular | **Fora do vault** (papel / air-gap / 2º gerenciador) — sem ela o backup é irrecuperável |
 
 **Instrutor:** registre novos itens após a turma piloto (issue ou PR em `docs/FAQ-TROUBLESHOOTING.md`).
 

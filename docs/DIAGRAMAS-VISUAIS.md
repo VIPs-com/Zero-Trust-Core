@@ -744,5 +744,6 @@ flowchart LR
 | **N** | **NTAG vs Smartcard OpenPGP** | Antes do Módulo 2A ou 2B — erro nº 1 |
 | **Playbooks 01–10** | Visão geral de cada procedimento | Dentro de cada arquivo [`playbooks/`](../playbooks/) — use enquanto executa |
 | OpenPGP ↔ ZTC | Trilha integrada | [Manual de uso](./MANUAL-DE-USO.md) §3 |
+| **Três Mundos (Debian/Tails/Whonix)** | Jornada + quando usar cada sistema | [Manual dos 3 mundos](./GUIA-DO-USUARIO-TRES-MUNDOS.md) · [Diagramas Whonix](../whonix/docs/DIAGRAMA-WHONIX.md) |
 
 *Manual visual · [VIPs-com/Zero-Trust-Core](https://github.com/VIPs-com/Zero-Trust-Core)*
