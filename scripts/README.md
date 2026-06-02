@@ -26,6 +26,7 @@ cp ztc.conf.example ~/ztc-backup/ztc.conf
 | `ztc-tails-health.sh` | **Tails:** health check manual (GPG, Persistent, KeePassXC, backup) |
 | `ztc-tails-manutencao.sh` | **Tails:** diagnóstico do pendrive (espaço, filesystem, flash USB, limpeza) |
 | `ztc-tails-restore-test.sh` | **Tails:** restore test completo (descriptografa + valida .kdbx + GPG + keyfile + revogação) |
+| `ztc-whonix-health.sh` | **Whonix:** health check por sessão (ambiente, Tor via `systemcheck`, subkeys com master ausente, gpg-agent, `age`) |
 | `ztc.conf.example` | Modelo de configuração (`ZTC_*`) |
 
 ## Segurança

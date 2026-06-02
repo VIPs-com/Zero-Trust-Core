@@ -339,8 +339,13 @@ Execução direta, copiar e colar — espelham os playbooks Tails (T01–T04):
 
 > Índice completo: [whonix/playbooks/README.md](./playbooks/README.md).
 >
-> **Scripts companheiros** (`ztc-whonix-*.sh`) ficam para uma versão futura — automação entre VMs é mais
-> complexa e fora do escopo desta primeira edição do guia. Por sessão, siga os playbooks manualmente.
+> **Script companheiro:** [`ztc-whonix-health.sh`](../scripts/ztc-whonix-health.sh) — checagem de
+> sessão na Workstation (Tor via `systemcheck`, subkeys com master ausente, gpg-agent, `age`). Espelha
+> o `ztc-tails-health.sh`. Rode no início de cada sessão.
+>
+> **E o backup do Whonix?** Não é shell script: o Whonix é uma VM persistente, então o backup é um
+> **snapshot da VM no host** (VirtualBox/Qubes) — e os **segredos** (subkeys) já vêm cifrados do fluxo
+> air-gap do Tails ([W02](./playbooks/W02-importar-subkeys-tails.md)). Automação cross-VM fica como follow-up.
 
 ---
 
