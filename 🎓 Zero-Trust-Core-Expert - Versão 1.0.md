@@ -1573,6 +1573,8 @@ gpg --card-status
 
 Marque no calendário: **todo dia 1** ou **primeiro domingo do mês** = restore test. Sem isso, o **0** do 3-2-1-1-0 não existe.
 
+> 🔵 **Automatize o ritual:** o [`ztc-restore-test.sh`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/scripts/ztc-restore-test.sh) faz os passos 1–3 com segurança — confere o `sha256` do **snapshot** contra o `MANIFEST`, monta o `.hc` **read-only** (nunca altera o backup) e **abre o `.kdbx`** com senha + keyfile, devolvendo um placar PASS/FAIL/WARN. É o equivalente Debian do [`ztc-tails-restore-test.sh`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/scripts/ztc-tails-restore-test.sh). Continue conferindo as entradas críticas à mão (passo 4) — o script prova que **abre**, você confirma que o **conteúdo** está lá.
+
 * * *
 
 ### 📋 MÓDULO 4.2: VM OFF-SITE + WIREGUARD + RSYNC
