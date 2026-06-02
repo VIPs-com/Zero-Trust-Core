@@ -256,6 +256,8 @@ flowchart LR
 > na [seção T0.12 do guia Tails](../tails/🐧%20Zero-Trust-Core-Tails.md#t012--electrum-carteira-bitcoin-air-gap-e-online-no-tails).
 > Este guia **não duplica** — o [W03](./playbooks/W03-bitcoin-psbt-tails-whonix.md) só mostra o que muda
 > quando o "lado online" é o Whonix em vez do Tails online.
+>
+> 🔐 **Regra de mídia:** use **dois pendrives** — segredo (cofre/seed, só no Tails) × transporte (só o `.psbt`); **nunca** monte o cofre no Whonix, e prefira **QR** ao USB. Detalhes no [W03](./playbooks/W03-bitcoin-psbt-tails-whonix.md#opsec--duas-mídias-diferentes-transporte--segredo).
 
 ---
 

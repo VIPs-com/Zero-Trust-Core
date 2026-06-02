@@ -716,6 +716,8 @@ flowchart TD
     style N3 fill:#7c3aed,color:#fff
 ```
 
+> 🔐 **Regra de mídia (OpSec):** mantenha **duas mídias separadas** — a do **segredo** (seed/carteira, só no Tails offline) e a de **transporte** (carrega só o arquivo da transação). **Nunca** leve a mídia do segredo ao ambiente online. E lembre: o pendrive que cruza os mundos é um vetor **[BadUSB](#segurança-usb-ataques-de-firmware-badusb)** — prefira **QR code** quando der (elimina a ponte USB).
+
 ---
 
 #### Modo 1: Electrum Air-Gap (máxima segurança — cold wallet)

@@ -5,7 +5,7 @@
 **Pré-requisitos:**
 - [ ] [W01](./W01-instalar-whonix.md) concluído (Whonix operacional)
 - [ ] Seed gerada e testada no **Tails air-gap** + **xpub** salva — ver [T0.12 Electrum no guia Tails](../../tails/🐧%20Zero-Trust-Core-Tails.md#t012--electrum-carteira-bitcoin-air-gap-e-online-no-tails)
-- [ ] Pendrive para transportar a PSBT entre os mundos
+- [ ] **Pendrive de transporte** (transitório, dedicado) — separado da mídia que guarda a seed
 
 > 🟢 **A mecânica do Electrum (gerar seed, watch-only, exportar/assinar PSBT) já está em
 > [T0.12](../../tails/🐧%20Zero-Trust-Core-Tails.md#t012--electrum-carteira-bitcoin-air-gap-e-online-no-tails).**
@@ -38,6 +38,27 @@ flowchart LR
 
 > 🔴 **Regra absoluta:** a **seed nunca toca o Whonix.** Não há "subchave" de seed — a seed *é* a raiz.
 > Se ela aparecer em qualquer sistema online, considere os fundos comprometidos.
+
+---
+
+## OpSec — duas mídias diferentes (transporte × segredo)
+
+A moral do fluxo: **a mídia do segredo nunca toca o ambiente online.** Use **dois pendrives distintos**:
+
+| Mídia | Carrega | Onde entra | Regra |
+|-------|---------|-----------|-------|
+| 🔐 **Mídia de segredo** (cofre LUKS / seed) | seed, chaves | **só** no Tails offline | **NUNCA** montar no Whonix |
+| 📂 **Pendrive de transporte** (transitório) | só o arquivo `.psbt` | online ↔ offline | dedicado e descartável |
+
+- O Whonix só vê **transações** (PSBT não assinada / assinada) — **nunca** a seed nem o cofre.
+- **Não abra o cofre LUKS no Whonix.** Precisa da seed? É no Tails offline, ponto.
+
+> 🔴 **O transporte é, ele mesmo, um risco (BadUSB):** o pendrive de transporte tocou o online e pode
+> levar algo de volta ao Tails. Por isso ele é **dedicado e barato**, você copia **só o `.psbt`**, e o
+> Tails amnésico limita a persistência — ver [BadUSB no guia Tails](../../tails/🐧%20Zero-Trust-Core-Tails.md#segurança-usb-ataques-de-firmware-badusb).
+>
+> 🥇 **Melhor ainda — QR em vez de USB:** o Electrum troca PSBT por **QR code** (animado para TX grandes),
+> o que **elimina a ponte USB** — nenhum pendrive cruza os mundos. Prefira QR; o transitório é o plano B.
 
 ---
 
