@@ -1492,6 +1492,8 @@ flowchart LR
 | **1** (extra) | Uma cópia **imutável** / air-gap (pendrive no cofre) |
 | **0** | Zero falhas aceitas no ritual — **restore testado** |
 
+> 🔵 **A perna "1 imutável" tem duas faces.** *Baixa-tecnologia:* pendrive/HD frio (imune por estar **offline**) + CD/M-DISC e papel base64 (WORM). *Alta-tecnologia:* o off-site **append-only** com [`ztc-borg-offsite.sh`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/scripts/ztc-borg-offsite.sh) — nem um PC comprometido apaga as versões antigas. E o **0** (restore testado) tem script: [`ztc-restore-test.sh`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/scripts/ztc-restore-test.sh). Onde hospedar (HD frio/Pi/VPS · custo×energia) + passo a passo do borg + kit de mídias: [guia de backup/off-site](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/docs/BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md).
+
 * * *
 
 #### Matriz de ativos (Zero Trust Core)
@@ -2048,6 +2050,8 @@ Detalhe: [docs/GABARITO-CHECKPOINTS.md](docs/GABARITO-CHECKPOINTS.md#checkpoint-
 
 **Pré-requisito:** [CHECKPOINT 3](#-checkpoint-3-backup-e-contingência) concluído (ou trilha Turbo com backup local testado).
 
+> 🧅 **Capstone desta Parte:** o [guia Whonix](whonix/🧅%20Zero-Trust-Core-Whonix.md) — o "escritório anônimo" (online persistente via Tor, Gateway+Workstation) que complementa o air-gap do Tails. Leitura avançada/opcional que aplica o threat model do Módulo 7 a um **uso diário anônimo**.
+
 * * *
 
 ### 📋 MÓDULO 7: THREAT MODELING E OPSEC
@@ -2282,6 +2286,9 @@ Exporte chave pública atualizada e distribua (`gpg --export -a`). Se subkeys es
 | `ztc-open-cofre.sh` | [COMANDO 5.3](#-comando-53-keepass--veracrypt-condicional-nfc-opcional) | NFC opcional → VeraCrypt (camadas toggáveis) → KeePassXC |
 | `ztc-close-cofre.sh` | [COMANDO 5.3](#-comando-53-keepass--veracrypt-condicional-nfc-opcional) | Confirma KeePass fechado → `sync` → dismount → snapshot |
 | `ztc-snapshot-vault.sh` | [COMANDO 5.3](#-comando-53-keepass--veracrypt-condicional-nfc-opcional) | Cópia versionada do `vault.hc` com sha256 + rotação |
+| `ztc-restore-test.sh` | [COMANDO 4.3](#-comando-43-teste-de-restauração-ritual-mensal) | Restore test: monta snapshot read-only → abre `.kdbx` (a "0" do 3-2-1-1-0) |
+| `ztc-borg-offsite.sh` | [Módulo 4.2](#-módulo-42-vm-off-site--wireguard--rsync) | Off-site **imutável** (borg append-only) — perna "1 imutável" |
+| `ztc-whonix-health.sh` | [guia Whonix](whonix/🧅%20Zero-Trust-Core-Whonix.md#checkpoint-w--validação-final) | Health por sessão na Whonix-Workstation |
 | `ztc.conf` | `scripts/ztc.conf.example` | Variáveis `ZTC_*` — proteja com `chmod 600` |
 | Cron exemplo | [COMANDO 5.2](#-comando-52-cron-backup--health) | Agendamento |
 
@@ -2690,9 +2697,23 @@ O guia Tails tem seus próprios COMMANDOs (T.1–T.5), playbooks (T01–T04) e C
 
 * * *
 
+### 🧅 Quer um ambiente online persistente e anônimo? (capstone)
+
+Para uso **diário anônimo** via Tor (persistente, não amnésico), o ecossistema ganha um terceiro mundo:
+
+> **[🧅 Zero-Trust-Core-Whonix.md](whonix/🧅%20Zero-Trust-Core-Whonix.md)** — o "escritório anônimo" (Gateway+Workstation), playbooks W01–W03 e CHECKPOINT W. **Capstone da Parte 4.**
+
+**Manuais operacionais** (jornada · backup · validação):
+
+- [Manual dos Três Mundos](docs/GUIA-DO-USUARIO-TRES-MUNDOS.md) — quando usar Debian/Tails/Whonix, mídia air-gap, OpSec (personalizar os padrões do curso)
+- [Backup/off-site + Kit de Sobrevivência](docs/BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md) — onde hospedar (HD frio/Pi/VPS · custo×energia), `borg` append-only, backup do Whonix
+- [Validação em campo (equipe)](docs/VALIDACAO-EM-CAMPO-EQUIPE.md) — protocolo de testes em hardware real dos processos
+
+* * *
+
 ## 🏁 CONCLUSÃO — SOBERANIA DIGITAL
 
-Você percorreu do **Tails offline** ao **backup testado**, passando por tokens físicos, cofres locais e runbook de contingência. Isso não é “mais um tutorial de senha”: é **gestão de identidade e segredos** com hardware de consumo e disciplina de quem opera infra crítica.
+Você percorreu do **Tails offline** ao **backup testado e imutável**, passando por tokens físicos, cofres locais e runbook de contingência — e, no capstone, o **Whonix** para o uso diário anônimo. Isso não é “mais um tutorial de senha”: é **gestão de identidade e segredos** com hardware de consumo e disciplina de quem opera infra crítica.
 
 **O que você leva:**
 
