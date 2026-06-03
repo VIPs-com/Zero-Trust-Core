@@ -66,6 +66,7 @@ Zero-Trust-Core/
 | [`docs/FAQ-TROUBLESHOOTING.md`](./FAQ-TROUBLESHOOTING.md) | Consulta | Erros comuns (GPG, VeraCrypt, NFC, SSH) |
 | [`docs/GUIA-DO-USUARIO-TRES-MUNDOS.md`](./GUIA-DO-USUARIO-TRES-MUNDOS.md) | Operacional | Jornada 3 mundos + OpSec (personalizar) + mídia air-gap |
 | [`docs/BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md`](./BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md) | Resiliência | Off-site (custo×energia), `borg`, backup Whonix, kit de mídias |
+| [`docs/VALIDACAO-EM-CAMPO-EQUIPE.md`](./VALIDACAO-EM-CAMPO-EQUIPE.md) | Equipe | Protocolo de testes em campo + o que capturar/enviar para validação |
 | [`tails/`](../tails/🐧%20Zero-Trust-Core-Tails.md) · [`whonix/`](../whonix/🧅%20Zero-Trust-Core-Whonix.md) | Por sistema | Guias dedicados: Tails (air-gap) e Whonix (capstone online) |
 | [`scripts/`](../scripts/README.md) | Turbo: opcional · **Expert: obrigatório** (Mód. 4.2 e 5) | Automação |
 | [`README.md`](../README.md) | 2 min | Visão geral + links |
