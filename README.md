@@ -62,6 +62,7 @@ Você pode clonar o repositório, baixar o ZIP ou copiar só esse `.md` — não
 ## Para quem é
 
 - Quem já conhece ou está fazendo **[OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/blob/main/%F0%9F%8E%93%20OpenPGP-GPG%20do%20Zero%20ao%20Expert%20-%20Vers%C3%A3o%201.0.md#modulo-0-ztc)** e quer integrar cofres locais, tokens físicos, backup off-site e automação.
+- Quem concluiu ou está no **[Privacy-OS-Hub](https://github.com/VIPs-com/Privacy-OS-Hub)** (Tails + Haveno + Whonix) e quer **endurecer** cofres, backup off-site e identidade além da trilha Monero.
 - Entusiastas de privacidade, desenvolvedores e administradores que buscam **soberania digital** com custo baixo e rigor operacional.
 
 ## O que você vai construir
@@ -131,6 +132,19 @@ Arquivos: [`ztc-health.sh`](./scripts/ztc-health.sh), [`ztc-rsync-offsite.sh`](.
 - **Auditoria Red/Blue/Purple Team** — 10 ataques simulados nos scripts reais. Endurecimentos aplicados: chave SSH com `command=rrsync` na VM, `rsync --checksum`, `StrictHostKeyChecking`, `chmod 600` no conf, Reset Code do smartcard documentado. Scorecard **8.7 → 9.2/10**.
 - **Distro canônica padronizada:** Debian 13 (Trixie) em todo o curso, scripts e docs.
 - **Repositório irmão:** [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) ganhou [`playbooks/`](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/tree/main/playbooks) — 9 guias código-primeiro (Módulos 0–10) com fluxogramas Mermaid.
+- **Link recíproco:** [Privacy-OS-Hub](https://github.com/VIPs-com/Privacy-OS-Hub) aponta para este repositório como baseline **opcional** (repo separado).
+
+## Ecossistema VIPs-com (repositórios relacionados)
+
+Cada curso é **independente** — escolha a trilha pelo objetivo. Este (Zero-Trust-Core) é o **baseline** de cofre, PGP, backup e SSH.
+
+| Repositório | Foco | Relação com este curso |
+|-------------|------|------------------------|
+| **[OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert)** | PGP do zero · trilha integrada ZTC | Pré-requisito recomendado (Expert) |
+| **[Privacy-OS-Hub](https://github.com/VIPs-com/Privacy-OS-Hub)** | Tails + Haveno + Whonix (Cold-Tails/Hot-Whonix, Monero) | **Complementa** após M1/M2 — custódia e trades; **não** substitui o ZTC |
+| **Zero-Trust-Core** (este) | KeePassXC, VeraCrypt, NFC, backup 3-2-1-1-0, SSH | Baseline opcional |
+
+> **Ordem sugerida (Monero + privacidade):** [Privacy-OS-Hub](https://github.com/VIPs-com/Privacy-OS-Hub) Módulo 1 → Módulo 2 → **este curso** (ZTC). O guia Whonix **deste** repo é capstone de *baseline*; o M2 do hub foca *cold-signing* e custódia XMR.
 
 ## Licença
 
@@ -147,3 +161,5 @@ Você pode compartilhar e adaptar o material, inclusive comercialmente, desde qu
 **VIPs-com** (Projeto Colaborativo)
 
 **Pré-requisito recomendado (trilha Expert):** [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert) — o README desse repositório aponta para este curso e para o [Manual de uso](./docs/MANUAL-DE-USO.md) na secção *Trilha integrada*.
+
+**Complemento operacional (Monero):** [Privacy-OS-Hub](https://github.com/VIPs-com/Privacy-OS-Hub) — o README do hub aponta para este repositório como baseline opcional; os dois mantêm **repos separados** e links recíprocos.
