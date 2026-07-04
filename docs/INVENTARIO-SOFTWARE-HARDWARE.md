@@ -1,4 +1,4 @@
-# 📦 Inventário — software e hardware
+﻿# 📦 Inventário — software e hardware
 
 **Zero Trust Core Expert v1.0.2** · Maio/2026
 
@@ -30,11 +30,9 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 | [`docs/INVENTARIO-SOFTWARE-HARDWARE.md`](./INVENTARIO-SOFTWARE-HARDWARE.md) | **Aluno** | Montar PC, **kits em R$**, conferir versões |
 | [`docs/MANUAL-DE-USO.md`](./MANUAL-DE-USO.md) | Aluno novo | Primeira hora no GitHub / ZIP |
 | [`docs/APOSTILA-GUIA-PRATICO.md`](./APOSTILA-GUIA-PRATICO.md) | **Aluno avançado** | Hardware alternativo, DIY, governança, cockpit — 9 capítulos + referência rápida |
-| [`scripts/ztc-health.sh`](../scripts/ztc-health.sh) | Aluno (Expert) | [Módulo 5](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-5-automação-e-health-check) — health-check |
-| [`scripts/ztc-rsync-offsite.sh`](../scripts/ztc-rsync-offsite.sh) | Aluno (Expert) | [Módulo 4.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-42-vm-off-site--wireguard--rsync) — backup VM |
-| [`scripts/ztc-open-cofre.sh`](../scripts/ztc-open-cofre.sh) | Aluno (Expert) | [COMANDO 5.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-53-keepass--veracrypt-condicional-nfc-opcional) — após Checkpoint 2 |
-| [`docs/AUDITORIA-v1.0.1.md`](./AUDITORIA-v1.0.1.md) | Equipe / comunidade | Por que a v1.0.2 existe |
-| [`docs/CHECKLIST-PRE-TURMA-EQUIPE.md`](./CHECKLIST-PRE-TURMA-EQUIPE.md) | **Instrutor** | Antes de cada turma |
+| [`scripts/debian/ztc-health.sh`](../scripts/debian/ztc-health.sh) | Aluno (Expert) | [Módulo 5](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-5-automação-e-health-check) — health-check |
+| [`scripts/debian/ztc-rsync-offsite.sh`](../scripts/debian/ztc-rsync-offsite.sh) | Aluno (Expert) | [Módulo 4.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-42-vm-off-site--wireguard--rsync) — backup VM |
+| [`scripts/debian/ztc-open-cofre.sh`](../scripts/debian/ztc-open-cofre.sh) | Aluno (Expert) | [COMANDO 5.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-53-keepass--veracrypt-condicional-nfc-opcional) — após Checkpoint 2 |
 | [`docs/SLIDES-ABERTURA-TURMA.md`](./SLIDES-ABERTURA-TURMA.md) | **Instrutor** | Primeira aula (4 slides) |
 | [Issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) | Instrutor | Evidência hardware NFC + Tails |
 
@@ -56,7 +54,7 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 
 ## 🔬 Dispositivos testados (compatibilidade confirmada)
 
-> 🔵 **Contribua:** execute os testes do [`CHECKLIST-PRE-TURMA-EQUIPE.md`](./CHECKLIST-PRE-TURMA-EQUIPE.md) e registre no [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2). Esta tabela é atualizada com evidência real de cada turma.
+> 🔵 **Contribua:** execute os testes de campo e registre no [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2). Esta tabela é atualizada com evidência real de cada turma.
 
 | # | Categoria | Dispositivo / versão | Status | SO / ambiente | COMANDO / módulo | Observação |
 | :---: | --- | --- | :---: | --- | --- | --- |

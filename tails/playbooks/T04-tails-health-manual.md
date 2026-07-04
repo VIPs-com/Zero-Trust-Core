@@ -1,4 +1,4 @@
-# Playbook T04 — Scripts de Manutenção: Manual de Uso Completo
+﻿# Playbook T04 — Scripts de Manutenção: Manual de Uso Completo
 
 **Objetivo:** Instalar, entender e usar os 3 scripts que mantêm seu Tails seguro e funcional.  
 **Tempo:** ~15 min (instalação) · ~5 min (uso diário) · ~10 min (manutenção mensal)  
@@ -83,10 +83,10 @@ mkdir -p ~/Persistent/bin
 # Se você clonou o repo Zero Trust Core:
 REPO="/media/amnesia/SEUPENDRIVE/Zero-Trust-Core"  # ajuste
 
-cp "$REPO"/scripts/ztc-tails-health.sh ~/Persistent/bin/
-cp "$REPO"/scripts/ztc-tails-backup.sh ~/Persistent/bin/
-cp "$REPO"/scripts/ztc-tails-manutencao.sh ~/Persistent/bin/
-cp "$REPO"/scripts/ztc-tails-restore-test.sh ~/Persistent/bin/
+cp "$REPO"/tails/scripts/debian/ztc-tails-health.sh ~/Persistent/bin/
+cp "$REPO"/tails/scripts/debian/ztc-tails-backup.sh ~/Persistent/bin/
+cp "$REPO"/tails/scripts/debian/ztc-tails-manutencao.sh ~/Persistent/bin/
+cp "$REPO"/tails/scripts/debian/ztc-tails-restore-test.sh ~/Persistent/bin/
 chmod +x ~/Persistent/bin/ztc-tails-*.sh
 ```
 

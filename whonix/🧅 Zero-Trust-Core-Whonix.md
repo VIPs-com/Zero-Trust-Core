@@ -1,4 +1,4 @@
-# Zero Trust Core — Guia Dedicado Whonix
+﻿# Zero Trust Core — Guia Dedicado Whonix
 
 > **O escritório anônimo.** Este guia fecha a arquitetura do curso com o ambiente *online persistente*
 > que complementa o Tails air-gap. Onde o Tails é o **laboratório descartável** (cria a chave e some),
@@ -341,7 +341,7 @@ Execução direta, copiar e colar — espelham os playbooks Tails (T01–T04):
 
 > Índice completo: [whonix/playbooks/README.md](./playbooks/README.md).
 >
-> **Script companheiro:** [`ztc-whonix-health.sh`](../scripts/ztc-whonix-health.sh) — checagem de
+> **Script companheiro:** [`ztc-whonix-health.sh`](../whonix/scripts/debian/ztc-whonix-health.sh) — checagem de
 > sessão na Workstation (Tor via `systemcheck`, subkeys com master ausente, gpg-agent, `age`). Espelha
 > o `ztc-tails-health.sh`. Rode no início de cada sessão.
 >

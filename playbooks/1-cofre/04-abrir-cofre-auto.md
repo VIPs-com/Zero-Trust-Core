@@ -51,13 +51,13 @@ mkdir -p ~/bin ~/ztc-backup/manifest
 git clone https://github.com/VIPs-com/Zero-Trust-Core.git /tmp/ztc-repo
 
 # Copiar scripts
-cp /tmp/ztc-repo/scripts/ztc-open-cofre.sh ~/bin/
-cp /tmp/ztc-repo/scripts/ztc-health.sh ~/bin/
-cp /tmp/ztc-repo/scripts/ztc-rsync-offsite.sh ~/bin/
+cp /tmp/ztc-repo/scripts/debian/ztc-open-cofre.sh ~/bin/
+cp /tmp/ztc-repo/scripts/debian/ztc-health.sh ~/bin/
+cp /tmp/ztc-repo/scripts/debian/ztc-rsync-offsite.sh ~/bin/
 chmod +x ~/bin/ztc-*.sh
 
 # Copiar arquivo de configuração
-cp /tmp/ztc-repo/scripts/ztc.conf.example ~/ztc-backup/ztc.conf
+cp /tmp/ztc-repo/scripts/debian/ztc.conf.example ~/ztc-backup/ztc.conf
 ```
 
 ---
@@ -171,7 +171,7 @@ EOF
 ## 8 — Instalar o script de FECHAR + atalho desktop
 
 ```sh
-cp /tmp/ztc-repo/scripts/ztc-close-cofre.sh ~/bin/
+cp /tmp/ztc-repo/scripts/debian/ztc-close-cofre.sh ~/bin/
 chmod +x ~/bin/ztc-close-cofre.sh
 ```
 
@@ -218,7 +218,7 @@ O `ztc-close-cofre.sh` chama `ztc-snapshot-vault.sh` **toda vez que você fecha 
 
 ```sh
 # Instalar (uma vez)
-cp /tmp/ztc-repo/scripts/ztc-snapshot-vault.sh ~/bin/
+cp /tmp/ztc-repo/scripts/debian/ztc-snapshot-vault.sh ~/bin/
 chmod +x ~/bin/ztc-snapshot-vault.sh
 ```
 

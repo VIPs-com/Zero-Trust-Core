@@ -1,4 +1,4 @@
-# Playbook T03 — Tails Backup Manual (USB + age + manifesto)
+﻿# Playbook T03 — Tails Backup Manual (USB + age + manifesto)
 
 **Objetivo:** Criar backup cifrado do Persistent Storage em USB externo com verificação sha256.  
 **Tempo:** ~15 min  
@@ -102,7 +102,7 @@ ls -1t backup-*.age | tail -n +8 | xargs rm -v 2>/dev/null || echo "Nada para ro
 
 ```sh
 # Instalar o script (primeira vez)
-cp /caminho/do/repo/scripts/ztc-tails-restore-test.sh ~/Persistent/bin/
+cp /caminho/do/repo/tails/scripts/debian/ztc-tails-restore-test.sh ~/Persistent/bin/
 chmod +x ~/Persistent/bin/ztc-tails-restore-test.sh
 
 # Rodar (testa o backup mais recente no USB)

@@ -1,4 +1,4 @@
-# Zero Trust Core Expert
+﻿# Zero Trust Core Expert
 
 [![Versão](https://img.shields.io/github/v/tag/VIPs-com/Zero-Trust-Core?label=vers%C3%A3o&color=brightgreen)](https://github.com/VIPs-com/Zero-Trust-Core/releases/latest)
 [![Licença: CC BY-SA 4.0](https://img.shields.io/badge/licen%C3%A7a-CC%20BY--SA%204.0-lightgrey)](https://creativecommons.org/licenses/by-sa/4.0/)
@@ -57,7 +57,7 @@ Abra e estude:
 
 Você pode clonar o repositório, baixar o ZIP ou copiar só esse `.md` — não é obrigatório usar Git para aprender.
 
-**Auditoria v1.0.2:** [`docs/AUDITORIA-v1.0.1.md`](docs/AUDITORIA-v1.0.1.md) · **Sign-off 🔐:** [`docs/AUDITORIA-TECNICA-PRE-TURMA.md`](docs/AUDITORIA-TECNICA-PRE-TURMA.md) · **Equipe:** [`docs/CHECKLIST-PRE-TURMA-EQUIPE.md`](docs/CHECKLIST-PRE-TURMA-EQUIPE.md) · **Validação em campo:** [`docs/VALIDACAO-EM-CAMPO-EQUIPE.md`](docs/VALIDACAO-EM-CAMPO-EQUIPE.md) · [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2)
+**Testes de campo (instrutor):** [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2)
 
 ## Para quem é
 
@@ -111,7 +111,7 @@ Uma “fortaleza artesanal” em cinco camadas: cofre de senhas, fator físico (
 | **Turbo** (~R$ 50–265 · 8–12 h) | **Opcional** — cofre + NTAG com fluxo manual (COMANDOs 3.1.1 e 3.1.2). |
 | **Expert** (~R$ 725–2.150 · 25–35 h) | **Parte do aprendizado** — instalar, rodar e **entender** `ztc-health.sh`, `ztc-rsync-offsite.sh` e `ztc-open-cofre.sh` nos Módulos **4.2** e **5**. |
 
-Arquivos: [`ztc-health.sh`](./scripts/ztc-health.sh), [`ztc-rsync-offsite.sh`](./scripts/ztc-rsync-offsite.sh), [`ztc-open-cofre.sh`](./scripts/ztc-open-cofre.sh), [`ztc.conf.example`](./scripts/ztc.conf.example) · [`scripts/README.md`](./scripts/README.md)
+Arquivos: [`ztc-health.sh`](./scripts/debian/ztc-health.sh), [`ztc-rsync-offsite.sh`](./scripts/debian/ztc-rsync-offsite.sh), [`ztc-open-cofre.sh`](./scripts/debian/ztc-open-cofre.sh), [`ztc.conf.example`](./scripts/debian/ztc.conf.example) · [`scripts/README.md`](./scripts/README.md)
 
 ## Metodologia
 
@@ -128,7 +128,7 @@ Arquivos: [`ztc-health.sh`](./scripts/ztc-health.sh), [`ztc-rsync-offsite.sh`](.
 - **[Apêndice G](./🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-g--módulos-h-turbo-híbrido)** — Módulos H Turbo Híbrido (H1 QR · H2 metal · H3 Android · H4 iPhone · H5 servidor · H6 TOTP). Ative conforme o hardware que você já tem — custo extra R$0–50 por módulo.
 - **[docs/APOSTILA-GUIA-PRATICO.md](docs/APOSTILA-GUIA-PRATICO.md)** — guia complementar estilo livro (9 capítulos): ranking Top 20 hardware keys, Frankenstein Key DIY (5 kits), protocolos avançados, cronograma manutenção, governança home lab, playbook de incidentes (5 cenários), cockpit Prometheus/Grafana + PowerShell/Rainmeter.
 - **[playbooks/](playbooks/) reorganizados em 3 blocos temáticos** — `1-cofre/` (KeePass+VeraCrypt+NFC), `2-identidade-pgp/` (Tails+Smartcard+SSH), `3-backup-resiliencia/` (HD+off-site+restore). Cada um com README próprio, fluxograma Mermaid e deep links para os COMANDOs.
-- **2 scripts novos:** [`ztc-close-cofre.sh`](scripts/ztc-close-cofre.sh) (fechar cofre + snapshot automático) e [`ztc-snapshot-vault.sh`](scripts/ztc-snapshot-vault.sh) (cópia versionada do `vault.hc` com sha256 + rotação). Total: 5 scripts.
+- **Scripts por mundo:** `scripts/debian/` · `tails/scripts/` · `whonix/scripts/` — [`ztc-close-cofre.sh`](scripts/debian/ztc-close-cofre.sh), [`ztc-snapshot-vault.sh`](scripts/debian/ztc-snapshot-vault.sh) e demais.
 - **Auditoria Red/Blue/Purple Team** — 10 ataques simulados nos scripts reais. Endurecimentos aplicados: chave SSH com `command=rrsync` na VM, `rsync --checksum`, `StrictHostKeyChecking`, `chmod 600` no conf, Reset Code do smartcard documentado. Scorecard **8.7 → 9.2/10**.
 - **Distro canônica padronizada:** Debian 13 (Trixie) em todo o curso, scripts e docs.
 - **Repositório irmão:** [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) ganhou [`playbooks/`](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/tree/main/playbooks) — 9 guias código-primeiro (Módulos 0–10) com fluxogramas Mermaid.

@@ -1,4 +1,4 @@
-#!/bin/sh
+﻿#!/bin/sh
 # Zero Trust Core — health-check (v1)
 # Curso: COMANDO 5.1 — https://github.com/VIPs-com/Zero-Trust-Core
 
@@ -11,7 +11,7 @@ ztc_check_conf() {
   echo "=== Zero Trust Core — check-conf ==="
 
   if [ ! -f "$CONF" ]; then
-    echo "[FAIL] $CONF ausente — copie scripts/ztc.conf.example"
+    echo "[FAIL] $CONF ausente — copie scripts/debian/ztc.conf.example"
     return 1
   fi
   echo "[OK] conf: $CONF"

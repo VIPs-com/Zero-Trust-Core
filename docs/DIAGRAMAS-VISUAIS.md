@@ -1,4 +1,4 @@
-# 📊 Diagramas visuais — Zero Trust Core Expert
+﻿# 📊 Diagramas visuais — Zero Trust Core Expert
 
 **Síntese para leitura, impressão ou PDF** · Maio/2026
 
@@ -591,7 +591,7 @@ sequenceDiagram
     Note right of KP: Sistema pronto para uso diário
 ```
 
-> [COMANDO 5.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-53-keepass--veracrypt-condicional-nfc-opcional) no curso · script [`ztc-open-cofre.sh`](../scripts/ztc-open-cofre.sh) · [Módulo 3.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-31-keepassxc--veracrypt) (VeraCrypt) + [Módulo 2B](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-2b-ntag--keyfile-keepassxc) (NTAG keyfile).
+> [COMANDO 5.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-53-keepass--veracrypt-condicional-nfc-opcional) no curso · script [`ztc-open-cofre.sh`](../scripts/debian/ztc-open-cofre.sh) · [Módulo 3.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-31-keepassxc--veracrypt) (VeraCrypt) + [Módulo 2B](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-2b-ntag--keyfile-keepassxc) (NTAG keyfile).
 
 * * *
 

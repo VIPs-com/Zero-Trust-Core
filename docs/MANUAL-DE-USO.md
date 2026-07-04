@@ -37,22 +37,26 @@ Zero-Trust-Core/
 │   ├── INVENTARIO-SOFTWARE-HARDWARE.md ← Software/hardware · kits A–D (R$)
 │   ├── APOSTILA-GUIA-PRATICO.md     ← Guia complementar 9 capítulos + ref. rápida
 │   ├── SLIDES-ABERTURA-TURMA.md     ← Instrutor: 1ª aula (+ .marp.md)
-│   ├── AUDITORIA-v1.0.1.md          ← Auditoria VIPs-com + status v1.0.2
-│   └── CHECKLIST-PRE-TURMA-EQUIPE.md ← Mantenedores: testes antes da turma
+│   └── GABARITO-CHECKPOINTS.md      ← Critérios CHECKPOINTs 1–3
 ├── scripts/
-│   ├── README.md
-│   ├── ztc-health.sh                  ← Health-check (Módulo 5)
-│   ├── ztc-rsync-offsite.sh           ← Backup VM (Módulo 4.2)
-│   ├── ztc-open-cofre.sh              ← NFC → VeraCrypt → KeePass (Módulo 5.3)
-│   ├── ztc-close-cofre.sh             ← Fechar cofre + snapshot automático (5.3)
-│   ├── ztc-snapshot-vault.sh          ← Cópia versionada vault.hc + sha256 + rotação
-│   └── ztc.conf.example               ← Configuração (copiar para ~/ztc-backup/)
+│   ├── README.md                    ← Índice Três Mundos
+│   └── debian/                      ← Host Debian (Mód. 4.2 e 5)
+│       ├── ztc-health.sh
+│       ├── ztc-rsync-offsite.sh
+│       ├── ztc-open-cofre.sh
+│       ├── ztc-close-cofre.sh
+│       ├── ztc-snapshot-vault.sh
+│       ├── ztc-borg-offsite.sh
+│       ├── ztc-restore-test.sh
+│       └── ztc.conf.example
 ├── playbooks/
 │   ├── 1-cofre/                       ← KeePass + VeraCrypt + NFC (playbooks 01-04)
 │   ├── 2-identidade-pgp/              ← Tails + Smartcard + SSH (playbooks 05-07)
 │   └── 3-backup-resiliencia/          ← HD + off-site + restore (playbooks 08-10)
 ├── tails/                             ← guia dedicado Tails (air-gap + online amnésico)
+│   └── scripts/                       ← ztc-tails-*.sh (4)
 ├── whonix/                            ← guia dedicado Whonix (capstone — escritório anônimo via Tor)
+│   └── scripts/                       ← ztc-whonix-health.sh
 └── 🎓 Zero-Trust-Core-Expert - Versão 1.0.md   ← CURSO (estude aqui)
 ```
 
@@ -66,7 +70,6 @@ Zero-Trust-Core/
 | [`docs/FAQ-TROUBLESHOOTING.md`](./FAQ-TROUBLESHOOTING.md) | Consulta | Erros comuns (GPG, VeraCrypt, NFC, SSH) |
 | [`docs/GUIA-DO-USUARIO-TRES-MUNDOS.md`](./GUIA-DO-USUARIO-TRES-MUNDOS.md) | Operacional | Jornada 3 mundos + OpSec (personalizar) + mídia air-gap |
 | [`docs/BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md`](./BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md) | Resiliência | Off-site (custo×energia), `borg`, backup Whonix, kit de mídias |
-| [`docs/VALIDACAO-EM-CAMPO-EQUIPE.md`](./VALIDACAO-EM-CAMPO-EQUIPE.md) | Equipe | Protocolo de testes em campo + o que capturar/enviar para validação |
 | [`tails/`](../tails/🐧%20Zero-Trust-Core-Tails.md) · [`whonix/`](../whonix/🧅%20Zero-Trust-Core-Whonix.md) | Por sistema | Guias dedicados: Tails (air-gap) e Whonix (capstone online) |
 | [`scripts/`](../scripts/README.md) | Turbo: opcional · **Expert: obrigatório** (Mód. 4.2 e 5) | Automação |
 | [`README.md`](../README.md) | 2 min | Visão geral + links |
@@ -239,7 +242,7 @@ Resumo em texto:
 
 ```sh
 git clone https://github.com/VIPs-com/Zero-Trust-Core.git
-cd Zero-Trust-Core/scripts
+cd Zero-Trust-Core/scripts/debian
 mkdir -p ~/bin ~/ztc-backup/manifest
 cp ztc-health.sh ztc-rsync-offsite.sh \
    ztc-open-cofre.sh ztc-close-cofre.sh ztc-snapshot-vault.sh ~/bin/
@@ -298,7 +301,7 @@ Documentação: [scripts/README.md](../scripts/README.md) · [playbooks/README.m
 | Governança corporativa home lab | — | **[Apostila Cap 7](./APOSTILA-GUIA-PRATICO.md#capítulo-7--lição-7-governe-como-uma-empresa)** |
 | Playbook de incidentes (5 cenários) | — | **[Apostila Cap 8](./APOSTILA-GUIA-PRATICO.md#capítulo-8--lição-8-playbook-de-incidentes)** |
 | Cockpit Prometheus/Grafana/Rainmeter | — | **[Apostila Cap 9](./APOSTILA-GUIA-PRATICO.md#capítulo-9--lição-9-automação-do-cockpit)** |
-| Módulos H Turbo Híbrido (H1–H6) | Apêndice **G** | [CHECKLIST-PRE-TURMA-EQUIPE.md §4](./CHECKLIST-PRE-TURMA-EQUIPE.md#4-módulos-h-disponíveis--apêndice-g-opcional) |
+| Módulos H Turbo Híbrido (H1–H6) | Apêndice **G** | [issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) |
 
 * * *
 
@@ -349,7 +352,6 @@ Confira o cabeçalho do `.md`: Tails [tails.net/latest](https://tails.net/latest
 | OpenPGP-GPG playbooks (código primeiro) | https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/tree/main/playbooks |
 | Links profundos (mantenedores) | [LINKS-OPENPGP-GPG.md](./LINKS-OPENPGP-GPG.md) |
 | Releases (v1.0.1, v1.0.2) | https://github.com/VIPs-com/Zero-Trust-Core/releases |
-| Auditoria + v1.0.2 | [AUDITORIA-v1.0.1.md](./AUDITORIA-v1.0.1.md) |
 | Tails | https://tails.net/latest/ |
 | KeePassXC | https://keepassxc.org/ |
 | VeraCrypt | https://www.veracrypt.fr/ |

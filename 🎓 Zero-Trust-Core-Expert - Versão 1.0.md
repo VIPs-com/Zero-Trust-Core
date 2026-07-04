@@ -10,7 +10,7 @@
 **Baseline conferida:** maio/2026 (issue editorial v1.0.1)  
 **Metodologia:** 🔴🟡🟢🔵 + COMANDO A COMANDO + Checkpoints  
 **Licença:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)  
-**Status:** ✅ **VERSÃO 1.0.2** — Curso completo + correções pós-auditoria VIPs-com (maio/2026) · ver [docs/AUDITORIA-v1.0.1.md](docs/AUDITORIA-v1.0.1.md)
+**Status:** ✅ **VERSÃO 1.0.2** — Curso completo + correções pós-auditoria VIPs-com (maio/2026)
 
 > 📌 **Nota editorial:** **`🎓 Zero-Trust-Core-Expert - Versão 1.0.md`** é o curso oficial deste repositório. O nome didático é **Zero Trust Core Expert**; o *filename* usa hífens para compatibilidade com Git e Windows.
 
@@ -262,8 +262,14 @@ Zero-Trust-Core/  (v1.0.2)
 │
 ├── README.md ........................ porta de entrada · badges · jornada · kits R$
 ├── 🎓 Zero-Trust-Core-Expert - Versão 1.0.md ... VOCÊ ESTÁ AQUI (curso canônico)
-├── scripts/ ......................... 5 scripts: open · close · snapshot · health · rsync-offsite
-│   └── ztc.conf.example
+├── scripts/ ......................... Três Mundos: debian/ · tails/scripts/ · whonix/scripts/
+│   ├── debian/ ...................... open · close · snapshot · health · rsync · borg · restore-test
+│   │   └── ztc.conf.example
+│   └── README.md .................... índice dos 3 mundos
+├── tails/
+│   └── scripts/ ..................... 4 scripts Tails (backup · health · manutenção · restore-test)
+├── whonix/
+│   └── scripts/ ..................... ztc-whonix-health.sh
 ├── playbooks/ ....................... execução direta (copie e cole · zero teoria)
 │   ├── 1-cofre/ ................... KeePass + VeraCrypt + NFC (Turbo) — 01-04
 │   ├── 2-identidade-pgp/ .......... Tails + Smartcard + SSH (Expert) — 05-07
@@ -273,8 +279,7 @@ Zero-Trust-Core/  (v1.0.2)
     ├── INVENTARIO-SOFTWARE-HARDWARE.md  software/HW · kits A–D em R$
     ├── DIAGRAMAS-VISUAIS.md ......... fluxos A–E (PDF / impressão)
     ├── SLIDES-ABERTURA-TURMA.md ..... instrutor · 1ª aula (+ .marp.md)
-    ├── AUDITORIA-v1.0.1.md .......... histórico v1.0.1 → v1.0.2
-    └── CHECKLIST-PRE-TURMA-EQUIPE.md  testes NFC + Tails (instrutor)
+    └── GABARITO-CHECKPOINTS.md ...... critérios CHECKPOINTs 1–3
 ```
 
 > ⚡ **Playbooks (atalho de execução):** se você prefere **copiar e colar comandos** sem ler a teoria, a pasta [`playbooks/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/playbooks) tem 11 guias código-primeiro organizados em 3 blocos (incluindo o **Playbook 00 — uso diário + modelo de segurança + limites como keylogger**). Cada COMANDO deste curso tem um playbook correspondente. Use os playbooks para **executar**, volte ao curso para **entender**.
@@ -393,8 +398,7 @@ Clique para ir direto ao módulo. Se um link não saltar, use `Ctrl+F` pelo nome
 | **Instrutor** | Teste hardware `ztc-open-cofre.sh` + Tails | [Issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) |
 | **Instrutor** | 1ª aula: slides 1–4 → Módulo 0 | [SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md) |
 | **Equipe** | Tag/release futura só após mudança editorial relevante | GitHub Releases |
-| **Concluído v1.0.2** | Auditoria, backup 2B.2, VeraCrypt CLI, script 5.3 | [AUDITORIA-v1.0.1.md](docs/AUDITORIA-v1.0.1.md) |
-| **Sign-off repositório** | Chave mestra 🔐 — pronto para turma | [AUDITORIA-TECNICA-PRE-TURMA.md](docs/AUDITORIA-TECNICA-PRE-TURMA.md) |
+| **Concluído v1.0.2** | Auditoria, backup 2B.2, VeraCrypt CLI, script 5.3 | Tags `v1.0.1`, `v1.0.2` |
 
 * * *
 
@@ -1492,7 +1496,7 @@ flowchart LR
 | **1** (extra) | Uma cópia **imutável** / air-gap (pendrive no cofre) |
 | **0** | Zero falhas aceitas no ritual — **restore testado** |
 
-> 🔵 **A perna "1 imutável" tem duas faces.** *Baixa-tecnologia:* pendrive/HD frio (imune por estar **offline**) + CD/M-DISC e papel base64 (WORM). *Alta-tecnologia:* o off-site **append-only** com [`ztc-borg-offsite.sh`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/scripts/ztc-borg-offsite.sh) — nem um PC comprometido apaga as versões antigas. E o **0** (restore testado) tem script: [`ztc-restore-test.sh`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/scripts/ztc-restore-test.sh). Onde hospedar (HD frio/Pi/VPS · custo×energia) + passo a passo do borg + kit de mídias: [guia de backup/off-site](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/docs/BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md).
+> 🔵 **A perna "1 imutável" tem duas faces.** *Baixa-tecnologia:* pendrive/HD frio (imune por estar **offline**) + CD/M-DISC e papel base64 (WORM). *Alta-tecnologia:* o off-site **append-only** com [`ztc-borg-offsite.sh`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/scripts/debian/ztc-borg-offsite.sh) — nem um PC comprometido apaga as versões antigas. E o **0** (restore testado) tem script: [`ztc-restore-test.sh`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/scripts/debian/ztc-restore-test.sh). Onde hospedar (HD frio/Pi/VPS · custo×energia) + passo a passo do borg + kit de mídias: [guia de backup/off-site](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/docs/BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md).
 
 * * *
 
@@ -1575,7 +1579,7 @@ gpg --card-status
 
 Marque no calendário: **todo dia 1** ou **primeiro domingo do mês** = restore test. Sem isso, o **0** do 3-2-1-1-0 não existe.
 
-> 🔵 **Automatize o ritual:** o [`ztc-restore-test.sh`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/scripts/ztc-restore-test.sh) faz os passos 1–3 com segurança — confere o `sha256` do **snapshot** contra o `MANIFEST`, monta o `.hc` **read-only** (nunca altera o backup) e **abre o `.kdbx`** com senha + keyfile, devolvendo um placar PASS/FAIL/WARN. É o equivalente Debian do [`ztc-tails-restore-test.sh`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/scripts/ztc-tails-restore-test.sh). Continue conferindo as entradas críticas à mão (passo 4) — o script prova que **abre**, você confirma que o **conteúdo** está lá.
+> 🔵 **Automatize o ritual:** o [`ztc-restore-test.sh`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/scripts/debian/ztc-restore-test.sh) faz os passos 1–3 com segurança — confere o `sha256` do **snapshot** contra o `MANIFEST`, monta o `.hc` **read-only** (nunca altera o backup) e **abre o `.kdbx`** com senha + keyfile, devolvendo um placar PASS/FAIL/WARN. É o equivalente Debian do [`ztc-tails-restore-test.sh`](https://github.com/VIPs-com/Zero-Trust-Core/blob/main/tails/scripts/debian/ztc-tails-restore-test.sh). Continue conferindo as entradas críticas à mão (passo 4) — o script prova que **abre**, você confirma que o **conteúdo** está lá.
 
 * * *
 
@@ -1725,7 +1729,7 @@ flowchart LR
 Evita a classe de erro mais comum no primeiro uso: caminho errado, `ZTC_NFC_UID` mal formatado ou conf ausente.
 
 ```sh
-cp scripts/ztc.conf.example ~/ztc-backup/ztc.conf
+cp scripts/debian/ztc.conf.example ~/ztc-backup/ztc.conf
 # Edite caminhos reais (ZTC_VAULT_HC, ZTC_REMOTE, ZTC_NFC_UID opcional)
 ~/bin/ztc-health.sh --check-conf
 ```
@@ -1816,7 +1820,7 @@ Exemplo (ajuste horários):
 Fluxo de **abrir**: presença NTAG (opcional) → montar VeraCrypt → abrir KeePassXC com keyfile no disco.
 Fluxo de **fechar**: confirma KeePass fechado → `sync` → aguarda processos que ainda acessam o mount point (`fuser -m`) → desmontar → snapshot automático do `vault.hc`.
 
-**1. Configure `~/ztc-backup/ztc.conf`** (veja `scripts/ztc.conf.example`):
+**1. Configure `~/ztc-backup/ztc.conf`** (veja `scripts/debian/ztc.conf.example`):
 ```sh
 ZTC_VAULT_HC=...  ZTC_MOUNT_POINT=...  ZTC_KDBX=...  ZTC_KEYFILE=...
 ZTC_NFC_UID=...                       # opcional — exige NTAG presente
@@ -1832,12 +1836,12 @@ ZTC_AUTO_SNAPSHOT=yes  ZTC_SNAPSHOT_DIR=...  ZTC_SNAPSHOT_KEEP=7
 **2. Copie os 4 scripts:**
 
 ```sh
-cp scripts/ztc-open-cofre.sh \
-   scripts/ztc-close-cofre.sh \
-   scripts/ztc-snapshot-vault.sh \
-   scripts/ztc-health.sh ~/bin/
+cp scripts/debian/ztc-open-cofre.sh \
+   scripts/debian/ztc-close-cofre.sh \
+   scripts/debian/ztc-snapshot-vault.sh \
+   scripts/debian/ztc-health.sh ~/bin/
 chmod +x ~/bin/ztc-*.sh
-cp scripts/ztc.conf.example ~/ztc-backup/ztc.conf
+cp scripts/debian/ztc.conf.example ~/ztc-backup/ztc.conf
 chmod 600 ~/ztc-backup/ztc.conf
 # Edite ~/ztc-backup/ztc.conf com seus caminhos
 ```
@@ -2289,7 +2293,7 @@ Exporte chave pública atualizada e distribua (`gpg --export -a`). Se subkeys es
 | `ztc-restore-test.sh` | [COMANDO 4.3](#-comando-43-teste-de-restauração-ritual-mensal) | Restore test: monta snapshot read-only → abre `.kdbx` (a "0" do 3-2-1-1-0) |
 | `ztc-borg-offsite.sh` | [Módulo 4.2](#-módulo-42-vm-off-site--wireguard--rsync) | Off-site **imutável** (borg append-only) — perna "1 imutável" |
 | `ztc-whonix-health.sh` | [guia Whonix](whonix/🧅%20Zero-Trust-Core-Whonix.md#checkpoint-w--validação-final) | Health por sessão na Whonix-Workstation |
-| `ztc.conf` | `scripts/ztc.conf.example` | Variáveis `ZTC_*` — proteja com `chmod 600` |
+| `ztc.conf` | `scripts/debian/ztc.conf.example` | Variáveis `ZTC_*` — proteja com `chmod 600` |
 | Cron exemplo | [COMANDO 5.2](#-comando-52-cron-backup--health) | Agendamento |
 
 **Instalação rápida:** copie de [`scripts/`](https://github.com/VIPs-com/Zero-Trust-Core/tree/main/scripts) no repositório para `~/bin/` (veja `scripts/README.md`), ou copie os blocos `sh` dos COMANDOs acima.
@@ -2707,7 +2711,6 @@ Para uso **diário anônimo** via Tor (persistente, não amnésico), o ecossiste
 
 - [Manual dos Três Mundos](docs/GUIA-DO-USUARIO-TRES-MUNDOS.md) — quando usar Debian/Tails/Whonix, mídia air-gap, OpSec (personalizar os padrões do curso)
 - [Backup/off-site + Kit de Sobrevivência](docs/BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md) — onde hospedar (HD frio/Pi/VPS · custo×energia), `borg` append-only, backup do Whonix
-- [Validação em campo (equipe)](docs/VALIDACAO-EM-CAMPO-EQUIPE.md) — protocolo de testes em hardware real dos processos
 
 * * *
 
@@ -2733,4 +2736,4 @@ Você percorreu do **Tails offline** ao **backup testado e imutável**, passando
 
 * * *
 
-*Versão **1.0.2** (pós-auditoria VIPs-com, maio/2026) · [Auditoria](docs/AUDITORIA-v1.0.1.md) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Projeto Colaborativo VIPs-com*
+*Versão **1.0.2** (pós-auditoria VIPs-com, maio/2026) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Projeto Colaborativo VIPs-com*

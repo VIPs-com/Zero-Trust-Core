@@ -1,4 +1,4 @@
-# Zero Trust Core — Guia Dedicado Tails
+﻿# Zero Trust Core — Guia Dedicado Tails
 
 > **Versão:** 1.0 · **Distro:** Tails 7.8+ · **Licença:** CC BY-SA 4.0  
 > **Pré-requisito:** leitura do [curso principal](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) §0 (Onboarding)
@@ -1428,11 +1428,11 @@ EOF
 
 #### Manutenção do Persistent Storage e saúde do pendrive
 
-O script [`ztc-tails-manutencao.sh`](../scripts/ztc-tails-manutencao.sh) faz uma varredura completa do pendrive Tails. Rode **mensalmente** ou quando suspeitar de problema.
+O script [`ztc-tails-manutencao.sh`](../tails/scripts/debian/ztc-tails-manutencao.sh) faz uma varredura completa do pendrive Tails. Rode **mensalmente** ou quando suspeitar de problema.
 
 **Instalação:**
 ```sh
-cp /caminho/do/repo/scripts/ztc-tails-manutencao.sh ~/Persistent/bin/
+cp /caminho/do/repo/tails/scripts/debian/ztc-tails-manutencao.sh ~/Persistent/bin/
 chmod +x ~/Persistent/bin/ztc-tails-manutencao.sh
 ```
 
@@ -1811,7 +1811,7 @@ No Debian, backups são automatizados com `cron` + `rsync` + WireGuard. No Tails
 
 ### ▸ COMANDO T.4: Backup manual do Persistent Storage
 
-> 🔴 **Use o script [`ztc-tails-backup.sh`](../scripts/ztc-tails-backup.sh) em vez dos comandos abaixo.** O script inclui proteções de segurança que os comandos manuais não têm: validação de caminhos, proteção de permissões (`umask 077`), aviso para salvar passphrase age no KeePassXC antes de cifrar, inclusão automática do certificado de revogação, e assinatura GPG do manifesto. Os comandos abaixo são didáticos — mostram o que o script faz por dentro.
+> 🔴 **Use o script [`ztc-tails-backup.sh`](../tails/scripts/debian/ztc-tails-backup.sh) em vez dos comandos abaixo.** O script inclui proteções de segurança que os comandos manuais não têm: validação de caminhos, proteção de permissões (`umask 077`), aviso para salvar passphrase age no KeePassXC antes de cifrar, inclusão automática do certificado de revogação, e assinatura GPG do manifesto. Os comandos abaixo são didáticos — mostram o que o script faz por dentro.
 
 ```sh
 # 1. Inserir pendrive de backup (diferente do Tails)
@@ -1852,7 +1852,7 @@ a1b2c3d4...  backup-20260601-143022.age
 -rw-r--r-- 1 amnesia amnesia 1.2M Jun  1 14:30 backup-20260601-143022.age
 ```
 
-> **Ou use o script dedicado** [`ztc-tails-backup.sh`](../scripts/ztc-tails-backup.sh) que faz tudo acima + rotação automática.
+> **Ou use o script dedicado** [`ztc-tails-backup.sh`](../tails/scripts/debian/ztc-tails-backup.sh) que faz tudo acima + rotação automática.
 
 ### Rotação manual
 
@@ -1889,7 +1889,7 @@ No Debian, `ztc-health.sh` roda via cron diariamente. No Tails, rode **manualmen
 
 ```sh
 # Copiar o script para ~/Persistent (sobrevive reboot)
-cp /caminho/do/repo/scripts/ztc-tails-health.sh ~/Persistent/bin/
+cp /caminho/do/repo/tails/scripts/debian/ztc-tails-health.sh ~/Persistent/bin/
 chmod +x ~/Persistent/bin/ztc-tails-health.sh
 
 # Rodar

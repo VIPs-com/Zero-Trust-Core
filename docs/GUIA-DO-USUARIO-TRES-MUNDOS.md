@@ -1,4 +1,4 @@
-# 🧭 Manual do Usuário — Os Três Mundos + Como tornar SEU setup único
+﻿# 🧭 Manual do Usuário — Os Três Mundos + Como tornar SEU setup único
 
 **Para o aluno que já entendeu as peças e quer saber: *em que ordem monto, quando uso cada sistema, e como não ficar idêntico ao curso.*** · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
@@ -85,7 +85,7 @@ flowchart TD
 |---|-------|---------------|
 | 1–3 | **Laboratório air-gap** (master, subkeys, revogação, backup) | [Parte 1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-2-parte-1-primeiros-passos-semana-1) · [Playbook 05](../playbooks/2-identidade-pgp/05-tails-master-pgp.md) / [Tails T01–T02](../tails/🐧%20Zero-Trust-Core-Tails.md) |
 | 4 | **Cofre** (KeePassXC + VeraCrypt/LUKS + keyfile) | [Parte 2–3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) · [PB-00 a PB-04](../playbooks/1-cofre/) |
-| 5 | **Backup 3-2-1-1-0** + restore-test + off-site imutável | [Parte 3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) · [`ztc-restore-test.sh`](../scripts/ztc-restore-test.sh) · [`ztc-borg-offsite.sh`](../scripts/ztc-borg-offsite.sh) |
+| 5 | **Backup 3-2-1-1-0** + restore-test + off-site imutável | [Parte 3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) · [`ztc-restore-test.sh`](../scripts/debian/ztc-restore-test.sh) · [`ztc-borg-offsite.sh`](../scripts/debian/ztc-borg-offsite.sh) |
 | 6 | **Escolher o mundo online** (Debian / Whonix / Tails online) | [guia Whonix](../whonix/🧅%20Zero-Trust-Core-Whonix.md) · [guia Tails](../tails/🐧%20Zero-Trust-Core-Tails.md) |
 | 7 | **Rotina diária** (abrir/fechar, disciplina) | [Playbook 00 — cartão de bolso](../playbooks/1-cofre/00-uso-diario.md) |
 
@@ -172,12 +172,12 @@ A perna **"1 imutável"** do 3-2-1-1-0 é a que sobrevive quando tudo dá errado
 arquivos e o backup junto). Duas camadas a cobrem:
 
 1. **HD frio offline** (manual) — copiou, desconectou. Imune porque está **desligado**. ([COMANDO 4.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md))
-2. **Off-site append-only com `borg`** (padrão-ouro) — [`ztc-borg-offsite.sh`](../scripts/ztc-borg-offsite.sh):
+2. **Off-site append-only com `borg`** (padrão-ouro) — [`ztc-borg-offsite.sh`](../scripts/debian/ztc-borg-offsite.sh):
    - O repositório na VM aceita **só adição**: nem o seu PC comprometido consegue **apagar ou sobrescrever** versões antigas.
    - Mantém **histórico de versões** (o `rsync-offsite` só espelha a última).
    - A VM continua vendo **só blobs já cifrados** (o `vault.hc`), agora com a cifra do borg por cima.
 
-> Como ligar: veja o cabeçalho do [`ztc-borg-offsite.sh`](../scripts/ztc-borg-offsite.sh) — setup
+> Como ligar: veja o cabeçalho do [`ztc-borg-offsite.sh`](../scripts/debian/ztc-borg-offsite.sh) — setup
 > append-only na VM (`command="borg serve --append-only ..."`), `borg init` uma vez, e a passphrase do
 > repo guardada no KeePassXC. A **rotação** (liberar espaço) é um job no **servidor**, não no cliente —
 > é isso que mantém a imutabilidade.
@@ -192,11 +192,11 @@ arquivos e o backup junto). Duas camadas a cobrem:
 
 | Mundo | Abrir/usar | Backup | Verificar | Saúde |
 |-------|-----------|--------|-----------|-------|
-| 🖥️ **Debian** | [`ztc-open-cofre`](../scripts/ztc-open-cofre.sh) / [`ztc-close-cofre`](../scripts/ztc-close-cofre.sh) | [`ztc-snapshot-vault`](../scripts/ztc-snapshot-vault.sh) (local) · [`ztc-rsync-offsite`](../scripts/ztc-rsync-offsite.sh) (espelho) · [`ztc-borg-offsite`](../scripts/ztc-borg-offsite.sh) (**imutável**) | [`ztc-restore-test`](../scripts/ztc-restore-test.sh) | [`ztc-health`](../scripts/ztc-health.sh) (cron) |
-| 🔒 **Tails** | manual (LUKS) | [`ztc-tails-backup`](../scripts/ztc-tails-backup.sh) (USB+age) | [`ztc-tails-restore-test`](../scripts/ztc-tails-restore-test.sh) | [`ztc-tails-health`](../scripts/ztc-tails-health.sh) · [`ztc-tails-manutencao`](../scripts/ztc-tails-manutencao.sh) |
-| 🧅 **Whonix** | manual (Playbooks W) | snapshot da **VM no host** | (segredos vêm do Tails) | [`ztc-whonix-health`](../scripts/ztc-whonix-health.sh) |
+| 🖥️ **Debian** | [`ztc-open-cofre`](../scripts/debian/ztc-open-cofre.sh) / [`ztc-close-cofre`](../scripts/debian/ztc-close-cofre.sh) | [`ztc-snapshot-vault`](../scripts/debian/ztc-snapshot-vault.sh) (local) · [`ztc-rsync-offsite`](../scripts/debian/ztc-rsync-offsite.sh) (espelho) · [`ztc-borg-offsite`](../scripts/debian/ztc-borg-offsite.sh) (**imutável**) | [`ztc-restore-test`](../scripts/debian/ztc-restore-test.sh) | [`ztc-health`](../scripts/debian/ztc-health.sh) (cron) |
+| 🔒 **Tails** | manual (LUKS) | [`ztc-tails-backup`](../tails/scripts/debian/ztc-tails-backup.sh) (USB+age) | [`ztc-tails-restore-test`](../tails/scripts/debian/ztc-tails-restore-test.sh) | [`ztc-tails-health`](../tails/scripts/debian/ztc-tails-health.sh) · [`ztc-tails-manutencao`](../tails/scripts/debian/ztc-tails-manutencao.sh) |
+| 🧅 **Whonix** | manual (Playbooks W) | snapshot da **VM no host** | (segredos vêm do Tails) | [`ztc-whonix-health`](../whonix/scripts/debian/ztc-whonix-health.sh) |
 
-> Config de todos: **um** arquivo, [`ztc.conf`](../scripts/ztc.conf.example) (lembre do `chmod 600`).
+> Config de todos: **um** arquivo, [`ztc.conf`](../scripts/debian/ztc.conf.example) (lembre do `chmod 600`).
 
 ---
 

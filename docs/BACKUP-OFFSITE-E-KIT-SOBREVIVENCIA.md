@@ -1,4 +1,4 @@
-# 💾 Backup resiliente, off-site e Kit de Sobrevivência Digital
+﻿# 💾 Backup resiliente, off-site e Kit de Sobrevivência Digital
 
 **Onde guardar as cópias, com que custo e energia, como torná-las imutáveis (à prova de ransomware), e o arsenal de mídias.** · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
@@ -49,7 +49,7 @@
 
 ## 2. Borg na máquina off-site — passo a passo
 
-O [`ztc-borg-offsite.sh`](../scripts/ztc-borg-offsite.sh) é o lado **cliente**. Aqui está o lado
+O [`ztc-borg-offsite.sh`](../scripts/debian/ztc-borg-offsite.sh) é o lado **cliente**. Aqui está o lado
 **servidor** (Pi/VPS/NAS) — o setup extra que torna o repositório **append-only** (imutável):
 
 ### 2.1 — No servidor (uma vez)
@@ -123,7 +123,7 @@ borg extract "ssh://ztc-bkp@10.66.66.1/~/borg-ztc::vault-20260601-030000"  # res
 borg mount "ssh://ztc-bkp@10.66.66.1/~/borg-ztc::vault-..." /mnt/borg && ls /mnt/borg
 ```
 
-> Depois de extrair o `vault.hc`, rode o [`ztc-restore-test.sh`](../scripts/ztc-restore-test.sh) nele —
+> Depois de extrair o `vault.hc`, rode o [`ztc-restore-test.sh`](../scripts/debian/ztc-restore-test.sh) nele —
 > backup que não se testa **não é** backup.
 
 ---
