@@ -121,7 +121,7 @@ Arquivos: [`ztc-health.sh`](./scripts/debian/ztc-health.sh), [`ztc-rsync-offsite
 
 ## Status
 
-✅ **Versão 1.0.2 — pronto para turma piloto** — Auditoria técnica completa (P1–P6 + Red/Blue/Purple Team) · **scorecard 9.2/10**. Pasta [`scripts/`](./scripts/) com 5 scripts e [`playbooks/`](playbooks/) em 3 blocos. Tags: `v1.0.1`, `v1.0.2` · link recíproco no [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert). **Tag `v1.0.3` após turma piloto.**
+✅ **Versão 1.0.3** — trilha Whonix autocontida (W00–W03 · `ztc-whonix-verify-image.sh`) · release [`v1.0.3`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3). Baseline anterior: v1.0.2 (scorecard 9.2/10).
 
 **Adições pós-v1.0.2 (main):**
 - **Capstone Whonix + tooling de backup completo:** guia dedicado [`whonix/`](whonix/🧅%20Zero-Trust-Core-Whonix.md) (escritório anônimo via Tor · playbooks **W00–W03**), [manual dos 3 mundos](docs/GUIA-DO-USUARIO-TRES-MUNDOS.md) e [backup/off-site + kit de sobrevivência](docs/BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md). Scripts Whonix: `ztc-whonix-install-virtualbox.sh`, `ztc-whonix-verify-image.sh`, `ztc-whonix-import-ova.sh`, `ztc-whonix-health.sh`. Outros scripts: `ztc-restore-test.sh` (a "0 erros" do 3-2-1-1-0 no Debian), `ztc-borg-offsite.sh` (off-site **imutável** append-only). Auditoria Red/Blue/Purple aplicada aos novos artefatos.
