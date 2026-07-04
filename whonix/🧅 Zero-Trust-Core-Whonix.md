@@ -335,13 +335,16 @@ Execução direta, copiar e colar — espelham os playbooks Tails (T01–T04):
 
 | # | Playbook | O que você terá | Tempo |
 |---|----------|-----------------|------:|
+| [W00](./playbooks/W00-instalar-configurar-virtualbox.md) | Instalar VirtualBox | Host Debian com Oracle VirtualBox verificado (GPG) | ~20 min |
 | [W01](./playbooks/W01-instalar-whonix.md) | Instalar Whonix | Gateway + Workstation verificados e isolados | ~40 min |
 | [W02](./playbooks/W02-importar-subkeys-tails.md) | Importar subkeys do Tails | Identidade PGP online (master fica no Tails) | ~20 min |
 | [W03](./playbooks/W03-bitcoin-psbt-tails-whonix.md) | Bitcoin PSBT Tails↔Whonix | Transação anônima sem expor a seed | ~25 min |
 
 > Índice completo: [whonix/playbooks/README.md](./playbooks/README.md).
 >
-> **Script companheiro:** [`ztc-whonix-health.sh`](../whonix/scripts/debian/ztc-whonix-health.sh) — checagem de
+> **Scripts host (W00–W01):** [`ztc-whonix-install-virtualbox.sh`](./scripts/ztc-whonix-install-virtualbox.sh) · [`ztc-whonix-import-ova.sh`](./scripts/ztc-whonix-import-ova.sh)
+>
+> **Script Workstation (sessão):** [`ztc-whonix-health.sh`](./scripts/ztc-whonix-health.sh) — checagem de
 > sessão na Workstation (Tor via `systemcheck`, subkeys com master ausente, gpg-agent, `age`). Espelha
 > o `ztc-tails-health.sh`. Rode no início de cada sessão.
 >
@@ -354,7 +357,7 @@ Execução direta, copiar e colar — espelham os playbooks Tails (T01–T04):
 ## Referências oficiais
 
 - **Whonix** — [whonix.org](https://www.whonix.org/) · [documentação](https://www.whonix.org/wiki/Documentation)
-- **Verificar o download** — [whonix.org/wiki/Verify_the_virtual_machine_images](https://www.whonix.org/wiki/Verify_the_virtual_machine_images)
+- **Verificar o download** — [whonix.org/wiki/Verify_the_images](https://www.whonix.org/wiki/Verify_the_images)
 - **VPN + Tor (por que tomar cuidado)** — [whonix.org/wiki/Tunnels/Introduction](https://www.whonix.org/wiki/Tunnels/Introduction)
 - **Qubes-Whonix (padrão-ouro)** — [qubes-os.org](https://www.qubes-os.org/) · [whonix.org/wiki/Qubes](https://www.whonix.org/wiki/Qubes)
 - **Tor bridges (censura/ISP)** — [tb-manual.torproject.org/bridges](https://tb-manual.torproject.org/bridges/)

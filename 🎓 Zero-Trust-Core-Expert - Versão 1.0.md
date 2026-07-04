@@ -2614,6 +2614,8 @@ Tabela comparativa — escolha conforme o que você tem:
 
 ```sh
 # Ubuntu/Debian: instalar VirtualBox
+# Whonix (capstone): caminho verificado — whonix/playbooks/W00 ou ztc-whonix-install-virtualbox.sh
+# H5a (VM backup off-site): pacote Debian também aceitável:
 sudo apt install virtualbox
 
 # Criar VM via VirtualBox GUI:

@@ -14,15 +14,18 @@ o air-gap do Tails: o Tails cria e guarda a master; o Whonix usa as subkeys no d
 
 ```
 whonix/playbooks/
-├── W01-instalar-whonix.md           ← Gateway + Workstation (verificar + isolar)
-├── W02-importar-subkeys-tails.md    ← Subkeys do Tails (master fica no air-gap)
-└── W03-bitcoin-psbt-tails-whonix.md ← Watch-only no Whonix, assinatura no Tails
+├── W00-instalar-configurar-virtualbox.md  ← Host: VirtualBox verificado (Oracle + GPG)
+├── W01-instalar-whonix.md                 ← Gateway + Workstation (verificar + isolar)
+├── W02-importar-subkeys-tails.md          ← Subkeys do Tails (master fica no air-gap)
+└── W03-bitcoin-psbt-tails-whonix.md       ← Watch-only no Whonix, assinatura no Tails
 ```
 
 ```mermaid
 flowchart LR
-    W1["🚪 W01 — Instalar Whonix<br/>Gateway + Workstation"] --> W2["🔑 W02 — Identidade Online<br/>Subkeys via Tor"]
+    W0["🖥️ W00 — VirtualBox<br/>host verificado"] --> W1["🚪 W01 — Instalar Whonix<br/>Gateway + Workstation"]
+    W1 --> W2["🔑 W02 — Identidade Online<br/>Subkeys via Tor"]
     W2 --> W3["₿ W03 — Bitcoin PSBT<br/>Watch-only + assinatura offline"]
+    style W0 fill:#3b82f6,color:#fff
     style W1 fill:#0f766e,color:#fff
     style W2 fill:#a21caf,color:#fff
     style W3 fill:#f59e0b,color:#000
@@ -34,16 +37,20 @@ flowchart LR
 
 | # | Playbook | O que você terá | Tempo |
 |---|----------|-----------------|------:|
+| [W00](./W00-instalar-configurar-virtualbox.md) | Instalar VirtualBox | Host com Oracle VirtualBox verificado (GPG + DKMS + vboxusers) | ~20 min |
 | [W01](./W01-instalar-whonix.md) | Instalar Whonix | Gateway + Workstation verificados, Tor forçado, sem vazamento de IP | ~40 min |
 | [W02](./W02-importar-subkeys-tails.md) | Importar subkeys do Tails | `sec#` + 3 `ssb` no Whonix; master nunca saiu do air-gap | ~20 min |
 | [W03](./W03-bitcoin-psbt-tails-whonix.md) | Bitcoin PSBT Tails↔Whonix | Transação transmitida via Tor sem a seed tocar a rede | ~25 min |
+
+**Scripts (host):** [`ztc-whonix-install-virtualbox.sh`](../scripts/ztc-whonix-install-virtualbox.sh) · [`ztc-whonix-import-ova.sh`](../scripts/ztc-whonix-import-ova.sh)  
+**Script (Workstation):** [`ztc-whonix-health.sh`](../scripts/ztc-whonix-health.sh)
 
 ---
 
 ## Ordem recomendada
 
 ```
-Guia Whonix (conceitos) → W01 (instalar) → W02 (identidade) → W03 (Bitcoin, opcional)
+Guia Whonix (conceitos) → W00 (VirtualBox) → W01 (Whonix) → W02 (identidade) → W03 (Bitcoin, opcional)
 ```
 
 > **Primeiro:** leia o [guia principal Whonix](../🧅%20Zero-Trust-Core-Whonix.md) — modelo
@@ -57,6 +64,7 @@ Guia Whonix (conceitos) → W01 (instalar) → W02 (identidade) → W03 (Bitcoin
 
 | Whonix | Equivale a (Tails) | Diferença principal |
 |--------|---------------------|-------------------|
+| W00 | (host) preparação | VirtualBox verificado no Debian — não existe equivalente Tails |
 | W01 | T0 (boot/verificação) + T01 | Instala 2 VMs em vez de gravar 1 pendrive; persistente |
 | W02 | [T02](../../tails/playbooks/T02-tails-online-identity.md) | Procedimento **idêntico** no que importa; muda o ambiente de destino |
 | W03 | [T0.12 Electrum](../../tails/🐧%20Zero-Trust-Core-Tails.md#t012--electrum-carteira-bitcoin-air-gap-e-online-no-tails) | O "lado online" é o Whonix; a assinatura continua no Tails air-gap |

@@ -6,7 +6,7 @@ Scripts oficiais do curso [Zero Trust Core Expert](https://github.com/VIPs-com/Z
 | --- | --- | --- |
 | 🖥️ **Debian** (host diário) | [`debian/`](./debian/) | cofre, snapshot, rsync, borg, restore-test, health |
 | 🔒 **Tails** (air-gap) | [`../tails/scripts/`](../tails/scripts/) | backup, health, manutenção, restore-test |
-| 🧅 **Whonix** (online anônimo) | [`../whonix/scripts/`](../whonix/scripts/) | health por sessão |
+| 🧅 **Whonix** (online anônimo) | [`../whonix/scripts/`](../whonix/scripts/) | install-virtualbox, import-ova (host), health (Workstation) |
 
 Correspondem aos COMANDOs **4.2.3**, **5.1**, **5.2** e **5.3** no arquivo canônico do curso.
 
@@ -22,7 +22,15 @@ cp ztc.conf.example ~/ztc-backup/ztc.conf
 ~/bin/ztc-health.sh --check-conf
 ```
 
-Tails e Whonix: copie os scripts da pasta do respectivo mundo para `~/Persistent/bin/` (Tails) ou `~/bin/` (Whonix) — veja os guias dedicados.
+Tails e Whonix: copie os scripts da pasta do respectivo mundo para `~/Persistent/bin/` (Tails) ou `~/bin/` (Whonix Workstation). Scripts **host** Whonix (`ztc-whonix-install-virtualbox.sh`, `ztc-whonix-import-ova.sh`) rodam no Debian — veja [W00](../whonix/playbooks/W00-instalar-configurar-virtualbox.md) e [W01](../whonix/playbooks/W01-instalar-whonix.md).
+
+## Arquivos — Whonix (`../whonix/scripts/`)
+
+| Arquivo | Onde roda | Função |
+| --- | --- | --- |
+| `ztc-whonix-install-virtualbox.sh` | **Host** Debian | Playbook W00 — Oracle repo + GPG + DKMS + Extension Pack opcional |
+| `ztc-whonix-import-ova.sh` | **Host** Debian | Playbook W01 — verify `.ova` + `VBoxManage import` (fingerprint manual `-f`) |
+| `ztc-whonix-health.sh` | **Workstation** | Health check por sessão (Tor via `systemcheck`, subkeys, gpg-agent, `age`) |
 
 ## Arquivos — Debian (`debian/`)
 
@@ -45,12 +53,6 @@ Tails e Whonix: copie os scripts da pasta do respectivo mundo para `~/Persistent
 | `ztc-tails-health.sh` | Health check manual (GPG, Persistent, KeePassXC, backup) |
 | `ztc-tails-manutencao.sh` | Diagnóstico do pendrive (espaço, filesystem, flash USB, limpeza) |
 | `ztc-tails-restore-test.sh` | Restore test completo (descriptografa + valida .kdbx + GPG + keyfile + revogação) |
-
-## Arquivos — Whonix (`../whonix/scripts/`)
-
-| Arquivo | Função |
-| --- | --- |
-| `ztc-whonix-health.sh` | Health check por sessão (ambiente, Tor via `systemcheck`, subkeys com master ausente, gpg-agent, `age`) |
 
 ## Segurança
 

@@ -5,7 +5,7 @@
 **Pré-requisitos:**
 - [ ] Host com **virtualização** habilitada na BIOS/UEFI (VT-x / AMD-V)
 - [ ] ~8 GB de RAM e dezenas de GB de disco livres
-- [ ] **VirtualBox** instalado (ou KVM/libvirt) num host **confiável e atualizado**
+- [ ] **VirtualBox** instalado e configurado (ou KVM/libvirt) num host **confiável e atualizado** — se ainda não tiver, siga primeiro o [W00 — Instalar e Configurar o VirtualBox](./W00-instalar-configurar-virtualbox.md)
 - [ ] Leu o [guia principal Whonix](../🧅%20Zero-Trust-Core-Whonix.md) — em especial "Requisitos honestos"
 
 > 🔴 **Em PC fraco, pare aqui** e use o [guia Tails](../../tails/🐧%20Zero-Trust-Core-Tails.md). Duas VMs travando não te deixam mais seguro.
@@ -41,6 +41,8 @@ https://www.whonix.org/wiki/Download
 ```
 
 > Baixe também o arquivo de **assinatura** (`.asc`/`.sig`) correspondente, na mesma página.
+>
+> Variante com GUI atual: **LXQt** (ex.: `Whonix-LXQt-<versão>.Intel_AMD64.ova`). A variante **Xfce** foi descontinuada. Alternativa sem GUI: **CLI**. Revalide nomes em [whonix.org/wiki/VirtualBox](https://www.whonix.org/wiki/VirtualBox) antes de cada turma.
 
 ---
 
@@ -50,14 +52,15 @@ A chave de assinatura oficial e seu **fingerprint** estão publicados na página
 **Não confie em fingerprint de terceiros** — pegue da fonte:
 
 ```
-https://www.whonix.org/wiki/Verify_the_virtual_machine_images
+https://www.whonix.org/wiki/Verify_the_images
 ```
 
 ```sh
-# Importar a chave conforme instruído na página oficial (ex.: via arquivo .asc baixado de derivative.org)
-gpg --import patrick.asc
+# Importar a chave conforme instruído na página oficial
+# (baixe derivative.asc em https://www.whonix.org/keys/derivative.asc)
+gpg --import derivative.asc
 
-# Conferir o fingerprint contra o publicado em whonix.org/wiki/Verify_the_virtual_machine_images
+# Conferir o fingerprint contra o publicado em whonix.org/wiki/Verify_the_images
 gpg --keyid-format long --fingerprint <FINGERPRINT_DA_PÁGINA_OFICIAL>
 ```
 
@@ -96,6 +99,34 @@ VBoxManage list vms     # deve listar Whonix-Gateway e Whonix-Workstation
 
 > **KVM/libvirt:** siga o guia oficial — extraia o `.libvirt.xz` e importe as redes + domínios com os
 > scripts/arquivos fornecidos pelo Whonix. O isolamento de rede é equivalente.
+
+---
+
+## Automação (opcional — host)
+
+O script [`ztc-whonix-import-ova.sh`](../scripts/ztc-whonix-import-ova.sh) automatiza importação da chave, verificação de fingerprint (informado por você), `gpg --verify` e `VBoxManage import`. **Não** automatiza passos dentro das VMs (Anon Connection Wizard, `systemcheck`).
+
+```sh
+cd whonix/scripts
+chmod +x ztc-whonix-import-ova.sh
+
+# Confira o fingerprint em https://www.whonix.org/wiki/Verify_the_images ANTES de rodar
+sudo ./ztc-whonix-import-ova.sh \
+     -i /caminho/Whonix-LXQt-VERSAO.Intel_AMD64.ova \
+     -s /caminho/Whonix-LXQt-VERSAO.Intel_AMD64.ova.asc \
+     -k /caminho/derivative.asc \
+     -f "FINGERPRINT_CONFERIDO_NA_PAGINA_OFICIAL" \
+     -b
+```
+
+| Flag | Função |
+|------|--------|
+| `-f` | Fingerprint **obrigatório** (sempre da página oficial) |
+| `-b` | Inicia Gateway (headless) e Workstation (GUI) após import |
+| `-t lxqt\|cli` | Variante esperada (opcional; detecta pelo nome do arquivo) |
+| `-y` | Modo não-interativo |
+
+Log: `/var/log/whonix-install.log`
 
 ---
 
