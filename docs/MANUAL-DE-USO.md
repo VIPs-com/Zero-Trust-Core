@@ -57,7 +57,7 @@ Zero-Trust-Core/
 │   └── scripts/                       ← ztc-tails-*.sh (4)
 ├── whonix/                            ← guia dedicado Whonix (capstone — escritório anônimo via Tor)
 │   ├── playbooks/                     ← W00 VirtualBox · W01–W03 Whonix
-│   └── scripts/                       ← ztc-whonix-install-virtualbox, import-ova, health
+│   └── scripts/                       ← ztc-whonix-install-virtualbox, verify-image, import-ova, health
 └── 🎓 Zero-Trust-Core-Expert - Versão 1.0.md   ← CURSO (estude aqui)
 ```
 
