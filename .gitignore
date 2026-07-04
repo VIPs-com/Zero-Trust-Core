@@ -1,14 +1,16 @@
-# --- Interno (não publicar no GitHub) ---
-.cursor/
-_interno/
-.pesquisas/
-.docs-equipes-discuções/
-.docs-equipes-discussões/
-ROADMAP.md
-SYLLABUS.md
+# --- Repo público = SÓ O CURSO. Camada equipe fica em zero-equipe-dev/ (local). ---
+# (Agentes IA leem CLAUDE.md da raiz mesmo gitignorado.)
 CLAUDE.md
 
-# docs/ — só publicar MANUAL-DE-USO e índice (resto interno/legado)
+# --- Doc interna equipe dev ---
+zero-equipe-dev/
+MANIFEST.txt
+
+# --- Arquivos compactados / binários grandes (backups locais) ---
+*.zip
+*.7z
+
+# docs/ — só publicar whitelist (resto interno/legado)
 /docs/*
 !/docs/README.md
 !/docs/MANUAL-DE-USO.md
