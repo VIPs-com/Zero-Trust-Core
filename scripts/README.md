@@ -29,6 +29,7 @@ Tails e Whonix: copie os scripts da pasta do respectivo mundo para `~/Persistent
 | Arquivo | Onde roda | Função |
 | --- | --- | --- |
 | `ztc-whonix-install-virtualbox.sh` | **Host** Debian | Playbook W00 — Oracle repo + GPG + DKMS + Extension Pack opcional |
+| `ztc-whonix-verify-image.sh` | **Host** Debian | W01 — só verificação PGP (`derivative.asc`, `-f` da wiki) |
 | `ztc-whonix-import-ova.sh` | **Host** Debian | Playbook W01 — verify `.ova` + `VBoxManage import` (fingerprint manual `-f`) |
 | `ztc-whonix-health.sh` | **Workstation** | Health check por sessão (Tor via `systemcheck`, subkeys, gpg-agent, `age`) |
 

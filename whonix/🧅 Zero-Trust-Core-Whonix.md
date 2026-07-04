@@ -342,7 +342,7 @@ Execução direta, copiar e colar — espelham os playbooks Tails (T01–T04):
 
 > Índice completo: [whonix/playbooks/README.md](./playbooks/README.md).
 >
-> **Scripts host (W00–W01):** [`ztc-whonix-install-virtualbox.sh`](./scripts/ztc-whonix-install-virtualbox.sh) · [`ztc-whonix-import-ova.sh`](./scripts/ztc-whonix-import-ova.sh)
+> **Scripts host (W00–W01):** [`ztc-whonix-install-virtualbox.sh`](./scripts/ztc-whonix-install-virtualbox.sh) · [`ztc-whonix-verify-image.sh`](./scripts/ztc-whonix-verify-image.sh) · [`ztc-whonix-import-ova.sh`](./scripts/ztc-whonix-import-ova.sh)
 >
 > **Script Workstation (sessão):** [`ztc-whonix-health.sh`](./scripts/ztc-whonix-health.sh) — checagem de
 > sessão na Workstation (Tor via `systemcheck`, subkeys com master ausente, gpg-agent, `age`). Espelha

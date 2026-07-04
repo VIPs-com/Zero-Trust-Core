@@ -104,7 +104,19 @@ VBoxManage list vms     # deve listar Whonix-Gateway e Whonix-Workstation
 
 ## Automação (opcional — host)
 
-O script [`ztc-whonix-import-ova.sh`](../scripts/ztc-whonix-import-ova.sh) automatiza importação da chave, verificação de fingerprint (informado por você), `gpg --verify` e `VBoxManage import`. **Não** automatiza passos dentro das VMs (Anon Connection Wizard, `systemcheck`).
+**Só verificar PGP** (evidência antes do import):
+
+[`ztc-whonix-verify-image.sh`](../scripts/ztc-whonix-verify-image.sh)
+
+```sh
+chmod +x ztc-whonix-verify-image.sh
+./ztc-whonix-verify-image.sh \
+     -i /caminho/Whonix-LXQt-VERSAO.Intel_AMD64.ova \
+     -s /caminho/Whonix-LXQt-VERSAO.Intel_AMD64.ova.asc \
+     -f "FINGERPRINT_CONFERIDO_NA_PAGINA_OFICIAL"
+```
+
+**Verificar + importar:** [`ztc-whonix-import-ova.sh`](../scripts/ztc-whonix-import-ova.sh)
 
 ```sh
 cd whonix/scripts
