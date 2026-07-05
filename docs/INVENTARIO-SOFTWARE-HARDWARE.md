@@ -1,6 +1,6 @@
 ﻿# 📦 Inventário — software e hardware
 
-**Zero Trust Core Expert v1.0.2** · Maio/2026
+**Zero Trust Core Expert v1.0.3** · Jul/2026 (baseline v1.0.2 · maio/2026)
 
 Lista **completa e organizada** do que o aluno encontra no repositório e do que precisa montar no ambiente — por plataforma, por papel no curso e por trilha (**Turbo** / **Expert**).
 
@@ -414,6 +414,7 @@ Expert essencial + off-site (VM) + itens de contingência física.
 | Tópico | Link |
 | --- | --- |
 | Curso canônico | [🎓 Zero-Trust-Core-Expert](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) |
+| Release v1.0.3 (atual) | https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3 |
 | Release v1.0.2 | https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.2 |
 | OpenPGP (pré-requisito Expert) | https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert |
 

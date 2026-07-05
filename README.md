@@ -131,7 +131,7 @@ Arquivos: [`ztc-health.sh`](./scripts/debian/ztc-health.sh), [`ztc-rsync-offsite
 - **Scripts por mundo:** `scripts/debian/` · `tails/scripts/` · `whonix/scripts/` — [`ztc-close-cofre.sh`](scripts/debian/ztc-close-cofre.sh), [`ztc-snapshot-vault.sh`](scripts/debian/ztc-snapshot-vault.sh) e demais.
 - **Auditoria Red/Blue/Purple Team** — 10 ataques simulados nos scripts reais. Endurecimentos aplicados: chave SSH com `command=rrsync` na VM, `rsync --checksum`, `StrictHostKeyChecking`, `chmod 600` no conf, Reset Code do smartcard documentado. Scorecard **8.7 → 9.2/10**.
 - **Distro canônica padronizada:** Debian 13 (Trixie) em todo o curso, scripts e docs.
-- **Repositório irmão:** [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) ganhou [`playbooks/`](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/tree/main/playbooks) — 9 guias código-primeiro (Módulos 0–10) com fluxogramas Mermaid.
+- **Repositório irmão:** [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) ganhou [`playbooks/`](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/tree/main/playbooks) — **10 guias** código-primeiro (0–9 + capstone Whonix) com fluxogramas Mermaid.
 - **Link recíproco:** [Privacy-OS-Hub](https://github.com/VIPs-com/Privacy-OS-Hub) aponta para este repositório como baseline **opcional** (repo separado).
 
 ## Ecossistema VIPs-com (repositórios relacionados)

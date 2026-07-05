@@ -10,7 +10,7 @@
 **Baseline conferida:** maio/2026 (issue editorial v1.0.1)  
 **Metodologia:** 🔴🟡🟢🔵 + COMANDO A COMANDO + Checkpoints  
 **Licença:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)  
-**Status:** ✅ **VERSÃO 1.0.2** — Curso completo + correções pós-auditoria VIPs-com (maio/2026)
+**Status:** ✅ **VERSÃO 1.0.3** — Curso completo + trilha Whonix autocontida (jul/2026) · baseline v1.0.2 (maio/2026)
 
 > 📌 **Nota editorial:** **`🎓 Zero-Trust-Core-Expert - Versão 1.0.md`** é o curso oficial deste repositório. O nome didático é **Zero Trust Core Expert**; o *filename* usa hífens para compatibilidade com Git e Windows.
 
@@ -241,7 +241,7 @@ Ao final deste curso, você será capaz de:
 
 ## 🗺️ 1. MAPA DO CURSO (VISÃO GERAL)
 
-> ⚠️ **Somente consulta:** índice visual alinhado à **v1.0.2** (maio/2026). O conteúdo vinculante são os títulos `##` / `###` e cada **▸ COMANDO** no corpo do arquivo — não apenas linhas desta árvore.
+> ⚠️ **Somente consulta:** índice visual alinhado à **v1.0.3** (jul/2026). O conteúdo vinculante são os títulos `##` / `###` e cada **▸ COMANDO** no corpo do arquivo — não apenas linhas desta árvore.
 
 ### 🧭 Navegação em 3 camadas (menos fricção)
 
@@ -258,7 +258,7 @@ Ao final deste curso, você será capaz de:
 ### 📁 Camada A — Repositório GitHub (não está só neste `.md`)
 
 ```
-Zero-Trust-Core/  (v1.0.2)
+Zero-Trust-Core/  (v1.0.3)
 │
 ├── README.md ........................ porta de entrada · badges · jornada · kits R$
 ├── 🎓 Zero-Trust-Core-Expert - Versão 1.0.md ... VOCÊ ESTÁ AQUI (curso canônico)
@@ -331,7 +331,7 @@ Clique para ir direto ao módulo. Se um link não saltar, use `Ctrl+F` pelo nome
 *Números à esquerda (0, 1, 2…) = seções `##` do Markdown. “Parte N” = nome didático.*
 
 ```
-📚 Zero Trust Core Expert – v1.0.2 (canônica)
+📚 Zero Trust Core Expert – v1.0.3 (canônica)
 │
 ├── §0  ONBOARDING ........................... (tudo antes deste mapa)
 │   ├── Carta · Resultados · Perfil
@@ -400,6 +400,7 @@ Clique para ir direto ao módulo. Se um link não saltar, use `Ctrl+F` pelo nome
 | **Instrutor** | 1ª aula: slides 1–4 → Módulo 0 | [SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md) |
 | **Equipe** | Tag/release futura só após mudança editorial relevante | GitHub Releases |
 | **Concluído v1.0.2** | Auditoria, backup 2B.2, VeraCrypt CLI, script 5.3 | Tags `v1.0.1`, `v1.0.2` |
+| **Concluído v1.0.3** | Trilha Whonix W00–W03 · `ztc-whonix-verify-image.sh` | Tag [`v1.0.3`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3) |
 
 * * *
 
@@ -2343,7 +2344,7 @@ Referência **oficial** para montar o ambiente — espelha o que o aluno encontr
 
 **Resumo mínimo (Expert):** Tails USB · GnuPG · smartcard + leitor CCID · 3× NTAG · KeePassXC · VeraCrypt · `age` · HD externo · VM + WireGuard · scripts `ztc-*` · runbook impresso.
 
-**Não faz parte da v1.0.2 (horizonte ⚫):** Sequoia PGP como substituto do GnuPG; GnuPG 2.5 ML-KEM em produção; hidden volumes VeraCrypt como COMANDO obrigatório.
+**Não faz parte do núcleo v1.0.3 (horizonte ⚫):** Sequoia PGP como substituto do GnuPG; GnuPG 2.5 ML-KEM em produção; hidden volumes VeraCrypt como COMANDO obrigatório.
 
 * * *
 
@@ -2744,4 +2745,4 @@ Você percorreu do **Tails offline** ao **backup testado e imutável**, passando
 
 * * *
 
-*Versão **1.0.2** (pós-auditoria VIPs-com, maio/2026) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Projeto Colaborativo VIPs-com*
+*Versão **1.0.3** (trilha Whonix · jul/2026) · [Release v1.0.3](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Projeto Colaborativo VIPs-com*

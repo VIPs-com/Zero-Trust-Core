@@ -121,7 +121,7 @@ Objetivo · Tempo · Pré-requisitos
 
 ## Quer mais playbooks? Repo irmão
 
-O curso base [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) tem sua própria pasta [`playbooks/`](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/tree/main/playbooks) com **9 guias código-primeiro** cobrindo GnuPG do zero — ambiente, primeira chave, cifrar/assinar, backup, Git assinado, SSH, Tails e manutenção. Útil se você está fazendo os dois cursos em paralelo (trilha Expert).
+O curso base [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert) tem sua própria pasta [`playbooks/`](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert/tree/main/playbooks) com **10 guias código-primeiro** (0–9 + capstone Whonix) — ambiente, chaves, backup, Git, SSH, Tails, manutenção e Whonix. Útil se você está fazendo os dois cursos em paralelo (trilha Expert).
 
 ---
 
