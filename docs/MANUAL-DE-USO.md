@@ -1,6 +1,6 @@
 # 📖 Manual de uso — Zero Trust Core Expert
 
-**Para quem acabou de chegar ao repositório** · Maio/2026 · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+**Para quem acabou de chegar ao repositório** · Jul/2026 · release **v1.0.3** · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 Este manual **não substitui** o curso. Ele explica **como navegar o repositório**, **como este projeto se liga ao [OpenPGP-GPG do Zero ao Expert](https://github.com/VIPs-com/OpenPGP-GPG-do-Zero-ao-Expert#trilha-integrada-zero-trust-core-expert)** e **o que você será capaz de fazer** ao concluir cada trilha.
 
@@ -361,4 +361,4 @@ Confira o cabeçalho do `.md`: Tails [tails.net/latest](https://tails.net/latest
 
 **Próximo passo:** abra o [curso canônico](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md) na seção **0. ONBOARDING** e siga a Parte 1 se estiver na trilha Expert.
 
-*Manual de uso · Zero Trust Core Expert · VIPs-com · Maio/2026*
+*Manual de uso · Zero Trust Core Expert · VIPs-com · Jul/2026 · v1.0.3*

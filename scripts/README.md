@@ -6,7 +6,7 @@ Scripts oficiais do curso [Zero Trust Core Expert](https://github.com/VIPs-com/Z
 | --- | --- | --- |
 | 🖥️ **Debian** (host diário) | [`debian/`](./debian/) | cofre, snapshot, rsync, borg, restore-test, health |
 | 🔒 **Tails** (air-gap) | [`../tails/scripts/`](../tails/scripts/) | backup, health, manutenção, restore-test |
-| 🧅 **Whonix** (online anônimo) | [`../whonix/scripts/`](../whonix/scripts/) | install-virtualbox, import-ova (host), health (Workstation) |
+| 🧅 **Whonix** (online anônimo) | [`../whonix/scripts/`](../whonix/scripts/) | install-virtualbox, verify-image, import-ova (host), health (Workstation) |
 
 Correspondem aos COMANDOs **4.2.3**, **5.1**, **5.2** e **5.3** no arquivo canônico do curso.
 

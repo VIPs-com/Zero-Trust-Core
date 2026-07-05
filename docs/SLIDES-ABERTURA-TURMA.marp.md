@@ -3,7 +3,7 @@ marp: true
 theme: default
 paginate: true
 title: Zero Trust Core Expert — Abertura de turma
-description: 4 slides · VIPs-com · v1.0.2
+description: 4 slides · VIPs-com · v1.0.3
 style: |
   section { font-size: 28px; }
   table { font-size: 22px; }
@@ -14,7 +14,7 @@ style: |
 # Zero Trust Core Expert
 ## Abertura de turma · 4 slides
 
-VIPs-com · v1.0.2 · [Repositório](https://github.com/VIPs-com/Zero-Trust-Core)
+VIPs-com · v1.0.3 · [Repositório](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3)
 
 ---
 

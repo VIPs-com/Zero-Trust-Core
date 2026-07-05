@@ -165,4 +165,4 @@ Comece pequeno. Cada checkpoint é uma vitória real.
 
 ---
 
-*INICIE AQUI · Zero Trust Core Expert · VIPs-com · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Maio/2026*
+*INICIE AQUI · Zero Trust Core Expert · VIPs-com · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Jul/2026 · v1.0.3*

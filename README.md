@@ -123,7 +123,7 @@ Arquivos: [`ztc-health.sh`](./scripts/debian/ztc-health.sh), [`ztc-rsync-offsite
 
 ✅ **Versão 1.0.3** — trilha Whonix autocontida (W00–W03 · `ztc-whonix-verify-image.sh`) · release [`v1.0.3`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3). Baseline anterior: v1.0.2 (scorecard 9.2/10).
 
-**Adições pós-v1.0.2 (main):**
+**Conteúdo da v1.0.3 (release [`v1.0.3`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3)):**
 - **Capstone Whonix + tooling de backup completo:** guia dedicado [`whonix/`](whonix/🧅%20Zero-Trust-Core-Whonix.md) (escritório anônimo via Tor · playbooks **W00–W03**), [manual dos 3 mundos](docs/GUIA-DO-USUARIO-TRES-MUNDOS.md) e [backup/off-site + kit de sobrevivência](docs/BACKUP-OFFSITE-E-KIT-SOBREVIVENCIA.md). Scripts Whonix: `ztc-whonix-install-virtualbox.sh`, `ztc-whonix-verify-image.sh`, `ztc-whonix-import-ova.sh`, `ztc-whonix-health.sh`. Outros scripts: `ztc-restore-test.sh` (a "0 erros" do 3-2-1-1-0 no Debian), `ztc-borg-offsite.sh` (off-site **imutável** append-only). Auditoria Red/Blue/Purple aplicada aos novos artefatos.
 - **[Apêndice G](./🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-g--módulos-h-turbo-híbrido)** — Módulos H Turbo Híbrido (H1 QR · H2 metal · H3 Android · H4 iPhone · H5 servidor · H6 TOTP). Ative conforme o hardware que você já tem — custo extra R$0–50 por módulo.
 - **[docs/APOSTILA-GUIA-PRATICO.md](docs/APOSTILA-GUIA-PRATICO.md)** — guia complementar estilo livro (9 capítulos): ranking Top 20 hardware keys, Frankenstein Key DIY (5 kits), protocolos avançados, cronograma manutenção, governança home lab, playbook de incidentes (5 cenários), cockpit Prometheus/Grafana + PowerShell/Rainmeter.

@@ -1,5 +1,7 @@
 # Documentação pública — Zero Trust Core Expert
 
+**Release atual:** [`v1.0.3`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3) (jul/2026) — trilha Whonix W00–W03 + scripts `ztc-whonix-*`.
+
 | Documento | Para quê |
 | --- | --- |
 | [**INICIE-AQUI.md**](./INICIE-AQUI.md) | **Primeira vez no curso** — 8 min, mapa visual das trilhas, o que comprar, ordem de estudo |

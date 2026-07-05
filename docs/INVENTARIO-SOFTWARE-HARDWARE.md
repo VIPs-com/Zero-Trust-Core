@@ -17,7 +17,7 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 | 🟢 | **Obrigatório** na trilha indicada — há COMANDO ou checkpoint |
 | 🟡 | **Recomendado** — facilita a turma; alternativa aceitável documentada |
 | 🔵 | **Opcional / lab** — útil mas não bloqueia checkpoints |
-| ⚫ | **Horizonte** — citado como futuro ou **não** faz parte da v1.0.2 |
+| ⚫ | **Horizonte** — citado como futuro ou **não** faz parte da v1.0.3 |
 
 * * *
 
@@ -33,6 +33,7 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 | [`scripts/debian/ztc-health.sh`](../scripts/debian/ztc-health.sh) | Aluno (Expert) | [Módulo 5](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-5-automação-e-health-check) — health-check |
 | [`scripts/debian/ztc-rsync-offsite.sh`](../scripts/debian/ztc-rsync-offsite.sh) | Aluno (Expert) | [Módulo 4.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-42-vm-off-site--wireguard--rsync) — backup VM |
 | [`scripts/debian/ztc-open-cofre.sh`](../scripts/debian/ztc-open-cofre.sh) | Aluno (Expert) | [COMANDO 5.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-53-keepass--veracrypt-condicional-nfc-opcional) — após Checkpoint 2 |
+| [`whonix/scripts/`](../whonix/scripts/) | Aluno (Expert capstone) | W00–W03 — VirtualBox, verify `.ova`, health Workstation |
 | [`docs/SLIDES-ABERTURA-TURMA.md`](./SLIDES-ABERTURA-TURMA.md) | **Instrutor** | Primeira aula (4 slides) |
 | [Issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) | Instrutor | Evidência hardware NFC + Tails |
 
@@ -40,7 +41,7 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 
 ## Baseline de versões (revalidar antes da turma)
 
-| Componente | Versão no curso (maio/2026) | Onde revalidar |
+| Componente | Versão no curso (jul/2026) | Onde revalidar |
 | --- | --- | --- |
 | **Tails** | 7.8+ | [tails.net/latest](https://tails.net/latest/) |
 | **KeePassXC** | 2.7.12+ | [keepassxc.org](https://keepassxc.org/) |
@@ -72,6 +73,7 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 | 12 | **Smartcard OpenPGP** | JavaCard / JCOP genérico | ⏳ | Debian 13 + pcscd | [2A.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a1-preparar-leitor-e-cartão)–[2A.3](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-2a3-pins-user-e-admin) | Mais barato; auditoria limitada |
 | 13 | **Windows + WSL2** | Windows 11 23H2 + Gpg4win 5.x | 🟡 | WSL2 Ubuntu | [3.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-32-ssh-via-gpg-agent-subchave-a) (parcial) | [Apêndice D.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-d1--wsl2--gpg-agent-passo-a-passo) — NFC frágil; preferir Linux |
 | 14 | **macOS** | Sonoma 14+ + GPG Suite | 🟡 | macOS | [3.2](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-módulo-32-ssh-via-gpg-agent-subchave-a) (parcial) | [Apêndice D](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#apêndice-d--guia-multiplataforma) — sem `nfc-list` nativo |
+| 15 | **Whonix** | 18.x LXQt + VirtualBox 7.x | ⏳ | Debian 13 host | [W00–W03](../whonix/playbooks/README.md) · `ztc-whonix-*` | Capstone v1.0.3 — aguarda evidência hardware |
 
 **Legenda de status desta tabela:**
 - ✅ Testado e documentado pela equipe (evidência no repositório ou commit de validação)
@@ -99,7 +101,7 @@ Lista **completa e organizada** do que o aluno encontra no repositório e do que
 | **rsync**, **OpenSSH** (cliente) | 🟢 Expert | 4.2.3 |
 | **sha256sum**, manifestos assinados | 🟢 Expert | 4.x integridade |
 | Scripts `ztc-*.sh` | 🔵 Expert | 5.x (bash, `cron` opcional) |
-| **Sequoia PGP (`sq`)** | ⚫ | Horizonte PQC (Módulo 8) — **não** substitui GnuPG na v1.0.2 |
+| **Sequoia PGP (`sq`)** | ⚫ | Horizonte PQC (Módulo 8) — **não** substitui GnuPG na v1.0.3 |
 | **GnuPG 2.5 + ML-KEM** | ⚫ | Experimental — fora da baseline da turma |
 | **rclone crypt** (S3) | 🔵 | Alternativa segundo off-site (4.2) |
 | **Tailscale** | 🔵 | Alternativa ao WireGuard (4.2) |
@@ -358,7 +360,7 @@ Expert essencial + off-site (VM) + itens de contingência física.
 | **Cartão reserva** (NTAG #2/#3 ou smartcard B) | 🟢 | 6.x runbook |
 | **Simulação de mesa** obrigatória | 🟢 | [COMANDO 6.1](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md#-comando-61-simulação-de-mesa-obrigatória) |
 | **Break-glass** VM (sem depender do NTAG diário) | 🟢 | 4.2 |
-| Hidden volume VeraCrypt | 🔵 | Não ensinado passo a passo na v1.0.2 |
+| Hidden volume VeraCrypt | 🔵 | Não ensinado passo a passo na v1.0.3 |
 
 * * *
 
@@ -384,7 +386,7 @@ Expert essencial + off-site (VM) + itens de contingência física.
 
 * * *
 
-## 📋 Avaliação: sua lista × o curso v1.0.2
+## 📋 Avaliação: sua lista × o curso v1.0.3
 
 | Item (lista consolidada) | Status no curso | Observação |
 | --- | :---: | --- |
@@ -394,7 +396,11 @@ Expert essencial + off-site (VM) + itens de contingência física.
 | OpenKeychain, NFC Tools | 🟢/🟡 Incluso | Android |
 | Gpg4win, WSL2 | 🟡 Incluso | Apêndice D + D.1 |
 | WireGuard, age, rsync | 🟢/🟡 Incluso | Parte 3–4 |
-| `ztc-open-cofre.sh` | 🟢 Incluso | v1.0.2 |
+| `ztc-open-cofre.sh` | 🟢 Incluso | v1.0.2+ |
+| `ztc-whonix-install-virtualbox.sh` | 🔵 Capstone | v1.0.3 · [W00](../whonix/playbooks/W00-instalar-configurar-virtualbox.md) |
+| `ztc-whonix-verify-image.sh` | 🔵 Capstone | v1.0.3 · PGP `derivative.asc` |
+| `ztc-whonix-import-ova.sh` | 🔵 Capstone | v1.0.3 · [W01](../whonix/playbooks/W01-instalar-whonix.md) |
+| `ztc-whonix-health.sh` | 🔵 Capstone | v1.0.3 · Workstation |
 | macOS (GPG Suite) | 🟡 Incluso | Apêndice D |
 | NTAG + leitor ACR122U + Nitrokey | 🟢 Incluso | Apêndice C |
 | HD, pendrive, VPS, celular antigo | 🟢/🔵 Incluso | |

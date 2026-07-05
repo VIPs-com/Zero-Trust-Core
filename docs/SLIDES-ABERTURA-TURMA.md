@@ -1,6 +1,6 @@
 ﻿# 🎤 Abertura de turma — Zero Trust Core Expert
 
-**4 slides** · Instrutor · Maio/2026 · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+**4 slides** · Instrutor · Jul/2026 · v1.0.3 · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 Material para **primeira aula** (10–15 min antes do Módulo 0). Detalhes de compra: [INVENTARIO § Kits](./INVENTARIO-SOFTWARE-HARDWARE.md#-kit-mínimo-de-compra-brasil--referência-2026) · Fluxos: [DIAGRAMAS-VISUAIS.md](./DIAGRAMAS-VISUAIS.md).
 
@@ -199,4 +199,4 @@ flowchart TB
 }
 </style>
 
-*Slides de abertura · VIPs-com · alinhado ao inventário v1.0.2 · Marp: [SLIDES-ABERTURA-TURMA.marp.md](./SLIDES-ABERTURA-TURMA.marp.md)*
+*Slides de abertura · VIPs-com · alinhado ao inventário v1.0.3 · Marp: [SLIDES-ABERTURA-TURMA.marp.md](./SLIDES-ABERTURA-TURMA.marp.md)*

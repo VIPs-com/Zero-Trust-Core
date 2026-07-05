@@ -398,7 +398,7 @@ Clique para ir direto ao módulo. Se um link não saltar, use `Ctrl+F` pelo nome
 | **Aluno** | Executar COMANDOs na ordem da **sua trilha** | Títulos `##` abaixo |
 | **Instrutor** | Teste hardware `ztc-open-cofre.sh` + Tails | [Issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) |
 | **Instrutor** | 1ª aula: slides 1–4 → Módulo 0 | [SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md) |
-| **Equipe** | Tag/release futura só após mudança editorial relevante | GitHub Releases |
+| **Equipe** | Tag/release futura só após mudança editorial relevante | GitHub Releases — **atual:** [`v1.0.3`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3) |
 | **Concluído v1.0.2** | Auditoria, backup 2B.2, VeraCrypt CLI, script 5.3 | Tags `v1.0.1`, `v1.0.2` |
 | **Concluído v1.0.3** | Trilha Whonix W00–W03 · `ztc-whonix-verify-image.sh` | Tag [`v1.0.3`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3) |
 

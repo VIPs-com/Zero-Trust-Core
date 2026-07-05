@@ -194,7 +194,7 @@ arquivos e o backup junto). Duas camadas a cobrem:
 |-------|-----------|--------|-----------|-------|
 | 🖥️ **Debian** | [`ztc-open-cofre`](../scripts/debian/ztc-open-cofre.sh) / [`ztc-close-cofre`](../scripts/debian/ztc-close-cofre.sh) | [`ztc-snapshot-vault`](../scripts/debian/ztc-snapshot-vault.sh) (local) · [`ztc-rsync-offsite`](../scripts/debian/ztc-rsync-offsite.sh) (espelho) · [`ztc-borg-offsite`](../scripts/debian/ztc-borg-offsite.sh) (**imutável**) | [`ztc-restore-test`](../scripts/debian/ztc-restore-test.sh) | [`ztc-health`](../scripts/debian/ztc-health.sh) (cron) |
 | 🔒 **Tails** | manual (LUKS) | [`ztc-tails-backup`](../tails/scripts/debian/ztc-tails-backup.sh) (USB+age) | [`ztc-tails-restore-test`](../tails/scripts/debian/ztc-tails-restore-test.sh) | [`ztc-tails-health`](../tails/scripts/debian/ztc-tails-health.sh) · [`ztc-tails-manutencao`](../tails/scripts/debian/ztc-tails-manutencao.sh) |
-| 🧅 **Whonix** | [W00](../whonix/playbooks/W00-instalar-configurar-virtualbox.md) + [W01](../whonix/playbooks/W01-instalar-whonix.md) | snapshot da **VM no host** | (segredos vêm do Tails) | [`ztc-whonix-health`](../whonix/scripts/ztc-whonix-health.sh) |
+| 🧅 **Whonix** | [W00](../whonix/playbooks/W00-instalar-configurar-virtualbox.md) + [W01](../whonix/playbooks/W01-instalar-whonix.md) | snapshot da **VM no host** | [`ztc-whonix-verify-image`](../whonix/scripts/ztc-whonix-verify-image.sh) · [`ztc-whonix-import-ova`](../whonix/scripts/ztc-whonix-import-ova.sh) | [`ztc-whonix-health`](../whonix/scripts/ztc-whonix-health.sh) |
 
 > Config de todos: **um** arquivo, [`ztc.conf`](../scripts/debian/ztc.conf.example) (lembre do `chmod 600`).
 

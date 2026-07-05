@@ -1,6 +1,6 @@
 ﻿# 📊 Diagramas visuais — Zero Trust Core Expert
 
-**Síntese para leitura, impressão ou PDF** · Maio/2026
+**Síntese para leitura, impressão ou PDF** · Jul/2026 · v1.0.3
 
 Use este arquivo quando quiser **só os fluxos**, sem os COMANDOs. O conteúdo didático completo continua em [🎓 Zero-Trust-Core-Expert - Versão 1.0.md](../🎓%20Zero-Trust-Core-Expert%20-%20Versão%201.0.md).
 
