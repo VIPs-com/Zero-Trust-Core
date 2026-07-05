@@ -1,6 +1,7 @@
 # --- Repo público = SÓ O CURSO. Camada equipe fica em zero-equipe-dev/ (local). ---
 # (Agentes IA leem CLAUDE.md da raiz mesmo gitignorado.)
 CLAUDE.md
+.claude/
 
 # --- Doc interna equipe dev ---
 zero-equipe-dev/
@@ -46,3 +47,6 @@ Desktop.ini
 .idea/
 *.swp
 *~
+
+# --- Migração / backup local (não versionar) ---
+old-outro-pc/
