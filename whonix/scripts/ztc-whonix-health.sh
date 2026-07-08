@@ -8,11 +8,17 @@
 #
 # Env (todas opcionais):
 #   ZTC_WHONIX_TOR_CHECK=yes   -> faz checagem viva via check.torproject.org (lenta)
+#
+# Changelog jul/2026 (espelho Privacy-OS-Hub v1.0.9.1):
+#   - Tor check com retry + timeout; saida em stdout limpa (sem poluir capturas)
+#   - finais de linha LF (CRLF quebra shebang no Linux)
 
 set -u
 
 FAIL=0
 WARN=0
+TOR_RETRIES=3
+TOR_TIMEOUT=30
 
 echo "=== Zero Trust Core — Whonix Health ==="
 
@@ -36,25 +42,44 @@ else
   WARN=1
 fi
 
-# 1b) Checagem viva de Tor (opcional — SOCKS local + retry; pode ser lenta)
-if [ "${ZTC_WHONIX_TOR_CHECK:-no}" = "yes" ] && command -v curl >/dev/null 2>&1; then
-  _tor_ok=0
-  _n=1
-  while [ "$_n" -le 3 ]; do
-    if curl -s --fail --max-time 30 --socks5-hostname 127.0.0.1:9050 \
+# 1b) Checagem viva de Tor (opcional — depende de rede; pode ser lenta)
+# Whonix-Workstation: proxy transparente OU SOCKS 9050
+tor_check_ok() {
+  if command -v curl >/dev/null 2>&1; then
+    if curl -s --fail --max-time "$TOR_TIMEOUT" --socks5-hostname 127.0.0.1:9050 \
         https://check.torproject.org/api/ip 2>/dev/null | grep -Eq '"IsTor": *true'; then
-      _tor_ok=1
-      break
+      return 0
     fi
-    echo "[INFO] Tor check tentativa ${_n}/3 — aguardando 10s..."
-    sleep 10
-    _n=$((_n + 1))
-  done
-  if [ "$_tor_ok" -eq 1 ]; then
-    echo "[OK] check.torproject.org confirma saida via Tor (SOCKS 9050)"
-  else
-    echo "[WARN] Nao confirmei saida via Tor (rede lenta? reconectando?) — rode systemcheck"
+    if curl -s --fail --max-time "$TOR_TIMEOUT" \
+        https://check.torproject.org/api/ip 2>/dev/null | grep -Eq '"IsTor": *true'; then
+      return 0
+    fi
+  fi
+  return 1
+}
+
+if [ "${ZTC_WHONIX_TOR_CHECK:-no}" = "yes" ]; then
+  if ! command -v curl >/dev/null 2>&1; then
+    echo "[WARN] curl ausente — nao posso checar Tor ao vivo"
     WARN=1
+  else
+    _tor_ok=0
+    _n=1
+    while [ "$_n" -le "$TOR_RETRIES" ]; do
+      if tor_check_ok; then
+        _tor_ok=1
+        break
+      fi
+      echo "[INFO] Tentativa ${_n}/${TOR_RETRIES} sem confirmacao Tor — aguardando 10s..."
+      sleep 10
+      _n=$((_n + 1))
+    done
+    if [ "$_tor_ok" -eq 1 ]; then
+      echo "[OK] check.torproject.org confirma saida via Tor"
+    else
+      echo "[WARN] Nao confirmei saida via Tor apos ${TOR_RETRIES} tentativas — rode systemcheck"
+      WARN=1
+    fi
   fi
 else
   echo "[SKIP] Checagem viva de Tor desativada (ZTC_WHONIX_TOR_CHECK=yes para ativar)"

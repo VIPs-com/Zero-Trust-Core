@@ -148,12 +148,13 @@ sudo usermod -aG vboxusers "$USER"
 
 > Faça **logout/login** (ou `newgrp vboxusers`) para aplicar.
 
-**Secure Boot:** se estiver **habilitado** na UEFI, os módulos de terceiros (`vboxdrv`, `vboxnetflt`, `vboxnetadp`, `vboxpci`) são **bloqueados** por padrão. Duas opções:
+**Secure Boot:** se estiver **habilitado** na UEFI, os módulos de terceiros (`vboxdrv`, `vboxnetflt`, `vboxnetadp` — o `vboxpci` não existe mais desde a série 6.1) são **bloqueados** por padrão. Duas opções:
 
 1. Desabilitar Secure Boot na UEFI (mais simples, reduz uma camada de proteção de boot); ou
-2. Assinar os módulos manualmente com uma MOK (Machine Owner Key) própria, registrada no firmware — necessário assinar novamente a cada recompilação do DKMS (updates de kernel).
+2. **Assinar com MOK (recomendado — automatizado pelos scripts):** o `ztc-whonix-install-virtualbox.sh` gera a chave, registra no firmware (`mokutil --import`) e sincroniza para `/var/lib/shim-signed/mok/` (caminho que o `vboxdrv.sh` nativo do pacote exige). Após o reboot com a tela azul (`Enroll MOK → Continue → Yes → senha → Reboot`), rode `ztc-whonix-sign-virtualbox-modules.sh` — repita só o sign a cada update de kernel (a tela azul é uma vez só).
 
 > Se Secure Boot estiver desabilitado, nenhuma ação adicional é necessária aqui.
+> Fluxo validado em campo (jul/2026): Debian 13 trixie + Secure Boot + VirtualBox 7.2.12.
 
 ---
 
@@ -185,21 +186,24 @@ groups "$USER" | grep -q vboxusers && echo "OK: usuário no grupo vboxusers"
 
 ## Automação (opcional)
 
-O script [`ztc-whonix-install-virtualbox.sh`](../scripts/ztc-whonix-install-virtualbox.sh) automatiza os passos 1–9 com a mesma política ZTC: **aborta** em falha de fingerprint ou assinatura.
+Suíte de 3 scripts (port da suíte Privacy-OS-Hub `whonix-host` v3.5.4) — automatiza os passos 1–9 com a mesma política ZTC: **aborta** em falha de fingerprint ou assinatura.
 
 ```sh
 cd whonix/scripts
-chmod +x ztc-whonix-install-virtualbox.sh
-sudo ./ztc-whonix-install-virtualbox.sh -e -y
+chmod +x ztc-whonix-*.sh
+sudo ./ztc-whonix-install-virtualbox.sh -y            # pacote + Extension Pack + MOK (se SB)
+# Secure Boot ON: reboot → tela azul Enroll MOK → depois:
+sudo ./ztc-whonix-sign-virtualbox-modules.sh -y --qa-log
+sudo ./ztc-whonix-verify-virtualbox-host.sh --qa-log  # esperado: RESULTADO: PASS
 ```
 
-| Flag | Função |
-|------|--------|
-| `-e` | Instala também o Extension Pack |
-| `-y` | Modo não-interativo |
-| `-v 7.2` | Série do VirtualBox (padrão: 7.2) |
+| Script | Função | Log |
+|--------|--------|-----|
+| `ztc-whonix-install-virtualbox.sh` | Repo + GPG + pacote + Extension Pack + MOK import | `/var/log/virtualbox-install.log` |
+| `ztc-whonix-sign-virtualbox-modules.sh` | vboxconfig + assinatura + carga (repetir a cada kernel novo) | `/var/log/virtualbox-sign.log` |
+| `ztc-whonix-verify-virtualbox-host.sh` | 9 checks read-only + QA log | `qa-logs/10-virtualbox-host-*.txt` |
 
-Log: `/var/log/virtualbox-install.log`
+Flags do install: `-y` não-interativo · `-v 7.2` série · `--no-extpack` · `--reset-mok --new-mok-keys` (refazer MOK do zero). Progresso: `/root/module-signing/.hub-vbox-progress`.
 
 ---
 

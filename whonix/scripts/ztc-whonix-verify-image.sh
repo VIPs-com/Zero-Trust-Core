@@ -4,7 +4,7 @@
 #
 # Playbook W01 — verificação PGP da imagem Whonix (somente verify, sem import).
 # Baixa derivative.asc, confere fingerprint informado pelo operador (-f),
-# executa gpg --verify com VALIDSIG+FPR. Aborta em qualquer falha.
+# executa gpg --verify com VALIDSIG + fingerprint. Aborta em qualquer falha.
 #
 # Uso:
 #   ./ztc-whonix-verify-image.sh \
@@ -14,9 +14,12 @@
 #        [-k /caminho/derivative.asc] \
 #        [--kvm]   # .libvirt.xz em vez de .ova
 #
-# Changelog jul/2026 (port Privacy-OS-Hub v1.0.9.1):
-#   - VALIDSIG + fingerprint (imune a locale PT-BR)
-#   - EXPKEYSIG; retry download derivative.asc
+# Se -k omitido, baixa de https://www.whonix.org/keys/derivative.asc (3 tentativas)
+# Próximo passo após OK: ztc-whonix-import-ova.sh ou import manual.
+#
+# Changelog jul/2026 (espelho Privacy-OS-Hub v1.0.9.1):
+#   - retry + timeout no download de derivative.asc
+#   - VALIDSIG + fingerprint (não "Good signature"); EXPKEYSIG
 
 set -euo pipefail
 
@@ -28,6 +31,8 @@ FORMAT="ova"
 DERIVATIVE_URL="https://www.whonix.org/keys/derivative.asc"
 GNUPGHOME_DIR=""
 WORKDIR=""
+FETCH_RETRIES=3
+FETCH_TIMEOUT=120
 
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >&2; }
 fail() { log "ERRO: $*"; cleanup; exit 1; }
@@ -41,6 +46,19 @@ trap cleanup EXIT
 usage() {
     grep '^#' "$0" | sed -e 's/^# \?//' -e '1,/^$/d' | head -n 20
     exit 1
+}
+
+fetch_url() {
+    local url="$1" dest="$2"
+    local n
+    for ((n=1; n<=FETCH_RETRIES; n++)); do
+        if curl -fsSL --max-time "$FETCH_TIMEOUT" -o "$dest" "$url" && [[ -s "$dest" ]]; then
+            return 0
+        fi
+        log "AVISO: download falhou (tentativa ${n}/${FETCH_RETRIES}): $url"
+        sleep 5
+    done
+    return 1
 }
 
 while [[ $# -gt 0 ]]; do
@@ -73,22 +91,14 @@ export GNUPGHOME="$GNUPGHOME_DIR"
 
 if [[ -z "$KEY_FILE" ]]; then
     KEY_FILE="${WORKDIR}/derivative.asc"
-    log "Baixando derivative.asc..."
-    _ok=0
-    for _try in 1 2 3; do
-        if curl -fsSL --max-time 120 "$DERIVATIVE_URL" -o "$KEY_FILE" && [[ -s "$KEY_FILE" ]]; then
-            _ok=1; break
-        fi
-        log "  Tentativa ${_try}/3 falhou — aguardando 5s..."
-        sleep 5
-    done
-    [[ "$_ok" = "1" ]] || fail "Falha ao baixar derivative.asc após 3 tentativas"
+    log "Baixando derivative.asc (até ${FETCH_RETRIES} tentativas)..."
+    fetch_url "$DERIVATIVE_URL" "$KEY_FILE" || fail "Falha ao baixar derivative.asc após ${FETCH_RETRIES} tentativas"
 elif [[ ! -f "$KEY_FILE" ]]; then
     fail "Chave não encontrada: $KEY_FILE"
 fi
 
 log "Importando chave..."
-gpg --quiet --import "$KEY_FILE"
+gpg --quiet --import "$KEY_FILE" 2>&1 | cat >&2
 
 normalized_expected="$(echo "$EXPECTED_FPR" | tr -d ' ' | tr '[:lower:]' '[:upper:]')"
 matched=0
@@ -101,21 +111,18 @@ done < <(gpg --with-colons --fingerprint 2>/dev/null | awk -F: '/^fpr:/ {print $
 
 log "Fingerprint OK."
 
-gpg_log="$(mktemp)"
+gpg_log="${WORKDIR}/whonix-verify.log"
 gpg --status-fd 1 --verify-options show-notations --verify "$SIG" "$IMAGE" \
     >"$gpg_log" 2>&1 || true
 
 if grep -q "^\[GNUPG:\] VALIDSIG .*${normalized_expected}" "$gpg_log"; then
     cat "$gpg_log" >&2
-    rm -f "$gpg_log"
     log "===== OK — VALIDSIG + fingerprint. Próximo: ztc-whonix-import-ova.sh ====="
     exit 0
 fi
 if grep -qi "EXPKEYSIG" "$gpg_log"; then
     cat "$gpg_log" >&2
-    rm -f "$gpg_log"
-    fail "EXPKEYSIG — chave expirada. Reimporte derivative.asc."
+    fail "EXPKEYSIG — reimporte derivative.asc e confira fingerprint em Verify_the_images."
 fi
 cat "$gpg_log" >&2
-rm -f "$gpg_log"
 fail "Assinatura INVÁLIDA. NÃO importe."
