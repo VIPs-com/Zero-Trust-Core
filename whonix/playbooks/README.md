@@ -43,7 +43,8 @@ flowchart LR
 | [W03](./W03-bitcoin-psbt-tails-whonix.md) | Bitcoin PSBT Tails↔Whonix | Transação transmitida via Tor sem a seed tocar a rede | ~25 min |
 
 **Scripts (host):** [`ztc-whonix-install-virtualbox.sh`](../scripts/ztc-whonix-install-virtualbox.sh) · [`ztc-whonix-sign-virtualbox-modules.sh`](../scripts/ztc-whonix-sign-virtualbox-modules.sh) (Secure Boot/MOK) · [`ztc-whonix-verify-virtualbox-host.sh`](../scripts/ztc-whonix-verify-virtualbox-host.sh) · [`ztc-whonix-verify-image.sh`](../scripts/ztc-whonix-verify-image.sh) · [`ztc-whonix-import-ova.sh`](../scripts/ztc-whonix-import-ova.sh)  
-**Script (Workstation):** [`ztc-whonix-health.sh`](../scripts/ztc-whonix-health.sh)
+**Script (Workstation):** [`ztc-whonix-health.sh`](../scripts/ztc-whonix-health.sh)  
+**Changelog scripts:** [`../CHANGELOG.md`](../CHANGELOG.md) (jul/2026 — robustez PGP/apt)
 
 ---
 

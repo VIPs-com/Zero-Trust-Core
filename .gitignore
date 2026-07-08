@@ -43,7 +43,8 @@ revocation*.asc
 Thumbs.db
 Desktop.ini
 .DS_Store
-.vscode/
+.vscode/*
+!.vscode/settings.json
 .idea/
 *.swp
 *~

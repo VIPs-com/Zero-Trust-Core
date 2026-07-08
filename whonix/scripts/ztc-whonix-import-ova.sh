@@ -4,16 +4,34 @@
 #
 # Automação do Playbook W01 — Instalar Whonix (Gateway + Workstation).
 # Guia: whonix/playbooks/W01-instalar-whonix.md
+# Importa a chave de assinatura, VERIFICA o fingerprint contra o valor
+# informado (nunca fixo no script — pegue sempre da fonte oficial:
+# https://www.whonix.org/wiki/Verify_the_images),
+# verifica a assinatura do .ova e importa no VirtualBox.
 #
-# Fingerprint NUNCA fixo — informe com -f (wiki Verify_the_images).\n#\n# Uso:
+# Por design, este script NÃO automatiza:
+#   - o Anon Connection Wizard (interativo, dentro do Gateway)
+#   - o systemcheck / teste de vazamento (dentro da Workstation)
+#   - o apt update/full-upgrade dentro das VMs
+# Esses passos exigem verificação humana dentro do guest e são a essência
+# do modelo anti-vazamento do Whonix — o script apenas orienta o operador.
+#
+# Uso:
 #   sudo ./ztc-whonix-import-ova.sh \
-#        -i /caminho/Whonix-LXQt-VERSAO.Intel_AMD64.ova \
-#        -s /caminho/Whonix-LXQt-VERSAO.Intel_AMD64.ova.asc \
+#        -i /caminho/Whonix-LXQt-18.1.4.2.Intel_AMD64.ova \
+#        -s /caminho/Whonix-LXQt-18.1.4.2.Intel_AMD64.ova.asc \
 #        -k /caminho/derivative.asc \
-#        -f "FINGERPRINT" \
-#        [-b] [-t lxqt|cli] [-y]
+#        -f "AAAA BBBB CCCC DDDD EEEE  FFFF 0000 1111 2222 3333" \
+#        [-b]   # também inicia Gateway e depois Workstation
+#        [-t lxqt|cli]  # variante esperada; se omitido, detecta pelo nome do arquivo
+#        [-y]   # não pede confirmação
 #
 # Log: /var/log/whonix-install.log
+#
+# Changelog jul/2026 (espelho Privacy-OS-Hub v1.0.9.1):
+#   - log() em stderr; tee de gpg/VBoxManage em stderr
+#   - verify_signature: VALIDSIG + fingerprint (não "Good signature")
+#   - EXPKEYSIG tratado; fetch_url com retry se -k omitido (opcional)
 
 set -euo pipefail
 
@@ -93,9 +111,11 @@ validate_inputs() {
     [[ -f "$OVA_FILE" ]] || fail "Arquivo .ova não encontrado: $OVA_FILE"
     [[ -f "$SIG_FILE" ]] || fail "Arquivo de assinatura não encontrado: $SIG_FILE"
 
+    # -k obrigatório na política ZTC; se omitido, baixa derivative.asc com retry (conveniência)
     if [[ -z "$KEY_FILE" ]]; then
         KEY_FILE="$(mktemp)"
         DOWNLOADED_KEY=1
+        log "AVISO: -k omitido — baixando derivative.asc de whonix.org (confira fingerprint com -f)."
         fetch_url "$DERIVATIVE_URL" "$KEY_FILE" || fail "Falha ao baixar derivative.asc após 3 tentativas"
     fi
     [[ -f "$KEY_FILE" ]] || fail "Arquivo de chave não encontrado: $KEY_FILE"
@@ -241,9 +261,10 @@ PRÓXIMOS PASSOS — REQUEREM AÇÃO MANUAL DENTRO DAS VMs (NÃO PULAR):
        -> deve dizer "Congratulations. This browser is configured to use Tor."
     6. Confirme que a Workstation NÃO tem rota direta à internet,
        apenas via Gateway (nenhuma segunda placa de rede).
+    7. Opcional: ./ztc-whonix-health.sh (ZTC_WHONIX_TOR_CHECK=yes para checagem viva)
 
   [Ambas as VMs]
-    7. sudo apt update && sudo apt full-upgrade
+    8. sudo apt update && sudo apt full-upgrade
 
 Esses passos não são automatizados de propósito: são a verificação
 humana que garante que o isolamento Gateway/Workstation está intacto.
@@ -268,7 +289,7 @@ while getopts ":i:s:k:f:t:byh" opt; do
 done
 
 touch "$LOG_FILE" 2>/dev/null || LOG_FILE="./whonix-install.log"
-log "===== W01 — Instalar Whonix (Gateway + Workstation) ====="
+log "===== Iniciando W01 — Instalar Whonix (Gateway + Workstation) ====="
 
 require_vboxmanage
 validate_inputs
