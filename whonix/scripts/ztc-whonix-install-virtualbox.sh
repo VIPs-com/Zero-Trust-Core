@@ -14,11 +14,32 @@
 #
 # Log: /var/log/virtualbox-install.log
 #
-# Changelog jul/2026:
-#   - log() em stderr (evita poluir $(check_arch_and_codename))
-#   - apt-get update: exit code real + NO_PUBKEY/BADSIG
-#   - check_repo_availability() antes de escrever sources.list
-#   - escrita atômica keyring/repo; fetch com retry
+# ---------------------------------------------------------------------------
+# CHANGELOG de tratamento de erros (revisão):
+#   - FIX CRÍTICO: log() agora escreve em stderr, não em stdout. Antes,
+#     funções que retornavam valor via `echo` + `$(...)` (ex.:
+#     check_arch_and_codename) tinham as linhas de log misturadas ao valor
+#     de retorno, corrompendo $CODENAME e quebrando add_repo() silenciosamente.
+#   - FIX: verify_repo_signature() agora checa o código de saída REAL do
+#     `apt-get update` (via PIPESTATUS) em vez de depender só do grep de
+#     NO_PUBKEY/BADSIG, que mascarava outras falhas (404, timeout, DNS).
+#   - Novo: trap centralizado (ERR + EXIT) com contexto de linha/comando e
+#     limpeza garantida de arquivos temporários.
+#   - Novo: checagem prévia de que o repositório publica Release para o
+#     codename/série antes de configurar e instalar (evita "quebrar" o
+#     apt do usuário com um repo inválido).
+#   - Novo: downloads (chave, extpack) com retry/timeout e validação de
+#     conteúdo não vazio antes de usar.
+#   - Novo: escrita atômica de /etc/apt/sources.list.d/virtualbox.list e do
+#     keyring (grava em tmp, só substitui o arquivo real se tudo validar).
+#   - Novo: resumo final claro (sucesso/aviso/erro) em vez de só logs soltos.
+#   - Novo (jul/2026): sanitize_stale_repo_file() — auto-cura se uma
+#     execução anterior (de uma cópia/versão mais antiga deste script, de
+#     qualquer pasta — o caminho é global do sistema) deixou
+#     /etc/apt/sources.list.d/virtualbox.list corrompido. Sem isso, o
+#     apt-get update do Passo 1 quebra ANTES de add_repo() (Passo 4) ter
+#     a chance de reescrever o arquivo corretamente.
+# ---------------------------------------------------------------------------
 
 set -euo pipefail
 
@@ -32,29 +53,32 @@ REPO_FILE="/etc/apt/sources.list.d/virtualbox.list"
 KEY_URL="https://www.virtualbox.org/download/oracle_vbox_2016.asc"
 EXPECTED_FPR="B9F8D658297AF3EFC18D5CDFA2F683C52980AECF"
 LOG_FILE="/var/log/virtualbox-install.log"
-FETCH_RETRIES=3
-FETCH_TIMEOUT=120
+DL_BASE="https://download.virtualbox.org/virtualbox/debian"
+NET_RETRIES=3
+NET_TIMEOUT=15
 
 SUPPORTED_CODENAMES=("trixie" "bookworm" "bullseye")
 
+# Rastreamento de avisos não-fatais para o resumo final
+WARNINGS=()
+TMP_PATHS=()
+
 # ------------------------------- Funções ----------------------------------
 
-# stderr: não poluir captura $(...) de funções que retornam valor
+# IMPORTANTE: log() escreve em stderr (fd 2), NUNCA em stdout.
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG_FILE" >&2
+}
+
+warn() {
+    log "AVISO: $*"
+    WARNINGS+=("$*")
 }
 
 fail() {
     log "ERRO: $*"
     exit 1
 }
-
-on_err() {
-    local ec=$?
-    log "ERRO na linha ${BASH_LINENO[0]}: ${BASH_COMMAND} (exit ${ec}). Ver ${LOG_FILE}"
-    exit "$ec"
-}
-trap on_err ERR
 
 usage() {
     grep '^#' "$0" | sed -e 's/^#//' -e '1d'
@@ -67,17 +91,49 @@ require_root() {
     fi
 }
 
-fetch_to_file() {
-    local url="$1" dest="$2" tool="${3:-curl}"
-    local n
-    for ((n=1; n<=FETCH_RETRIES; n++)); do
-        if [[ "$tool" == "wget" ]]; then
-            wget -qO "$dest" --timeout="$FETCH_TIMEOUT" "$url" && [[ -s "$dest" ]] && return 0
-        else
-            curl -fsSL --max-time "$FETCH_TIMEOUT" -o "$dest" "$url" && [[ -s "$dest" ]] && return 0
+# Auto-cura: virtualbox.list corrompido por execução anterior com bug de log/stdout
+sanitize_stale_repo_file() {
+    if [[ -f "$REPO_FILE" ]]; then
+        local n_lines
+        n_lines="$(wc -l < "$REPO_FILE" 2>/dev/null || echo 0)"
+        if [[ "$n_lines" -ne 1 ]] || ! grep -q '^deb \[' "$REPO_FILE" 2>/dev/null; then
+            warn "${REPO_FILE} existente está corrompido/malformado (provavelmente sobra de uma execução anterior com bug) — removendo para evitar que o apt-get update quebre antes mesmo de reconfigurar o repositório. Conteúdo removido: $(cat "$REPO_FILE" 2>/dev/null | tr '\n' '|')"
+            rm -f "$REPO_FILE"
         fi
-        log "AVISO: download falhou (tentativa ${n}/${FETCH_RETRIES}): $url"
-        sleep 5
+    fi
+}
+
+on_error() {
+    local exit_code=$1 line_no=$2 command=$3
+    log "ERRO: comando '${command}' falhou (código ${exit_code}) na linha ${line_no}."
+    log "Consulte ${LOG_FILE} para o histórico completo desta execução."
+    cleanup_tmp
+    exit "$exit_code"
+}
+
+cleanup_tmp() {
+    for p in "${TMP_PATHS[@]:-}"; do
+        [[ -n "$p" && -e "$p" ]] && rm -rf "$p"
+    done
+}
+
+trap 'on_error $? $LINENO "$BASH_COMMAND"' ERR
+trap cleanup_tmp EXIT
+
+fetch() {
+    local url="$1" out="$2"
+    local attempt=1
+    while (( attempt <= NET_RETRIES )); do
+        if wget -q --timeout="$NET_TIMEOUT" --tries=1 -O "$out" "$url"; then
+            if [[ -s "$out" ]]; then
+                return 0
+            fi
+            warn "Download de '$url' retornou arquivo vazio (tentativa ${attempt}/${NET_RETRIES})."
+        else
+            warn "Falha ao baixar '$url' (tentativa ${attempt}/${NET_RETRIES})."
+        fi
+        ((attempt++))
+        sleep 2
     done
     return 1
 }
@@ -91,6 +147,10 @@ check_arch_and_codename() {
 
     if [[ "$arch" != "amd64" ]]; then
         fail "Arquitetura não suportada: $arch (esperado: amd64)."
+    fi
+
+    if [[ -z "$codename" ]]; then
+        fail "Não foi possível determinar VERSION_CODENAME em /etc/os-release."
     fi
 
     local supported=0
@@ -108,14 +168,17 @@ check_arch_and_codename() {
 
 check_repo_availability() {
     local codename="$1"
-    local release_url="https://download.virtualbox.org/virtualbox/debian/dists/${codename}/Release"
+    local release_url="${DL_BASE}/dists/${codename}/Release"
+    log "Verificando disponibilidade do repositório para '${codename}'..."
+
     local http_code
-    log "Verificando repositório Oracle para codename '${codename}'..."
-    http_code="$(curl -fsSL -o /dev/null -w '%{http_code}' --max-time "$FETCH_TIMEOUT" "$release_url" 2>/dev/null || echo 000)"
+    http_code="$(curl -s -o /dev/null -w '%{http_code}' --max-time "$NET_TIMEOUT" "$release_url" || echo "000")"
+
     if [[ "$http_code" != "200" ]]; then
-        fail "Repositório Oracle sem Release para '${codename}' (HTTP ${http_code}). Confira: ${release_url}"
+        fail "O repositório Oracle ainda não publica pacotes para '${codename}' (HTTP ${http_code} em ${release_url}). Verifique https://www.virtualbox.org/wiki/Linux_Downloads para o status mais recente ou tente uma série/codename diferente com -v."
     fi
-    log "Release do repositório OK (HTTP 200)."
+
+    log "Repositório disponível para '${codename}' (${release_url} respondeu 200)."
 }
 
 confirm() {
@@ -128,9 +191,14 @@ confirm() {
 
 install_build_deps() {
     log "[Passo 1/9] Atualizando índice de pacotes e instalando dependências de build..."
-    apt-get update -qq
-    apt-get install -y -qq \
-        "linux-headers-$(uname -r)" dkms build-essential gcc make perl curl wget gnupg2
+    if ! apt-get update -qq; then
+        fail "Falha ao atualizar o índice de pacotes (apt-get update). Verifique conectividade e os repositórios já configurados em /etc/apt/sources.list.d/."
+    fi
+
+    if ! apt-get install -y -qq \
+        "linux-headers-$(uname -r)" dkms build-essential gcc make perl curl wget gnupg2; then
+        fail "Falha ao instalar dependências de build. Alguns pacotes podem não existir para seu kernel/versão (verifique 'linux-headers-$(uname -r)')."
+    fi
 
     if [[ ! -d "/usr/src/linux-headers-$(uname -r)" ]]; then
         fail "Headers do kernel em execução não encontrados. Verifique linux-headers-$(uname -r)."
@@ -140,13 +208,22 @@ install_build_deps() {
 
 install_and_verify_key() {
     log "[Passo 2/9] Baixando a chave pública da Oracle..."
-    local tmp_keyring tmp_asc
-    tmp_keyring="$(mktemp)"
-    tmp_asc="$(mktemp)"
-    trap 'rm -f "$tmp_keyring" "$tmp_asc"' RETURN
 
-    fetch_to_file "$KEY_URL" "$tmp_asc" curl || fail "Falha ao baixar chave Oracle: $KEY_URL"
-    gpg --dearmor --yes -o "$tmp_keyring" <"$tmp_asc" || fail "gpg --dearmor falhou na chave Oracle."
+    local tmp_key
+    tmp_key="$(mktemp)"
+    TMP_PATHS+=("$tmp_key")
+
+    if ! fetch "$KEY_URL" "$tmp_key"; then
+        fail "Não foi possível baixar a chave da Oracle em ${KEY_URL} após ${NET_RETRIES} tentativas. Verifique sua conexão."
+    fi
+
+    local tmp_keyring
+    tmp_keyring="$(mktemp)"
+    TMP_PATHS+=("$tmp_keyring")
+
+    if ! gpg --dearmor --yes -o "$tmp_keyring" "$tmp_key"; then
+        fail "Falha ao processar a chave baixada com gpg --dearmor."
+    fi
 
     log "[Passo 3/9] Verificando fingerprint da chave (OBRIGATÓRIO)..."
     local fpr
@@ -154,63 +231,74 @@ install_and_verify_key() {
         | awk -F: '/^fpr:/ {print $10; exit}')"
 
     if [[ "$fpr" != "$EXPECTED_FPR" ]]; then
-        fail "Fingerprint NÃO confere. Esperado: $EXPECTED_FPR | Obtido: ${fpr:-<vazio>}. Abortando — chave não confiável."
+        fail "Fingerprint NÃO confere. Esperado: $EXPECTED_FPR | Obtido: ${fpr:-<vazio>}. Abortando por segurança — chave não confiável."
     fi
 
-    install -m 644 "$tmp_keyring" "$KEYRING"
+    install -m 0644 "$tmp_keyring" "$KEYRING"
     log "Fingerprint verificada com sucesso: $fpr"
+    log "Keyring instalado em ${KEYRING}."
 }
 
 add_repo() {
     local codename="$1"
+    log "[Passo 4/9] Configurando repositório oficial para codename '$codename'..."
+
     local tmp_repo
     tmp_repo="$(mktemp)"
-    trap 'rm -f "$tmp_repo"' RETURN
+    TMP_PATHS+=("$tmp_repo")
 
-    log "[Passo 4/9] Configurando repositório oficial para codename '$codename'..."
-    check_repo_availability "$codename"
-    echo "deb [arch=amd64 signed-by=${KEYRING}] https://download.virtualbox.org/virtualbox/debian ${codename} contrib" \
-        >"$tmp_repo"
-    install -m 644 "$tmp_repo" "$REPO_FILE"
-    log "Repositório configurado em ${REPO_FILE}."
+    echo "deb [arch=amd64 signed-by=${KEYRING}] ${DL_BASE} ${codename} contrib" > "$tmp_repo"
+
+    if [[ "$(wc -l < "$tmp_repo")" -ne 1 ]] || ! grep -q '^deb \[' "$tmp_repo"; then
+        fail "Linha de repositório gerada é inválida — \$codename pode estar corrompido. Conteúdo: $(cat "$tmp_repo")"
+    fi
+
+    install -m 0644 "$tmp_repo" "$REPO_FILE"
+    log "Repositório configurado em ${REPO_FILE}: $(cat "$REPO_FILE")"
 }
 
 verify_repo_signature() {
     log "[Passo 5/9] Atualizando índice e verificando assinatura do repositório..."
-    local apt_out apt_rc
-    apt_out="$(mktemp)"
-    trap 'rm -f "$apt_out"' RETURN
+
+    local update_out
+    update_out="$(mktemp)"
+    TMP_PATHS+=("$update_out")
 
     set +e
-    apt-get update 2>&1 | tee -a "$LOG_FILE" >"$apt_out"
-    apt_rc=${PIPESTATUS[0]}
+    apt-get update 2>&1 | tee -a "$LOG_FILE" > "$update_out"
+    local apt_status=${PIPESTATUS[0]}
     set -e
 
-    if grep -qiE "NO_PUBKEY|BADSIG" "$apt_out"; then
-        fail "Falha na verificação de assinatura do repositório (NO_PUBKEY/BADSIG). Abortando — não instale."
+    if [[ "$apt_status" -ne 0 ]]; then
+        fail "apt-get update falhou (código ${apt_status}) após configurar o repositório VirtualBox. Saída relevante: $(tail -n 5 "$update_out")"
     fi
-    if [[ "$apt_rc" -ne 0 ]]; then
-        fail "apt-get update falhou (exit ${apt_rc}). Verifique rede, codename e ${REPO_FILE}."
+
+    if grep -qiE "NO_PUBKEY|BADSIG" "$update_out"; then
+        fail "Falha na verificação de assinatura do repositório (NO_PUBKEY/BADSIG detectado). Abortando — não instale."
     fi
-    log "Índice apt atualizado; nenhum NO_PUBKEY/BADSIG."
+
+    log "apt-get update concluído sem erros e sem NO_PUBKEY/BADSIG."
 }
 
 install_virtualbox() {
     local pkg="virtualbox-${VBOX_SERIES}"
     log "[Passo 6/9] Verificando candidato do pacote ${pkg}..."
+
     if ! apt-cache policy "$pkg" | grep -q "download.virtualbox.org"; then
-        fail "Candidato de ${pkg} não vem do repositório da Oracle. Abortando."
+        fail "Candidato de ${pkg} não vem do repositório da Oracle (ou o pacote não existe para esta série/codename)."
     fi
 
     log "Instalando ${pkg}..."
-    apt-get install -y "$pkg"
+    if ! apt-get install -y "$pkg"; then
+        fail "Falha ao instalar ${pkg}. Rode 'apt-get install -y ${pkg}' manualmente para ver o erro completo."
+    fi
 
-    modprobe vboxdrv 2>/dev/null || log "Aviso: não foi possível carregar vboxdrv via modprobe (verifique DKMS/Secure Boot)."
+    modprobe vboxdrv 2>/dev/null || warn "não foi possível carregar vboxdrv via modprobe (verifique DKMS/Secure Boot)."
 
     if lsmod | grep -q vbox; then
         log "Módulos do VirtualBox carregados com sucesso."
     else
-        log "AVISO: módulos vbox não aparecem em lsmod. Verifique Secure Boot (passo 7 do playbook)."
+        warn "módulos vbox não aparecem em lsmod. Verifique Secure Boot (passo 7 do playbook)."
     fi
 }
 
@@ -218,18 +306,21 @@ configure_group_and_secureboot_notice() {
     log "[Passo 7/9] Configurando grupo vboxusers..."
     local target_user="${SUDO_USER:-$USER}"
     if [[ "$target_user" == "root" ]]; then
-        log "Aviso: usuário alvo é root; pulei adição ao grupo vboxusers."
+        warn "usuário alvo é root; pulei adição ao grupo vboxusers."
     else
-        usermod -aG vboxusers "$target_user"
-        log "Usuário '$target_user' adicionado ao grupo vboxusers (relogin necessário)."
+        if usermod -aG vboxusers "$target_user"; then
+            log "Usuário '$target_user' adicionado ao grupo vboxusers (relogin necessário)."
+        else
+            warn "Falha ao adicionar '$target_user' ao grupo vboxusers."
+        fi
     fi
 
     if command -v mokutil >/dev/null 2>&1 && mokutil --sb-state 2>/dev/null | grep -qi "enabled"; then
-        log "AVISO: Secure Boot está HABILITADO. Módulos não assinados podem ser bloqueados — ver Passo 7 do playbook (assinar módulos via MOK ou desabilitar Secure Boot)."
+        warn "Secure Boot está HABILITADO. Módulos não assinados podem ser bloqueados."
     fi
 
-    if [[ -e /dev/kvm ]] && lsmod 2>/dev/null | grep -qE '^kvm(_intel|_amd)?'; then
-        log "AVISO: KVM carregado — pode conflitar com vboxdrv em kernels novos (Debian 13/trixie). Se o VBox falhar, descarregue kvm temporariamente."
+    if command -v kvm-ok >/dev/null 2>&1 || lsmod | grep -qE '^kvm_intel|^kvm_amd'; then
+        warn "Módulo KVM detectado. Em kernels recentes (Debian 13+) pode causar conflito com VirtualBox."
     fi
 }
 
@@ -238,27 +329,49 @@ install_extpack() {
     local full_version tmp_dir extpack_file
 
     log "[Passo 8/9] Instalando Extension Pack (opcional)..."
-    full_version="$(dpkg-query -W -f='${Version}' "$pkg" | cut -d: -f2 | cut -d- -f1)"
-    tmp_dir="$(mktemp -d)"
-    extpack_file="Oracle_VirtualBox_Extension_Pack-${full_version}.vbox-extpack"
-    local ext_url="https://download.virtualbox.org/virtualbox/${full_version}/${extpack_file}"
+    full_version="$(dpkg-query -W -f='${Version}' "$pkg" 2>/dev/null | cut -d: -f2 | cut -d- -f1)"
 
-    if ! fetch_to_file "$ext_url" "${tmp_dir}/${extpack_file}" wget; then
-        log "AVISO: não foi possível baixar o Extension Pack (${full_version}). Pulei esta etapa."
-        rm -rf "$tmp_dir"
+    if [[ -z "$full_version" ]]; then
+        warn "Não foi possível determinar a versão instalada de ${pkg}; pulando Extension Pack."
         return
     fi
 
-    echo y | VBoxManage extpack install --replace "${tmp_dir}/${extpack_file}" \
-        || log "AVISO: instalação do Extension Pack retornou erro. Verifique manualmente."
+    tmp_dir="$(mktemp -d)"
+    TMP_PATHS+=("$tmp_dir")
+    extpack_file="Oracle_VirtualBox_Extension_Pack-${full_version}.vbox-extpack"
+    local extpack_url="https://download.virtualbox.org/virtualbox/${full_version}/${extpack_file}"
 
-    rm -rf "$tmp_dir"
+    if ! fetch "$extpack_url" "${tmp_dir}/${extpack_file}"; then
+        warn "não foi possível baixar o Extension Pack (${extpack_url})."
+        return
+    fi
+
+    if ! echo y | VBoxManage extpack install --replace "${tmp_dir}/${extpack_file}"; then
+        warn "instalação do Extension Pack retornou erro."
+    fi
 }
 
 verify_installation() {
     log "[Passo 9/9] Verificação final..."
-    VBoxManage --version 2>&1 | tee -a "$LOG_FILE" >&2 || log "AVISO: VBoxManage não respondeu."
-    lsmod | grep vbox | tee -a "$LOG_FILE" >&2 || log "AVISO: nenhum módulo vbox carregado."
+    if ! VBoxManage --version 2>&1 | tee -a "$LOG_FILE" >&2; then
+        warn "VBoxManage não respondeu — instalação pode estar incompleta."
+    fi
+    if ! lsmod | grep vbox | tee -a "$LOG_FILE" >&2; then
+        warn "nenhum módulo vbox carregado — pode ser necessário relogin ou reboot."
+    fi
+}
+
+print_summary() {
+    echo "" >&2
+    log "===== Resumo ====="
+    if [[ "${#WARNINGS[@]}" -eq 0 ]]; then
+        log "Instalação concluída sem avisos."
+    else
+        log "Instalação concluída com ${#WARNINGS[@]} aviso(s):"
+        for w in "${WARNINGS[@]}"; do
+            log "  - $w"
+        done
+    fi
 }
 
 # -------------------------------- Main -------------------------------------
@@ -274,10 +387,14 @@ while getopts ":v:eyh" opt; do
 done
 
 require_root
+sanitize_stale_repo_file
 touch "$LOG_FILE"
 log "===== Iniciando W00 — Instalar e Configurar o VirtualBox (série ${VBOX_SERIES}) ====="
 
 CODENAME="$(check_arch_and_codename)"
+log "Codename detectado (limpo): '${CODENAME}'"
+
+check_repo_availability "$CODENAME"
 
 if ! confirm "Prosseguir com a instalação do virtualbox-${VBOX_SERIES} no Debian '${CODENAME}'?"; then
     log "Cancelado pelo usuário."
@@ -296,5 +413,6 @@ if [[ "$INSTALL_EXTPACK" -eq 1 ]]; then
 fi
 
 verify_installation
+print_summary
 
 log "===== W00 concluído. Faça logout/login para aplicar o grupo vboxusers. Próximo passo: W01 (ztc-whonix-import-ova.sh). ====="
