@@ -36,10 +36,22 @@ else
   WARN=1
 fi
 
-# 1b) Checagem viva de Tor (opcional — depende de rede; pode ser lenta)
+# 1b) Checagem viva de Tor (opcional — SOCKS local + retry; pode ser lenta)
 if [ "${ZTC_WHONIX_TOR_CHECK:-no}" = "yes" ] && command -v curl >/dev/null 2>&1; then
-  if curl -s --max-time 30 https://check.torproject.org/api/ip 2>/dev/null | grep -Eq '"IsTor": *true'; then
-    echo "[OK] check.torproject.org confirma saida via Tor"
+  _tor_ok=0
+  _n=1
+  while [ "$_n" -le 3 ]; do
+    if curl -s --fail --max-time 30 --socks5-hostname 127.0.0.1:9050 \
+        https://check.torproject.org/api/ip 2>/dev/null | grep -Eq '"IsTor": *true'; then
+      _tor_ok=1
+      break
+    fi
+    echo "[INFO] Tor check tentativa ${_n}/3 — aguardando 10s..."
+    sleep 10
+    _n=$((_n + 1))
+  done
+  if [ "$_tor_ok" -eq 1 ]; then
+    echo "[OK] check.torproject.org confirma saida via Tor (SOCKS 9050)"
   else
     echo "[WARN] Nao confirmei saida via Tor (rede lenta? reconectando?) — rode systemcheck"
     WARN=1

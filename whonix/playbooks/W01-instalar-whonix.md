@@ -76,12 +76,13 @@ gpg --keyid-format long --fingerprint <FINGERPRINT_DA_PÁGINA_OFICIAL>
 gpg --verify Whonix-*.ova.asc Whonix-*.ova
 ```
 
-Saída esperada (essência):
+Saída esperada (essência — locale EN):
 ```
 gpg: Good signature from "Patrick Schleizer ..." 
 ```
+Em PT-BR o texto pode ser `Assinatura válida`. Os scripts `ztc-whonix-verify-image.sh` / `ztc-whonix-import-ova.sh` usam **`VALIDSIG` + fingerprint** (`gpg --status-fd`) — imunes ao locale.
 
-> 🔴 **Se aparecer `BAD signature` ou a chave não bater com o fingerprint oficial → PARE.** Não importe.
+> 🔴 **Se aparecer `BAD signature` / falha de `VALIDSIG` ou a chave não bater com o fingerprint oficial → PARE.** Não importe.
 > Apague o arquivo e baixe de novo. Imagem não verificada = você não sabe o que está rodando.
 
 ---

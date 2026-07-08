@@ -4,27 +4,14 @@
 #
 # Automação do Playbook W01 — Instalar Whonix (Gateway + Workstation).
 # Guia: whonix/playbooks/W01-instalar-whonix.md
-# Importa a chave de assinatura, VERIFICA o fingerprint contra o valor
-# informado (nunca fixo no script — pegue sempre da fonte oficial:
-# https://www.whonix.org/wiki/Verify_the_images),
-# verifica a assinatura do .ova e importa no VirtualBox.
 #
-# Por design, este script NÃO automatiza:
-#   - o Anon Connection Wizard (interativo, dentro do Gateway)
-#   - o systemcheck / teste de vazamento (dentro da Workstation)
-#   - o apt update/full-upgrade dentro das VMs
-# Esses passos exigem verificação humana dentro do guest e são a essência
-# do modelo anti-vazamento do Whonix — o script apenas orienta o operador.
-#
-# Uso:
+# Fingerprint NUNCA fixo — informe com -f (wiki Verify_the_images).\n#\n# Uso:
 #   sudo ./ztc-whonix-import-ova.sh \
-#        -i /caminho/Whonix-LXQt-18.1.4.2.Intel_AMD64.ova \
-#        -s /caminho/Whonix-LXQt-18.1.4.2.Intel_AMD64.ova.asc \
+#        -i /caminho/Whonix-LXQt-VERSAO.Intel_AMD64.ova \
+#        -s /caminho/Whonix-LXQt-VERSAO.Intel_AMD64.ova.asc \
 #        -k /caminho/derivative.asc \
-#        -f "AAAA BBBB CCCC DDDD EEEE  FFFF 0000 1111 2222 3333" \
-#        [-b]   # também inicia Gateway e depois Workstation
-#        [-t lxqt|cli]  # variante esperada; se omitido, detecta pelo nome do arquivo
-#        [-y]   # não pede confirmação
+#        -f "FINGERPRINT" \
+#        [-b] [-t lxqt|cli] [-y]
 #
 # Log: /var/log/whonix-install.log
 
@@ -41,11 +28,27 @@ BOOT_VMS=0
 ASSUME_YES=0
 LOG_FILE="/var/log/whonix-install.log"
 GNUPGHOME_DIR=""
+DERIVATIVE_URL="https://www.whonix.org/keys/derivative.asc"
+DOWNLOADED_KEY=0
 
 # ------------------------------- Funções ----------------------------------
 
+# stderr: não poluir stdout em capturas $(...)
 log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG_FILE"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG_FILE" >&2
+}
+
+fetch_url() {
+    local url="$1" dest="$2" tries="${3:-3}"
+    local n
+    for ((n=1; n<=tries; n++)); do
+        if curl -fsSL --max-time 120 -o "$dest" "$url" && [[ -s "$dest" ]]; then
+            return 0
+        fi
+        log "AVISO: download falhou (tentativa ${n}/${tries}): $url"
+        sleep 5
+    done
+    return 1
 }
 
 fail() {
@@ -57,6 +60,9 @@ fail() {
 cleanup() {
     if [[ -n "$GNUPGHOME_DIR" && -d "$GNUPGHOME_DIR" ]]; then
         rm -rf "$GNUPGHOME_DIR"
+    fi
+    if [[ "$DOWNLOADED_KEY" -eq 1 && -n "$KEY_FILE" && -f "$KEY_FILE" ]]; then
+        rm -f "$KEY_FILE"
     fi
 }
 trap cleanup EXIT
@@ -82,11 +88,16 @@ require_vboxmanage() {
 validate_inputs() {
     [[ -n "$OVA_FILE"      ]] || fail "Informe o arquivo .ova com -i."
     [[ -n "$SIG_FILE"      ]] || fail "Informe o arquivo de assinatura (.asc/.sig) com -s."
-    [[ -n "$KEY_FILE"      ]] || fail "Informe o arquivo da chave pública (.asc) com -k."
     [[ -n "$EXPECTED_FPR"  ]] || fail "Informe o fingerprint esperado com -f (pegue de https://www.whonix.org/wiki/Verify_the_images)."
 
     [[ -f "$OVA_FILE" ]] || fail "Arquivo .ova não encontrado: $OVA_FILE"
     [[ -f "$SIG_FILE" ]] || fail "Arquivo de assinatura não encontrado: $SIG_FILE"
+
+    if [[ -z "$KEY_FILE" ]]; then
+        KEY_FILE="$(mktemp)"
+        DOWNLOADED_KEY=1
+        fetch_url "$DERIVATIVE_URL" "$KEY_FILE" || fail "Falha ao baixar derivative.asc após 3 tentativas"
+    fi
     [[ -f "$KEY_FILE" ]] || fail "Arquivo de chave não encontrado: $KEY_FILE"
 }
 
@@ -132,7 +143,7 @@ import_key() {
     chmod 700 "$GNUPGHOME_DIR"
     export GNUPGHOME="$GNUPGHOME_DIR"
 
-    gpg --quiet --import "$KEY_FILE" 2>&1 | tee -a "$LOG_FILE"
+    gpg --quiet --import "$KEY_FILE" 2>&1 | tee -a "$LOG_FILE" >&2
 }
 
 # Verificação do fingerprint contra o valor informado pelo operador
@@ -162,31 +173,39 @@ verify_fingerprint() {
 }
 
 # Passo 3 do playbook: verificar a assinatura do .ova (OBRIGATÓRIO)
+# Fail-closed: VALIDSIG + fingerprint (imune a locale PT-BR "Assinatura válida")
 verify_signature() {
     log "[Passo 3/5] Verificando assinatura do arquivo .ova (OBRIGATÓRIO)..."
-    local gpg_output
-    if ! gpg_output="$(gpg --verify "$SIG_FILE" "$OVA_FILE" 2>&1)"; then
-        log "$gpg_output"
-        fail "Assinatura INVÁLIDA (BAD signature ou erro de verificação). NÃO importe este arquivo. Apague e baixe novamente."
-    fi
+    local fpr_norm gpg_log
+    fpr_norm="$(echo "$EXPECTED_FPR" | tr -d ' ' | tr '[:lower:]' '[:upper:]')"
+    gpg_log="$(mktemp)"
+    gpg --status-fd 1 --verify-options show-notations --verify "$SIG_FILE" "$OVA_FILE" \
+        >"$gpg_log" 2>&1 || true
 
-    if ! echo "$gpg_output" | grep -qi "Good signature"; then
-        log "$gpg_output"
-        fail "gpg não retornou 'Good signature' explicitamente. Trate como inválida e não prossiga."
+    if grep -q "^\[GNUPG:\] VALIDSIG .*${fpr_norm}" "$gpg_log"; then
+        log "Assinatura verificada (VALIDSIG + fingerprint esperado)."
+        cat "$gpg_log" | tee -a "$LOG_FILE" >&2
+        rm -f "$gpg_log"
+        return 0
     fi
-
-    log "$gpg_output"
-    log "Assinatura verificada com sucesso: Good signature."
+    if grep -qi "EXPKEYSIG" "$gpg_log"; then
+        cat "$gpg_log" | tee -a "$LOG_FILE" >&2
+        rm -f "$gpg_log"
+        fail "EXPKEYSIG — chave expirada. Reimporte derivative.asc de whonix.org e confira fingerprint em Verify_the_images."
+    fi
+    cat "$gpg_log" | tee -a "$LOG_FILE" >&2
+    rm -f "$gpg_log"
+    fail "Assinatura INVÁLIDA. NÃO importe este arquivo. Apague e baixe novamente."
 }
 
 # Passo 4 do playbook: importar no VirtualBox
 import_ova() {
     log "[Passo 4/5] Importando appliance no VirtualBox..."
-    VBoxManage import "$OVA_FILE" | tee -a "$LOG_FILE"
+    VBoxManage import "$OVA_FILE" | tee -a "$LOG_FILE" >&2
 
     local vms
     vms="$(VBoxManage list vms)"
-    echo "$vms" | tee -a "$LOG_FILE"
+    echo "$vms" | tee -a "$LOG_FILE" >&2
 
     echo "$vms" | grep -qi "Whonix-Gateway" || log "AVISO: 'Whonix-Gateway' não encontrada na lista de VMs — confira o nome manualmente."
     echo "$vms" | grep -qi "Whonix-Workstation" || log "AVISO: 'Whonix-Workstation' não encontrada na lista de VMs — confira o nome manualmente."
@@ -249,7 +268,7 @@ while getopts ":i:s:k:f:t:byh" opt; do
 done
 
 touch "$LOG_FILE" 2>/dev/null || LOG_FILE="./whonix-install.log"
-log "===== Iniciando W01 — Instalar Whonix (Gateway + Workstation) ====="
+log "===== W01 — Instalar Whonix (Gateway + Workstation) ====="
 
 require_vboxmanage
 validate_inputs
@@ -270,5 +289,4 @@ if [[ "$BOOT_VMS" -eq 1 ]]; then
 fi
 
 print_manual_steps
-
 log "===== W01 (parte automatizável) concluído. Verificação manual pendente — ver instruções acima. ====="
