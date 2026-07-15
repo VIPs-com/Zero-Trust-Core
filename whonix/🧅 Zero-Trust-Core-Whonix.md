@@ -335,14 +335,16 @@ Execução direta, copiar e colar — espelham os playbooks Tails (T01–T04):
 
 | # | Playbook | O que você terá | Tempo |
 |---|----------|-----------------|------:|
-| [W00](./playbooks/W00-instalar-configurar-virtualbox.md) | Instalar VirtualBox | Host Debian com Oracle VirtualBox verificado (GPG) | ~20 min |
+| [W00](./playbooks/W00-instalar-configurar-virtualbox.md) | Instalar VirtualBox | Host Debian: Oracle VB verificado + MOK/sign/verify (Secure Boot) | ~20–40 min |
 | [W01](./playbooks/W01-instalar-whonix.md) | Instalar Whonix | Gateway + Workstation verificados e isolados | ~40 min |
 | [W02](./playbooks/W02-importar-subkeys-tails.md) | Importar subkeys do Tails | Identidade PGP online (master fica no Tails) | ~20 min |
 | [W03](./playbooks/W03-bitcoin-psbt-tails-whonix.md) | Bitcoin PSBT Tails↔Whonix | Transação anônima sem expor a seed | ~25 min |
 
 > Índice completo: [whonix/playbooks/README.md](./playbooks/README.md).
 >
-> **Scripts host (W00–W01):** [`ztc-whonix-install-virtualbox.sh`](./scripts/ztc-whonix-install-virtualbox.sh) · [`ztc-whonix-verify-image.sh`](./scripts/ztc-whonix-verify-image.sh) · [`ztc-whonix-import-ova.sh`](./scripts/ztc-whonix-import-ova.sh)
+> **Scripts host (W00–W01):** [`ztc-whonix-install-virtualbox.sh`](./scripts/ztc-whonix-install-virtualbox.sh) · [`ztc-whonix-sign-virtualbox-modules.sh`](./scripts/ztc-whonix-sign-virtualbox-modules.sh) · [`ztc-whonix-verify-virtualbox-host.sh`](./scripts/ztc-whonix-verify-virtualbox-host.sh) · [`ztc-whonix-verify-image.sh`](./scripts/ztc-whonix-verify-image.sh) · [`ztc-whonix-import-ova.sh`](./scripts/ztc-whonix-import-ova.sh)
+>
+> **Secure Boot (Debian):** install pede senha MOK → reboot → tela azul `Enroll MOK` → `sign` → `verify-host` (`RESULTADO: PASS`). Se o VirtualBox já estiver instalado, o `install` retoma (pula download/pacote). Repita só o `sign` após cada update de kernel.
 >
 > **Script Workstation (sessão):** [`ztc-whonix-health.sh`](./scripts/ztc-whonix-health.sh) — checagem de
 > sessão na Workstation (Tor via `systemcheck`, subkeys com master ausente, gpg-agent, `age`). Espelha

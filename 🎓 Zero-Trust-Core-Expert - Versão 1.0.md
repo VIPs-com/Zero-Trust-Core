@@ -2294,7 +2294,9 @@ Exporte chave pública atualizada e distribua (`gpg --export -a`). Se subkeys es
 | `ztc-snapshot-vault.sh` | [COMANDO 5.3](#-comando-53-keepass--veracrypt-condicional-nfc-opcional) | Cópia versionada do `vault.hc` com sha256 + rotação |
 | `ztc-restore-test.sh` | [COMANDO 4.3](#-comando-43-teste-de-restauração-ritual-mensal) | Restore test: monta snapshot read-only → abre `.kdbx` (a "0" do 3-2-1-1-0) |
 | `ztc-borg-offsite.sh` | [Módulo 4.2](#-módulo-42-vm-off-site--wireguard--rsync) | Off-site **imutável** (borg append-only) — perna "1 imutável" |
-| `ztc-whonix-install-virtualbox.sh` | [W00](whonix/playbooks/W00-instalar-configurar-virtualbox.md) | VirtualBox Oracle verificado no host Debian |
+| `ztc-whonix-install-virtualbox.sh` | [W00](whonix/playbooks/W00-instalar-configurar-virtualbox.md) | VirtualBox Oracle verificado + Extension Pack + MOK (se Secure Boot); retoma se já instalado |
+| `ztc-whonix-sign-virtualbox-modules.sh` | [W00](whonix/playbooks/W00-instalar-configurar-virtualbox.md) | Assina + carrega `vboxdrv` (após tela azul MOK; repetir a cada kernel novo) |
+| `ztc-whonix-verify-virtualbox-host.sh` | [W00](whonix/playbooks/W00-instalar-configurar-virtualbox.md) | 9 checks read-only do host — esperado: `RESULTADO: PASS` |
 | `ztc-whonix-verify-image.sh` | [W01](whonix/playbooks/W01-instalar-whonix.md) | PGP da `.ova` (`derivative.asc`, fingerprint `-f`) |
 | `ztc-whonix-import-ova.sh` | [W01](whonix/playbooks/W01-instalar-whonix.md) | Verify + `VBoxManage import` |
 | `ztc-whonix-health.sh` | [guia Whonix](whonix/🧅%20Zero-Trust-Core-Whonix.md#checkpoint-w--validação-final) | Health por sessão na Whonix-Workstation |
@@ -2618,11 +2620,11 @@ Tabela comparativa — escolha conforme o que você tem:
 **H5a — VM no PC atual** (substitui VPS cloud do Módulo 4.2)
 
 ```sh
-# Ubuntu/Debian: instalar VirtualBox
-# Whonix (capstone): W00 → W01 — install VB, verify-image, import-ova, health
+# Whonix (capstone): W00 → W01 — install VB (+ MOK/sign/verify se Secure Boot) → OVA → health
 #   whonix/playbooks/W00-instalar-configurar-virtualbox.md
-#   ztc-whonix-install-virtualbox.sh · ztc-whonix-verify-image.sh · ztc-whonix-import-ova.sh
-# H5a (VM backup off-site): pacote Debian também aceitável:
+#   ztc-whonix-install-virtualbox.sh · ztc-whonix-sign-virtualbox-modules.sh
+#   ztc-whonix-verify-virtualbox-host.sh · ztc-whonix-verify-image.sh · ztc-whonix-import-ova.sh
+# H5a (VM backup off-site, sem suíte Whonix): pacote Debian também aceitável:
 sudo apt install virtualbox
 
 # Criar VM via VirtualBox GUI:
@@ -2714,7 +2716,7 @@ O guia Tails tem seus próprios COMMANDOs (T.1–T.5), playbooks (T01–T04) e C
 
 Para uso **diário anônimo** via Tor (persistente, não amnésico), o ecossistema ganha um terceiro mundo:
 
-> **[🧅 Zero-Trust-Core-Whonix.md](whonix/🧅%20Zero-Trust-Core-Whonix.md)** — o "escritório anônimo" (Gateway+Workstation), playbooks **W00–W03**, scripts `ztc-whonix-*` (install · verify-image · import · health) e CHECKPOINT W. **Capstone da Parte 4.**
+> **[🧅 Zero-Trust-Core-Whonix.md](whonix/🧅%20Zero-Trust-Core-Whonix.md)** — o "escritório anônimo" (Gateway+Workstation), playbooks **W00–W03**, scripts `ztc-whonix-*` (install · sign · verify-host · verify-image · import · health) e CHECKPOINT W. **Capstone da Parte 4.**
 
 **Manuais operacionais** (jornada · backup · validação):
 
