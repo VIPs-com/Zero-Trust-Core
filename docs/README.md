@@ -1,6 +1,6 @@
 # Documentação pública — Zero Trust Core Expert
 
-**Release atual:** [`v1.0.3`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3) (jul/2026) — trilha Whonix W00–W03 + scripts `ztc-whonix-*`.
+**Release atual:** [`v1.0.5`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.5) (Latest) · suite host MOK desde [`v1.0.4`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.4) · marca editorial Whonix [`v1.0.3`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3) (W00–W03 + `ztc-whonix-*`).
 
 | Documento | Para quê |
 | --- | --- |

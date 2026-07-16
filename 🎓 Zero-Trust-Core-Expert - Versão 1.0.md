@@ -398,9 +398,10 @@ Clique para ir direto ao módulo. Se um link não saltar, use `Ctrl+F` pelo nome
 | **Aluno** | Executar COMANDOs na ordem da **sua trilha** | Títulos `##` abaixo |
 | **Instrutor** | Teste hardware `ztc-open-cofre.sh` + Tails | [Issue #2](https://github.com/VIPs-com/Zero-Trust-Core/issues/2) |
 | **Instrutor** | 1ª aula: slides 1–4 → Módulo 0 | [SLIDES-ABERTURA-TURMA.md](docs/SLIDES-ABERTURA-TURMA.md) |
-| **Equipe** | Tag/release futura só após mudança editorial relevante | GitHub Releases — **atual:** [`v1.0.3`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3) |
+| **Equipe** | Tag/release futura só após mudança editorial relevante | GitHub Releases — **atual:** [`v1.0.5`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.5) |
 | **Concluído v1.0.2** | Auditoria, backup 2B.2, VeraCrypt CLI, script 5.3 | Tags `v1.0.1`, `v1.0.2` |
-| **Concluído v1.0.3** | Trilha Whonix W00–W03 · `ztc-whonix-verify-image.sh` | Tag [`v1.0.3`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3) |
+| **Concluído v1.0.3** | Trilha Whonix W00–W03 · verify-image / import / health | Tag [`v1.0.3`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3) |
+| **Concluído v1.0.4+** | Suite VirtualBox MOK (`sign` · `verify-virtualbox-host`) · sanitize list | Tags [`v1.0.4`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.4) · [`v1.0.5`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.5) |
 
 * * *
 
@@ -2747,4 +2748,4 @@ Você percorreu do **Tails offline** ao **backup testado e imutável**, passando
 
 * * *
 
-*Versão **1.0.3** (trilha Whonix · jul/2026) · [Release v1.0.3](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Projeto Colaborativo VIPs-com*
+*Versão **1.0** (linha editorial) · GitHub Latest [`v1.0.5`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.5) · marca Whonix [`v1.0.3`](https://github.com/VIPs-com/Zero-Trust-Core/releases/tag/v1.0.3) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) · Projeto Colaborativo VIPs-com*
